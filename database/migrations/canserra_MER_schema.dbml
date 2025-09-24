@@ -1,0 +1,377 @@
+
+// =====================================================
+// DATABASE SCHEMA - MER (ENTITY-RELATIONSHIP MODEL)
+// DBML (Database Markup Language) Definition
+// =====================================================
+
+Project canserra_MER {
+  database_type: 'MySQL'
+  Note: '''
+    # Database Schema - MER (Entity-Relationship Model)
+    
+    ## DESIGN RECOMMENDATIONS
+    
+    ### COMMENT AND NOTE MANAGEMENT
+    - **Individual TEXT fields**: For simple observations (ACTIVITY.observations, RECORD.comments, etc.) are kept as direct TEXT fields for simplicity and performance.
+    - **Separate tables for follow-ups**: Multiple follow-up fields (WORK_FOLLOW_UP, MAINTENANCE_FOLLOW_UP) should be implemented as separate tables to allow multiple entries per follow-up.
+    
+    ### DOCUMENT MANAGEMENT
+    - **Separate DOCUMENTS table**: It is recommended to create an independent DOCUMENTS table that references any entity in the system, allowing multiple files per record, complete metadata (size, MIME type, upload date, user) and better auditing.
+    - **Current document fields**: Current VARCHAR(500) fields (ACTIVITY.file, RECORD.file, etc.) should be migrated to the new DOCUMENTS table in the implementation.
+    
+    ### FUTURE IMPLEMENTATION
+    - **Phase 1**: Maintain current structure with TEXT and VARCHAR fields for documents
+    - **Phase 2**: Implement separate DOCUMENTS table and migrate existing files
+    - **Phase 3**: Create separate follow-up tables for WORK_FOLLOW_UP and MAINTENANCE_FOLLOW_UP
+  '''
+}
+
+// =====================================================
+// CORE TABLES
+// =====================================================
+
+//DONE
+Table CENTER {
+  id int [pk, increment, note: 'Primary key']
+  name varchar(255) [not null, note: 'Center name']
+  address varchar(500) [note: 'Center address']
+  phone varchar(20) [note: 'Contact phone']
+  email varchar(255) [note: 'Contact email']
+}
+//DONE
+Table LOCKER {
+  id int [pk, increment, note: 'Primary key']
+  locker_number varchar(10) [unique, not null, note: 'Locker number']
+  status varchar(20) [default: 'Disponible', note: 'Status: Disponible, Ocupat, Manteniment']
+  key_code varchar(50) [note: 'Key code']
+}
+//DONE
+Table PROFESSIONAL {
+  id int [pk, increment, note: 'Primary key']
+  center_id int [ref: > CENTER.id, note: 'Reference to center']
+  role varchar(100) [note: 'Professional role']
+  name varchar(100) [not null, note: 'First name']
+  surname1 varchar(100) [not null, note: 'First surname']
+  surname2 varchar(100) [note: 'Second surname']
+  phone varchar(20) [note: 'Contact phone']
+  email varchar(255) [note: 'Contact email']
+  address varchar(500) [note: 'Address']
+  employment_status varchar(20) [default: 'Actiu', note: 'Status: Actiu, Suplencia, Baixa']
+  cvitae text [note: 'Curriculum vitae']
+  login varchar(50) [unique, note: 'Login username']
+  password varchar(255) [note: 'Password hash']
+  locker_id int [ref: > LOCKER.id, note: 'Assigned locker']
+  shirt_size varchar(10) [note: 'Shirt size']
+  pants_size varchar(10) [note: 'Pants size']
+  shoe_size varchar(10) [note: 'Shoe size']
+}
+
+// =====================================================
+// MATERIAL AND EQUIPMENT MANAGEMENT
+// =====================================================
+
+Table MATERIAL_ASSIGNMENT {
+  id int [pk, increment, note: 'Primary key']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  material_type varchar(100) [not null, note: 'Material type: uniforme, epi, equipamiento, otros']
+  material_description varchar(255) [note: 'Material description']
+  size varchar(20) [note: 'Size (for uniforms)']
+  assignment_date date [not null, note: 'Assignment date']
+  renewal_due_date date [note: 'Renewal due date']
+  status varchar(20) [default: 'Activo', note: 'Status: Activo, Renovado, Devuelto, Perdido']
+  condition varchar(50) [note: 'Material condition: Nuevo, Bueno, Regular, Malo']
+  assigned_by_professional_id int [ref: > PROFESSIONAL.id, note: 'Professional who assigned']
+  //return_date date [note: 'Return date']
+  //renewal_date date [note: 'Renewal date']
+  observations text [note: 'Observations about material']
+  documents varchar(500) [note: 'Related documents']
+}
+
+// =====================================================
+// DEPRECATED TABLES (kept for reference)
+// =====================================================
+
+Table ACTIVITY {
+  id int [pk, increment, note: 'Primary key - DEPRECATED']
+  type varchar(50) [note: 'Activity type: proyecto, comision, tema_pendiente, mantenimiento']
+  name varchar(255) [not null, note: 'Activity name']
+  description text [note: 'Activity description']
+  start_date date [note: 'Start date']
+  end_date date [note: 'End date (nullable)']
+  responsible varchar(255) [note: 'Responsible person (free text)']
+  observations text [note: 'Observations']
+  file varchar(500) [note: 'Attached file path']
+}
+
+Table PROFESSIONAL_ACTIVITY {
+  professional_id int [ref: > PROFESSIONAL.id, note: 'Professional reference - DEPRECATED']
+  activity_id int [ref: > ACTIVITY.id, note: 'Activity reference - DEPRECATED']
+  
+  indexes {
+    (professional_id, activity_id) [pk]
+  }
+}
+
+// =====================================================
+// RECORD AND DOCUMENT MANAGEMENT
+// =====================================================
+
+Table RECORD {
+  id int [pk, increment, note: 'Primary key']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  type varchar(50) [note: 'Record type: seguimiento, evaluacion, accidente, baja_larga, observacion']
+  date date [not null, note: 'Record date']
+  description text [note: 'Record description']
+  comments text [note: 'Additional comments']
+  file varchar(500) [note: 'Attached file path']
+}
+
+Table DOCUMENT {
+  id int [pk, increment, note: 'Primary key']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  type varchar(100) [note: 'Document type']
+  date date [note: 'Document date']
+  filename varchar(255) [note: 'Document filename']
+}
+
+Table CENTER_DOCUMENTS {
+  id int [pk, increment, note: 'Primary key']
+  type varchar(100) [note: 'Document type']
+  date date [note: 'Document date']
+  description text [note: 'Document description']
+  professional_id int [ref: > PROFESSIONAL.id, note: 'Professional who uploaded']
+  documents varchar(500) [note: 'Document path']
+}
+
+// =====================================================
+// SERVICE AND CONTACT MANAGEMENT
+// =====================================================
+
+Table SERVICE_CONTACT {
+  id int [pk, increment, note: 'Primary key']
+  type varchar(100) [note: 'Type: servicio_general, servicio_complementario, contacto_asistencial, contacto_general']
+  responsible varchar(255) [note: 'Responsible person (free text)']
+  phone varchar(20) [note: 'Contact phone']
+  email varchar(255) [note: 'Contact email']
+  observations text [note: 'Observations']
+}
+
+Table GENERAL_SERVICE {
+  id int [pk, increment, note: 'Primary key']
+  service_type varchar(100) [note: 'Service type']
+  assigned_professional_id int [ref: > PROFESSIONAL.id, note: 'Assigned professional']
+  contact_professional_id int [ref: > PROFESSIONAL.id, note: 'Contact professional']
+  end_date date [note: 'Service end date']
+}
+
+Table COMPLEMENTARY_SERVICE {
+  id int [pk, increment, note: 'Primary key']
+  service_type varchar(100) [note: 'Service type']
+  service_responsible varchar(255) [note: 'Service responsible (free text)']
+  start_date date [note: 'Service start date']
+  end_date date [note: 'Service end date']
+  documents varchar(500) [note: 'Related documents']
+}
+
+Table EXTERNAL_CONTACT {
+  id int [pk, increment, note: 'Primary key']
+  external_contact_type varchar(100) [note: 'External contact type']
+  service_reason varchar(255) [note: 'Service reason']
+  company varchar(255) [note: 'Company name']
+  responsible varchar(255) [note: 'Responsible person (free text)']
+  phone varchar(20) [note: 'Contact phone']
+  email varchar(255) [note: 'Contact email']
+  observations text [note: 'Observations']
+}
+
+// =====================================================
+// TRAINING AND COURSE MANAGEMENT
+// =====================================================
+
+Table COURSE {
+  id int [pk, increment, note: 'Primary key']
+  training_center varchar(255) [note: 'Training center name']
+  forcem_code varchar(50) [note: 'FORCEM code']
+  total_hours int [note: 'Total course hours']
+  type varchar(100) [note: 'Course type']
+  attendance_type varchar(20) [note: 'Attendance type: Presencial, Online, Mixto']
+  training_name varchar(255) [note: 'Training name']
+  workshop varchar(255) [note: 'Workshop name']
+  conference_day varchar(255) [note: 'Conference day']
+  congress varchar(255) [note: 'Congress name']
+  attendee varchar(255) [note: 'Attendee name']
+  start_date date [note: 'Course start date']
+  end_date date [note: 'Course end date']
+}
+
+Table COURSE_ASSIGNMENT {
+  id int [pk, increment, note: 'Primary key']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  course_id int [ref: > COURSE.id, not null, note: 'Course reference']
+  certificate varchar(20) [default: 'Pendent', note: 'Certificate status: Entregat, Pendent']
+}
+
+// =====================================================
+// FOLLOW-UP AND EVALUATION MANAGEMENT
+// =====================================================
+
+Table WORK_FOLLOW_UP {
+  id int [pk, increment, note: 'Primary key']
+  follow_up_type varchar(100) [note: 'Follow-up type']
+  follow_up_date date [not null, note: 'Follow-up date']
+  recorder_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional who recorded']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional being followed']
+  topic varchar(255) [note: 'Follow-up topic']
+  comment text [note: 'Follow-up comment']
+}
+
+Table EVALUATION {
+  id int [pk, increment, note: 'Primary key']
+  evaluator_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Evaluator professional']
+  evaluated_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Evaluated professional']
+  evaluation_date date [not null, note: 'Evaluation date']
+  responses text [note: 'Evaluation responses']
+}
+
+// =====================================================
+// INCIDENT AND ACCIDENT MANAGEMENT
+// =====================================================
+
+Table ACCIDENT {
+  id int [pk, increment, note: 'Primary key']
+  accident_type varchar(100) [note: 'Accident type']
+  start_date date [not null, note: 'Accident start date']
+  end_date date [note: 'Accident end date']
+  description text [note: 'Accident description']
+  reporting_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional who reported']
+  injured_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Injured professional']
+}
+
+// =====================================================
+// MAINTENANCE MANAGEMENT
+// =====================================================
+
+Table MAINTENANCE {
+  id int [pk, increment, note: 'Primary key']
+  opening_date date [not null, note: 'Maintenance opening date']
+  description text [note: 'Maintenance description']
+  assigned_to_professional_id int [ref: > PROFESSIONAL.id, note: 'Assigned professional']
+  documents varchar(500) [note: 'Related documents']
+  end_date date [note: 'Maintenance end date']
+}
+
+Table MAINTENANCE_FOLLOW_UP {
+  id int [pk, increment, note: 'Primary key']
+  maintenance_id int [ref: > MAINTENANCE.id, not null, note: 'Maintenance reference']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  description text [note: 'Follow-up description']
+  documents varchar(500) [note: 'Related documents']
+}
+
+// =====================================================
+// HR ISSUES MANAGEMENT
+// =====================================================
+
+Table HR_ISSUES {
+  id int [pk, increment, note: 'Primary key']
+  date date [not null, note: 'Issue date']
+  affected_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Affected professional']
+  registering_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional who registered']
+  referred_to varchar(255) [note: 'Referred to (free text)']
+  documents varchar(500) [note: 'Related documents']
+  end_date date [note: 'Issue resolution date']
+}
+
+Table HR_ISSUES_FOLLOW_UP {
+  id int [pk, increment, note: 'Primary key']
+  hr_issue_id int [ref: > HR_ISSUES.id, not null, note: 'HR issue reference']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  description text [note: 'Follow-up description']
+  documents varchar(500) [note: 'Related documents']
+}
+
+// =====================================================
+// PROJECT AND COMMISSION MANAGEMENT
+// =====================================================
+
+Table PROJECT_COMMISSION {
+  id int [pk, increment, note: 'Primary key']
+  name varchar(255) [not null, note: 'Project/Commission name']
+  start_date date [note: 'Start date']
+  end_date date [note: 'End date']
+  responsible_professional_id int [ref: > PROFESSIONAL.id, note: 'Responsible professional']
+  description text [note: 'Project description']
+  notes text [note: 'Additional notes']
+  documents varchar(500) [note: 'Related documents']
+  type varchar(20) [note: 'Type: Projecte, Comissio']
+}
+
+Table PROJECT_COMMISSION_ASSIGNMENT {
+  id int [pk, increment, note: 'Primary key']
+  project_commission_id int [ref: > PROJECT_COMMISSION.id, not null, note: 'Project/Commission reference']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  assignment_date date [note: 'Assignment date']
+  status varchar(50) [note: 'Assignment status']
+  notes text [note: 'Assignment notes']
+}
+
+// =====================================================
+// INDEXES FOR OPTIMIZATION
+// =====================================================
+
+//Table PROFESSIONAL {
+//  indexes {
+//    (name, surname1) [name: 'idx_professional_name']
+//    email [name: 'idx_professional_email']
+//    login [name: 'idx_professional_login']
+//  }
+//}
+//
+//Table RECORD {
+//  indexes {
+//    date [name: 'idx_record_date']
+//    type [name: 'idx_record_type']
+//  }
+//}
+//
+//Table COURSE {
+//  indexes {
+//    (start_date, end_date) [name: 'idx_course_date']
+//  }
+//}
+//
+//Table WORK_FOLLOW_UP {
+//  indexes {
+//    follow_up_date [name: 'idx_work_follow_up_date']
+//  }
+//}
+//
+//Table EVALUATION {
+//  indexes {
+//    evaluation_date [name: 'idx_evaluation_date']
+//  }
+//}
+//
+//Table ACCIDENT {
+//  indexes {
+//    start_date [name: 'idx_accident_date']
+//  }
+//}
+//
+//Table MAINTENANCE {
+//  indexes {
+//    opening_date [name: 'idx_maintenance_date']
+//  }
+//}
+//
+//Table HR_ISSUES {
+//  indexes {
+//    date [name: 'idx_hr_issues_date']
+//  }
+//}
+//
+//Table PROJECT_COMMISSION {
+//  indexes {
+//    (start_date, end_date) [name: 'idx_project_date']
+//  }
+//}
