@@ -161,6 +161,7 @@ Table GENERAL_SERVICE {
   service_type varchar(100) [note: 'Service type']
   assigned_professional_id int [ref: > PROFESSIONAL.id, note: 'Assigned professional']
   contact_professional_id int [ref: > PROFESSIONAL.id, note: 'Contact professional']
+  external_contact_id int [ref: > EXTERNAL_CONTACT.id, note: 'External contact reference']
   end_date date [note: 'Service end date']
 }
 
@@ -178,7 +179,8 @@ Table EXTERNAL_CONTACT {
   external_contact_type varchar(100) [note: 'External contact type']
   service_reason varchar(255) [note: 'Service reason']
   company varchar(255) [note: 'Company name']
-  responsible varchar(255) [note: 'Responsible person (free text)']
+  name varchar(255) [note: 'Contact name']
+  surname varchar(255) [note: 'Contact surname']
   phone varchar(20) [note: 'Contact phone']
   email varchar(255) [note: 'Contact email']
   observations text [note: 'Observations']
@@ -245,6 +247,16 @@ Table ACCIDENT {
   description text [note: 'Accident description']
   reporting_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional who reported']
   injured_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Injured professional']
+}
+
+Table ACCIDENT_FOLLOW_UP {
+  id int [pk, increment, note: 'Primary key']
+  accident_id int [ref: > ACCIDENT.id, not null, note: 'Accident reference']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  follow_up_date date [not null, note: 'Follow-up date']
+  description text [note: 'Follow-up description']
+  notes text [note: 'Additional notes']
+  documents varchar(500) [note: 'Related documents']
 }
 
 // =====================================================
