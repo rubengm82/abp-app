@@ -162,6 +162,7 @@ Table GENERAL_SERVICE {
   assigned_professional_id int [ref: > PROFESSIONAL.id, note: 'Assigned professional']
   contact_professional_id int [ref: > PROFESSIONAL.id, note: 'Contact professional']
   external_contact_id int [ref: > EXTERNAL_CONTACT.id, note: 'External contact reference']
+  start_date date [note: 'Service start date']
   end_date date [note: 'Service end date']
 }
 
