@@ -17,6 +17,25 @@
 
 ---
 
+## TABLAS OBSOLETAS (mantenidas para referencia)
+
+### ACTIVIDAD (Actividad) - OBSOLETA
+- id (INT, PK) - OBSOLETA
+- tipo (VARCHAR(50)) -- (proyecto, comisión, tema_pendiente, mantenimiento)
+- nombre (VARCHAR(255))
+- descripción (TEXT)
+- fecha_inicio (DATE)
+- fecha_fin (DATE, nullable)
+- responsable (VARCHAR(255)) -- Por decidir si FK a PROFESIONAL o campo libre
+- observaciones (TEXT)
+- archivo (VARCHAR(500))
+
+### PROFESIONAL_ACTIVIDAD (Profesional Actividad) - OBSOLETA
+- profesional_id (INT, FK → PROFESIONAL) - OBSOLETA
+- actividad_id (INT, FK → ACTIVIDAD) - OBSOLETA
+
+---
+
 ## CENTRO (Centro)
 - id (INT, PK)
 - nombre (VARCHAR(255))
@@ -43,17 +62,6 @@
 - talla_pantalón (VARCHAR(10))
 - talla_zapato (VARCHAR(10))
 
-## OBSOLETO
-## ACTIVIDAD (Actividad) - (proyectos, comisiones, temas pendientes, mantenimiento)
-- id (INT, PK)
-- tipo (VARCHAR(50)) -- (proyecto, comisión, tema_pendiente, mantenimiento)
-- nombre (VARCHAR(255))
-- descripción (TEXT)
-- fecha_inicio (DATE)
-- fecha_fin (DATE, nullable)
-- responsable (VARCHAR(255)) -- Por decidir si FK a PROFESIONAL o campo libre
-- observaciones (TEXT)
-- archivo (VARCHAR(500))
 
 ## REGISTRO (Registro) - (seguimientos, evaluaciones, accidentes, bajas, etc.)
 - id (INT, PK)
@@ -71,10 +79,6 @@
 - fecha (DATE)
 - nombre_archivo (VARCHAR(255))
 
-## OBSOLETO
-## PROFESIONAL_ACTIVIDAD (Profesional Actividad) - (relación N:M entre profesionales y actividades)
-- profesional_id (INT, FK → PROFESIONAL)
-- actividad_id (INT, FK → ACTIVIDAD)
 
 ## TAQUILLA (Taquilla)
 - id (INT, PK)
@@ -128,6 +132,15 @@
 - profesional_reportador_id (INT, FK → PROFESIONAL)
 - profesional_lesionado_id (INT, FK → PROFESIONAL)
 
+## SEGUIMIENTO_ACCIDENTE (Seguimiento Accidente)
+- id (INT, PK)
+- accidente_id (INT, FK → ACCIDENTE)
+- profesional_id (INT, FK → PROFESIONAL)
+- fecha_seguimiento (DATE)
+- descripción (TEXT)
+- notas (TEXT)
+- documentos (VARCHAR(500))
+
 ## CONTACTO_SERVICIO (Servicio Contacto) -- (servicios + contactos externos juntos) --
 - id (INT, PK)
 - tipo (VARCHAR(100)) -- (servicio_general, servicio_complementario, contacto_asistencial, contacto_general)
@@ -141,7 +154,9 @@
 - tipo_servicio (VARCHAR(100))
 - profesional_asignado_id (INT, FK → PROFESIONAL)
 - profesional_contacto_id (INT, FK → PROFESIONAL)
-- fecha_fin (DATE) -- Añadido para servicios con duración definida
+- contacto_externo_id (INT, FK → CONTACTO_EXTERNO)
+- fecha_inicio (DATE)
+- fecha_fin (DATE)
 
 ## SERVICIO_COMPLEMENTARIO (Servicio Complementario)
 - id (INT, PK)
@@ -156,7 +171,8 @@
 - tipo_contacto_externo (VARCHAR(100))
 - motivo_servicio (VARCHAR(255))
 - empresa (VARCHAR(255))
-- responsable (VARCHAR(255)) -- Por decidir si FK a PROFESIONAL o campo libre
+- nombre (VARCHAR(255))
+- apellido (VARCHAR(255))
 - teléfono (VARCHAR(20))
 - correo_electrónico (VARCHAR(255))
 - observaciones (TEXT)
