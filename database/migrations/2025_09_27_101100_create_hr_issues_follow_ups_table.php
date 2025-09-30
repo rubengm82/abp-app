@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hr_issues_follow_up', function (Blueprint $table) {
+        Schema::create('hr_issues_follow_ups', function (Blueprint $table) {
             $table->id();
             
             // HR issue reference
             $table->foreignId('hr_issue_id')->constrained('hr_issues')->onDelete('cascade')->comment('HR issue reference');
-            $table->foreignId('professional_id')->constrained('professional')->onDelete('cascade')->comment('Professional reference');
+            $table->foreignId('professional_id')->constrained('professionals')->onDelete('cascade')->comment('Professional reference');
             
             // Follow-up information
             $table->text('description')->nullable()->comment('Follow-up description');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hr_issues_follow_up');
+        Schema::dropIfExists('hr_issues_follow_ups');
     }
 };

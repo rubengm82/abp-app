@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_commission', function (Blueprint $table) {
+        Schema::create('project_commissions', function (Blueprint $table) {
             $table->id();
             $table->String('name', 255)->comment('Project/Commission name');
             $table->date('start_date')->comment('Start date')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('type', ['Projecte', 'PeComissiondent'])->comment('Type: Projecte, Comissio')->nullable();
 
             // FKs
-            $table->foreign('responsible_professional_id')->references('id')->on('professional')->onDelete('cascade');
+            $table->foreign('responsible_professional_id')->references('id')->on('professionals')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_commission');
+        Schema::dropIfExists('project_commissions');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('complementary_service', function (Blueprint $table) {
+        Schema::create('complementary_services', function (Blueprint $table) {
             $table->id();
             
             // Service information
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('complementary_service');
+        Schema::dropIfExists('complementary_services');
     }
 };

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable()->comment('Document description');
             
             // Professional reference (who uploaded)
-            $table->foreignId('professional_id')->nullable()->constrained('professional')->onDelete('set null');
+            $table->foreignId('professional_id')->nullable()->constrained('professionals')->onDelete('set null');
             
             // Document path
             $table->string('documents', 500)->nullable()->comment('Document path');

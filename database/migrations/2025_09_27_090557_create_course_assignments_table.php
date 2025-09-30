@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('course_assignment', function (Blueprint $table) {
+        Schema::create('course_assignments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('professional_id')->comment('Professional reference');
             $table->unsignedBigInteger('course_id')->comment('Course reference');
             $table->enum('certificate', ['Entregat', 'Pendent'])->default('Pendent')->comment('Certificate status: Entregat, Pendent');
 
             //FKs
-            $table->foreign('professional_id')->references('id')->on('professional')->onDelete('cascade');
-            $table->foreign('course_id')->references('id')->on('course')->onDelete('cascade');
+            $table->foreign('professional_id')->references('id')->on('professionals')->onDelete('cascade');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('course_assignment');
+        Schema::dropIfExists('course_assignments');
     }
 };

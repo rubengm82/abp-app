@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('professional')) {
-            Schema::create('professional', function (Blueprint $table) {
+        if (!Schema::hasTable('professionals')) {
+            Schema::create('professionals', function (Blueprint $table) {
                 $table->id();
                 
                 // Center reference
-                $table->foreignId('center_id')->constrained('center')->onDelete('cascade');
+                $table->foreignId('center_id')->constrained('centers')->onDelete('cascade');
                 
                 // Professional information
                 $table->string('role', 100)->nullable()->comment('Professional role');
@@ -38,7 +38,7 @@ return new class extends Migration
                 $table->string('password', 255)->nullable()->comment('Password hash');
                 
                 // Locker reference
-                $table->foreignId('locker_id')->nullable()->constrained('locker')->onDelete('set null');
+                $table->foreignId('locker_id')->nullable()->constrained('lockers')->onDelete('set null');
                 
                 // Sizes
                 $table->string('shirt_size', 10)->nullable()->comment('Shirt size');
@@ -55,6 +55,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('professional');
+        Schema::dropIfExists('professionals');
     }
 };

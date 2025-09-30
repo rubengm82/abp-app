@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('work_follow_up', function (Blueprint $table) {
+        Schema::create('work_follow_ups', function (Blueprint $table) {
             $table->id();
             
             // Follow-up information
@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('follow_up_date')->comment('Follow-up date');
             
             // Professional references
-            $table->foreignId('recorder_professional_id')->constrained('professional')->onDelete('cascade')->comment('Professional who recorded');
-            $table->foreignId('professional_id')->constrained('professional')->onDelete('cascade')->comment('Professional being followed');
+            $table->foreignId('recorder_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Professional who recorded');
+            $table->foreignId('professional_id')->constrained('professionals')->onDelete('cascade')->comment('Professional being followed');
             
             // Follow-up details
             $table->string('topic', 255)->nullable()->comment('Follow-up topic');
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('work_follow_up');
+        Schema::dropIfExists('work_follow_ups');
     }
 };

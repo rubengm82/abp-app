@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('record', function (Blueprint $table) {
+        Schema::create('records', function (Blueprint $table) {
             $table->id();
             
             // Professional reference
-            $table->foreignId('professional_id')->constrained('professional')->onDelete('cascade');
+            $table->foreignId('professional_id')->constrained('professionals')->onDelete('cascade');
             
             // Record information
             $table->enum('type', ['Seguiment', 'Avaluació', 'Accident', 'Baixa_llarga', 'Observació'])->comment('Record type');
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('record');
+        Schema::dropIfExists('records');
     }
 };

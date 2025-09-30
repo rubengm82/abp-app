@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locker', function (Blueprint $table) {
+        Schema::create('lockers', function (Blueprint $table) {
             $table->id();
             
             // Locker identification
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locker');
+        Schema::dropIfExists('lockers');
     }
 };

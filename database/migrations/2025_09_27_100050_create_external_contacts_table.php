@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('external_contact', function (Blueprint $table) {
+        Schema::create('external_contacts', function (Blueprint $table) {
             $table->id();
             
             // Contact type and reason
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('external_contact');
+        Schema::dropIfExists('external_contacts');
     }
 };

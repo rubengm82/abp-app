@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('maintenance', function (Blueprint $table) {
+        Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
             
             // Maintenance information
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable()->comment('Maintenance description');
             
             // Professional reference
-            $table->foreignId('assigned_to_professional_id')->nullable()->constrained('professional')->onDelete('set null')->comment('Assigned professional');
+            $table->foreignId('assigned_to_professional_id')->nullable()->constrained('professionals')->onDelete('set null')->comment('Assigned professional');
             
             // Documents and dates
             $table->string('documents', 500)->nullable()->comment('Related documents');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('maintenance');
+        Schema::dropIfExists('maintenances');
     }
 };

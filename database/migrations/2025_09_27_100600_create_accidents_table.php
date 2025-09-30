@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accident', function (Blueprint $table) {
+        Schema::create('accidents', function (Blueprint $table) {
             $table->id();
             
             // Accident information
@@ -21,8 +21,8 @@ return new class extends Migration
             $table->text('description')->nullable()->comment('Accident description');
             
             // Professional references
-            $table->foreignId('reporting_professional_id')->constrained('professional')->onDelete('cascade')->comment('Professional who reported');
-            $table->foreignId('injured_professional_id')->constrained('professional')->onDelete('cascade')->comment('Injured professional');
+            $table->foreignId('reporting_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Professional who reported');
+            $table->foreignId('injured_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Injured professional');
             
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accident');
+        Schema::dropIfExists('accidents');
     }
 };

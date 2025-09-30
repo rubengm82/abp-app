@@ -18,8 +18,8 @@ return new class extends Migration
             $table->date('date')->comment('Issue date');
             
             // Professional references
-            $table->foreignId('affected_professional_id')->constrained('professional')->onDelete('cascade')->comment('Affected professional');
-            $table->foreignId('registering_professional_id')->constrained('professional')->onDelete('cascade')->comment('Professional who registered');
+            $table->foreignId('affected_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Affected professional');
+            $table->foreignId('registering_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Professional who registered');
             
             // Issue details
             $table->string('referred_to', 255)->nullable()->comment('Referred to (free text)');

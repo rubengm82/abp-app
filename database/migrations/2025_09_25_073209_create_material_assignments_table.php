@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('material_assignment', function (Blueprint $table) {
+        Schema::create('material_assignments', function (Blueprint $table) {
             $table->id();
             
             // Professional reference
-            $table->foreignId('professional_id')->constrained('professional')->onDelete('cascade');
+            $table->foreignId('professional_id')->constrained('professionals')->onDelete('cascade');
             
             // Material information
             $table->enum('material_type', ['Uniforme', 'EPI', 'Equipament', 'Altres'])->comment('Material type');
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->enum('condition', ['Nou', 'Bo', 'Regular', 'Dolent'])->nullable()->comment('Material condition');
             
             // Assignment tracking
-            $table->foreignId('assigned_by_professional_id')->nullable()->constrained('professional')->onDelete('set null')->comment('Professional who assigned');
+            $table->foreignId('assigned_by_professional_id')->nullable()->constrained('professionals')->onDelete('set null')->comment('Professional who assigned');
             
             // Additional information
             $table->text('observations')->nullable()->comment('Observations about material');
@@ -46,6 +46,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('material_assignment');
+        Schema::dropIfExists('material_assignments');
     }
 };

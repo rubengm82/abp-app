@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluation', function (Blueprint $table) {
+        Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
             
             // Professional references
-            $table->foreignId('evaluator_professional_id')->constrained('professional')->onDelete('cascade')->comment('Evaluator professional');
-            $table->foreignId('evaluated_professional_id')->constrained('professional')->onDelete('cascade')->comment('Evaluated professional');
+            $table->foreignId('evaluator_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Evaluator professional');
+            $table->foreignId('evaluated_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Evaluated professional');
             
             // Evaluation information
             $table->date('evaluation_date')->comment('Evaluation date');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('evaluation');
+        Schema::dropIfExists('evaluations');
     }
 };

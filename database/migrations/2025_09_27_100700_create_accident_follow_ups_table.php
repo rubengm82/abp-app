@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('maintenance_follow_up', function (Blueprint $table) {
+        Schema::create('accident_follow_ups', function (Blueprint $table) {
             $table->id();
             
-            // Maintenance reference
-            $table->foreignId('maintenance_id')->constrained('maintenance')->onDelete('cascade')->comment('Maintenance reference');
-            $table->foreignId('professional_id')->constrained('professional')->onDelete('cascade')->comment('Professional reference');
+            // Accident reference
+            $table->foreignId('accident_id')->constrained('accidents')->onDelete('cascade')->comment('Accident reference');
+            $table->foreignId('professional_id')->constrained('professionals')->onDelete('cascade')->comment('Professional reference');
             
             // Follow-up information
+            $table->date('follow_up_date')->comment('Follow-up date');
             $table->text('description')->nullable()->comment('Follow-up description');
+            $table->text('notes')->nullable()->comment('Additional notes');
             $table->string('documents', 500)->nullable()->comment('Related documents');
             
             $table->timestamps();
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('maintenance_follow_up');
+        Schema::dropIfExists('accident_follow_ups');
     }
 };
