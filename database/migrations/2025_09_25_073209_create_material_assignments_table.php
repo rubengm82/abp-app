@@ -17,18 +17,13 @@ return new class extends Migration
             // Professional reference
             $table->foreignId('professional_id')->constrained('professionals')->onDelete('cascade');
             
-            // Material information
-            $table->enum('material_type', ['Uniforme', 'EPI', 'Equipament', 'Altres'])->comment('Material type');
-            $table->string('material_description', 255)->nullable()->comment('Material description');
-            $table->string('size', 20)->nullable()->comment('Size (for uniforms)');
+            // Size information (simplified structure)
+            $table->string('shirt_size', 10)->nullable()->comment('Shirt size');
+            $table->string('shoe_size', 10)->nullable()->comment('Shoe size');
+            $table->string('pants_size', 10)->nullable()->comment('Pants size');
             
             // Assignment dates
             $table->date('assignment_date')->comment('Assignment date');
-            $table->date('renewal_due_date')->nullable()->comment('Renewal due date');
-            
-            // Status and condition
-            $table->enum('status', ['Actiu', 'Renovat', 'Retornat', 'Perdut'])->default('Actiu')->comment('Assignment status');
-            $table->enum('condition', ['Nou', 'Bo', 'Regular', 'Dolent'])->nullable()->comment('Material condition');
             
             // Assignment tracking
             $table->foreignId('assigned_by_professional_id')->nullable()->constrained('professionals')->onDelete('set null')->comment('Professional who assigned');

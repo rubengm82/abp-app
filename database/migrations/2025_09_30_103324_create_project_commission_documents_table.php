@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('project_commission_documents', function (Blueprint $table) {
             $table->id();
-            $table->string('document_name', 255)->comment('Document name');
-            $table->string('document_path', 500)->comment('Document path');
+            $table->string('file_name', 255)->comment('File name');
+            $table->binary('file_content')->nullable()->comment('File content as blob');
             $table->unsignedBigInteger('project_commission_id')->comment('Project/Commission reference');
 
             // FKs

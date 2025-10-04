@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->String('name', 255)->comment('Project/Commission name');
             $table->date('start_date')->comment('Start date')->nullable();
-            $table->date('end_date')->comment('End date')->nullable();
+            $table->date('estimated_end_date')->comment('Estimated end date')->nullable();
             $table->unsignedBigInteger('responsible_professional_id')->comment('Responsible professional');
             $table->text('description')->comment('Project description')->nullable();
             $table->text('notes')->comment('Additional notes')->nullable();
-            $table->text('documents')->comment('Related documents')->nullable();
-            $table->enum('type', ['Projecte', 'PeComissiondent'])->comment('Type: Projecte, Comissio')->nullable();
+            $table->enum('type', ['Projecte', 'Comissió'])->comment('Type: Projecte, Comissió')->nullable();
 
             // FKs
             $table->foreign('responsible_professional_id')->references('id')->on('professionals')->onDelete('cascade');

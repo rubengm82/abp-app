@@ -1,0 +1,76 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class ProjectCommissionSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $projectCommissions = [
+            [
+                'name' => 'Projecte Integració Social',
+                'start_date' => '2025-01-01',
+                'estimated_end_date' => '2025-12-31',
+                'responsible_professional_id' => 1,
+                'description' => 'Projecte per a la integració social de joves en risc d\'exclusió',
+                'notes' => 'Projecte prioritari per al centre',
+                'type' => 'Projecte',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Comissió Qualitat',
+                'start_date' => '2025-02-01',
+                'estimated_end_date' => '2025-11-30',
+                'responsible_professional_id' => 2,
+                'description' => 'Comissió per a la millora de la qualitat educativa',
+                'notes' => 'Reunions mensuals programades',
+                'type' => 'Comissio',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Projecte Formació Professional',
+                'start_date' => '2025-03-01',
+                'estimated_end_date' => '2025-10-31',
+                'responsible_professional_id' => 3,
+                'description' => 'Projecte de formació professional per a joves',
+                'notes' => 'Col·laboració amb empreses locals',
+                'type' => 'Projecte',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Comissió Seguretat',
+                'start_date' => '2025-01-15',
+                'estimated_end_date' => '2025-12-15',
+                'responsible_professional_id' => 4,
+                'description' => 'Comissió per a la seguretat i prevenció de riscos',
+                'notes' => 'Revisió trimestral dels protocols',
+                'type' => 'Comissio',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Projecte Medi Ambient',
+                'start_date' => '2025-04-01',
+                'estimated_end_date' => '2025-09-30',
+                'responsible_professional_id' => 5,
+                'description' => 'Projecte de conscienciació mediambiental',
+                'notes' => 'Activitats pràctiques i tallers',
+                'type' => 'Projecte',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ];
+
+        DB::table('project_commissions')->insert($projectCommissions);
+    }
+}

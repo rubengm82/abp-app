@@ -37,8 +37,8 @@ return new class extends Migration
                 $table->string('login', 50)->unique()->nullable()->comment('Login username');
                 $table->string('password', 255)->nullable()->comment('Password hash');
                 
-                // Locker reference
-                $table->foreignId('locker_id')->nullable()->constrained('lockers')->onDelete('set null');
+                // Key information (moved from lockers table)
+                $table->string('key_code', 50)->nullable()->comment('Key code');
                 
                 // Sizes
                 $table->string('shirt_size', 10)->nullable()->comment('Shirt size');
