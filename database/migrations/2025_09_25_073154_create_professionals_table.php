@@ -16,7 +16,7 @@ return new class extends Migration
                 $table->id();
                 
                 // Center reference
-                $table->foreignId('center_id')->constrained('centers')->onDelete('cascade');
+                $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('cascade');
                 
                 // Professional information
                 $table->string('role', 100)->nullable()->comment('Professional role');

@@ -44,6 +44,9 @@ class CenterController extends Controller
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
         ]);
+
+        // Redirect a la página de bienvenida con mensaje de éxito
+        return redirect('/')->with('success', 'Centro creado correctamente');
     }
 
     /**
