@@ -53,11 +53,11 @@
 - teléfono (VARCHAR(20))
 - correo_electrónico (VARCHAR(255))
 - dirección (VARCHAR(500))
-- estado_laboral (ENUM) -- (Activo, Suplencia, Baja)
+- estado_laboral (ENUM) -- (Activo, Suplencia, Baja, No contratado)
 - currículum_vitae (TEXT)
 - usuario_login (VARCHAR(50))
 - contraseña (VARCHAR(255))
-- taquilla_id (INT, FK → TAQUILLA)
+- código_llave (VARCHAR(50)) -- Movido desde tabla TAQUILLA
 - talla_camiseta (VARCHAR(10))
 - talla_pantalón (VARCHAR(10))
 - talla_zapato (VARCHAR(10))
@@ -79,12 +79,6 @@
 - fecha (DATE)
 - nombre_archivo (VARCHAR(255))
 
-
-## TAQUILLA (Taquilla)
-- id (INT, PK)
-- número_taquilla (VARCHAR(10))
-- estado (ENUM) -- (Disponible, Ocupada, Mantenimiento)
-- código_llave (VARCHAR(50))
 
 ## CURSO (Curso)
 - id (INT, PK)
@@ -220,7 +214,7 @@
 - id (INT, PK)
 - nombre (VARCHAR(255))
 - fecha_inicio (DATE)
-- fecha_fin (DATE) -- Añadido para proyectos con duración definida
+- fecha_fin_estimada (DATE) -- Cambiado de fecha_fin a fecha_fin_estimada
 - profesional_responsable_id (INT, FK → PROFESIONAL)
 - descripción (TEXT)
 - notas (TEXT)
@@ -250,4 +244,14 @@
 <!-- - fecha_renovación (DATE) -->
 - observaciones (TEXT)
 - documentos (VARCHAR(500))
+
+## DOCUMENTOS_PROYECTO_COMISIÓN (Documentos Proyectos y Comisiones)
+- id (INT, PK)
+- proyecto_comisión_id (INT, FK → PROYECTO_COMISIÓN)
+- nombre_archivo (VARCHAR(255))
+- contenido_archivo (BLOB) -- Contenido del archivo como datos binarios
+
+## CUESTIONARIO (Cuestionario)
+- id (INT, PK)
+- pregunta (TEXT)
 

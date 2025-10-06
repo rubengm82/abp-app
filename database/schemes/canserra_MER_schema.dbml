@@ -38,13 +38,7 @@ Table CENTER {
   phone varchar(20) [note: 'Contact phone']
   email varchar(255) [note: 'Contact email']
 }
-//DONE
-Table LOCKER {
-  id int [pk, increment, note: 'Primary key']
-  locker_number varchar(10) [unique, not null, note: 'Locker number']
-  status varchar(20) [default: 'Disponible', note: 'Status: Disponible, Ocupat, Manteniment']
-  key_code varchar(50) [note: 'Key code']
-}
+//REMOVED - Locker functionality integrated into PROFESSIONAL table
 //DONE
 Table PROFESSIONAL {
   id int [pk, increment, note: 'Primary key']
@@ -56,11 +50,11 @@ Table PROFESSIONAL {
   phone varchar(20) [note: 'Contact phone']
   email varchar(255) [note: 'Contact email']
   address varchar(500) [note: 'Address']
-  employment_status varchar(20) [default: 'Actiu', note: 'Status: Actiu, Suplencia, Baixa']
+  employment_status varchar(20) [default: 'Actiu', note: 'Status: Actiu, Suplencia, Baixa, No contractat']
   cvitae text [note: 'Curriculum vitae']
   login varchar(50) [unique, note: 'Login username']
   password varchar(255) [note: 'Password hash']
-  locker_id int [ref: > LOCKER.id, note: 'Assigned locker']
+  key_code varchar(50) [note: 'Key code (moved from LOCKER table)']
   shirt_size varchar(10) [note: 'Shirt size']
   pants_size varchar(10) [note: 'Pants size']
   shoe_size varchar(10) [note: 'Shoe size']
@@ -311,7 +305,7 @@ Table PROJECT_COMMISSION {
   id int [pk, increment, note: 'Primary key']
   name varchar(255) [not null, note: 'Project/Commission name']
   start_date date [note: 'Start date']
-  end_date date [note: 'End date']
+  estimated_end_date date [note: 'Estimated end date']
   responsible_professional_id int [ref: > PROFESSIONAL.id, note: 'Responsible professional']
   description text [note: 'Project description']
   notes text [note: 'Additional notes']
@@ -326,6 +320,22 @@ Table PROJECT_COMMISSION_ASSIGNMENT {
   assignment_date date [note: 'Assignment date']
   status varchar(50) [note: 'Assignment status']
   notes text [note: 'Assignment notes']
+}
+
+Table PROJECT_COMMISSION_DOCUMENTS {
+  id int [pk, increment, note: 'Primary key']
+  project_commission_id int [ref: > PROJECT_COMMISSION.id, not null, note: 'Project/Commission reference']
+  file_name varchar(255) [note: 'File name']
+  file_content blob [note: 'File content as binary data']
+}
+
+// =====================================================
+// QUIZ MANAGEMENT
+// =====================================================
+
+Table QUIZ {
+  id int [pk, increment, note: 'Primary key']
+  question text [note: 'Question']
 }
 
 // =====================================================
