@@ -65,6 +65,11 @@ class ProjectCommissionDocumentSeeder extends Seeder
             ],
         ];
 
+        // Elimina toda la tabla primero antes de insertar datos
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('project_commission_documents')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        
         DB::table('project_commission_documents')->insert($projectCommissionDocuments);
     }
 }

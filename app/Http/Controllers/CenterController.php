@@ -38,6 +38,8 @@ class CenterController extends Controller
         // echo "<br>";
         // echo $request->input('email');
 
+        echo "Centre afegit!";
+
         Center::create([
             'name' => $request->input('name'),
             'address' => $request->input('address'),
@@ -45,8 +47,6 @@ class CenterController extends Controller
             'email' => $request->input('email'),
         ]);
 
-        // Redirect a la página de bienvenida con mensaje de éxito
-        return redirect('/')->with('success', 'Centro creado correctamente');
     }
 
     /**

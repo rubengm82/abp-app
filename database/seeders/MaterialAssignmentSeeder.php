@@ -88,6 +88,11 @@ class MaterialAssignmentSeeder extends Seeder
             ],
         ];
 
+        // Elimina toda la tabla primero antes de insertar datos
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('material_assignments')->truncate();  // 
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         DB::table('material_assignments')->insert($materialAssignments);
     }
 }

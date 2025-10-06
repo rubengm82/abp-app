@@ -15,30 +15,27 @@ class CenterSeeder extends Seeder
     {
         $centers = [
             [
-                'name' => 'Centre Principal',
-                'address' => 'Carrer Principal, 123, Barcelona',
-                'phone' => '+34 93 123 4567',
-                'email' => 'principal@canserra.cat',
+                'name' => 'Can Serra',
+                'address' => 'Carretera Esplugues 18, 08906 Hospitalet del Llobregat, Barcelona',
+                'phone' => '+34 93 437 34 09',
+                'email' => 'rcanserra@fundaciovallparadis.cat',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Centre Secundari',
-                'address' => 'Avinguda Secundària, 456, Barcelona',
-                'phone' => '+34 93 234 5678',
-                'email' => 'secundari@canserra.cat',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Centre Terciari',
-                'address' => 'Plaça Terciària, 789, Barcelona',
-                'phone' => '+34 93 345 6789',
-                'email' => 'terciari@canserra.cat',
+                'name' => 'Casa Badina',
+                'address' => 'Calle Cervantes 193-197, 08912 Badalona, Barcelona',
+                'phone' => '+34 93 235 94 00',
+                'email' => 'casabadina@fundaciovallparadis.cat',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
         ];
+
+        // Elimina toda la tabla primero antes de insertar datos
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('centers')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         DB::table('centers')->insert($centers);
     }

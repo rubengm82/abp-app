@@ -19,10 +19,11 @@ return new class extends Migration
                 $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('cascade');
                 
                 // Professional information
-                $table->string('role', 100)->nullable()->comment('Professional role');
+                $table->enum('role', ['Directiu', 'Administració', 'Tècnic'])->comment('Professional role')->nullable();
                 $table->string('name', 100)->comment('First name');
                 $table->string('surname1', 100)->comment('First surname');
                 $table->string('surname2', 100)->nullable()->comment('Second surname');
+                $table->string('dni', 100)->comment('dni');
                 
                 // Contact information
                 $table->string('phone', 20)->nullable()->comment('Contact phone');
@@ -30,7 +31,7 @@ return new class extends Migration
                 $table->string('address', 500)->nullable()->comment('Address');
                 
                 // Estado laboral (en catalán, incluyendo opción de trabajador no contratado)
-                $table->enum('employment_status', ['Actiu', 'Suplència', 'Baixa', 'No contractat'])->default('Actiu')->comment('Estat laboral');
+                $table->enum('employment_status', ['Actiu', 'Suplència', 'Baixa', 'No contractat'])->comment('Estat laboral')->nullable();
                 
                 // Additional information
                 $table->text('cvitae')->nullable()->comment('Curriculum vitae');
@@ -40,11 +41,11 @@ return new class extends Migration
                 // Key information (moved from lockers table)
                 $table->string('key_code', 50)->nullable()->comment('Key code');
                 
-                // Sizes
-                $table->string('shirt_size', 10)->nullable()->comment('Shirt size');
-                $table->string('pants_size', 10)->nullable()->comment('Pants size');
-                $table->string('shoe_size', 10)->nullable()->comment('Shoe size');
-                
+                // Sizes ENUMS
+                $table->enum('shirt_size', ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'])->comment('Shirt size')->nullable();
+                $table->enum('pants_size', ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL'])->comment('Pants size')->nullable();
+                $table->enum('shoe_size', ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50'])->comment('Shoe size')->nullable();
+
                 $table->timestamps();
             });
         }

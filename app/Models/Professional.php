@@ -17,6 +17,7 @@ class Professional extends Model
         'name',
         'surname1',
         'surname2',
+        'dni',
         'phone',
         'email',
         'address',
