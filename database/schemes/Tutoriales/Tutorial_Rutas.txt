@@ -1,0 +1,31 @@
+1. Definir las rutas en "WEB.PHP" - TODAS LAS RUTAS PONERLE NAME!!!
+    get ->  Dibuja el formulario -> create 
+        Route::get('/center_form', [CenterController::class, "create"])->name("center_form");
+    post -> Envia los datos -> store
+        Route::post('/center_add', [CenterController::class, "store"])->name("center_add");
+
+2. Dentro del CONTROLLER:
+    en create() -> return view("center.centerForm");
+    en store() -> Center::create([
+                    'name' => $request->input('name'),
+                    'address' => $request->input('address'),
+                    'phone' => $request->input('phone'),
+                    'email' => $request->input('email'),
+                   ]);
+    
+3. Dentro de la VIEW:
+    @csrf  - IMPORTANTE PONER ESTE TOKEN!!! o sino no funcionará
+    
+    <form action="{{ route("center_add") }}" method="post">
+        @csrf {{-- Esto es necesario para enviar, es un TOKEN!! --}}
+        <input type="text" name="name" id="id_name" placeholder="name"><br>
+        <input type="text" name="address" id="id_adress" placeholder="address"><br>
+        <input type="text" name="phone" id="id_phone" placeholder="phone"><br>
+        <input type="text" name="email" id="id_email" placeholder="email"><br>
+        <input type="submit" value="Aceptar">
+        <input type="reset" value="Reset">
+    </form>
+
+4. Dentro del MODEL:
+    protected $fillable = ['name', 'address', 'phone', 'email'];
+
