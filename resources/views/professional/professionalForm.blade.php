@@ -8,7 +8,7 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-    <form action="{{ route('professional_add') }}" method="post" class="p-6 space-y-4 bg-base-100 rounded-lg shadow-md">
+    <form action="{{ route('professional_add') }}" method="post">
     @csrf
 
     <!-- Informació professional -->
