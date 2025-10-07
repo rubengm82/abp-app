@@ -4,9 +4,18 @@ use App\Http\Controllers\CenterController;
 use App\Http\Controllers\ProfessionalController;
 use Illuminate\Support\Facades\Route;
 
+
+/* ROUTES APP */
+Route::get('/home', function () {
+    return view('app');
+})->name('home');
+
+
+/* ROUTES LOGIN */
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('login');
+})->name('login');
+
 
 /* ROUTES FOR CENTER REGISTRATION FORMS */
 Route::get('/center_form', [CenterController::class, "create"])->name("center_form");

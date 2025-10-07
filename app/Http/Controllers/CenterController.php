@@ -20,7 +20,7 @@ class CenterController extends Controller
      */
     public function create()
     {
-        return view("center.centerForm");
+        return view("components.contents.center.centerForm");
     }
 
     /**

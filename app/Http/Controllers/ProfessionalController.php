@@ -21,7 +21,7 @@ class ProfessionalController extends Controller
      */
     public function create()
     {
-        return view("professional.professionalForm");
+        return view("components.contents.professional.professionalForm");
     }
 
     /**
