@@ -49,10 +49,20 @@
         <option value="M">M</option>
         <option value="L">L</option>
         <option value="XL">XL</option>
-        <option value="XXL">XXL</option>
+        <option value="2XL">2XL</option>
         <option value="3XL">3XL</option>
         <option value="4XL">4XL</option>
-        <option value="5XL">5XL</option>
+        <option value="36">36</option>
+        <option value="38">38</option>
+        <option value="40">40</option>
+        <option value="42">42</option>
+        <option value="44">44</option>
+        <option value="46">46</option>
+        <option value="48">48</option>
+        <option value="50">50</option>
+        <option value="52">52</option>
+        <option value="54">54</option>
+        <option value="56">56</option>
     </select><br>
 
     <select name="pants_size" id="id_pants_size" class="select select-bordered">
@@ -62,10 +72,20 @@
         <option value="M">M</option>
         <option value="L">L</option>
         <option value="XL">XL</option>
-        <option value="XXL">XXL</option>
+        <option value="2XL">2XL</option>
         <option value="3XL">3XL</option>
         <option value="4XL">4XL</option>
-        <option value="5XL">5XL</option>
+        <option value="36">36</option>
+        <option value="38">38</option>
+        <option value="40">40</option>
+        <option value="42">42</option>
+        <option value="44">44</option>
+        <option value="46">46</option>
+        <option value="48">48</option>
+        <option value="50">50</option>
+        <option value="52">52</option>
+        <option value="54">54</option>
+        <option value="56">56</option>
     </select><br>
 
     <select name="shoe_size" id="id_shoe_size" class="select select-bordered">
@@ -87,6 +107,12 @@
         <option value="48">48</option>
         <option value="49">49</option>
         <option value="50">50</option>
+        <option value="51">51</option>
+        <option value="52">52</option>
+        <option value="53">53</option>
+        <option value="54">54</option>
+        <option value="55">55</option>
+        <option value="56">56</option>
     </select><br><br>
 
     <!-- Informació addicional -->
