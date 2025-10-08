@@ -29,6 +29,7 @@ class Professional extends Model
         'shirt_size',
         'pants_size',
         'shoe_size',
+        'status'
     ];
 
     // /**

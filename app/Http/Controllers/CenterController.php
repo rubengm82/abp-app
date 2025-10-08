@@ -12,7 +12,8 @@ class CenterController extends Controller
      */
     public function index()
     {
-        //
+        $centers = Center::all();
+        return view("components.contents.center.centersList")->with('centers', $centers);
     }
 
     /**
@@ -38,7 +39,7 @@ class CenterController extends Controller
         // echo "<br>";
         // echo $request->input('email');
 
-        echo "Centre afegit!";
+        //echo "Centre afegit!";
 
         Center::create([
             'name' => $request->input('name'),
@@ -46,7 +47,7 @@ class CenterController extends Controller
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
         ]);
-
+        return redirect()->route('center_form')->with('success', 'Centre afegit correctament!');
     }
 
     /**
@@ -62,7 +63,7 @@ class CenterController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // return view("components.contents.center.centerEdit");
     }
 
     /**

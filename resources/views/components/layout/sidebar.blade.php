@@ -9,6 +9,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('centers_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Centres
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('professional_form') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
                     Afegir Professional
                 </a>

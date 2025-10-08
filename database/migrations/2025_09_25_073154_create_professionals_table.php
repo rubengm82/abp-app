@@ -46,6 +46,8 @@ return new class extends Migration
                 $table->enum('pants_size', ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56'])->comment('Pants size')->nullable();
                 $table->enum('shoe_size', ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56'])->comment('Shoe size')->nullable();
 
+                $table->integer('status')->nullable();
+
                 $table->timestamps();
             });
         }

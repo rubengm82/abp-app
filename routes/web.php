@@ -20,8 +20,10 @@ Route::get('/', function () {
 /* ROUTES FOR CENTER REGISTRATION FORMS */
 Route::get('/center_form', [CenterController::class, "create"])->name("center_form");
 Route::post('/center_add', [CenterController::class, "store"])->name("center_add");
+// Route::get('/center_edit', [CenterController::class, "edit"])->name("center_edit");
+// Route::post('/center_edit', [CenterController::class, "edit"])->name("center_edit");
+Route::get('/centers_list', [CenterController::class, "index"])->name("centers_list");
 
 /* ROUTES FOR PROFESSIONAL REGISTRATION FORMS */
 Route::get('/professional_form', [ProfessionalController::class, "create"])->name("professional_form");
 Route::post('/professional_add', [ProfessionalController::class, "store"])->name("professional_add");
-
