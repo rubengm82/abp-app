@@ -4,6 +4,9 @@
 
 @section('content')
 <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres desactivats</h1>
+<div class="flex justify-end">
+    <a href="{{ route('centers.downloadCSV', ['status' => 0]) }}" class="link link-warning text-right">Descarregar Llista</a>
+</div>
 
 <div class="max-w-full mx-auto bg-white p-6 rounded shadow overflow-x-auto">
     <table class="table table-xs">

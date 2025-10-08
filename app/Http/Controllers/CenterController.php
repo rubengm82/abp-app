@@ -110,6 +110,7 @@ class CenterController extends Controller
         
         return redirect()->route('centers_desactivated_list')->with('success_activated', 'Centre activat correctament!');;;
     }
+
     /**
      * Desactivate Status the specified resource in storage.
      */
@@ -121,6 +122,35 @@ class CenterController extends Controller
         $center->save();
         
         return redirect()->route('centers_list')->with('success_desactivated', 'Centre desactivat correctament!');;
+    }
+
+    /**
+     * Download CSV from resource in storage
+     */
+    public function downloadCSV(int $statusParam)
+    {
+        $centers = Center::where('status', $statusParam)->get();
+
+        $filename = $statusParam == 1 ? "centres_actius.csv" : "centres_no_actius.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['ID', 'Nom', 'Adreça', 'Telèfon', 'Email', 'Estat']);
+
+        foreach ($centers as $center) {
+            fputcsv($handle, [
+                $center->id,
+                $center->name,
+                $center->address,
+                $center->phone,
+                $center->email,
+                $center->status == 1 ? 'Actiu' : 'No actiu',
+            ]);
+        }
+
+        // Close Pointer File
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
     }
 
 }

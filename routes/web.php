@@ -25,6 +25,7 @@ Route::get('/center/activate/{center}', [CenterController::class, 'activateStatu
 // Route::get('/center/center_edit/{center}', [CenterController::class, 'edit'])->name('center_edit');
 Route::get('/centers_list', [CenterController::class, "index"])->name("centers_list");
 Route::get('/centers_desactivated_list', [CenterController::class, "index_desactivatedCenters"])->name("centers_desactivated_list");
+Route::get('/centers/downloadCSV/{status}', [CenterController::class, 'downloadCSV'])->name('centers.downloadCSV');
 
 /* ROUTES FOR PROFESSIONAL REGISTRATION FORMS */
 Route::get('/professional_form', [ProfessionalController::class, "create"])->name("professional_form");
