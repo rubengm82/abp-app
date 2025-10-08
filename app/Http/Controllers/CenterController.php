@@ -46,6 +46,7 @@ class CenterController extends Controller
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
+            'status' => '1',
         ]);
         return redirect()->route('center_form')->with('success', 'Centre afegit correctament!');
     }
@@ -81,4 +82,26 @@ class CenterController extends Controller
     {
         //
     }
+
+
+
+    /* *********** */
+    /* OWN METHODS */
+    /* *********** */
+    
+    /**
+     * Activate Status the specified resource in storage.
+     */
+    public function activateStatus(Request $request, string $id)
+    {
+        
+    }
+    /**
+     * Desactivate Status the specified resource in storage.
+     */
+    public function desactivateStatus(Request $request, string $id)
+    {
+        
+    }
+
 }

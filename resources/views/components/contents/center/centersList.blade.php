@@ -17,19 +17,21 @@
             </tr>
         </thead>
         @foreach ($centers as $center)
-            <tbody>
-            <tr class="hover:bg-base-300">
-                <th>{{ $center->id }}</th>
-                <td>{{ $center->name }}</td>
-                <td>{{ $center->address }}</td>
-                <td>{{ $center->phone }}</td>
-                <td>{{ $center->email }}</td>
-                <td class="flex justify-end gap-2">
-                    <a href="" class="btn btn-sm btn-info">Editar</a>
-                    <a href="" class="btn btn-sm btn-error">Borrar</a>
-                </td>
-            </tr>
-        </tbody>
+            @if ($center->status == 1)
+                <tbody>
+                <tr class="hover:bg-base-300">
+                    <th>{{ $center->id }}</th>
+                    <td>{{ $center->name }}</td>
+                    <td>{{ $center->address }}</td>
+                    <td>{{ $center->phone }}</td>
+                    <td>{{ $center->email }}</td>
+                    <td class="flex justify-end gap-2">
+                        <a href="" class="btn btn-sm btn-info">Editar</a>
+                        <a href="" class="btn btn-sm btn-error">Borrar</a>
+                    </td>
+                </tr>
+            </tbody>
+            @endif
         @endforeach
     </table>
     

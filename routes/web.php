@@ -20,7 +20,8 @@ Route::get('/', function () {
 /* ROUTES FOR CENTER REGISTRATION FORMS */
 Route::get('/center_form', [CenterController::class, "create"])->name("center_form");
 Route::post('/center_add', [CenterController::class, "store"])->name("center_add");
-// Route::get('/center_edit', [CenterController::class, "edit"])->name("center_edit");
+Route::put('/center_desactivate', [CenterController::class, "desactivateStatus"])->name("center_desactivate");
+// Route::put('/center_activate', [CenterController::class, "desactivateStatus"])->name("center_activate");
 // Route::post('/center_edit', [CenterController::class, "edit"])->name("center_edit");
 Route::get('/centers_list', [CenterController::class, "index"])->name("centers_list");
 

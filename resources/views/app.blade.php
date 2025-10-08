@@ -30,5 +30,6 @@
 
     </main>
 
+<script src="{{ asset('js/components/individual/toast.js') }}"></script>
 </body>
 </html>

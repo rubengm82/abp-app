@@ -13,9 +13,19 @@
         <input type="text" name="phone" id="id_phone" placeholder="Telèfon" class="input input-bordered w-full">
         <input type="text" name="email" id="id_email" placeholder="Email" class="input input-bordered w-full">
         
-        <div>
+        {{-- <div>
             <p class="text-red text-center text-green-600">{{ session('success') }}</p>
+        </div> --}}
+        @if (session('success'))
+        <div class="toast toast-top toast-end">
+            <div class="alert alert-info">
+                <span>New mail arrived.</span>
+            </div>
+            <div class="alert alert-success">
+                <span>{{ session('success') }}</span>
+            </div>
         </div>
+        @endif
 
         <div class="flex gap-2">
             <input type="submit" value="Acceptar" class="btn btn-primary flex-1">
