@@ -41,12 +41,14 @@ class CenterController extends Controller
 
         //echo "Centre afegit!";
 
+        $status_actived = '1';
+
         Center::create([
             'name' => $request->input('name'),
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
-            'status' => '1',
+            'status' => $status_actived,
         ]);
         return redirect()->route('center_form')->with('success', 'Centre afegit correctament!');
     }
@@ -89,6 +91,15 @@ class CenterController extends Controller
     /* OWN METHODS */
     /* *********** */
     
+    /**
+     * Display a listing of the resource.
+     */
+    public function index_desactivated()
+    {
+        $centers = Center::all();
+        return view("components.contents.center.centersDesactivatedList")->with('centers', $centers);
+    }
+
     /**
      * Activate Status the specified resource in storage.
      */

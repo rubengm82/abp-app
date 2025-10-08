@@ -24,6 +24,7 @@ Route::put('/center_desactivate', [CenterController::class, "desactivateStatus"]
 // Route::put('/center_activate', [CenterController::class, "desactivateStatus"])->name("center_activate");
 // Route::post('/center_edit', [CenterController::class, "edit"])->name("center_edit");
 Route::get('/centers_list', [CenterController::class, "index"])->name("centers_list");
+Route::get('/centers_desactivated_list', [CenterController::class, "index_desactivated"])->name("centers_desactivated_list");
 
 /* ROUTES FOR PROFESSIONAL REGISTRATION FORMS */
 Route::get('/professional_form', [ProfessionalController::class, "create"])->name("professional_form");

@@ -1,12 +1,11 @@
 @extends('app')
 
-@section('title', 'Llistar centres')
+@section('title', 'Llistar centres desactivats')
 
 @section('content')
-<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres activats</h1>
+<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres desactivats</h1>
 
 <div class="max-w-full mx-auto bg-white p-6 rounded shadow overflow-x-auto">
-    
     <table class="table table-xs">
         <thead>
             <tr>
@@ -19,7 +18,7 @@
             </tr>
         </thead>
         @foreach ($centers as $center)
-            @if ($center->status == 1)
+            @if ($center->status == 0)
                 <tbody>
                 <tr class="hover:bg-base-300">
                     <th>{{ $center->id }}</th>
@@ -28,8 +27,7 @@
                     <td>{{ $center->phone }}</td>
                     <td>{{ $center->email }}</td>
                     <td class="flex justify-end gap-2">
-                        <a href="" class="btn btn-sm btn-info">Editar</a>
-                        <a href="" class="btn btn-sm btn-error">Desactivar</a>
+                        <a href="" class="btn btn-sm btn-info">Activar</a>
                     </td>
                 </tr>
             </tbody>
