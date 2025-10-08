@@ -50,7 +50,7 @@ class CenterController extends Controller
             'email' => $request->input('email'),
             'status' => $status_actived,
         ]);
-        return redirect()->route('center_form')->with('success', 'Centre afegit correctament!');
+        return redirect()->route('center_form')->with('success_added', 'Centre afegit correctament!');
     }
 
     /**
@@ -94,7 +94,7 @@ class CenterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index_desactivated()
+    public function index_desactivatedCenters()
     {
         $centers = Center::all();
         return view("components.contents.center.centersDesactivatedList")->with('centers', $centers);
@@ -103,16 +103,24 @@ class CenterController extends Controller
     /**
      * Activate Status the specified resource in storage.
      */
-    public function activateStatus(Request $request, string $id)
+    public function activateStatus(Request $request, Center $center)
     {
+        $center->status = 1;
+        $center->save();
         
+        return redirect()->route('centers_desactivated_list')->with('success_activated', 'Centre activat correctament!');;;
     }
     /**
      * Desactivate Status the specified resource in storage.
      */
-    public function desactivateStatus(Request $request, string $id)
+    public function desactivateStatus(Request $request, Center $center)
     {
+        $center->update(['status' => 0]);
+
+        $center->status = 0;
+        $center->save();
         
+        return redirect()->route('centers_list')->with('success_desactivated', 'Centre desactivat correctament!');;
     }
 
 }

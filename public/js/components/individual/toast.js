@@ -4,19 +4,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const toasts = document.querySelectorAll('.toast');
 
     toasts.forEach(toast => {
-        // Show immediately (you can add animation class if you want)
+        // Show the toast
         toast.style.display = 'block';
 
-        // Automatically hide after 3 seconds
+        // Hide after 3 seconds with opacity transition
         setTimeout(() => {
-            // Fade-out animation (optional)
             toast.style.transition = 'opacity 0.5s ease';
             toast.style.opacity = '0';
 
-            // Optional: remove from DOM after the transition
-            setTimeout(() => {
-                toast.remove();
-            }, 500);
+            // Remove from the DOM after the transition
+            setTimeout(() => toast.remove(), 500);
         }, 3000);
     });
 });
+

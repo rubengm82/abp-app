@@ -3,7 +3,7 @@
 @section('title', 'Llistar centres')
 
 @section('content')
-<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres activats</h1>
+<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres</h1>
 
 <div class="max-w-full mx-auto bg-white p-6 rounded shadow overflow-x-auto">
     
@@ -29,7 +29,7 @@
                     <td>{{ $center->email }}</td>
                     <td class="flex justify-end gap-2">
                         <a href="" class="btn btn-sm btn-info">Editar</a>
-                        <a href="" class="btn btn-sm btn-error">Desactivar</a>
+                        <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Desactivar</a>
                     </td>
                 </tr>
             </tbody>
@@ -37,6 +37,15 @@
         @endforeach
     </table>
     
+    {{-- TOAST: SUCCESS DISABLED --}}
+    @if (session('success_desactivated'))
+        <div class="toast toast-end">
+            <div class="alert alert-success">
+                <span>{{ session('success_desactivated') }}</span>
+            </div>
+        </div>
+    @endif
+
 </div>
 
 @endsection

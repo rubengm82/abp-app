@@ -27,7 +27,7 @@
                     <td>{{ $center->phone }}</td>
                     <td>{{ $center->email }}</td>
                     <td class="flex justify-end gap-2">
-                        <a href="" class="btn btn-sm btn-info">Activar</a>
+                        <a href="{{ route('center_activate', $center) }}" class="btn btn-sm btn-info">Activar</a>
                     </td>
                 </tr>
             </tbody>
@@ -35,6 +35,15 @@
         @endforeach
     </table>
     
+    {{-- TOAST: SUCCESS ENABLED --}}
+    @if (session('success_activated'))
+        <div class="toast toast-end">
+            <div class="alert alert-success">
+                <span>{{ session('success_activated') }}</span>
+            </div>
+        </div>
+    @endif
+
 </div>
 
 @endsection
