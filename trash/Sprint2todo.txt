@@ -1,0 +1,176 @@
+# Sprint 2 - Remaining Tasks TODO List
+# Generated: 2025-10-08
+
+## PROFESSIONALS CRUD - REMAINING TASKS
+
+### High Priority
+[ ] Implement edit/update functionality for professionals
+    - Create edit view form (professional_edit.blade.php)
+    - Implement ProfessionalController@edit() method
+    - Implement ProfessionalController@update() method
+    - Add route for GET /professional_edit/{id}
+    - Add route for PUT/PATCH /professional_update/{id}
+
+[ ] Implement soft delete (deactivation via status field) for professionals
+    - Implement ProfessionalController@destroy() method
+    - Add route for DELETE /professional_delete/{id}
+    - Update status field instead of hard deleting records
+    - Add confirmation modal/dialog before deactivation
+
+[ ] Add filtering by status in professionals list
+    - Show active/inactive professionals
+    - Toggle to view all or only active professionals
+
+### Medium Priority
+[ ] Form validation for professional creation/editing
+    - Backend validation in controller
+    - Frontend validation with JavaScript/regex
+    - Validate DNI format
+    - Validate email format
+    - Validate phone format
+    - Required field validation
+
+[ ] Excel exports for professionals
+    - Export assigned lockers list (by key_code field)
+    - Export uniform size list (shirt_size, pants_size, shoe_size)
+    - Export delivered material list
+
+### Low Priority
+[ ] Professional-Center relationship
+    - Uncomment and implement belongsTo relationship in Professional model
+    - Display center name in professionals list
+    - Filter professionals by center
+
+
+## CENTERS CRUD - REMAINING TASKS
+
+### High Priority
+[ ] Implement edit/update functionality for centers
+    - Create edit view form (center_edit.blade.php)
+    - Implement CenterController@edit() method
+    - Implement CenterController@update() method
+    - Add route for GET /center_edit/{id}
+    - Add route for PUT/PATCH /center_update/{id}
+
+[ ] Implement soft delete (deactivation via status field) for centers
+    - Implement CenterController@destroy() method
+    - Add route for DELETE /center_delete/{id}
+    - Update status field instead of hard deleting records
+    - Add confirmation modal/dialog before deactivation
+
+[ ] Add filtering by status in centers list
+    - Show active/inactive centers
+    - Toggle to view all or only active centers
+
+
+## JAVASCRIPT INTEGRATION TASKS
+
+[ ] Implement AJAX requests with jQuery
+    - AJAX for form submissions
+    - AJAX for data updates without page reload
+    - Implement callbacks for server responses
+
+[ ] Form validation with regular expressions
+    - DNI validation regex
+    - Email validation regex
+    - Phone validation regex
+    - Address validation
+
+[ ] Event handling implementation
+    - Form submit events
+    - Input change events
+    - Click events for CRUD actions
+
+[ ] LocalStorage/sessionStorage integration
+    - Save incomplete form data
+    - Restore form data on page reload
+    - Clear storage after successful submission
+
+[ ] Drag and Drop functionality
+    - Implement for assigning professionals to courses
+
+
+## ENTITY MANAGEMENT (PROJECT COMMISSIONS)
+
+[ ] Complete Project Commission CRUD operations
+    - Create project commission form and store
+    - Edit project commission
+    - Deactivate project commission (via status)
+    - List project commissions
+
+[ ] Project Commission Documents management
+    - Upload documents
+    - Associate documents with commissions
+    - Download/view documents
+
+
+## DESIGN & UI TASKS
+
+[ ] Complete Figma design for all Sprint 2 views
+    - Professional edit form design
+    - Center edit form design
+    - Excel export interfaces
+    - Project commission views
+
+[ ] Implement responsive design with media queries
+    - Mobile view optimization
+    - Tablet view optimization
+    - Desktop view optimization
+
+[ ] SVG sprites implementation
+    - Create single SVG sprite file for all icons
+    - Replace individual icon files
+
+[ ] Canvas integration for collaborative diagrams
+
+
+## TESTING & QUALITY
+
+[ ] Create unit tests for Professional CRUD
+    - Test create professional
+    - Test update professional
+    - Test delete/deactivate professional
+    - Test list professionals
+
+[ ] Create unit tests for Center CRUD
+    - Test create center
+    - Test update center
+    - Test delete/deactivate center
+    - Test list centers
+
+[ ] Apply refactoring to existing code
+    - Extract reusable components
+    - Optimize database queries
+    - Clean up commented code
+
+
+## DOCUMENTATION
+
+[ ] Complete Annex 3 - JavaScript architecture documentation
+[ ] Complete Annex 8 - Use case diagrams with descriptions
+[ ] Update project planning documentation
+[ ] Update control and monitoring documentation
+[ ] Maintain collaborative Google Drive documentation
+
+
+## DEPLOYMENT & DEVOPS
+
+[ ] Deploy application to cloud
+[ ] Configure container technologies (Docker)
+[ ] Set up continuous integration
+
+
+## PROJECT MANAGEMENT
+
+[ ] Update Trello board with sprint progress
+[ ] Daily Git commits (mandatory)
+[ ] Prepare presentation for classmates
+[ ] Review and update shared Google Drive docs
+
+
+## NOTES:
+- All CRUD operations should respect the 'status' field for soft deletion
+- Professional roles: Directiu, Administració, Tècnic
+- Employment status: Actiu, Suplència, Baixa, No contractat
+- Use Laravel Eloquent ORM for all database queries
+- Follow Laravel and project naming conventions

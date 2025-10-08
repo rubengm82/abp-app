@@ -1,0 +1,167 @@
+# PROFESSIONALS CRUD - TODO LIST
+# Sprint 2 - Extracted Tasks
+# Generated: 2025-10-08
+
+## HIGH PRIORITY TASKS
+
+[ ] Implement edit/update functionality for professionals
+    - Create edit view form (professional_edit.blade.php)
+    - Implement ProfessionalController@edit() method to load professional data
+    - Implement ProfessionalController@update() method to save changes
+    - Add route: GET /professional_edit/{id}
+    - Add route: PUT/PATCH /professional_update/{id}
+    - Populate form with existing professional data
+    - Handle form submission with validation
+
+[ ] Implement soft delete (deactivation via status field)
+    - Implement ProfessionalController@destroy() method
+    - Add route: DELETE /professional_delete/{id}
+    - Update status field to inactive (0) instead of hard deleting
+    - Add confirmation modal/dialog before deactivation
+    - Update professionals list to show/hide inactive records
+
+[ ] Add status filtering in professionals list view
+    - Add filter toggle in professionals_list view
+    - Show active professionals by default
+    - Option to view all professionals (active + inactive)
+    - Option to view only inactive professionals
+    - Visual indicator for inactive professionals (grayed out, badge, etc.)
+
+
+## MEDIUM PRIORITY TASKS
+
+[ ] Backend form validation
+    - Validate in ProfessionalController@store() method
+    - Validate in ProfessionalController@update() method
+    - DNI validation (format and uniqueness)
+    - Email validation (format and uniqueness)
+    - Phone validation (format)
+    - Required fields: name, surname1, dni
+    - Enum validation: role, employment_status, sizes
+    - Return validation errors to view
+
+[ ] Frontend form validation with JavaScript
+    - Real-time validation on input fields
+    - DNI format validation with regex
+    - Email format validation with regex
+    - Phone format validation with regex
+    - Required field validation
+    - Show validation errors inline
+    - Prevent form submission if validation fails
+
+[ ] Excel exports for professionals data # DONT DO NOW
+    - Export assigned lockers list
+      * Filter by professionals with key_code
+      * Include: name, surname, dni, center, key_code
+    - Export uniform size list
+      * Include: name, surname, dni, shirt_size, pants_size, shoe_size
+      * Filter by center if needed
+    - Export delivered material list (uniform renewal)
+      * Query material_assignments table
+      * Include: professional name, material type, delivery date
+      * Join with professionals table
+
+
+## LOW PRIORITY TASKS
+
+[ ] Implement Professional-Center relationship # DONT DO NOW
+    - Uncomment belongsTo relationship in Professional model (line 38-41)
+    - Add hasMany relationship in Center model
+    - Display center name in professionals list (eager load center)
+    - Add center dropdown/select in professional forms
+    - Filter professionals by center in list view
+
+[ ] Improve professional detail view # DONT DO NOW
+    - Create show view for individual professional
+    - Add route: GET /professional_show/{id}
+    - Display all professional information
+    - Show associated center details
+    - Show material assignments
+    - Show course assignments
+    - Link from professionals list
+
+
+## JAVASCRIPT INTEGRATION (PROFESSIONALS)
+
+[ ] AJAX form submission
+    - Submit professional create form via AJAX
+    - Submit professional update form via AJAX
+    - Show loading indicator during submission
+    - Display success/error messages without page reload
+    - Update list view dynamically after create/update
+
+[ ] LocalStorage for form data
+    - Save incomplete form data to localStorage
+    - Auto-save on input change (debounced)
+    - Restore form data if user returns to page
+    - Clear localStorage after successful submission
+    - Show notification if restored data exists
+
+[ ] Event handling
+    - Form submit event with validation
+    - Input change events for real-time validation
+    - Click events for edit/delete actions
+    - Confirmation dialog for delete action
+    - Toggle events for status filter
+
+
+## DATA VALIDATION RULES
+
+DNI Format:
+- Pattern: 8 digits + 1 letter (e.g., 12345678A)
+- Regex: /^\d{8}[A-Z]$/
+
+Email Format:
+- Standard email validation
+- Regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+Phone Format:
+- Spanish phone format
+- Regex: /^[6-9]\d{8}$/ (mobile) or /^\d{9}$/ (general)
+
+Required Fields:
+- name (max 100 chars)
+- surname1 (max 100 chars)
+- dni (unique, format validated)
+
+Enum Values:
+- role: 'Directiu', 'Administració', 'Tècnic'
+- employment_status: 'Actiu', 'Suplència', 'Baixa', 'No contractat'
+- shirt_size: XS, S, M, L, XL, 2XL, 3XL, 4XL, 36-56
+- pants_size: XS, S, M, L, XL, 2XL, 3XL, 4XL, 36-56
+- shoe_size: 34-56
+
+
+## NOTES FOR IMPLEMENTATION
+
+Database:
+- Table: professionals
+- Primary key: id
+- Foreign key: center_id (nullable)
+- Status field: integer (1=active, 0=inactive)
+- All updates should use mass assignment with $fillable array
+
+Routing Pattern:
+- List: GET /professionals_list
+- Create form: GET /professional_form
+- Store: POST /professional_add
+- Edit form: GET /professional_edit/{id}
+- Update: PUT /professional_update/{id}
+- Delete: DELETE /professional_delete/{id}
+
+Controller Methods:
+- index() → Show list with status filter
+- create() → Show create form
+- store() → Save new professional
+- edit($id) → Show edit form with data
+- update($id) → Update professional
+- destroy($id) → Soft delete (set status=0)
+
+Views Location:
+- resources/views/components/contents/professionals/
+
+Security:
+- Use CSRF protection on all forms
+- Validate user permissions (if auth implemented)
+- Sanitize all input data
+- Use prepared statements (Eloquent handles this)

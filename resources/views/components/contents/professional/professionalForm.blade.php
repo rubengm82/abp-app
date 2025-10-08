@@ -62,6 +62,10 @@
         <input type="text" name="login" id="id_login" placeholder="Usuari de login" class="input input-bordered w-full">
         <input type="password" name="password" id="id_password" placeholder="Contrasenya" class="input input-bordered w-full">
 
+        <div>
+            <p class="text-red text-center text-green-600">{{ session('success') }}</p>
+        </div>
+
         <div class="flex gap-2 mt-4">
             <input type="submit" value="Acceptar" class="btn btn-primary flex-1">
             <input type="reset" value="Reset" class="btn flex-1">

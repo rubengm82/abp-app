@@ -27,3 +27,7 @@ Route::get('/centers_list', [CenterController::class, "index"])->name("centers_l
 /* ROUTES FOR PROFESSIONAL REGISTRATION FORMS */
 Route::get('/professional_form', [ProfessionalController::class, "create"])->name("professional_form");
 Route::post('/professional_add', [ProfessionalController::class, "store"])->name("professional_add");
+
+Route::get('/professionals_list', [ProfessionalController::class, "indexActive"])->name("professionals_list");
+Route::get('/professional_edit/{id}', [ProfessionalController::class, "edit"])->name("professional_edit");
+Route::post('/professional_update/{id}', [ProfessionalController::class, "update"])->name("professional_update");

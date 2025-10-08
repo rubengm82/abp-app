@@ -18,6 +18,11 @@
                     Afegir Professional
                 </a>
             </li>
+            <li>
+                <a href="{{ route('professionals_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Professionals
+                </a>
+            </li>
         </ul>
     </nav>
 

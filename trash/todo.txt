@@ -1,0 +1,22 @@
+# PROFESSIONALS CRUD - TODO LIST
+# Sprint 2 - Extracted Tasks from trash/professionals_todo.txt | You can use the original file to reference for some things
+# Generated: 2025-10-08
+
+## HIGH PRIORITY TASKS
+
+* Create a super simple .md from this todo.txt in english ✓
+* Confirm that the login html were correctly implemented, incluyendo una buena distribución de los directorios ✓
+* Implementar el formulario de inserción de profesionales, sino está creado, si sí, revisar que esté al día. ✓
+* Corregir la redirección al haber añadido correctamente un profesional, insiparse en cómo lo hace el formulario de "Centers" ✓
+** Validar los valores ingresados en el formulario de profesionales ✓
+* Implementar el listado de profesionales con el get y el post correctos y utilizando los métodos que corresponden, inspirandose en "Centers". ✓
+** Implementar columna con un botón para editar, el objetivo será modificar la información del registro (implementar botón que debe de llevar como parámetro el objeto entero del registro, pero por ahora no debe de hacer nada)
+** Implementar columna con un soft delete en el listado anterior
+** Implementar filtro a la lista de profesionales para mostrar los inactivas (sólo inactivos)
+
+To know:
+* Todo debe de estar maquetado lo más simple posible con tailwind + daisyUIe
+* "Centers" context: app/Http/Controllers/CenterController.php, routes/web.php, resources/views/components/contents/center/*
+
+New todo:
+* resources/views/components/contents/professional/professionalsList.blade.php line 33
