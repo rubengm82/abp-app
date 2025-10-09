@@ -29,7 +29,7 @@
                     <td>{{ $center->phone }}</td>
                     <td>{{ $center->email }}</td>
                     <td class="flex justify-end gap-2">
-                        <a href="" class="btn btn-sm btn-info">Editar</a>
+                        <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
                         <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Desactivar</a>
                     </td>
                 </tr>
@@ -43,6 +43,14 @@
         <div class="toast toast-end">
             <div class="alert alert-success">
                 <span>{{ session('success_desactivated') }}</span>
+            </div>
+        </div>
+    @endif
+
+     @if (session('success_updated'))
+        <div class="toast toast-end">
+            <div class="alert alert-success">
+                <span>{{ session('success_updated') }}</span>
             </div>
         </div>
     @endif

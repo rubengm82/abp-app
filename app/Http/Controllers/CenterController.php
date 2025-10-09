@@ -64,17 +64,19 @@ class CenterController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Center $center)
     {
-        // return view("components.contents.center.centerEdit");
+        return view("components.contents.center.centerEdit")->with('center', $center);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Center $center)
     {
-        //
+        $center->update($request->all());
+        
+        return redirect()->route('centers_list')->with('success_updated', 'Centre actualitzat correctament!');
     }
 
     /**
