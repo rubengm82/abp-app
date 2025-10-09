@@ -1,15 +1,14 @@
 @extends('app')
 
-@section('title', 'Llistar centres')
+@section('title', 'Llistar centres desactivats')
 
 @section('content')
-<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres</h1>
+<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres desactivats</h1>
 <div class="flex justify-end">
-    <a href="{{ route('centers.downloadCSV', ['status' => 1]) }}" class="link link-warning text-right">Descarregar Llista</a>
+    <a href="{{ route('centers.downloadCSV', ['status' => 0]) }}" class="link link-warning text-right">Descarregar Llista</a>
 </div>
 
 <div class="max-w-full mx-auto bg-white p-6 rounded shadow overflow-x-auto">
-    
     <table class="table table-xs">
         <thead>
             <tr>
@@ -22,7 +21,7 @@
             </tr>
         </thead>
         @foreach ($centers as $center)
-            @if ($center->status == 1)
+            @if ($center->status == 0)
                 <tbody>
                 <tr class="hover:bg-base-300">
                     <th>{{ $center->id }}</th>
@@ -31,8 +30,7 @@
                     <td>{{ $center->phone }}</td>
                     <td>{{ $center->email }}</td>
                     <td class="flex justify-end gap-2">
-                        <a href="" class="btn btn-sm btn-info">Editar</a>
-                        <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Desactivar</a>
+                        <a href="{{ route('center_activate', $center) }}" class="btn btn-sm btn-info">Activar</a>
                     </td>
                 </tr>
             </tbody>
@@ -40,11 +38,11 @@
         @endforeach
     </table>
     
-    {{-- TOAST: SUCCESS DISABLED --}}
-    @if (session('success_desactivated'))
+    {{-- TOAST: SUCCESS ENABLED --}}
+    @if (session('success_activated'))
         <div class="toast toast-end">
             <div class="alert alert-success">
-                <span>{{ session('success_desactivated') }}</span>
+                <span>{{ session('success_activated') }}</span>
             </div>
         </div>
     @endif

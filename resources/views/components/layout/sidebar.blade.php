@@ -4,13 +4,18 @@
     <nav class="flex-1 overflow-auto">
         <ul class="text-[#555555]">
             <li>
-                <a href="{{ route('center_form') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Afegir Centre
+                <a href="{{ route('centers_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Centres
                 </a>
             </li>
             <li>
-                <a href="{{ route('centers_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Llistar Centres
+                <a href="{{ route('centers_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Centres <small>(Desactivats)</small>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('center_form') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Afegir Centre
                 </a>
             </li>
             <li>

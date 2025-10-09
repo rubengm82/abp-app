@@ -41,13 +41,16 @@ class CenterController extends Controller
 
         //echo "Centre afegit!";
 
+        $status_actived = '1';
+
         Center::create([
             'name' => $request->input('name'),
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
             'email' => $request->input('email'),
+            'status' => $status_actived,
         ]);
-        return redirect()->route('center_form')->with('success', 'Centre afegit correctament!');
+        return redirect()->route('center_form')->with('success_added', 'Centre afegit correctament!');
     }
 
     /**
@@ -81,4 +84,73 @@ class CenterController extends Controller
     {
         //
     }
+
+
+
+    /* *********** */
+    /* OWN METHODS */
+    /* *********** */
+    
+    /**
+     * Display a listing of the resource.
+     */
+    public function index_desactivatedCenters()
+    {
+        $centers = Center::all();
+        return view("components.contents.center.centersDesactivatedList")->with('centers', $centers);
+    }
+
+    /**
+     * Activate Status the specified resource in storage.
+     */
+    public function activateStatus(Request $request, Center $center)
+    {
+        $center->status = 1;
+        $center->save();
+        
+        return redirect()->route('centers_desactivated_list')->with('success_activated', 'Centre activat correctament!');;;
+    }
+
+    /**
+     * Desactivate Status the specified resource in storage.
+     */
+    public function desactivateStatus(Request $request, Center $center)
+    {
+        $center->update(['status' => 0]);
+
+        $center->status = 0;
+        $center->save();
+        
+        return redirect()->route('centers_list')->with('success_desactivated', 'Centre desactivat correctament!');;
+    }
+
+    /**
+     * Download CSV from resource in storage
+     */
+    public function downloadCSV(int $statusParam)
+    {
+        $centers = Center::where('status', $statusParam)->get();
+
+        $filename = $statusParam == 1 ? "centres_actius.csv" : "centres_no_actius.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['ID', 'Nom', 'Adreça', 'Telèfon', 'Email', 'Estat']);
+
+        foreach ($centers as $center) {
+            fputcsv($handle, [
+                $center->id,
+                $center->name,
+                $center->address,
+                $center->phone,
+                $center->email,
+                $center->status == 1 ? 'Actiu' : 'No actiu',
+            ]);
+        }
+
+        // Close Pointer File
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+
 }

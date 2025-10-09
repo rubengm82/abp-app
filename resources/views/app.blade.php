@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Valparadis App')</title>
     @vite('resources/css/app.css')
+    <link rel="stylesheet" href="{{ asset('css/fontawesome701.css') }}">
 </head>
 <body class="bg-gray-100">
 
@@ -30,5 +31,6 @@
 
     </main>
 
+<script src="{{ asset('js/components/individual/toast.js') }}"></script>
 </body>
 </html>
