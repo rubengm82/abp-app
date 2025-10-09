@@ -15,7 +15,7 @@
     <div class="dropdown dropdown-end">
         <!-- Button dropdown - ICON USER -->
         <label tabindex="0" class="bg-orange-500 hover:bg-orange-400 text-white w-9 h-9 flex items-center justify-center rounded-full cursor-pointer">
-            <i class="fa-solid fa-user text-xl"></i>
+            <span>X</span>
         </label>
 
         <!-- Menu -->
