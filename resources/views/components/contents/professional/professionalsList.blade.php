@@ -4,6 +4,8 @@
 <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de professionals</h1>
 <div class="flex justify-end">
     <a href="{{ route('professionals.downloadCSV', ['status' => 1]) }}" class="link link-warning text-right">Descarregar Llista</a>
+    <span class="mx-2"></span>
+    <a href="{{ route('professionals.downloadCSVlockers') }}" class="link link-warning text-right">Descarregar Taquilles</a>
 </div>
 
 <div class="max-w-full mx-auto bg-white p-6 rounded shadow overflow-x-auto">
@@ -22,6 +24,9 @@
                 <th>Rol</th>
                 <th>Telèfon</th>
                 <th>Email</th>
+                <th>Samarreta</th>
+                <th>Pantaló</th>
+                <th>Sabata</th>
                 <th>Estat</th>
                 <th></th>
             </tr>
@@ -43,6 +48,9 @@
                 <td>{{ $professional->role }}</td>
                 <td>{{ $professional->phone }}</td>
                 <td>{{ $professional->email }}</td>
+                <td>{{ $professional->shirt_size }}</td>
+                <td>{{ $professional->pants_size }}</td>
+                <td>{{ $professional->shoe_size }}</td>
                 <td>
                     <span class="badge {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
                         {{ $professional->employment_status }}
@@ -50,8 +58,8 @@
                 </td>
                 <td class="flex justify-end gap-2">
                     <a href="{{ route('professional_edit', $professional->id) }}" class="btn btn-sm btn-info">Editar</a>
-                    <a href="" class="btn btn-sm btn-error">Desactivar</a>
-                    </td>
+                    <a href="{{ route('professional_desactivate', $professional->id) }}" class="btn btn-sm btn-error">Desactivar</a>
+                </td>
                 </tr>
             @endif
         </tbody>
@@ -61,6 +69,13 @@
         <div class="toast toast-end">
             <div class="alert alert-success">
                 <span>{{ session('success_updated') }}</span>
+            </div>
+        </div>
+    @endif
+    @if (session('success_desactivated'))
+        <div class="toast toast-end">
+            <div class="alert alert-success">
+                <span>{{ session('success_desactivated') }}</span>
             </div>
         </div>
     @endif

@@ -1,9 +1,9 @@
 @extends('app')
 
 @section('content')
-<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-2xl font-bold mb-6">Editar professional</h2>
+<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Editar professional</h1>
 
+<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
     <form action="{{ route('professional_update', $professional->id) }}" method="post" class="space-y-4">
         @csrf
 
@@ -60,13 +60,9 @@
         <input type="text" name="login" id="id_login" placeholder="Usuari de login" class="input input-bordered w-full" value="{{ old('login', $professional->login) }}">
         <input type="password" name="password" id="id_password" placeholder="Contrasenya (deixar buit per mantenir l'actual)" class="input input-bordered w-full">
 
-        <div>
-            <p class="text-red text-center text-green-600">{{ session('success') }}</p>
-        </div>
-
         <div class="flex gap-2 mt-4">
-            <input type="submit" value="Actualitzar" class="btn btn-primary flex-1">
             <a href="{{ route('professionals_list') }}" class="btn flex-1">Cancel·lar</a>
+            <input type="submit" value="Actualitzar" class="btn btn-info flex-1">
         </div>
     </form>
 </div>

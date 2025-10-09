@@ -32,8 +32,19 @@ Route::get('/professional_form', [ProfessionalController::class, "create"])->nam
 Route::post('/professional_add', [ProfessionalController::class, "store"])->name("professional_add");
 Route::get('/professionals_list', [ProfessionalController::class, "index"])->name("professionals_list");
 Route::get('/professionals_desactivated_list', [ProfessionalController::class, "index_desactivatedCenters"])->name("professionals_desactivated_list");
-// activate
-// desactivate
+
+Route::get('/professional/activate/{professional_id}', [ProfessionalController::class, 'activateStatus'])->name('professional_activate');
+Route::get('/professional/desactivate/{professional_id}', [ProfessionalController::class, 'desactivateStatus'])->name('professional_desactivate');
+
 Route::post('/professional_update/{id}', [ProfessionalController::class, "update"])->name("professional_update");
 Route::get('/professional_edit/{id}', [ProfessionalController::class, "edit"])->name("professional_edit");
 Route::get('/professionals/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
+Route::get('/professionals/downloadCSVlockers', [ProfessionalController::class, 'downloadCSVlockers'])->name('professionals.downloadCSVlockers');
+
+
+// Routes for uniform records
+Route::get('/uniform_records_list', [UniformRecordController::class, "index"])->name("uniform_records_list");
+
+Route::post('/uniform_record_update/{id}', [UniformRecordController::class, "update"])->name("uniform_record_update");
+Route::get('/uniform_record_edit/{id}', [UniformRecordController::class, "edit"])->name("uniform_record_edit");
+Route::get('/uniform_records/downloadCSV', [UniformRecordController::class, 'downloadCSV'])->name('uniform_records.downloadCSV');
