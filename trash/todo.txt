@@ -1,22 +1,29 @@
-# PROFESSIONALS CRUD - TODO LIST
-# Sprint 2 - Extracted Tasks from trash/professionals_todo.txt | You can use the original file to reference for some things
-# Generated: 2025-10-08
+# proyectos_comisiones CRUD - TODO LIST
 
-## HIGH PRIORITY TASKS
-
-* Create a super simple .md from this todo.txt in english ✓
-* Confirm that the login html were correctly implemented, incluyendo una buena distribución de los directorios ✓
-* Implementar el formulario de inserción de profesionales, sino está creado, si sí, revisar que esté al día. ✓
-* Corregir la redirección al haber añadido correctamente un profesional, insiparse en cómo lo hace el formulario de "Centers" ✓
-** Validar los valores ingresados en el formulario de profesionales ✓
-* Implementar el listado de profesionales con el get y el post correctos y utilizando los métodos que corresponden, inspirandose en "Centers". ✓
-** Implementar columna con un botón para editar, el objetivo será modificar la información del registro (implementar botón que debe de llevar como parámetro el objeto entero del registro, pero por ahora no debe de hacer nada)
-** Implementar columna con un soft delete en el listado anterior
-** Implementar filtro a la lista de profesionales para mostrar los inactivas (sólo inactivos)
+* Añadir en resources/views/components/contents la carpetas de proyectos y comisiones, tanto para listar como para el despliegue
+* Añadir formulario de alta para proyectos y comisiones (2)
+* Añadir el "componente" de listas de proyectos y comisiones (2) de manera parecida a que hace Centros y Profesionales, más info en To know
+* Añadir las routes en web.php
+* Añadir el Modelo
+* Añadir el Controlador
+** Configurar el método index
+** Configurar el método store
+** Configurar el método update
+** Configurar el método para el soft delete
+* Añadir seeders si no están implementados
+** Testear la base de datos con el fresh
+* Despliegue: Este será un "componente" que en lugar de listar como hasta ahora, mostrará todas la información sobre el p/c. Para empezar, con que reciba el registro e imprima el título será suficiente.
+* Asegurarse de que no me he dejado ningún paso que se haya hecho para otro caso (Centros, profesionales).
 
 To know:
-* Todo debe de estar maquetado lo más simple posible con tailwind + daisyUIe
-* "Centers" context: app/Http/Controllers/CenterController.php, routes/web.php, resources/views/components/contents/center/*
+* Todo debe de estar maquetado lo más simple posible con tailwind + daisyUI
+* Tanto proyectos como comisiones no tendrá el botón edit ni desactivar, sino que, el nombre/título del proyecto/comision será un link que llebará al despliegue del proyecto/comision
+* Hay 2 archivos para diferenciar entre pry y com pero es una única tabla, de ahí que sólo haya 1 modelo y 1 controlador. Dividelos si lo crees correcto.
 
-New todo:
-* resources/views/components/contents/professional/professionalsList.blade.php line 33
+TODO 2: No empezar hasta que se solicite explicitamente
+* Añade el modelo si es necesario de la nueva tabla de database/migrations/2025_09_30_103325_create_project_commission_notes_table.php 
+* También el controlador si es necesario
+* Haz que la función show de app/Http/Controllers/ProjectCommissionController.php devuelva también el array de notas que la tabla anterir tenga asignadas a través del fk
+* Añade un botón en el  resources/views/components/contents/projectcommission/projectCommissionShow.blade.php para añadir nota
+* Haz un bucle para cargar las notas debajo de la información principal con un estílo semejante, mostrando el creador de la nota, y la fecha de creación, imporante, en orden anti cronológico
+* Crea seeders para la tabla de notas

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CenterController;
 use App\Http\Controllers\ProfessionalController;
+use App\Http\Controllers\ProjectCommissionController;
+use App\Http\Controllers\ProjectCommissionNoteController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -42,10 +44,31 @@ Route::get('/professional_edit/{id}', [ProfessionalController::class, "edit"])->
 Route::get('/professionals/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
 Route::get('/professionals/downloadCSVlockers', [ProfessionalController::class, 'downloadCSVlockers'])->name('professionals.downloadCSVlockers');
 
+/* ROUTES FOR PROJECT/COMMISSION REGISTRATION FORMS */
+Route::get('/projectcommission_form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
+Route::post('/projectcommission_add', [ProjectCommissionController::class, "store"])->name("projectcommission_add");
+Route::get('/projectcommissions_list', [ProjectCommissionController::class, "index"])->name("projectcommissions_list");
+Route::get('/projectcommissions_desactivated_list', [ProjectCommissionController::class, "indexDesactivated"])->name("projectcommissions_desactivated_list"); //REVISAR
+Route::get('/projectcommission/activate/{projectCommission}', [ProjectCommissionController::class, 'activateStatus'])->name('projectcommission_activate'); //REVISAR
+Route::get('/projectcommission/desactivate/{projectCommission}', [ProjectCommissionController::class, 'desactivateStatus'])->name('projectcommission_desactivate'); //REVISAR
+Route::post('/projectcommission/{projectCommission}', [ProjectCommissionController::class, "update"])->name("projectcommission_update"); //REVISAR
+Route::get('/projectcommission/show/{projectCommission}', [ProjectCommissionController::class, 'show'])->name('projectcommission_show');
+Route::get('/projectcommission/edit/{projectCommission}', [ProjectCommissionController::class, 'edit'])->name('projectcommission_edit');
+Route::get('/projectcommissions/downloadCSV/{status}', [ProjectCommissionController::class, 'downloadCSV'])->name('projectcommissions.downloadCSV');
 
+/* ROUTES FOR PROJECT/COMMISSION NOTES REVISAR */ 
+Route::post('/projectcommission/{projectCommission}/notes', [ProjectCommissionNoteController::class, 'store'])->name('projectcommission_note_add');
+Route::delete('/projectcommission/notes/{note}', [ProjectCommissionNoteController::class, 'destroy'])->name('projectcommission_note_delete');
+
+
+
+
+//TODO: Implement routes for uniform records
 // Routes for uniform records
-Route::get('/uniform_records_list', [UniformRecordController::class, "index"])->name("uniform_records_list");
+// Route::get('/uniform_records_list', [UniformRecordController::class, "index"])->name("uniform_records_list");
 
-Route::post('/uniform_record_update/{id}', [UniformRecordController::class, "update"])->name("uniform_record_update");
-Route::get('/uniform_record_edit/{id}', [UniformRecordController::class, "edit"])->name("uniform_record_edit");
-Route::get('/uniform_records/downloadCSV', [UniformRecordController::class, 'downloadCSV'])->name('uniform_records.downloadCSV');
+// Route::post('/uniform_record_update/{id}', [UniformRecordController::class, "update"])->name("uniform_record_update");
+// Route::get('/uniform_record_edit/{id}', [UniformRecordController::class, "edit"])->name("uniform_record_edit");
+// Route::get('/uniform_records/downloadCSV', [UniformRecordController::class, 'downloadCSV'])->name('uniform_records.downloadCSV');
+
+

@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             ProjectCommissionSeeder::class,
             ProjectCommissionDocumentSeeder::class,
             MaterialAssignmentSeeder::class,
+            ProjectCommissionNoteSeeder::class,
         ]);
     }
 }

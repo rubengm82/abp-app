@@ -16,7 +16,7 @@ class ProjectCommissionDocumentSeeder extends Seeder
         $projectCommissionDocuments = [
             [
                 'file_name' => 'memoria_projecte_integracio.pdf',
-                'file_content' => null, // Null as specified in todo.txt
+                'file_content' => null, 
                 'project_commission_id' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -65,7 +65,6 @@ class ProjectCommissionDocumentSeeder extends Seeder
             ],
         ];
 
-        // Elimina toda la tabla primero antes de insertar datos
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('project_commission_documents')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

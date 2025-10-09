@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description')->comment('Project description')->nullable();
             $table->text('notes')->comment('Additional notes')->nullable();
             $table->enum('type', ['Projecte', 'Comissió'])->comment('Type: Projecte, Comissió')->nullable();
-
+            $table->enum('status', ['Actiu', 'Inactiu'])->comment('Status: Actiu, Inactiu')->nullable();
             // FKs
             $table->foreign('responsible_professional_id')->references('id')->on('professionals')->onDelete('cascade');
 

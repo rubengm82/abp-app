@@ -33,6 +33,21 @@
                     Afegir Professional
                 </a>
             </li>
+            <li>
+                <a href="{{ route('projectcommissions_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Projectes/Comissions
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('projectcommissions_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Projectes/Comissions <small>(Desactivats)</small>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('projectcommission_form') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Afegir Projecte/Comissió
+                </a>
+            </li>
         </ul>
     </nav>
 
