@@ -1,9 +1,9 @@
 @extends('app')
 
 @section('content')
-<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de professionals</h1>
+<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de professionals desactivats</h1>
 <div class="flex justify-end">
-    <a href="{{ route('professionals.downloadCSV', ['status' => 1]) }}" class="link link-warning text-right">Descarregar Llista</a>
+    <a href="{{ route('professionals.downloadCSV', ['status' => 0]) }}" class="link link-warning text-right">Descarregar Llista</a>
 </div>
 
 <div class="max-w-full mx-auto bg-white p-6 rounded shadow overflow-x-auto">
@@ -29,7 +29,7 @@
         @foreach ($professionals as $professional)
         <tbody>
             <!-- TODO: Añadir contorl de overflow-->
-            @if ($professional->status == 1)
+            @if ($professional->status == 0)
             <tr class="hover:bg-base-300">
                 <th>{{ $professional->id }}</th>
                 <td>{{ $professional->center_id }}</td>
@@ -49,9 +49,8 @@
                     </span>
                 </td>
                 <td class="flex justify-end gap-2">
-                    <a href="{{ route('professional_edit', $professional->id) }}" class="btn btn-sm btn-info">Editar</a>
-                    <a href="" class="btn btn-sm btn-error">Desactivar</a>
-                    </td>
+                    <a href="" class="btn btn-sm btn-info">Activar</a>
+                </td>
                 </tr>
             @endif
         </tbody>

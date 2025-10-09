@@ -19,13 +19,18 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('professional_form') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Afegir Professional
+                <a href="{{ route('professionals_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Professionals
                 </a>
             </li>
             <li>
-                <a href="{{ route('professionals_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Llistar Professionals
+                <a href="{{ route('professionals_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Professionals <small>(Desactivats)</small>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('professional_form') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Afegir Professional
                 </a>
             </li>
         </ul>

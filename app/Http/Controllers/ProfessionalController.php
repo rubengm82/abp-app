@@ -152,10 +152,83 @@ class ProfessionalController extends Controller
     {
         //
     }
-public function indexActive()
-{
-    // Assuming 'status' is a column in the 'professionals' table
-    $professionals = Professional::where('status', '!=', 0)->get();
-    return view('components.contents.professional.professionalsList', compact('professionals'));
-}
+
+    /* *********** */
+    /* OWN METHODS */
+    /* *********** */
+    
+    /**
+     * Display a listing of the resource.
+     */
+    public function index_desactivatedCenters()
+    {
+        $professionals = Professional::all();
+        return view("components.contents.professional.professionalsDesactivatedList")->with('professionals', $professionals);
+    }
+
+    /**
+     * Activate Status the specified resource in storage.
+     */
+    public function activateStatus(Request $request, Center $center)
+    {
+        $center->status = 1;
+        $center->save();
+        
+        return redirect()->route('professionals_desactivated_list')->with('success_activated', 'Professional activat correctament!');;;
+    }
+
+    /**
+     * Desactivate Status the specified resource in storage.
+     */
+    public function desactivateStatus(Request $request, Center $center)
+    {
+        $center->update(['status' => 0]);
+
+        $center->status = 0;
+        $center->save();
+        
+        return redirect()->route('professionals_list')->with('success_desactivated', 'Professional desactivat correctament!');;
+    }
+
+    /**
+     * Download CSV from resource in storage
+     */
+    public function downloadCSV(int $statusParam)
+    {
+        $professionals = Professional::where('status', $statusParam)->get();
+
+        $filename = $statusParam == 1 ? "professionals_actius.csv" : "professionals_actius_no_actius.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['ID', 'Centre ID', 'Rol', 'Nom', 'Cognom 1', 'Cognom 2', 'DNI', 'Telèfon', 'Email', 'Adreça', 'Situació laboral', 'Currículum', 'Usuari', 'Contrasenya', 'Codi clau', 'Talla samarreta', 'Talla pantalons', 'Talla sabates', 'Estat']);
+
+        foreach ($professionals as $professional) {
+            fputcsv($handle, [
+                $professional->id,
+                $professional->center_id,
+                $professional->role,
+                $professional->name,
+                $professional->surname1,
+                $professional->surname2,
+                $professional->dni,
+                $professional->phone,
+                $professional->email,
+                $professional->address,
+                $professional->employment_status,
+                $professional->cvitae,
+                $professional->login,
+                $professional->password,
+                $professional->key_code,
+                $professional->shirt_size,
+                $professional->pants_size,
+                $professional->shoe_size,
+                $professional->status == 1 ? 'Actiu' : 'No actiu',
+            ]);
+        }
+
+        // Close Pointer File
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
 }

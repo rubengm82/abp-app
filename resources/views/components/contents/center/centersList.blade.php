@@ -1,7 +1,5 @@
 @extends('app')
 
-@section('title', 'Llistar centres')
-
 @section('content')
 <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres</h1>
 <div class="flex justify-end">

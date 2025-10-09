@@ -1,7 +1,5 @@
 @extends('app')
 
-@section('title', 'Afegir centre')
-
 @section('content')
 <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Afegir centre</h1>
 

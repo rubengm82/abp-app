@@ -1,11 +1,9 @@
 @extends('app')
 
-@section('title', 'Afegir professional')
-
 @section('content')
-<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-2xl font-bold mb-6">Afegir professional</h2>
+<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Afegir professional</h1>
 
+<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
     <form action="{{ route('professional_add') }}" method="post" class="space-y-4">
         @csrf
 
@@ -67,8 +65,8 @@
         </div>
 
         <div class="flex gap-2 mt-4">
-            <input type="submit" value="Acceptar" class="btn btn-primary flex-1">
             <input type="reset" value="Reset" class="btn flex-1">
+            <input type="submit" value="Acceptar" class="btn btn-info flex-1">
         </div>
     </form>
 </div>
