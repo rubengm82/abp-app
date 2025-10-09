@@ -62,7 +62,7 @@ class ProfessionalController extends Controller
             'phone' => $validated['phone'],
             'email' => $validated['email'],
             'address' => $validated['address'],
-            'employment_status' => $validated['employment_status'],
+            'employment_status' => $validated['employment_status'] ?? 'Actiu',
             'cvitae' => $validated['cvitae'],
             'login' => $validated['login'],
             // 'password' => $validated['password'] ? bcrypt($validated['password']) : null, // Encriptar la contraseña
@@ -142,7 +142,7 @@ class ProfessionalController extends Controller
             'shoe_size' => $validated['shoe_size'],
         ]);
 
-        return redirect()->route('professionals_list')->with('success', 'Professional actualitzat correctament!');
+        return redirect()->route('professionals_list')->with('success_updated', 'Professional actualitzat correctament!');
     }
 
     /**
