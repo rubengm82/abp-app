@@ -169,10 +169,11 @@ class ProfessionalController extends Controller
     /**
      * Activate Status the specified resource in storage.
      */
-    public function activateStatus(Request $request, Center $center)
+    public function activateStatus(Request $request, String $professional_id)
     {
-        $center->status = 1;
-        $center->save();
+        $professional = Professional::findOrFail($professional_id);
+        $professional->status = 1;
+        $professional->save();
         
         return redirect()->route('professionals_desactivated_list')->with('success_activated', 'Professional activat correctament!');;;
     }
@@ -180,13 +181,16 @@ class ProfessionalController extends Controller
     /**
      * Desactivate Status the specified resource in storage.
      */
-    public function desactivateStatus(Request $request, Center $center)
+    public function desactivateStatus(Request $request, String $professional_id)
     {
-        $center->update(['status' => 0]);
 
-        $center->status = 0;
-        $center->save();
-        
+        $professional = Professional::findOrFail($professional_id);
+
+        $professional->update(['status' => 0]);
+
+        $professional->status = 0;
+        $professional->save();
+        syslog(1, "Professional desactivat correctament!");
         return redirect()->route('professionals_list')->with('success_desactivated', 'Professional desactivat correctament!');;
     }
 
@@ -223,6 +227,31 @@ class ProfessionalController extends Controller
                 $professional->pants_size,
                 $professional->shoe_size,
                 $professional->status == 1 ? 'Actiu' : 'No actiu',
+            ]);
+        }
+
+        // Close Pointer File
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+
+    public function downloadCSVlockers()
+    {
+        $professionals = Professional::all();
+
+        $filename = "taquilles_professionals.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['ID', 'Nom', 'Samarreta', 'Pantaló', 'Sabata']);
+
+        foreach ($professionals as $professional) {
+            fputcsv($handle, [
+                $professional->id,
+                $professional->name,
+                $professional->shirt_size,
+                $professional->pants_size,
+                $professional->shoe_size,
             ]);
         }
 

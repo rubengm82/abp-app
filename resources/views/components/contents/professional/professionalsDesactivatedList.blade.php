@@ -22,6 +22,9 @@
                 <th>Rol</th>
                 <th>Telèfon</th>
                 <th>Email</th>
+                <th>Samarreta</th>
+                <th>Pantaló</th>
+                <th>Sabata</th>
                 <th>Estat</th>
                 <th></th>
             </tr>
@@ -43,23 +46,26 @@
                 <td>{{ $professional->role }}</td>
                 <td>{{ $professional->phone }}</td>
                 <td>{{ $professional->email }}</td>
+                <td>{{ $professional->shirt_size }}</td>
+                <td>{{ $professional->pants_size }}</td>
+                <td>{{ $professional->shoe_size }}</td>
                 <td>
                     <span class="badge {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
                         {{ $professional->employment_status }}
                     </span>
                 </td>
                 <td class="flex justify-end gap-2">
-                    <a href="" class="btn btn-sm btn-info">Activar</a>
+                    <a href="{{ route('professional_activate', $professional->id) }}" class="btn btn-sm btn-info">Activar</a>
                 </td>
                 </tr>
             @endif
         </tbody>
         @endforeach
     </table>
-    @if (session('success_updated'))
+    @if (session('success_activated'))
         <div class="toast toast-end">
             <div class="alert alert-success">
-                <span>{{ session('success_updated') }}</span>
+                <span>{{ session('success_activated') }}</span>
             </div>
         </div>
     @endif
