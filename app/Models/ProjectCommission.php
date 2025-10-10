@@ -44,13 +44,13 @@ class ProjectCommission extends Model
         return $this->hasMany(ProjectCommissionNote::class, 'project_commission_id')->orderBy('created_at', 'desc');
     }
 
-    // /**
-    //  * Relación con los documentos del proyecto/comisión
-    //  */
-    // public function documents()
-    // {
-    //     return $this->hasMany(ProjectCommissionDocument::class);
-    // }
+    /**
+     * Relación con los documentos del proyecto/comisión
+     */
+    public function projectCommissionDocuments()
+    {
+        return $this->hasMany(ProjectCommissionDocument::class, 'project_commission_id')->orderBy('created_at', 'desc');
+    }
 
     // /**
     //  * Relación con las asignaciones del proyecto/comisión

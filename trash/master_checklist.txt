@@ -1,0 +1,82 @@
+# CRUD Checklist - Pasos Básicos para Crear un CRUD Completo
+
+## 1. BASE DE DATOS
+- [ ] Crear/Revisar migración (database/migrations/)
+- [ ] Crear/Revisar seeder (database/seeders/)
+- [ ] Ejecutar migración: `php artisan migrate`
+- [ ] Ejecutar seeder: `php artisan db:seed --class=NombreSeeder`
+- Nunca crear archivos nuevos de tipo add ni delete.
+
+## 2. MODELO
+- [ ] Crear modelo (app/Models/)
+- [ ] Definir $fillable
+- [ ] Definir $casts si es necesario
+- [ ] Crear relaciones (belongsTo, hasMany, etc.)
+- [ ] Agregar métodos estáticos si es necesario
+
+## 3. CONTROLADOR
+- [ ] Crear controlador (app/Http/Controllers/)
+- [ ] Implementar métodos CRUD:
+  - [ ] index() - Listar
+  - [ ] create() - Mostrar formulario
+  - [ ] store() - Guardar nuevo
+  - [ ] show() - Mostrar detalle
+  - [ ] edit() - Mostrar formulario edición
+  - [ ] update() - Actualizar
+  - [ ] destroy() - Eliminar
+- [ ] Agregar validaciones
+- [ ] Agregar métodos adicionales (downloadCSV, etc.)
+
+## 4. RUTAS
+- [ ] Agregar import del controlador en routes/web.php
+- [ ] Definir todas las rutas CRUD (No siempre van a ser necesarias todas la rutas):
+  - [ ] GET /resource/list (index)
+  - [ ] GET /resource/form (create)
+  - [ ] POST /resource/store (store)
+  - [ ] GET /resource/show/{id} (show)
+  - [ ] GET /resource/edit/{id} (edit)
+  - [ ] PUT /resource/update/{id} (update)
+  - [ ] DELETE /resource/delete/{id} (destroy)
+- [ ] Agregar rutas adicionales si es necesario
+
+## 5. VISTAS
+- [ ] Crear carpeta en resources/views/components/contents/
+- [ ] Crear vistas:
+  - [ ] Formulario (create/edit)
+  - [ ] Lista (index)
+  - [ ] Detalle (show)
+- [ ] Usar Tailwind + DaisyUI
+- [ ] Agregar validaciones de errores
+- [ ] Agregar mensajes de éxito
+- [ ] Hacer responsive
+
+## 6. NAVEGACIÓN
+- [ ] Agregar enlace en sidebar (resources/views/components/layout/sidebar.blade.php)
+- [ ] Verificar que todas las rutas funcionen
+- [ ] Probar navegación completa
+
+## 7. FUNCIONALIDADES ADICIONALES
+- [ ] Descarga CSV (si es necesario)
+- [ ] Confirmaciones de eliminación
+
+## 8. TESTING
+- [ ] Probar crear registro
+- [ ] Probar editar registro
+- [ ] Probar eliminar registro
+- [ ] Probar validaciones
+- [ ] Probar relaciones
+- [ ] Probar descargas
+- [ ] Probar en diferentes navegadores
+
+## 9. DOCUMENTACIÓN
+- [ ] Comentar código complejo
+- [ ] Documentar métodos importantes
+- [ ] Agregar TODOs para mejoras futuras
+
+## NOTAS IMPORTANTES:
+- Siempre usar Tailwind CSS + DaisyUI para el diseño
+- Mantener consistencia con el resto de la aplicación
+- Usar nombres en catalán para la interfaz
+- Validar tanto en frontend como backend
+- Hacer los comentarios en Ingles, menos los todos de recordatorio y revisión
+- Usar relaciones de Eloquent correctamente

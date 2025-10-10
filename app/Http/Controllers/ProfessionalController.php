@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Professional;
 use App\Models\Center;
+use App\Models\MaterialAssignment;
 use Illuminate\Http\Request;
 
 class ProfessionalController extends Controller
@@ -46,9 +47,6 @@ class ProfessionalController extends Controller
             'login' => 'nullable|string|max:100|unique:professionals,login',
             'password' => 'nullable|string|min:6',
             'key_code' => 'nullable|string|max:50',
-            'shirt_size' => 'nullable|string|max:10',
-            'pants_size' => 'nullable|string|max:10',
-            'shoe_size' => 'nullable|string|max:10',
         ]);
 
         // Crear el profesional con los datos validados
@@ -68,9 +66,6 @@ class ProfessionalController extends Controller
             // 'password' => $validated['password'] ? bcrypt($validated['password']) : null, // Encriptar la contraseña
             'password' => $validated['password'],
             'key_code' => $validated['key_code'],
-            'shirt_size' => $validated['shirt_size'],
-            'pants_size' => $validated['pants_size'],
-            'shoe_size' => $validated['shoe_size'],
             'status' => 1, // Considerar si es necesario o utiliza employment_status
         ]);
 
@@ -82,7 +77,8 @@ class ProfessionalController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $professional = Professional::findOrFail($id);
+        return view('components.contents.professional.professionalShow')->with('professional', $professional);
     }
 
     /**
@@ -116,9 +112,6 @@ class ProfessionalController extends Controller
             'login' => 'nullable|string|max:100|unique:professionals,login,' . $id,
             'password' => 'nullable|string|min:6',
             'key_code' => 'nullable|string|max:50',
-            'shirt_size' => 'nullable|string|max:10',
-            'pants_size' => 'nullable|string|max:10',
-            'shoe_size' => 'nullable|string|max:10',
         ]);
 
         // Actualizar el profesional con los datos validados
@@ -137,9 +130,6 @@ class ProfessionalController extends Controller
             'login' => $validated['login'],
             'password' => $validated['password'] ?: $professional->password, // keep the password if it is not provided
             'key_code' => $validated['key_code'],
-            'shirt_size' => $validated['shirt_size'],
-            'pants_size' => $validated['pants_size'],
-            'shoe_size' => $validated['shoe_size'],
         ]);
 
         return redirect()->route('professionals_list')->with('success_updated', 'Professional actualitzat correctament!');
@@ -204,7 +194,7 @@ class ProfessionalController extends Controller
         $filename = $statusParam == 1 ? "professionals_actius.csv" : "professionals_actius_no_actius.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Centre ID', 'Rol', 'Nom', 'Cognom 1', 'Cognom 2', 'DNI', 'Telèfon', 'Email', 'Adreça', 'Situació laboral', 'Currículum', 'Usuari', 'Contrasenya', 'Codi clau', 'Talla samarreta', 'Talla pantalons', 'Talla sabates', 'Estat']);
+        fputcsv($handle, ['ID', 'Centre ID', 'Rol', 'Nom', 'Cognom 1', 'Cognom 2', 'DNI', 'Telèfon', 'Email', 'Adreça', 'Situació laboral', 'Currículum', 'Usuari', 'Contrasenya', 'Codi clau', 'Estat']);
 
         foreach ($professionals as $professional) {
             fputcsv($handle, [
@@ -223,9 +213,6 @@ class ProfessionalController extends Controller
                 $professional->login,
                 $professional->password,
                 $professional->key_code,
-                $professional->shirt_size,
-                $professional->pants_size,
-                $professional->shoe_size,
                 $professional->status == 1 ? 'Actiu' : 'No actiu',
             ]);
         }
@@ -236,28 +223,43 @@ class ProfessionalController extends Controller
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 
-    public function downloadCSVlockers()
+    /**
+     * Download CSV with material assignments for professionals (new method).
+     */
+    //TODO: Revisar si es necesario tenerlo aquí o en el modelo de MaterialAssignment
+    public function downloadCSVMaterialAssignments()
     {
-        $professionals = Professional::all();
-
-        $filename = "taquilles_professionals.csv";
-
+        $professionals = Professional::where('status', 1)->get();
+        
+        $filename = "professionals_assignacions_material.csv";
+        
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Nom', 'Samarreta', 'Pantaló', 'Sabata']);
-
+        fputcsv($handle, ['ID', 'Nom', 'Cognom', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per']);
+        
         foreach ($professionals as $professional) {
+            $shirtSize = MaterialAssignment::getLatestShirtSize($professional->id);
+            $pantsSize = MaterialAssignment::getLatestPantsSize($professional->id);
+            $shoeSize = MaterialAssignment::getLatestShoeSize($professional->id);
+            
+            $latestAssignment = MaterialAssignment::getLatestForProfessional($professional->id);
+            $assignmentDate = $latestAssignment ? $latestAssignment->assignment_date->format('d/m/Y') : 'No assignat';
+            $assignedBy = $latestAssignment && $latestAssignment->assignedBy ? 
+                $latestAssignment->assignedBy->name . ' ' . $latestAssignment->assignedBy->surname1 : 'No especificat';
+            
             fputcsv($handle, [
                 $professional->id,
                 $professional->name,
-                $professional->shirt_size,
-                $professional->pants_size,
-                $professional->shoe_size,
+                $professional->surname1,
+                $shirtSize ?: 'No assignat',
+                $pantsSize ?: 'No assignat',
+                $shoeSize ?: 'No assignat',
+                $assignmentDate,
+                $assignedBy,
             ]);
         }
-
-        // Close Pointer File
+        
         fclose($handle);
-
+        
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 }

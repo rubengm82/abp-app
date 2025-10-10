@@ -1,0 +1,5 @@
+# Ruben_todo.txt
+# 10/10/25
+
+* Reemplazar botones tipo "Eliminar" por icono de Basura de color rojo, una vez hecho lo del svg...
+* Proponer/hacer un nuevo estílo para el sidebar

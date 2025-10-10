@@ -5,17 +5,12 @@
         <ul class="text-[#555555]">
             <li>
                 <a href="{{ route('centers_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Llistar Centres
+                    Llistat de Centres
                 </a>
             </li>
             <li>
                 <a href="{{ route('centers_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Llistar Centres <small>(Desactivats)</small>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('center_form') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Afegir Centre
+                    Llistat de Centres <small>(Desactivats)</small>
                 </a>
             </li>
             <li>
@@ -29,11 +24,6 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('professional_form') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Afegir Professional
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('projectcommissions_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
                     Llistar Projectes/Comissions
                 </a>
@@ -44,8 +34,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('projectcommission_form') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Afegir Projecte/Comissió
+                <a href="{{ route('materialassignments_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Registre de Uniformitat
                 </a>
             </li>
         </ul>

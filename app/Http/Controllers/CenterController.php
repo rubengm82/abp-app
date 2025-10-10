@@ -10,10 +10,23 @@ class CenterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $centers = Center::all();
-        return view("components.contents.center.centersList")->with('centers', $centers);
+        $query = $request->get('search');
+        
+        if ($query) {
+            $centers = Center::where('name', 'like', '%' . $query . '%')
+                ->orWhere('address', 'like', '%' . $query . '%')
+                ->orWhere('phone', 'like', '%' . $query . '%')
+                ->orWhere('email', 'like', '%' . $query . '%')
+                ->get();
+        } else {
+            $centers = Center::all();
+        }
+        
+        return view("components.contents.center.centersList")
+            ->with('centers', $centers)
+            ->with('searchQuery', $query);
     }
 
     /**
@@ -58,7 +71,8 @@ class CenterController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $center = Center::findOrFail($id);
+        return view('components.contents.center.centerShow')->with('center', $center);
     }
 
     /**

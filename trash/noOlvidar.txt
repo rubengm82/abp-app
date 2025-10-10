@@ -1,0 +1,9 @@
+* Modificar botones de descarga a: "Exportar a CSV" y abrir panel de formato (Lista completa, Uniformidad...)
+* Añadir notas naranjas/warning que son de tipo privado / solo admin etc
+* Añadir timestamp a archvios descargados
+* Login y guardado de rol y name en session
+* Sort features
+* Paginación 
+* Transacción
+* Particion de tablas
+* indices y convindices

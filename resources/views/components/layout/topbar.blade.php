@@ -1,4 +1,4 @@
-<div class="h-16 bg-[#555555] flex items-center justify-between px-4 w-full fixed top-0 left-0 z-10">
+<div class="h-16 bg-[#555555] flex items-center justify-between px-4 w-full fixed top-0 left-0 z-10 shadow-xl ">
 
     {{-- LEFT --}}
     <!-- Logo  -->

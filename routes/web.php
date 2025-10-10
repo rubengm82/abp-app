@@ -4,6 +4,8 @@ use App\Http\Controllers\CenterController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\ProjectCommissionController;
 use App\Http\Controllers\ProjectCommissionNoteController;
+use App\Http\Controllers\ProjectCommissionDocumentController;
+use App\Http\Controllers\MaterialAssignmentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,6 +30,7 @@ Route::get('/center/activate/{center}', [CenterController::class, 'activateStatu
 Route::get('/center/desactivate/{center}', [CenterController::class, 'desactivateStatus'])->name('center_desactivate');
 Route::post('/center/{center}', [CenterController::class, "update"])->name("center_update");
 Route::get('/center/center_edit/{center}', [CenterController::class, 'edit'])->name('center_edit');
+Route::get('/center_show/{id}', [CenterController::class, "show"])->name("center_show");
 Route::get('/centers/downloadCSV/{status}', [CenterController::class, 'downloadCSV'])->name('centers.downloadCSV');
 
 /* ROUTES FOR PROFESSIONAL REGISTRATION FORMS */
@@ -41,8 +44,9 @@ Route::get('/professional/desactivate/{professional_id}', [ProfessionalControlle
 
 Route::post('/professional_update/{id}', [ProfessionalController::class, "update"])->name("professional_update");
 Route::get('/professional_edit/{id}', [ProfessionalController::class, "edit"])->name("professional_edit");
+Route::get('/professional_show/{id}', [ProfessionalController::class, "show"])->name("professional_show");
+Route::get('/professionals/downloadCSV/material-assignments', [ProfessionalController::class, 'downloadCSVMaterialAssignments'])->name('professionals.downloadCSV.materialAssignments');
 Route::get('/professionals/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
-Route::get('/professionals/downloadCSVlockers', [ProfessionalController::class, 'downloadCSVlockers'])->name('professionals.downloadCSVlockers');
 
 /* ROUTES FOR PROJECT/COMMISSION REGISTRATION FORMS */
 Route::get('/projectcommission_form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
@@ -58,10 +62,26 @@ Route::get('/projectcommissions/downloadCSV/{status}', [ProjectCommissionControl
 
 /* ROUTES FOR PROJECT/COMMISSION NOTES REVISAR */ 
 Route::post('/projectcommission/{projectCommission}/notes', [ProjectCommissionNoteController::class, 'store'])->name('projectcommission_note_add');
+Route::put('/projectcommission/notes/{note}', [ProjectCommissionNoteController::class, 'update'])->name('projectcommission_note_update');
 Route::delete('/projectcommission/notes/{note}', [ProjectCommissionNoteController::class, 'destroy'])->name('projectcommission_note_delete');
 
+/* ROUTES FOR PROJECT/COMMISSION DOCUMENTS */ 
+Route::post('/projectcommission/{projectCommission}/documents', [ProjectCommissionDocumentController::class, 'store'])->name('projectcommission_document_add');
+Route::delete('/projectcommission/documents/{document}', [ProjectCommissionDocumentController::class, 'destroy'])->name('projectcommission_document_delete');
+Route::get('/projectcommission/documents/{document}/download', [ProjectCommissionDocumentController::class, 'download'])->name('projectcommission_document_download');
 
 
+
+
+/* ROUTES FOR MATERIAL ASSIGNMENTS */ 
+Route::get('/materialassignments/list', [MaterialAssignmentController::class, 'index'])->name('materialassignments_list');
+Route::get('/materialassignment/form', [MaterialAssignmentController::class, 'create'])->name('materialassignment_form');
+Route::post('/materialassignment/store', [MaterialAssignmentController::class, 'store'])->name('materialassignment_store');
+Route::get('/materialassignment/show/{materialAssignment}', [MaterialAssignmentController::class, 'show'])->name('materialassignment_show');
+Route::get('/materialassignment/edit/{materialAssignment}', [MaterialAssignmentController::class, 'edit'])->name('materialassignment_edit');
+Route::put('/materialassignment/update/{materialAssignment}', [MaterialAssignmentController::class, 'update'])->name('materialassignment_update');
+Route::delete('/materialassignment/delete/{materialAssignment}', [MaterialAssignmentController::class, 'destroy'])->name('materialassignment_delete');
+Route::get('/materialassignment/downloadCSV', [MaterialAssignmentController::class, 'downloadCSV'])->name('materialassignment_downloadCSV');
 
 //TODO: Implement routes for uniform records
 // Routes for uniform records

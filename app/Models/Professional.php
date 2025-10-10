@@ -26,9 +26,6 @@ class Professional extends Model
         'login',
         'password',
         'key_code',
-        'shirt_size',
-        'pants_size',
-        'shoe_size',
         'status'
     ];
 
