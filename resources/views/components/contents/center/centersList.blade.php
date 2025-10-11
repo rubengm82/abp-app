@@ -3,7 +3,7 @@
 @section('content')
 <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres</h1>
 
-<!-- Search Bar -->
+<!-- Search Bar
 <div class="max-w-md mx-auto mb-6">
     <form method="GET" action="{{ route('centers_list') }}" class="flex gap-2">
         <input 
@@ -18,7 +18,7 @@
             <a href="{{ route('centers_list') }}" class="btn btn-ghost">Netejar</a>
         @endif
     </form>
-</div>
+</div> -->
 
 @if($centers->where('status', 1)->count() > 0)
 <div class="flex justify-end gap-4">

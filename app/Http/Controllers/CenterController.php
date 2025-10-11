@@ -12,21 +12,21 @@ class CenterController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $request->get('search');
+        $centers = Center::all();
+
+        // if ($query) {
+        //     $centers = Center::where('name', 'like', '%' . $query . '%')
+        //         ->orWhere('address', 'like', '%' . $query . '%')
+        //         ->orWhere('phone', 'like', '%' . $query . '%')
+        //         ->orWhere('email', 'like', '%' . $query . '%')
+        //         ->get();
+        // } else {
+        //     $centers = Center::all();
+        // }
         
-        if ($query) {
-            $centers = Center::where('name', 'like', '%' . $query . '%')
-                ->orWhere('address', 'like', '%' . $query . '%')
-                ->orWhere('phone', 'like', '%' . $query . '%')
-                ->orWhere('email', 'like', '%' . $query . '%')
-                ->get();
-        } else {
-            $centers = Center::all();
-        }
         
         return view("components.contents.center.centersList")
-            ->with('centers', $centers)
-            ->with('searchQuery', $query);
+            ->with('centers', $centers);
     }
 
     /**
