@@ -88,6 +88,7 @@ class CenterController extends Controller
      */
     public function update(Request $request, Center $center)
     {
+        //TODO: Considerar añadir validación en el request
         $center->update($request->all());
         
         return redirect()->route('centers_list')->with('success_updated', 'Centre actualitzat correctament!');
@@ -121,8 +122,10 @@ class CenterController extends Controller
      */
     public function activateStatus(Request $request, Center $center)
     {
-        $center->status = 1;
-        $center->save();
+        $center->update(['status' => 1]);
+
+        // $center->status = 1;
+        // $center->save();
         
         return redirect()->route('centers_desactivated_list')->with('success_activated', 'Centre activat correctament!');;;
     }
@@ -134,8 +137,8 @@ class CenterController extends Controller
     {
         $center->update(['status' => 0]);
 
-        $center->status = 0;
-        $center->save();
+        // $center->status = 0;
+        // $center->save();
         
         return redirect()->route('centers_list')->with('success_desactivated', 'Centre desactivat correctament!');;
     }

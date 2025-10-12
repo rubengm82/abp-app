@@ -119,6 +119,7 @@ class MaterialAssignmentController extends Controller
     /**
      * Download CSV with material assignments for professionals.
      */
+    //TODO: Método duplicado, utilizar sólo el de ProfessionalController!, no eliminar por ahora.
     public function downloadCSV()
     {
         $professionals = Professional::where('status', 1)->get();

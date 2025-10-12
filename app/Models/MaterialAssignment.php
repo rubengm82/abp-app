@@ -43,7 +43,8 @@ class MaterialAssignment extends Model
     }
 
     /**
-     * Get the latest material assignment for a professional. //No usar en principio
+     * Get the latest material assignment for a professional. 
+     * No utilizar ya que se necesita especificar el item
      */
     public static function getLatestForProfessional($professionalId)
     {

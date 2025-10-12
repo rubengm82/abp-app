@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Professional;
-use App\Models\Center;
+use App\Models\Center; //TODO: Necesario?
 use App\Models\MaterialAssignment;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class ProfessionalController extends Controller
      */
     public function index()
     {
-        // TODO: No utilizar, crear @ filter para que sólo se muestren los profesionales con status = 1
+        // TODO: Considerar añadir un filtro en la sql
         $professionals = Professional::all();
         return view("components.contents.professional.professionalsList")->with('professionals', $professionals);
     }
@@ -162,8 +162,10 @@ class ProfessionalController extends Controller
     public function activateStatus(Request $request, String $professional_id)
     {
         $professional = Professional::findOrFail($professional_id);
-        $professional->status = 1;
-        $professional->save();
+        $professional->update(['status' => 1]);
+
+        // $professional->status = 1;
+        // $professional->save();
         
         return redirect()->route('professionals_desactivated_list')->with('success_activated', 'Professional activat correctament!');;;
     }
@@ -178,8 +180,8 @@ class ProfessionalController extends Controller
 
         $professional->update(['status' => 0]);
 
-        $professional->status = 0;
-        $professional->save();
+        // $professional->status = 0;
+        // $professional->save();
         syslog(1, "Professional desactivat correctament!");
         return redirect()->route('professionals_list')->with('success_desactivated', 'Professional desactivat correctament!');;
     }
