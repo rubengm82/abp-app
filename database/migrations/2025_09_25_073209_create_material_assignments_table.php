@@ -30,7 +30,6 @@ return new class extends Migration
             
             // Additional information
             $table->text('observations')->nullable()->comment('Observations');
-            $table->string('documents', 500)->nullable()->comment('Related documents');
             
             $table->timestamps();
         });

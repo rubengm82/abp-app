@@ -1,11 +1,17 @@
 <?php
 
 use App\Http\Controllers\CenterController;
+use App\Http\Controllers\CenterNoteController;
+use App\Http\Controllers\CenterDocumentController;
 use App\Http\Controllers\ProfessionalController;
+use App\Http\Controllers\ProfessionalNoteController;
+use App\Http\Controllers\ProfessionalDocumentController;
 use App\Http\Controllers\ProjectCommissionController;
 use App\Http\Controllers\ProjectCommissionNoteController;
 use App\Http\Controllers\ProjectCommissionDocumentController;
 use App\Http\Controllers\MaterialAssignmentController;
+use App\Http\Controllers\MaterialAssignmentNoteController;
+use App\Http\Controllers\MaterialAssignmentDocumentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -33,6 +39,16 @@ Route::get('/center/center_edit/{center}', [CenterController::class, 'edit'])->n
 Route::get('/center_show/{id}', [CenterController::class, "show"])->name("center_show");
 Route::get('/centers/downloadCSV/{status}', [CenterController::class, 'downloadCSV'])->name('centers.downloadCSV');
 
+/* ROUTES FOR CENTER NOTES */
+Route::post('/center/{center}/notes', [CenterNoteController::class, 'store'])->name('center_note_add');
+Route::put('/center/notes/{note}', [CenterNoteController::class, 'update'])->name('center_note_update');
+Route::delete('/center/notes/{note}', [CenterNoteController::class, 'destroy'])->name('center_note_delete');
+
+/* ROUTES FOR CENTER DOCUMENTS */
+Route::post('/center/{center}/documents', [CenterDocumentController::class, 'store'])->name('center_document_add');
+Route::delete('/center/documents/{document}', [CenterDocumentController::class, 'destroy'])->name('center_document_delete');
+Route::get('/center/documents/{document}/download', [CenterDocumentController::class, 'download'])->name('center_document_download');
+
 /* ROUTES FOR PROFESSIONAL REGISTRATION FORMS */
 Route::get('/professional_form', [ProfessionalController::class, "create"])->name("professional_form");
 Route::post('/professional_add', [ProfessionalController::class, "store"])->name("professional_add");
@@ -47,6 +63,16 @@ Route::get('/professional_edit/{id}', [ProfessionalController::class, "edit"])->
 Route::get('/professional_show/{id}', [ProfessionalController::class, "show"])->name("professional_show");
 Route::get('/professionals/downloadCSV/material-assignments', [ProfessionalController::class, 'downloadCSVMaterialAssignments'])->name('professionals.downloadCSV.materialAssignments');
 Route::get('/professionals/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
+
+/* ROUTES FOR PROFESSIONAL NOTES */
+Route::post('/professional/{professional}/notes', [ProfessionalNoteController::class, 'store'])->name('professional_note_add');
+Route::put('/professional/notes/{note}', [ProfessionalNoteController::class, 'update'])->name('professional_note_update');
+Route::delete('/professional/notes/{note}', [ProfessionalNoteController::class, 'destroy'])->name('professional_note_delete');
+
+/* ROUTES FOR PROFESSIONAL DOCUMENTS */
+Route::post('/professional/{professional}/documents', [ProfessionalDocumentController::class, 'store'])->name('professional_document_add');
+Route::delete('/professional/documents/{document}', [ProfessionalDocumentController::class, 'destroy'])->name('professional_document_delete');
+Route::get('/professional/documents/{document}/download', [ProfessionalDocumentController::class, 'download'])->name('professional_document_download');
 
 /* ROUTES FOR PROJECT/COMMISSION REGISTRATION FORMS */
 Route::get('/projectcommission_form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
@@ -82,6 +108,16 @@ Route::get('/materialassignment/edit/{materialAssignment}', [MaterialAssignmentC
 Route::put('/materialassignment/update/{materialAssignment}', [MaterialAssignmentController::class, 'update'])->name('materialassignment_update');
 Route::delete('/materialassignment/delete/{materialAssignment}', [MaterialAssignmentController::class, 'destroy'])->name('materialassignment_delete');
 Route::get('/materialassignment/downloadCSV', [MaterialAssignmentController::class, 'downloadCSV'])->name('materialassignment_downloadCSV');
+
+/* ROUTES FOR MATERIAL ASSIGNMENT NOTES */
+Route::post('/materialassignment/{materialAssignment}/notes', [MaterialAssignmentNoteController::class, 'store'])->name('materialassignment_note_add');
+Route::put('/materialassignment/notes/{note}', [MaterialAssignmentNoteController::class, 'update'])->name('materialassignment_note_update');
+Route::delete('/materialassignment/notes/{note}', [MaterialAssignmentNoteController::class, 'destroy'])->name('materialassignment_note_delete');
+
+/* ROUTES FOR MATERIAL ASSIGNMENT DOCUMENTS */
+Route::post('/materialassignment/{materialAssignment}/documents', [MaterialAssignmentDocumentController::class, 'store'])->name('materialassignment_document_add');
+Route::delete('/materialassignment/documents/{document}', [MaterialAssignmentDocumentController::class, 'destroy'])->name('materialassignment_document_delete');
+Route::get('/materialassignment/documents/{document}/download', [MaterialAssignmentDocumentController::class, 'download'])->name('materialassignment_document_download');
 
 //TODO: Implement routes for uniform records
 // Routes for uniform records

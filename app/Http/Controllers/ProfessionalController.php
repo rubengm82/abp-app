@@ -77,7 +77,7 @@ class ProfessionalController extends Controller
      */
     public function show(string $id)
     {
-        $professional = Professional::findOrFail($id);
+        $professional = Professional::with(['documents', 'notes'])->findOrFail($id);
         return view('components.contents.professional.professionalShow')->with('professional', $professional);
     }
 

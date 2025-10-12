@@ -89,13 +89,6 @@
             </label>
             <textarea name="observations" class="textarea textarea-bordered w-full" rows="3" placeholder="Observacions sobre l'assignació..."></textarea>
         </div>
-        <!-- TODO: TEMPORAL, Revisar, no se debe de poder ESCRIBIR el name -->
-        <div class="form-control">
-            <label class="label">
-                <span class="label-text">Documents relacionats:</span>
-            </label>
-            <input type="text" name="documents" class="input input-bordered w-full" placeholder="Nom dels documents relacionats...">
-        </div>
 
         <div class="flex justify-end gap-4">
             <a href="{{ route('materialassignments_list') }}" class="btn btn-outline">Cancel·lar</a>

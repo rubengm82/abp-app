@@ -29,19 +29,51 @@ class Professional extends Model
         'status'
     ];
 
-    // /**
-    //  * Relación con el centro
-    //  */
-    // public function center()
-    // {
-    //     return $this->belongsTo(Center::class);
-    // }
+    /**
+     * Relación con el centro
+     */
+    public function center()
+    {
+        return $this->belongsTo(Center::class);
+    }
 
     /**
      * Relación con las asignaciones de material
      */
-    // public function materialAssignments()
-    // {
-    //     return $this->hasMany(MaterialAssignment::class);
-    // }
+    public function materialAssignments()
+    {
+        return $this->hasMany(MaterialAssignment::class);
+    }
+
+    /**
+     * Relación con las notas del profesional
+     */
+    public function notes()
+    {
+        return $this->hasMany(ProfessionalNote::class);
+    }
+
+    /**
+     * Relación con los documentos del profesional
+     */
+    public function documents()
+    {
+        return $this->hasMany(ProfessionalDocument::class);
+    }
+
+    /**
+     * Relación con las notas creadas por este profesional
+     */
+    public function createdNotes()
+    {
+        return $this->hasMany(ProfessionalNote::class, 'created_by_professional_id');
+    }
+
+    /**
+     * Relación con los documentos subidos por este profesional
+     */
+    public function uploadedDocuments()
+    {
+        return $this->hasMany(ProfessionalDocument::class, 'uploaded_by_professional_id');
+    }
 }

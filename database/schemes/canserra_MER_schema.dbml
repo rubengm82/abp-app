@@ -55,9 +55,7 @@ Table PROFESSIONAL {
   login varchar(50) [unique, note: 'Login username']
   password varchar(255) [note: 'Password hash']
   key_code varchar(50) [note: 'Key code (moved from LOCKER table)']
-  shirt_size varchar(10) [note: 'Shirt size']
-  pants_size varchar(10) [note: 'Pants size']
-  shoe_size varchar(10) [note: 'Shoe size']
+  status int [default: 1, note: 'Status: 1=Active, 0=Inactive']
 }
 
 // =====================================================
@@ -67,18 +65,14 @@ Table PROFESSIONAL {
 Table MATERIAL_ASSIGNMENT {
   id int [pk, increment, note: 'Primary key']
   professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
-  material_type varchar(100) [not null, note: 'Material type: uniforme, epi, equipamiento, otros']
-  material_description varchar(255) [note: 'Material description']
-  size varchar(20) [note: 'Size (for uniforms)']
+  shirt_size varchar(10) [note: 'Shirt size']
+  pants_size varchar(10) [note: 'Pants size']
+  shoe_size varchar(10) [note: 'Shoe size']
   assignment_date date [not null, note: 'Assignment date']
-  renewal_due_date date [note: 'Renewal due date']
-  status varchar(20) [default: 'Activo', note: 'Status: Activo, Renovado, Devuelto, Perdido']
-  condition varchar(50) [note: 'Material condition: Nuevo, Bueno, Regular, Malo']
   assigned_by_professional_id int [ref: > PROFESSIONAL.id, note: 'Professional who assigned']
-  //return_date date [note: 'Return date']
-  //renewal_date date [note: 'Renewal date']
-  observations text [note: 'Observations about material']
-  documents varchar(500) [note: 'Related documents']
+  observations text [note: 'Observations about assignment']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
 }
 
 // =====================================================
@@ -325,8 +319,23 @@ Table PROJECT_COMMISSION_ASSIGNMENT {
 Table PROJECT_COMMISSION_DOCUMENTS {
   id int [pk, increment, note: 'Primary key']
   project_commission_id int [ref: > PROJECT_COMMISSION.id, not null, note: 'Project/Commission reference']
+  professional_id int [ref: > PROFESSIONAL.id, note: 'Professional that uploaded the document']
   file_name varchar(255) [note: 'File name']
-  file_content blob [note: 'File content as binary data']
+  original_name varchar(255) [note: 'Original file name']
+  file_content binary [note: 'File content as binary data']
+  file_size int [note: 'File size in bytes']
+  mime_type varchar(100) [note: 'MIME type of the file']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table PROJECT_COMMISSION_NOTE {
+  id int [pk, increment, note: 'Primary key']
+  project_commission_id int [ref: > PROJECT_COMMISSION.id, note: 'Project/Commission reference']
+  notes text [note: 'Project/Commission notes']
+  professional_id int [ref: > PROFESSIONAL.id, note: 'Professional that created the note']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
 }
 
 // =====================================================
@@ -398,3 +407,73 @@ Table QUIZ {
 //    (start_date, end_date) [name: 'idx_project_date']
 //  }
 //}
+
+// =====================================================
+// NEW IMPLEMENTED TABLES (Notes and Documents System)
+// =====================================================
+
+Table PROFESSIONAL_NOTE {
+  id int [pk, increment, note: 'Primary key']
+  professional_id int [ref: > PROFESSIONAL.id, note: 'Professional reference']
+  notes text [note: 'Professional notes']
+  created_by_professional_id int [ref: > PROFESSIONAL.id, note: 'Professional that created the note']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table PROFESSIONAL_DOCUMENT {
+  id int [pk, increment, note: 'Primary key']
+  file_name varchar(255) [note: 'File name']
+  original_name varchar(255) [note: 'Original file name']
+  file_content binary [note: 'File content as blob']
+  file_size int [note: 'File size in bytes']
+  mime_type varchar(100) [note: 'MIME type of the file']
+  professional_id int [ref: > PROFESSIONAL.id, note: 'Professional reference']
+  uploaded_by_professional_id int [ref: > PROFESSIONAL.id, note: 'Professional that uploaded the document']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table CENTER_NOTE {
+  id int [pk, increment, note: 'Primary key']
+  center_id int [ref: > CENTER.id, note: 'Center reference']
+  notes text [note: 'Center notes']
+  created_by_professional_id int [ref: > PROFESSIONAL.id, note: 'Professional that created the note']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table CENTER_DOCUMENT {
+  id int [pk, increment, note: 'Primary key']
+  file_name varchar(255) [note: 'File name']
+  original_name varchar(255) [note: 'Original file name']
+  file_content binary [note: 'File content as blob']
+  file_size int [note: 'File size in bytes']
+  mime_type varchar(100) [note: 'MIME type of the file']
+  center_id int [ref: > CENTER.id, note: 'Center reference']
+  uploaded_by_professional_id int [ref: > PROFESSIONAL.id, note: 'Professional that uploaded the document']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table MATERIAL_ASSIGNMENT_NOTE {
+  id int [pk, increment, note: 'Primary key']
+  material_assignment_id int [ref: > MATERIAL_ASSIGNMENT.id, note: 'Material assignment reference']
+  notes text [note: 'Material assignment notes']
+  created_by_professional_id int [ref: > PROFESSIONAL.id, note: 'Professional that created the note']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table MATERIAL_ASSIGNMENT_DOCUMENT {
+  id int [pk, increment, note: 'Primary key']
+  file_name varchar(255) [note: 'File name']
+  original_name varchar(255) [note: 'Original file name']
+  file_content binary [note: 'File content as blob']
+  file_size int [note: 'File size in bytes']
+  mime_type varchar(100) [note: 'MIME type of the file']
+  material_assignment_id int [ref: > MATERIAL_ASSIGNMENT.id, note: 'Material assignment reference']
+  uploaded_by_professional_id int [ref: > PROFESSIONAL.id, note: 'Professional that uploaded the document']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}

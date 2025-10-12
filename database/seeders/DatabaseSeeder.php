@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
 
         // Run our custom seeders
         $this->call([
@@ -28,6 +28,13 @@ class DatabaseSeeder extends Seeder
             ProjectCommissionDocumentSeeder::class,
             MaterialAssignmentSeeder::class,
             ProjectCommissionNoteSeeder::class,
+            // New seeders for notes and documents
+            ProfessionalNoteSeeder::class,
+            ProfessionalDocumentSeeder::class,
+            CenterNoteSeeder::class,
+            CenterDocumentSeeder::class,
+            MaterialAssignmentNoteSeeder::class,
+            MaterialAssignmentDocumentSeeder::class,
         ]);
     }
 }

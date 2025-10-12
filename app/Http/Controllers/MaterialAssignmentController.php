@@ -44,7 +44,6 @@ class MaterialAssignmentController extends Controller
             'assignment_date' => 'required|date',
             'assigned_by_professional_id' => 'nullable|exists:professionals,id',
             'observations' => 'nullable|string|max:1000',
-            'documents' => 'nullable|string|max:500',
         ]);
 
         // TODO: Get assigned_by_professional_id from logged user
@@ -67,7 +66,7 @@ class MaterialAssignmentController extends Controller
      */
     public function show(MaterialAssignment $materialAssignment)
     {
-        $materialAssignment->load(['professional', 'assignedBy']);
+        $materialAssignment->load(['professional', 'assignedBy', 'documents', 'notes']);
         return view('components.contents.materialassignment.materialAssignmentShow')
             ->with('materialAssignment', $materialAssignment);
     }
@@ -96,7 +95,6 @@ class MaterialAssignmentController extends Controller
             'assignment_date' => 'required|date',
             'assigned_by_professional_id' => 'nullable|exists:professionals,id',
             'observations' => 'nullable|string|max:1000',
-            'documents' => 'nullable|string|max:500',
         ]);
 
         $materialAssignment->update($validated);

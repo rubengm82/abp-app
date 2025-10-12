@@ -7,3 +7,7 @@
 * Transacción (Ralf)
 * Particion de tablas (Ralf: Sólo investigar)
 * indices y comb.indices (Ralf)
+* Crear nuestro propio confirm al eliminar documentos, notas y registros
+* Añadir confirmar o confirmar y continuar en creación de nuevos registros
+* Añadir #s para dónde estoy en la página
+* Añadir error_success

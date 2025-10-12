@@ -89,13 +89,12 @@
             
             @if($projectCommission->projectCommissionDocuments && $projectCommission->projectCommissionDocuments->count() > 0)
                 <div class="space-y-3">
-                    @foreach($projectCommission->projectCommissionDocuments as $document)
+                    @foreach($projectCommission->projectCommissionDocuments->sortByDesc('created_at') as $document)
                         <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
                             <div class="flex justify-between items-center">
                                 <div class="flex-1">
                                     <div class="flex items-center gap-3">
-                                        {{-- TODO: Implementar funcionalidad de descarga cuando los paths o BLOBs de la DB estén completos --}}
-                                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium" onclick="alert('Funcionalidad de descarga pendiente')">
+                                        <a href="{{ route('projectcommission_document_download', $document) }}" class="text-blue-600 hover:text-blue-800 font-medium">
                                             {{ $document->original_name ?: 'Arxiu sense nom' }}
                                         </a>
                                         <span class="text-sm text-gray-500">
@@ -136,7 +135,7 @@
             
             @if($projectCommission->projectNotes->count() > 0)
                 <div class="space-y-4">
-                    @foreach($projectCommission->projectNotes as $note)
+                    @foreach($projectCommission->projectNotes->sortByDesc('created_at') as $note)
                         <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
                             <div class="flex justify-between items-start mb-2">
                                 <div class="text-sm text-gray-600">
@@ -176,24 +175,12 @@
             @csrf
             <div class="form-control mb-4">
                 <label class="label">
-                    <span class="label-text">Professional:</span>
-                </label>
-                <select name="professional_id" class="select select-bordered w-full">
-                    <!-- TODO: EDitar para que recoja el nombre del usuario logueado -->
-                    <option value="">Selecciona un professional</option>
-                    @foreach(\App\Models\Professional::where('status', 1)->get() as $professional)
-                        <option value="{{ $professional->id }}">{{ $professional->name }} {{ $professional->surname1 }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-control mb-4">
-                <label class="label">
                     <span class="label-text">Nota:</span>
                 </label>
                 <textarea name="notes" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="document.getElementById('addNoteModal').close()">Cancel·lar</button>
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">Cancel·lar</button>
                 <button type="submit" class="btn btn-primary">Afegir Nota</button>
             </div>
         </form>
@@ -214,7 +201,7 @@
                 <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="document.getElementById('editNoteModal').close()">Cancel·lar</button>
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">Cancel·lar</button>
                 <button type="submit" class="btn btn-primary">Guardar Canvis</button>
             </div>
         </form>
@@ -231,13 +218,13 @@
                 <label class="label">
                     <span class="label-text">Seleccionar Arxius:</span>
                 </label>
-                <input type="file" name="files[]" class="file-input file-input-bordered w-full" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png">
+                <input type="file" name="files[]" class="file-input file-input-bordered w-full" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.txt">
                 <div class="label">
-                    <span class="label-text-alt">Formats suportats: <br> PDF, DOC, DOCX, XLS, XLSX, JPG, JPEG, PNG, CSV, TXT</span>
+                    <span class="label-text-alt">Formats suportats: <br> PDF, DOC, DOCX, XLS, XLSX, JPG, JPEG, PNG, TXT</span>
                 </div>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="document.getElementById('addFileModal').close()">Cancel·lar</button>
+                <button type="button" class="btn" onclick="this.closest('dialog').close()">Cancel·lar</button>
                 <button type="submit" class="btn btn-primary">Pujar Arxius</button>
             </div>
         </form>

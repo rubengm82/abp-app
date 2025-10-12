@@ -17,7 +17,6 @@ class MaterialAssignment extends Model
         'assignment_date',
         'assigned_by_professional_id',
         'observations',
-        'documents',
     ];
 
     protected $casts = [
@@ -90,5 +89,21 @@ class MaterialAssignment extends Model
             ->first();
         
         return $assignment ? $assignment->shoe_size : null;
+    }
+
+    /**
+     * Relación con las notas de la asignación de material
+     */
+    public function notes()
+    {
+        return $this->hasMany(MaterialAssignmentNote::class);
+    }
+
+    /**
+     * Relación con los documentos de la asignación de material
+     */
+    public function documents()
+    {
+        return $this->hasMany(MaterialAssignmentDocument::class);
     }
 }

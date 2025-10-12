@@ -18,10 +18,10 @@ class ProjectCommissionNoteController extends Controller
             'notes' => 'required|string|max:1000'
         ]);
 
-        $professionalId = $request->input('professional_id');
+        $professionalId = auth()->user()->professional_id ?? null;
         
-        // TODO TEMPORAL
-        // Si no se selecciona un profesional, usar el primero disponible  
+        //TODO TEMPORAL
+        // Si no hay profesional logueado, usar el primero disponible
         if (!$professionalId) {
             $firstProfessional = \App\Models\Professional::where('status', 1)->first();
             if ($firstProfessional) {

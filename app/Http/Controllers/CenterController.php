@@ -71,7 +71,7 @@ class CenterController extends Controller
      */
     public function show(string $id)
     {
-        $center = Center::findOrFail($id);
+        $center = Center::with(['notes', 'documents'])->findOrFail($id);
         return view('components.contents.center.centerShow')->with('center', $center);
     }
 
@@ -101,8 +101,6 @@ class CenterController extends Controller
     {
         //
     }
-
-
 
     /* *********** */
     /* OWN METHODS */

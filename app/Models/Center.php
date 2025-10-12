@@ -14,4 +14,28 @@ class Center extends Model
         'email',
         'status'
     ];
+
+    /**
+     * Relación con los profesionales del centro
+     */
+    public function professionals()
+    {
+        return $this->hasMany(Professional::class);
+    }
+
+    /**
+     * Relación con las notas del centro
+     */
+    public function notes()
+    {
+        return $this->hasMany(CenterNote::class);
+    }
+
+    /**
+     * Relación con los documentos del centro
+     */
+    public function documents()
+    {
+        return $this->hasMany(CenterDocument::class);
+    }
 }
