@@ -126,7 +126,8 @@ class ProjectCommissionController extends Controller
     {
         $projectCommissions = ProjectCommission::where('status', $statusParam)->with('responsibleProfessional')->get();
 
-        $filename = $statusParam == 'Actiu' ? "projectes_comissions_actius.csv" : "projectes_comissions_inactius.csv";
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = $statusParam == 'Actiu' ? "projectes_comissions_actius_{$timestamp}.csv" : "projectes_comissions_inactius_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
         fputcsv($handle, ['ID', 'Nom', 'Tipus', 'Data Inici', 'Data Fi Est.', 'Professional Responsable', 'Descripció']);

@@ -124,7 +124,8 @@ class MaterialAssignmentController extends Controller
     {
         $professionals = Professional::where('status', 1)->get();
         
-        $filename = "assignacions_material_professionals.csv";
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = "assignacions_material_professionals_{$timestamp}.csv";
         
         $handle = fopen($filename, 'w+');
         fputcsv($handle, ['ID', 'Nom', 'Cognom', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per']);

@@ -1,4 +1,7 @@
-# Asignacion de uniformes - TODO LIST
+# Mejora de descarga de csv - TODO LIST
+
+* Añadir timestamp al final del nombre de los archivos csv descargados
+
 
 
 To know:

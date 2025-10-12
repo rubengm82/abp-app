@@ -193,7 +193,8 @@ class ProfessionalController extends Controller
     {
         $professionals = Professional::where('status', $statusParam)->get();
 
-        $filename = $statusParam == 1 ? "professionals_actius.csv" : "professionals_actius_no_actius.csv";
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = $statusParam == 1 ? "professionals_actius_{$timestamp}.csv" : "professionals_no_actius_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
         fputcsv($handle, ['ID', 'Centre ID', 'Rol', 'Nom', 'Cognom 1', 'Cognom 2', 'DNI', 'Telèfon', 'Email', 'Adreça', 'Situació laboral', 'Currículum', 'Usuari', 'Contrasenya', 'Codi clau', 'Estat']);
@@ -233,7 +234,8 @@ class ProfessionalController extends Controller
     {
         $professionals = Professional::where('status', 1)->get();
         
-        $filename = "professionals_assignacions_material.csv";
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = "professionals_assignacions_material_{$timestamp}.csv";
         
         $handle = fopen($filename, 'w+');
         fputcsv($handle, ['ID', 'Nom', 'Cognom', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per']);

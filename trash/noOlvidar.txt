@@ -4,6 +4,6 @@
 * Login y guardado de rol y name en session
 * Sort features
 * Paginación 
-* Transacción
-* Particion de tablas
-* indices y convindices
+* Transacción (Ralf)
+* Particion de tablas (Ralf: Sólo investigar)
+* indices y comb.indices (Ralf)

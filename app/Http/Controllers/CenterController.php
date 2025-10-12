@@ -150,7 +150,8 @@ class CenterController extends Controller
     {
         $centers = Center::where('status', $statusParam)->get();
 
-        $filename = $statusParam == 1 ? "centres_actius.csv" : "centres_no_actius.csv";
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = $statusParam == 1 ? "centres_actius_{$timestamp}.csv" : "centres_no_actius_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
         fputcsv($handle, ['ID', 'Nom', 'Adreça', 'Telèfon', 'Email', 'Estat']);
