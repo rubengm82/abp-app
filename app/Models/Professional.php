@@ -36,4 +36,12 @@ class Professional extends Model
     // {
     //     return $this->belongsTo(Center::class);
     // }
+
+    /**
+     * Relación con las asignaciones de material
+     */
+    // public function materialAssignments()
+    // {
+    //     return $this->hasMany(MaterialAssignment::class);
+    // }
 }

@@ -34,28 +34,6 @@
         <input type="text" name="key_code" id="id_key_code" placeholder="Codi de clau" class="input input-bordered w-full" value="{{ old('key_code', $professional->key_code) }}">
         <textarea name="cvitae" id="id_cvitae" rows="4" placeholder="Currículum Vitae..." class="textarea textarea-bordered w-full">{{ old('cvitae', $professional->cvitae) }}</textarea>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <select name="shirt_size" id="id_shirt_size" class="select select-bordered w-full">
-                <option value="">Talla samarreta</option>
-                @foreach (['XS','S','M','L','XL','2XL','3XL','4XL','36','38','40','42','44','46','48','50','52','54','56'] as $size)
-                    <option value="{{ $size }}" {{ old('shirt_size', $professional->shirt_size) == $size ? 'selected' : '' }}>{{ $size }}</option>
-                @endforeach
-            </select>
-
-            <select name="pants_size" id="id_pants_size" class="select select-bordered w-full">
-                <option value="">Talla pantaló</option>
-                @foreach (['XS','S','M','L','XL','2XL','3XL','4XL','36','38','40','42','44','46','48','50','52','54','56'] as $size)
-                    <option value="{{ $size }}" {{ old('pants_size', $professional->pants_size) == $size ? 'selected' : '' }}>{{ $size }}</option>
-                @endforeach
-            </select>
-
-            <select name="shoe_size" id="id_shoe_size" class="select select-bordered w-full">
-                <option value="">Talla sabata</option>
-                @foreach (range(34, 56) as $size)
-                    <option value="{{ $size }}" {{ old('shoe_size', $professional->shoe_size) == $size ? 'selected' : '' }}>{{ $size }}</option>
-                @endforeach
-            </select>
-        </div>
 
         <input type="text" name="login" id="id_login" placeholder="Usuari de login" class="input input-bordered w-full" value="{{ old('login', $professional->login) }}">
         <input type="password" name="password" id="id_password" placeholder="Contrasenya (deixar buit per mantenir l'actual)" class="input input-bordered w-full">
