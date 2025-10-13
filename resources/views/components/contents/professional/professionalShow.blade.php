@@ -353,4 +353,11 @@ function openEditNoteModal(noteId, noteText) {
     </div>
 @endif
 
+@if (session('error_document_not_found'))
+    <div class="toast toast-end">
+        <div class="alert alert-error">
+            <span>{{ session('error_document_not_found') }}</span>
+        </div>
+    </div>
+@endif
 @endsection

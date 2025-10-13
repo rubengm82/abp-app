@@ -84,7 +84,8 @@ class ProjectCommissionDocumentController extends Controller
     public function download(ProjectCommissionDocument $document)
     {
         if (!Storage::disk('public')->exists($document->file_path)) {
-            abort(404, 'File not found');
+            // abort(404, 'File not found');
+            return redirect()->back()->with('error_document_not_found', 'Document no trobat!');
         }
         
         return Storage::disk('public')->download($document->file_path, $document->original_name);

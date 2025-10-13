@@ -1,3 +1,6 @@
+ANTES DE PROBAR EL REDIRECT POR URL, INVESTIGAR SOBRE EL "redirect()->back()"
+
+
 Para hacer un redirect correcto:
 
 En los <a> con el {{route}} a show o edit, pasar también la vista de donde está.

@@ -11,8 +11,12 @@
 * Crear nuestro propio confirm al eliminar documentos, notas y registros
 * Añadir confirmar o confirmar y continuar en creación de nuevos registros
 * Añadir #s para dónde estoy en la página
-* Añadir error_success
 * Arreglar desactivar en vista
 * Order by data time por minuto
 * Hay un error con el Toad y los "<- ->"
+* Añadir error_success
 * Recoger el error 404 al no encontrar archivos a descargar y mostrar con toad.
+
+
+Olga:
+* Qué hacer cuando hay dos métodos exactamente iguales en 2o+ controladores distintos
