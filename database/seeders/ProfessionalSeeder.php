@@ -113,6 +113,40 @@ class ProfessionalSeeder extends Seeder
                 'key_code' => 'KEY005',
                 'status' => 1,
             ],
+            [
+                'center_id' => 1,
+                'role' => 'Administració',
+                'name' => 'Ruben',
+                'surname1' => 'Gallardo',
+                'surname2' => 'Mancha',
+                'dni' => 'G1234567C',
+                'phone' => '+34 600 111 222',
+                'email' => 'ruben.gallardo@canserra.cat',
+                'address' => 'Carrer Coordinador, 10, Barcelona',
+                'employment_status' => 'Actiu',
+                'cvitae' => 'Responsable de projectes',
+                'user' => 'ruben.gallardo',
+                'password' => 'admin', // hash automático
+                'key_code' => 'KEY006',
+                'status' => 1,
+            ],
+            [
+                'center_id' => 1,
+                'role' => 'Administració',
+                'name' => 'Yoel',
+                'surname1' => 'Berjaga',
+                'surname2' => 'Garcia',
+                'dni' => 'H2345678D',
+                'phone' => '+34 600 222 333',
+                'email' => 'yoel.berjaga@canserra.cat',
+                'address' => 'Carrer Coordinador, 12, Barcelona',
+                'employment_status' => 'Actiu',
+                'cvitae' => 'Tècnic administratiu',
+                'user' => 'yoel.berjaga',
+                'password' => 'admin', // hash automático
+                'key_code' => 'KEY007',
+                'status' => 1,
+            ],
         ];
 
         // Elimina todos los registros sin usar truncate para respetar FK
