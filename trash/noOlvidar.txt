@@ -3,11 +3,14 @@
 * Añadir timestamp a archvios descargados
 * Login y guardado de rol y name en session
 * Sort features
-* Paginación 
+* Paginación (Ralf)
 * Transacción (Ralf)
 * Particion de tablas (Ralf: Sólo investigar)
 * indices y comb.indices (Ralf)
+* Cifrado de todo, unidireccional para contraeñas, bidirecional campos delicados (Ralf)
 * Crear nuestro propio confirm al eliminar documentos, notas y registros
 * Añadir confirmar o confirmar y continuar en creación de nuevos registros
 * Añadir #s para dónde estoy en la página
 * Añadir error_success
+* Arreglar desactivar en vista
+* Order by data time por minuto
