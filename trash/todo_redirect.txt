@@ -1,0 +1,69 @@
+Para hacer un redirect correcto:
+
+En los <a> con el {{route}} a show o edit, pasar también la vista de donde está.
+
+Ej:
+//En páginas principales como professionalsList.blade.php, se le pasaría el parámetro de donde está, harcodeado (simple y sin código)
+<a href="{{ route('professional_show', $professional->id) }}?from=professionals_list" class="btn btn-sm btn-info">Veure</a>
+
+Habría que decidir si pasarlo por URL como en el ejemplo o escondido en session.
+
+De todas formas, en código se recogería con el $Request.
+
+Ej:
+//Dentro del controlador de la entidad, en la función show, edit, etc.
+$from = $request->get('from', 'professionals_list'); // Después de la ',' se pondría un valor por defecto
+
+//Y se pasaría al return con wl with:
+->with('from', $from);
+
+
+Luego en las sub páginas de interés como el formulario de edición o dentro del show, en los botones de Volver/Cancelar
+ se le pasaría como ruta este parámetro
+
+Ej:
+
+//En professionalShow.blade.php
+    <a href="{{ route($from) }}" class....>Tornar</a>
+
+//No es obligatorio, se podría seguir utilziando perfectamente la routa normal, por ejemplo en el botón 
+    <a href="{{ route('professional_desactivate', $professional) }}" class="btn btn-sm btn-error">Desactivar</a>
+
+// Si son botones que aún navegan más profundo, por ejemplo si el usuario hace:
+// [Registro -> Profesional_Show -> Veure -> Edit] se le puede pasar a este <a> otra vez la variable from, para mantener la ruta
+
+Ej:
+    <a href="{{ route('professional_edit', $professional) }}?from={{ $from }}" class...>Editar</a>
+
+
+
+
+Ejemplo detallado en el controlador de profesional y el listado y edición:
+
+// ProfessionalController.php - método show()
+public function show(Request $request, string $id)
+{
+    $professional = Professional::with(['documents', 'notes'])->findOrFail($id);
+    $from = $request->get('from', 'professionals_list'); // Valor por defecto
+    
+    return view('components.contents.professional.professionalShow')
+        ->with('professional', $professional)
+        ->with('from', $from);
+}
+
+<!-- En professionalsList.blade.php -->
+<a href="{{ route('professional_show', $professional->id) }}?from=professionals_list" class="btn btn-sm btn-info">Veure</a>
+<a href="{{ route('professional_edit', $professional->id) }}?from=professionals_list" class="btn btn-sm btn-warning">Editar</a>
+
+<!-- En professionalShow.blade.php -->
+<div class="flex gap-2">
+    <a href="{{ route($from) }}" class="btn btn-sm btn-outline">Tornar a la llista</a>
+    <a href="{{ route('professional_edit', $professional) }}?from={{ $from }}" class="btn btn-sm btn-info">Editar</a>
+    <a href="{{ route('professional_desactivate', $professional) }}" class="btn btn-sm btn-error">Desactivar</a>
+</div>
+
+<!-- En professionalEdit.blade.php -->
+<div class="flex gap-2 mt-4">
+    <a href="{{ route($from) }}" class="btn flex-1">Cancel·lar</a>
+    <input type="submit" value="Actualitzar" class="btn btn-info flex-1">
+</div>
