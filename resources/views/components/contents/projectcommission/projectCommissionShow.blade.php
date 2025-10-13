@@ -7,7 +7,11 @@
         <div class="flex gap-2">
             <a href="{{ route('projectcommissions_list') }}" class="btn btn-sm btn-outline">Tornar a la llista</a>
             <a href="{{ route('projectcommission_edit', $projectCommission) }}" class="btn btn-sm btn-info">Editar</a>
-            <a href="{{ route('projectcommission_desactivate', $projectCommission) }}" class="btn btn-sm btn-error">Desactivar</a>
+            @if($projectCommission->status == 'Actiu')
+                <a href="{{ route('projectcommission_desactivate', $projectCommission) }}" class="btn btn-sm btn-error">Desactivar</a>
+            @else
+                <a href="{{ route('projectcommission_activate', $projectCommission) }}" class="btn btn-sm btn-success">Activar</a>
+            @endif
         </div>
     </div>
 

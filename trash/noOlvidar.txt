@@ -16,7 +16,10 @@
 * Hay un error con el Toad y los "<- ->"
 * Añadir error_success
 * Recoger el error 404 al no encontrar archivos a descargar y mostrar con toad.
-
+* Revisar campo status en Proyectos respecto a las demás tablas
+* No existe control de sql no aceptada ej: Varchar >
 
 Olga:
 * Qué hacer cuando hay dos métodos exactamente iguales en 2o+ controladores distintos
+* SQL vs Blade
+* Separar Proyectos y Comisiones?

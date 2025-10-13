@@ -7,7 +7,11 @@
         <div class="flex gap-2">
             <a href="{{ route('centers_list') }}" class="btn btn-sm btn-outline">Tornar a la llista</a>
             <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
-            <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Desactivar</a>
+            @if($center->status == 1)
+                <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Desactivar</a>
+            @else
+                <a href="{{ route('center_activate', $center) }}" class="btn btn-sm btn-success">Activar</a>
+            @endif
         </div>
     </div>
 

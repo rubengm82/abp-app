@@ -7,7 +7,11 @@
         <div class="flex gap-2">
             <a href="{{ route('professionals_list') }}" class="btn btn-sm btn-outline">Tornar a la llista</a>
             <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
-            <a href="{{ route('professional_desactivate', $professional) }}" class="btn btn-sm btn-error">Desactivar</a>
+            @if($professional->status == 1)
+                <a href="{{ route('professional_desactivate', $professional) }}" class="btn btn-sm btn-error">Desactivar</a>
+            @else
+                <a href="{{ route('professional_activate', $professional) }}" class="btn btn-sm btn-success">Activar</a>
+            @endif
         </div>
     </div>
 
