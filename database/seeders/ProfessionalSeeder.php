@@ -2,18 +2,32 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Professional;
+use Illuminate\Support\Facades\Schema;
 
 class ProfessionalSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $professionals = [
+            [
+                'center_id' => 1,
+                'role' => 'Administració',
+                'name' => 'Root',
+                'surname1' => 'Toor',
+                'surname2' => 'Toor',
+                'dni' => 'F9876543B',
+                'phone' => '+34 600 333 444',
+                'email' => 'root@canserra.cat',
+                'address' => 'Carrer Coordinador, 2, Barcelona',
+                'employment_status' => 'Actiu',
+                'cvitae' => 'Es el root',
+                'user' => 'admin',
+                'password' => 'admin', // hash automático
+                'key_code' => 'KEY000',
+                'status' => 1,
+            ],
             [
                 'center_id' => 1,
                 'role' => 'Directiu',
@@ -26,12 +40,10 @@ class ProfessionalSeeder extends Seeder
                 'address' => 'Carrer Director, 1, Barcelona',
                 'employment_status' => 'Actiu',
                 'cvitae' => 'Experiència en gestió de centres educatius',
-                'login' => 'joan.garcia',
+                'user' => 'joan.garcia',
                 'password' => 'password123',
                 'key_code' => 'KEY001',
-                'status' => '1',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'status' => 1,
             ],
             [
                 'center_id' => 1,
@@ -39,18 +51,16 @@ class ProfessionalSeeder extends Seeder
                 'name' => 'Maria',
                 'surname1' => 'López',
                 'surname2' => 'Fernández',
-                'dni' => 'F9876543B',
-                'phone' => '+34 600 333 444',
+                'dni' => 'F9876544C',
+                'phone' => '+34 600 333 445',
                 'email' => 'maria.lopez@canserra.cat',
                 'address' => 'Carrer Coordinador, 2, Barcelona',
                 'employment_status' => 'Actiu',
                 'cvitae' => 'Especialista en coordinació pedagògica',
-                'login' => 'maria.lopez',
+                'user' => 'maria.lopez',
                 'password' => 'password123',
                 'key_code' => 'KEY002',
-                'status' => '1',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'status' => 1,
             ],
             [
                 'center_id' => 2,
@@ -64,12 +74,10 @@ class ProfessionalSeeder extends Seeder
                 'address' => 'Carrer Educador, 3, Barcelona',
                 'employment_status' => 'Actiu',
                 'cvitae' => 'Educador social amb experiència en joves',
-                'login' => 'pere.sanchez',
+                'user' => 'pere.sanchez',
                 'password' => 'password123',
                 'key_code' => 'KEY003',
-                'status' => '1',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'status' => 1,
             ],
             [
                 'center_id' => 1,
@@ -83,12 +91,10 @@ class ProfessionalSeeder extends Seeder
                 'address' => 'Carrer Psicòleg, 4, Barcelona',
                 'employment_status' => 'Suplència',
                 'cvitae' => 'Psicòloga clínica especialitzada en adolescents',
-                'login' => 'anna.torres',
+                'user' => 'anna.torres',
                 'password' => 'password123',
                 'key_code' => 'KEY004',
-                'status' => '1',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'status' => 1,
             ],
             [
                 'center_id' => 1,
@@ -102,20 +108,24 @@ class ProfessionalSeeder extends Seeder
                 'address' => 'Carrer Tècnic, 5, Barcelona',
                 'employment_status' => 'Actiu',
                 'cvitae' => 'Tècnic en integració social',
-                'login' => 'carles.molina',
+                'user' => 'carles.molina',
                 'password' => 'password123',
                 'key_code' => 'KEY005',
-                'status' => '1',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'status' => 1,
             ],
         ];
-        
-        // Elimina toda la tabla primero antes de insertar datos
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('professionals')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        DB::table('professionals')->insert($professionals);
+        // Elimina todos los registros sin usar truncate para respetar FK
+        Professional::query()->delete();
+
+        // Crear profesionales usando Eloquent para que se aplique el mutator
+        foreach ($professionals as $p) {
+            // Si la columna 'user' no existe en 'professionals', la quitamos
+            if (!Schema::hasColumn('professionals', 'user')) {
+                unset($p['user']);
+            }
+
+            Professional::create($p);
+        }
     }
 }

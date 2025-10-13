@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
-class Professional extends Model
+class Professional extends Authenticatable
 {
     protected $table = 'professionals';
     
     /**
-     * Los campos que pueden ser asignados
+     * Campos que se pueden asignar masivamente
      */
     protected $fillable = [
         'center_id',
@@ -23,57 +25,65 @@ class Professional extends Model
         'address',
         'employment_status',
         'cvitae',
-        'login',
-        'password',
+        'user',       // username
+        'password',   // contraseña hasheada
         'key_code',
         'status'
     ];
 
     /**
-     * Relación con el centro
+     * Mutator para hashear la contraseña automáticamente
      */
-    public function center()
+    public function setPasswordAttribute($value)
     {
-        return $this->belongsTo(Center::class);
+        if ($value) {
+            $this->attributes['password'] = Hash::make($value);
+        }
+    }
+
+    // Relaciones
+    public function center() { return $this->belongsTo(Center::class); }
+    public function materialAssignments() { return $this->hasMany(MaterialAssignment::class); }
+    public function notes() { return $this->hasMany(ProfessionalNote::class); }
+    public function documents() { return $this->hasMany(ProfessionalDocument::class); }
+    public function createdNotes() { return $this->hasMany(ProfessionalNote::class, 'created_by_professional_id'); }
+    public function uploadedDocuments() { return $this->hasMany(ProfessionalDocument::class, 'uploaded_by_professional_id'); }
+
+    /**
+     * Relación con el modelo User
+     */
+    public function userAccount()
+    {
+        return $this->hasOne(User::class, 'professional_id');
     }
 
     /**
-     * Relación con las asignaciones de material
+     * Boot method: crea user automáticamente al crear professional
+     * y borra user al eliminar professional
      */
-    public function materialAssignments()
+    protected static function booted()
     {
-        return $this->hasMany(MaterialAssignment::class);
-    }
+        static::created(function ($professional) {
+            // Preparar datos mínimos
+            $userData = [
+                'name' => $professional->name,
+                'email' => $professional->email,
+                'password' => $professional->password, // ya hasheada
+            ];
 
-    /**
-     * Relación con las notas del profesional
-     */
-    public function notes()
-    {
-        return $this->hasMany(ProfessionalNote::class);
-    }
+            // Añadir 'user' solo si existe la columna en la tabla
+            if (Schema::hasColumn('users', 'user')) {
+                $userData['user'] = $professional->user;
+            }
 
-    /**
-     * Relación con los documentos del profesional
-     */
-    public function documents()
-    {
-        return $this->hasMany(ProfessionalDocument::class);
-    }
+            // Crear user relacionado
+            $professional->userAccount()->create($userData);
+        });
 
-    /**
-     * Relación con las notas creadas por este profesional
-     */
-    public function createdNotes()
-    {
-        return $this->hasMany(ProfessionalNote::class, 'created_by_professional_id');
-    }
-
-    /**
-     * Relación con los documentos subidos por este profesional
-     */
-    public function uploadedDocuments()
-    {
-        return $this->hasMany(ProfessionalDocument::class, 'uploaded_by_professional_id');
+        static::deleting(function ($professional) {
+            if ($professional->userAccount) {
+                $professional->userAccount->delete();
+            }
+        });
     }
 }

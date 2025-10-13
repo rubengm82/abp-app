@@ -27,7 +27,8 @@
 
             <!-- Items - Menu -->
             <li>
-                <a href="{{ route('login') }}" class="flex items-center justify-start gap-2">
+            <li>
+                <a href="{{ route('logout') }}" class="flex items-center justify-start gap-2 w-full text-left">
                     <i class="fa-solid fa-arrow-right"></i> Sortir
                 </a>
             </li>

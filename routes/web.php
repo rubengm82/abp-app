@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CenterController;
 use App\Http\Controllers\CenterNoteController;
 use App\Http\Controllers\CenterDocumentController;
@@ -14,117 +15,118 @@ use App\Http\Controllers\MaterialAssignmentNoteController;
 use App\Http\Controllers\MaterialAssignmentDocumentController;
 use Illuminate\Support\Facades\Route;
 
+/* ------------------------ LOGIN ROUTES ------------------------ */
+Route::middleware('guest')->group(function () {
+    Route::get('/', [LoginController::class, 'show'])->name('login');
+    Route::post('/', [LoginController::class, 'login']);
+});
 
-/* ROUTES APP */
-Route::get('/home', function () {
-    return view('app');
-})->name('home');
+/* ------------------------ LOGOUT ------------------------ */
+// Logout con GET (no recomendado por Laravel por seguridad, pero funciona)
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+/* ------------------------ RUTAS PROTEGIDAS ------------------------ */
+Route::middleware('auth')->group(function () {
 
-/* ROUTES LOGIN */
-Route::get('/', function () {
-    return view('login');
-})->name('login');
+    /* HOME */
+    Route::get('/home', function () {
+        return view('app');
+    })->name('home');
 
+    /* ------------------------ CENTERS ------------------------ */
+    Route::prefix('center')->group(function () {
+        Route::get('/form', [CenterController::class, "create"])->name("center_form");
+        Route::post('/add', [CenterController::class, "store"])->name("center_add");
+        Route::get('/list', [CenterController::class, "index"])->name("centers_list");
+        Route::get('/desactivated_list', [CenterController::class, "index_desactivatedCenters"])->name("centers_desactivated_list");
+        Route::get('/activate/{center}', [CenterController::class, 'activateStatus'])->name('center_activate');
+        Route::get('/desactivate/{center}', [CenterController::class, 'desactivateStatus'])->name('center_desactivate');
+        Route::get('/edit/{center}', [CenterController::class, 'edit'])->name('center_edit');
+        Route::post('/update/{center}', [CenterController::class, "update"])->name("center_update");
+        Route::get('/show/{center}', [CenterController::class, "show"])->name("center_show");
+        Route::get('/downloadCSV/{status}', [CenterController::class, 'downloadCSV'])->name('centers.downloadCSV');
 
-/* ROUTES FOR CENTER REGISTRATION FORMS */
-Route::get('/center_form', [CenterController::class, "create"])->name("center_form");
-Route::post('/center_add', [CenterController::class, "store"])->name("center_add");
-Route::get('/centers_list', [CenterController::class, "index"])->name("centers_list");
-Route::get('/centers_desactivated_list', [CenterController::class, "index_desactivatedCenters"])->name("centers_desactivated_list");
-Route::get('/center/activate/{center}', [CenterController::class, 'activateStatus'])->name('center_activate');
-Route::get('/center/desactivate/{center}', [CenterController::class, 'desactivateStatus'])->name('center_desactivate');
-Route::post('/center/{center}', [CenterController::class, "update"])->name("center_update");
-Route::get('/center/center_edit/{center}', [CenterController::class, 'edit'])->name('center_edit');
-Route::get('/center_show/{id}', [CenterController::class, "show"])->name("center_show");
-Route::get('/centers/downloadCSV/{status}', [CenterController::class, 'downloadCSV'])->name('centers.downloadCSV');
+        // Notes
+        Route::post('/{center}/notes', [CenterNoteController::class, 'store'])->name('center_note_add');
+        Route::put('/notes/{note}', [CenterNoteController::class, 'update'])->name('center_note_update');
+        Route::delete('/notes/{note}', [CenterNoteController::class, 'destroy'])->name('center_note_delete');
 
-/* ROUTES FOR CENTER NOTES */
-Route::post('/center/{center}/notes', [CenterNoteController::class, 'store'])->name('center_note_add');
-Route::put('/center/notes/{note}', [CenterNoteController::class, 'update'])->name('center_note_update');
-Route::delete('/center/notes/{note}', [CenterNoteController::class, 'destroy'])->name('center_note_delete');
+        // Documents
+        Route::post('/{center}/documents', [CenterDocumentController::class, 'store'])->name('center_document_add');
+        Route::delete('/documents/{document}', [CenterDocumentController::class, 'destroy'])->name('center_document_delete');
+        Route::get('/documents/{document}/download', [CenterDocumentController::class, 'download'])->name('center_document_download');
+    });
 
-/* ROUTES FOR CENTER DOCUMENTS */
-Route::post('/center/{center}/documents', [CenterDocumentController::class, 'store'])->name('center_document_add');
-Route::delete('/center/documents/{document}', [CenterDocumentController::class, 'destroy'])->name('center_document_delete');
-Route::get('/center/documents/{document}/download', [CenterDocumentController::class, 'download'])->name('center_document_download');
+    /* ------------------------ PROFESSIONALS ------------------------ */
+    Route::prefix('professional')->group(function () {
+        Route::get('/form', [ProfessionalController::class, "create"])->name("professional_form");
+        Route::post('/add', [ProfessionalController::class, "store"])->name("professional_add");
+        Route::get('/list', [ProfessionalController::class, "index"])->name("professionals_list");
+        Route::get('/desactivated_list', [ProfessionalController::class, "index_desactivatedCenters"])->name("professionals_desactivated_list");
+        Route::get('/activate/{professional_id}', [ProfessionalController::class, 'activateStatus'])->name('professional_activate');
+        Route::get('/desactivate/{professional_id}', [ProfessionalController::class, 'desactivateStatus'])->name('professional_desactivate');
+        Route::get('/edit/{id}', [ProfessionalController::class, "edit"])->name("professional_edit");
+        Route::post('/update/{id}', [ProfessionalController::class, "update"])->name("professional_update");
+        Route::get('/show/{id}', [ProfessionalController::class, "show"])->name("professional_show");
 
-/* ROUTES FOR PROFESSIONAL REGISTRATION FORMS */
-Route::get('/professional_form', [ProfessionalController::class, "create"])->name("professional_form");
-Route::post('/professional_add', [ProfessionalController::class, "store"])->name("professional_add");
-Route::get('/professionals_list', [ProfessionalController::class, "index"])->name("professionals_list");
-Route::get('/professionals_desactivated_list', [ProfessionalController::class, "index_desactivatedCenters"])->name("professionals_desactivated_list");
+        // CSV
+        Route::get('/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
+        Route::get('/downloadCSV/material-assignments', [ProfessionalController::class, 'downloadCSVMaterialAssignments'])->name('professionals.downloadCSV.materialAssignments');
 
-Route::get('/professional/activate/{professional_id}', [ProfessionalController::class, 'activateStatus'])->name('professional_activate');
-Route::get('/professional/desactivate/{professional_id}', [ProfessionalController::class, 'desactivateStatus'])->name('professional_desactivate');
+        // Notes
+        Route::post('/{professional}/notes', [ProfessionalNoteController::class, 'store'])->name('professional_note_add');
+        Route::put('/notes/{note}', [ProfessionalNoteController::class, 'update'])->name('professional_note_update');
+        Route::delete('/notes/{note}', [ProfessionalNoteController::class, 'destroy'])->name('professional_note_delete');
 
-Route::post('/professional_update/{id}', [ProfessionalController::class, "update"])->name("professional_update");
-Route::get('/professional_edit/{id}', [ProfessionalController::class, "edit"])->name("professional_edit");
-Route::get('/professional_show/{id}', [ProfessionalController::class, "show"])->name("professional_show");
-Route::get('/professionals/downloadCSV/material-assignments', [ProfessionalController::class, 'downloadCSVMaterialAssignments'])->name('professionals.downloadCSV.materialAssignments');
-Route::get('/professionals/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
+        // Documents
+        Route::post('/{professional}/documents', [ProfessionalDocumentController::class, 'store'])->name('professional_document_add');
+        Route::delete('/documents/{document}', [ProfessionalDocumentController::class, 'destroy'])->name('professional_document_delete');
+        Route::get('/documents/{document}/download', [ProfessionalDocumentController::class, 'download'])->name('professional_document_download');
+    });
 
-/* ROUTES FOR PROFESSIONAL NOTES */
-Route::post('/professional/{professional}/notes', [ProfessionalNoteController::class, 'store'])->name('professional_note_add');
-Route::put('/professional/notes/{note}', [ProfessionalNoteController::class, 'update'])->name('professional_note_update');
-Route::delete('/professional/notes/{note}', [ProfessionalNoteController::class, 'destroy'])->name('professional_note_delete');
+    /* ------------------------ PROJECT/COMMISSION ------------------------ */
+    Route::prefix('projectcommission')->group(function () {
+        Route::get('/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
+        Route::post('/add', [ProjectCommissionController::class, "store"])->name("projectcommission_add");
+        Route::get('/list', [ProjectCommissionController::class, "index"])->name("projectcommissions_list");
+        Route::get('/desactivated_list', [ProjectCommissionController::class, "indexDesactivated"])->name("projectcommissions_desactivated_list");
+        Route::get('/activate/{projectCommission}', [ProjectCommissionController::class, 'activateStatus'])->name('projectcommission_activate');
+        Route::get('/desactivate/{projectCommission}', [ProjectCommissionController::class, 'desactivateStatus'])->name('projectcommission_desactivate');
+        Route::get('/edit/{projectCommission}', [ProjectCommissionController::class, 'edit'])->name('projectcommission_edit');
+        Route::post('/update/{projectCommission}', [ProjectCommissionController::class, "update"])->name("projectcommission_update");
+        Route::get('/show/{projectCommission}', [ProjectCommissionController::class, 'show'])->name('projectcommission_show');
+        Route::get('/downloadCSV/{status}', [ProjectCommissionController::class, 'downloadCSV'])->name('projectcommissions.downloadCSV');
 
-/* ROUTES FOR PROFESSIONAL DOCUMENTS */
-Route::post('/professional/{professional}/documents', [ProfessionalDocumentController::class, 'store'])->name('professional_document_add');
-Route::delete('/professional/documents/{document}', [ProfessionalDocumentController::class, 'destroy'])->name('professional_document_delete');
-Route::get('/professional/documents/{document}/download', [ProfessionalDocumentController::class, 'download'])->name('professional_document_download');
+        // Notes
+        Route::post('/{projectCommission}/notes', [ProjectCommissionNoteController::class, 'store'])->name('projectcommission_note_add');
+        Route::put('/notes/{note}', [ProjectCommissionNoteController::class, 'update'])->name('projectcommission_note_update');
+        Route::delete('/notes/{note}', [ProjectCommissionNoteController::class, 'destroy'])->name('projectcommission_note_delete');
 
-/* ROUTES FOR PROJECT/COMMISSION REGISTRATION FORMS */
-Route::get('/projectcommission_form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
-Route::post('/projectcommission_add', [ProjectCommissionController::class, "store"])->name("projectcommission_add");
-Route::get('/projectcommissions_list', [ProjectCommissionController::class, "index"])->name("projectcommissions_list");
-Route::get('/projectcommissions_desactivated_list', [ProjectCommissionController::class, "indexDesactivated"])->name("projectcommissions_desactivated_list"); //REVISAR
-Route::get('/projectcommission/activate/{projectCommission}', [ProjectCommissionController::class, 'activateStatus'])->name('projectcommission_activate'); //REVISAR
-Route::get('/projectcommission/desactivate/{projectCommission}', [ProjectCommissionController::class, 'desactivateStatus'])->name('projectcommission_desactivate'); //REVISAR
-Route::post('/projectcommission/{projectCommission}', [ProjectCommissionController::class, "update"])->name("projectcommission_update"); //REVISAR
-Route::get('/projectcommission/show/{projectCommission}', [ProjectCommissionController::class, 'show'])->name('projectcommission_show');
-Route::get('/projectcommission/edit/{projectCommission}', [ProjectCommissionController::class, 'edit'])->name('projectcommission_edit');
-Route::get('/projectcommissions/downloadCSV/{status}', [ProjectCommissionController::class, 'downloadCSV'])->name('projectcommissions.downloadCSV');
+        // Documents
+        Route::post('/{projectCommission}/documents', [ProjectCommissionDocumentController::class, 'store'])->name('projectcommission_document_add');
+        Route::delete('/documents/{document}', [ProjectCommissionDocumentController::class, 'destroy'])->name('projectcommission_document_delete');
+        Route::get('/documents/{document}/download', [ProjectCommissionDocumentController::class, 'download'])->name('projectcommission_document_download');
+    });
 
-/* ROUTES FOR PROJECT/COMMISSION NOTES REVISAR */ 
-Route::post('/projectcommission/{projectCommission}/notes', [ProjectCommissionNoteController::class, 'store'])->name('projectcommission_note_add');
-Route::put('/projectcommission/notes/{note}', [ProjectCommissionNoteController::class, 'update'])->name('projectcommission_note_update');
-Route::delete('/projectcommission/notes/{note}', [ProjectCommissionNoteController::class, 'destroy'])->name('projectcommission_note_delete');
+    /* ------------------------ MATERIAL ASSIGNMENTS ------------------------ */
+    Route::prefix('materialassignment')->group(function () {
+        Route::get('/list', [MaterialAssignmentController::class, 'index'])->name('materialassignments_list');
+        Route::get('/form', [MaterialAssignmentController::class, 'create'])->name('materialassignment_form');
+        Route::post('/store', [MaterialAssignmentController::class, 'store'])->name('materialassignment_store');
+        Route::get('/show/{materialAssignment}', [MaterialAssignmentController::class, 'show'])->name('materialassignment_show');
+        Route::get('/edit/{materialAssignment}', [MaterialAssignmentController::class, 'edit'])->name('materialassignment_edit');
+        Route::put('/update/{materialAssignment}', [MaterialAssignmentController::class, 'update'])->name('materialassignment_update');
+        Route::delete('/delete/{materialAssignment}', [MaterialAssignmentController::class, 'destroy'])->name('materialassignment_delete');
+        Route::get('/downloadCSV', [MaterialAssignmentController::class, 'downloadCSV'])->name('materialassignment_downloadCSV');
 
-/* ROUTES FOR PROJECT/COMMISSION DOCUMENTS */ 
-Route::post('/projectcommission/{projectCommission}/documents', [ProjectCommissionDocumentController::class, 'store'])->name('projectcommission_document_add');
-Route::delete('/projectcommission/documents/{document}', [ProjectCommissionDocumentController::class, 'destroy'])->name('projectcommission_document_delete');
-Route::get('/projectcommission/documents/{document}/download', [ProjectCommissionDocumentController::class, 'download'])->name('projectcommission_document_download');
+        // Notes
+        Route::post('/{materialAssignment}/notes', [MaterialAssignmentNoteController::class, 'store'])->name('materialassignment_note_add');
+        Route::put('/notes/{note}', [MaterialAssignmentNoteController::class, 'update'])->name('materialassignment_note_update');
+        Route::delete('/notes/{note}', [MaterialAssignmentNoteController::class, 'destroy'])->name('materialassignment_note_delete');
 
-
-
-
-/* ROUTES FOR MATERIAL ASSIGNMENTS */ 
-Route::get('/materialassignments/list', [MaterialAssignmentController::class, 'index'])->name('materialassignments_list');
-Route::get('/materialassignment/form', [MaterialAssignmentController::class, 'create'])->name('materialassignment_form');
-Route::post('/materialassignment/store', [MaterialAssignmentController::class, 'store'])->name('materialassignment_store');
-Route::get('/materialassignment/show/{materialAssignment}', [MaterialAssignmentController::class, 'show'])->name('materialassignment_show');
-Route::get('/materialassignment/edit/{materialAssignment}', [MaterialAssignmentController::class, 'edit'])->name('materialassignment_edit');
-Route::put('/materialassignment/update/{materialAssignment}', [MaterialAssignmentController::class, 'update'])->name('materialassignment_update');
-Route::delete('/materialassignment/delete/{materialAssignment}', [MaterialAssignmentController::class, 'destroy'])->name('materialassignment_delete');
-Route::get('/materialassignment/downloadCSV', [MaterialAssignmentController::class, 'downloadCSV'])->name('materialassignment_downloadCSV');
-
-/* ROUTES FOR MATERIAL ASSIGNMENT NOTES */
-Route::post('/materialassignment/{materialAssignment}/notes', [MaterialAssignmentNoteController::class, 'store'])->name('materialassignment_note_add');
-Route::put('/materialassignment/notes/{note}', [MaterialAssignmentNoteController::class, 'update'])->name('materialassignment_note_update');
-Route::delete('/materialassignment/notes/{note}', [MaterialAssignmentNoteController::class, 'destroy'])->name('materialassignment_note_delete');
-
-/* ROUTES FOR MATERIAL ASSIGNMENT DOCUMENTS */
-Route::post('/materialassignment/{materialAssignment}/documents', [MaterialAssignmentDocumentController::class, 'store'])->name('materialassignment_document_add');
-Route::delete('/materialassignment/documents/{document}', [MaterialAssignmentDocumentController::class, 'destroy'])->name('materialassignment_document_delete');
-Route::get('/materialassignment/documents/{document}/download', [MaterialAssignmentDocumentController::class, 'download'])->name('materialassignment_document_download');
-
-//TODO: Implement routes for uniform records
-// Routes for uniform records
-// Route::get('/uniform_records_list', [UniformRecordController::class, "index"])->name("uniform_records_list");
-
-// Route::post('/uniform_record_update/{id}', [UniformRecordController::class, "update"])->name("uniform_record_update");
-// Route::get('/uniform_record_edit/{id}', [UniformRecordController::class, "edit"])->name("uniform_record_edit");
-// Route::get('/uniform_records/downloadCSV', [UniformRecordController::class, 'downloadCSV'])->name('uniform_records.downloadCSV');
-
-
+        // Documents
+        Route::post('/{materialAssignment}/documents', [MaterialAssignmentDocumentController::class, 'store'])->name('materialassignment_document_add');
+        Route::delete('/documents/{document}', [MaterialAssignmentDocumentController::class, 'destroy'])->name('materialassignment_document_delete');
+        Route::get('/documents/{document}/download', [MaterialAssignmentDocumentController::class, 'download'])->name('materialassignment_document_download');
+    });
+});
