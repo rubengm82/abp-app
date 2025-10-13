@@ -25,11 +25,11 @@ class CenterDocumentSeeder extends Seeder
         }
 
         $documentTypes = [
-            'Contrato de arrendamiento',
+            'Dummy_Contrato_de_arrendamiento.pdf',
             'Certificado de seguridad',
-            'Manual de procedimientos',
-            'Reglamento interno',
-            'Certificado de inspección'
+            'Dummy_Manual_de_procedimientos.pdf',
+            'Dummy_Reglamento_interno.pdf',
+            'Dummy_Certificado_de_inspección.pdf'
         ];
 
         foreach ($centers as $center) {
@@ -43,7 +43,7 @@ class CenterDocumentSeeder extends Seeder
                 CenterDocument::create([
                     'file_name' => 'center_' . $center->id . '_doc_' . ($i + 1) . '.pdf',
                     'original_name' => $documentType . '.pdf',
-                    'file_content' => null, // TODO: Temporal null
+                    'file_path' => 'documents/centers/' . 'center_' . $center->id . '_doc_' . ($i + 1) . '.pdf',
                     'file_size' => rand(50000, 500000), // Entre 50KB y 500KB
                     'mime_type' => 'application/pdf',
                     'center_id' => $center->id,

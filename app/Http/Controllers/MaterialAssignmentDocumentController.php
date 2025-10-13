@@ -6,6 +6,7 @@ use App\Models\MaterialAssignmentDocument;
 use App\Models\MaterialAssignment;
 use App\Models\Professional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MaterialAssignmentDocumentController extends Controller
 {
@@ -34,13 +35,15 @@ class MaterialAssignmentDocumentController extends Controller
         $originalName = $file->getClientOriginalName();
         $fileSize = $file->getSize();
         $mimeType = $file->getMimeType();
-        $fileContent = file_get_contents($file->getRealPath());
+        
+        // Store file in filesystem
+        $filePath = $file->storeAs('documents/material-assignments', $fileName, 'public');
 
         MaterialAssignmentDocument::create([
             'material_assignment_id' => $materialAssignment->id,
             'file_name' => $fileName,
             'original_name' => $originalName,
-            'file_content' => $fileContent,
+            'file_path' => $filePath,
             'file_size' => $fileSize,
             'mime_type' => $mimeType,
             'uploaded_by_professional_id' => $uploadedByProfessionalId
@@ -54,9 +57,11 @@ class MaterialAssignmentDocumentController extends Controller
      */
     public function download(MaterialAssignmentDocument $document)
     {
-        return response($document->file_content)
-            ->header('Content-Type', $document->mime_type)
-            ->header('Content-Disposition', 'attachment; filename="' . $document->original_name . '"');
+        if (!Storage::disk('public')->exists($document->file_path)) {
+            abort(404, 'File not found');
+        }
+        
+        return Storage::disk('public')->download($document->file_path, $document->original_name);
     }
 
     /**
@@ -65,6 +70,12 @@ class MaterialAssignmentDocumentController extends Controller
     public function destroy(MaterialAssignmentDocument $document)
     {
         $materialAssignment = $document->materialAssignment;
+        
+        // Delete file from filesystem
+        if (Storage::disk('public')->exists($document->file_path)) {
+            Storage::disk('public')->delete($document->file_path);
+        }
+        
         $document->delete();
         
         return redirect()->route('materialassignment_show', $materialAssignment)->with('success_document_deleted', 'Document eliminat correctament!');

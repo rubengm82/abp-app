@@ -14,3 +14,4 @@
 * Añadir error_success
 * Arreglar desactivar en vista
 * Order by data time por minuto
+* Hay un error con el Toad y los "<- ->"

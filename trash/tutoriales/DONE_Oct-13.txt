@@ -1,0 +1,31 @@
+# Documentos BLOB -> FS
+
+CAMBIOS:
+- Migraciones: file_content (binary) > file_path (string)
+- Controladores: ahora guardan archivos en storage/app/public/documents/...
+- Modelos: actualizados para usar file_path
+- Seeders: actualizados para usar rutas de archivos
+
+FLUJO:
+1. Subir: archivo se guarda en disco + registro en BD con ruta
+2. Descargar: se lee archivo desde disco usando la ruta guardada (directorio hardcodeado, nombre y extensión por campo)
+3. Eliminar: se borra archivo del disco + registro de BD
+
+
+
+Por ahora se guardan los archivos en public/documents/entidad/... luego verémos si hay mejores directorios para ello
+
+Cualquier tipo de archivo y codificación, ya decidirémos con lo que nos ha dicho Yolanda
+
+Las tablas de documentos son subtablas como tal de la entidad, es decir, si hay de Centros, hay una de Centros_Documentos. Esta almacena, el tipo de archivo en mime (image/jpg, aplication/pdf...) el nombre real, el path etc y a quién (centro en este caso) pertenece. Así con todas las entidades.
+
+Hay una variable de tipo $cast, que ayuda a laravel a castear datos, como fechas o tamaños.
+
+Hay una relación directa, un belongTo a la entidad tal y como ha dicho Olga hoy.
+
+El controlador valida y le asigna un profesional automático (así hasta que tengamos lo de $user->$id) y almacena toda la info en el registro, almacena en el directorio con la clase $file y el método storeAs (el directorio por ahora está hardcodeado, ya verémos si es necesario o cómo lo acabamos haciendo)
+
+Para descargar y eliminar casi lo mismo pero con la clase Storage
+
+Igual que antes, para recoger las notas en el show , se ocupa el modelo de la entidad, con el hasMany que vimos y laravel ya se encarga de todo.
+La clave es esta $center = Center::with(['notes', 'documents'])->findOrFail($id); que gracias a ese hasMany y el belong to, cuando se lista o se hace un show de una entidad, recibe las notas y documentos que tengan que ver con él

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProjectCommissionDocument;
 use App\Models\ProjectCommission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectCommissionDocumentController extends Controller
 {
@@ -36,12 +37,15 @@ class ProjectCommissionDocumentController extends Controller
                 $mimeType = $file->getMimeType();
                 $fileName = time() . '_' . $originalName;
                 
+                // Store file in filesystem
+                $filePath = $file->storeAs('documents/project-commissions', $fileName, 'public');
+                
                 ProjectCommissionDocument::create([
                     'project_commission_id' => $projectCommission->id,
                     'professional_id' => $professionalId,
                     'file_name' => $fileName,
                     'original_name' => $originalName,
-                    'file_content' => file_get_contents($file->getRealPath()),
+                    'file_path' => $filePath,
                     'file_size' => $fileSize,
                     'mime_type' => $mimeType,
                 ]);
@@ -63,6 +67,12 @@ class ProjectCommissionDocumentController extends Controller
     public function destroy(ProjectCommissionDocument $document)
     {
         $projectCommission = $document->projectCommission;
+        
+        // Delete file from filesystem
+        if (Storage::disk('public')->exists($document->file_path)) {
+            Storage::disk('public')->delete($document->file_path);
+        }
+        
         $document->delete();
         
         return redirect()->route('projectcommission_show', $projectCommission)->with('success_document_deleted', 'Arxiu eliminat correctament!');
@@ -73,8 +83,10 @@ class ProjectCommissionDocumentController extends Controller
      */
     public function download(ProjectCommissionDocument $document)
     {
-        return response($document->file_content)
-            ->header('Content-Type', $document->mime_type)
-            ->header('Content-Disposition', 'attachment; filename="' . $document->original_name . '"');
+        if (!Storage::disk('public')->exists($document->file_path)) {
+            abort(404, 'File not found');
+        }
+        
+        return Storage::disk('public')->download($document->file_path, $document->original_name);
     }
 }

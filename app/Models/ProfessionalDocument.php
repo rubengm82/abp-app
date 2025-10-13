@@ -11,11 +11,17 @@ class ProfessionalDocument extends Model
     protected $fillable = [
         'file_name',
         'original_name',
-        'file_content',
+        'file_path',
         'file_size',
         'mime_type',
         'professional_id',
         'uploaded_by_professional_id'
+    ];
+
+    protected $casts = [
+        'file_size' => 'integer',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     /**

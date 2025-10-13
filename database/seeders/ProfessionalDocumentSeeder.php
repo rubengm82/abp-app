@@ -21,31 +21,31 @@ class ProfessionalDocumentSeeder extends Seeder
             $documents = [
                 [
                     'file_name' => 'cv_professional_1.pdf',
-                    'original_name' => 'CV_Joan_Garcia.pdf',
+                    'original_name' => 'Dummy_CV_Joan_Garcia.pdf',
                     'mime_type' => 'application/pdf',
                     'file_size' => 245760
                 ],
                 [
                     'file_name' => 'certificat_formacio_2.pdf',
-                    'original_name' => 'Certificat_Formacio_Seguretat.pdf',
+                    'original_name' => 'Dummy_Certificat_Formacio_Seguretat.pdf',
                     'mime_type' => 'application/pdf',
                     'file_size' => 189440
                 ],
                 [
                     'file_name' => 'foto_professional_3.jpg',
-                    'original_name' => 'Foto_Carnet_Professional.jpg',
+                    'original_name' => 'Dummy_Foto_Carnet_Professional.jpg',
                     'mime_type' => 'image/jpeg',
                     'file_size' => 156789
                 ],
                 [
                     'file_name' => 'contracte_treball_4.pdf',
-                    'original_name' => 'Contracte_Treball_2024.pdf',
+                    'original_name' => 'Dummy_Contracte_Treball_2024.pdf',
                     'mime_type' => 'application/pdf',
                     'file_size' => 312456
                 ],
                 [
                     'file_name' => 'evaluacio_rendiment_5.pdf',
-                    'original_name' => 'Evaluacio_Rendiment_Trimestre.pdf',
+                    'original_name' => 'Dummy_Evaluacio_Rendiment_Trimestre.pdf',
                     'mime_type' => 'application/pdf',
                     'file_size' => 98765
                 ]
@@ -61,7 +61,7 @@ class ProfessionalDocumentSeeder extends Seeder
                     ProfessionalDocument::create([
                         'file_name' => $document['file_name'],
                         'original_name' => $document['original_name'],
-                        'file_content' => null, // TODO: Temporal null
+                        'file_path' => 'documents/professionals/' . $document['file_name'],
                         'file_size' => $document['file_size'],
                         'mime_type' => $document['mime_type'],
                         'professional_id' => $professional->id,

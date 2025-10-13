@@ -1,18 +1,16 @@
-# Notas y documentos globales - TODO LIST
+# Modificación base de datos Blob > Path (FS) - TODO LIST
 
-* Crear tablas de notas y tabla de documentos para:
-** Profesionales
-** Centros
-** Registro de uniformes
-* Comprueba las migraciones de las tablas creadas, parece que hay strings muy raros que no se entienden como "'man_ma_id_fk'"
-* Crea los seeders correctos
-* Los modelos y los controladores necesarios
-* Editar el "show" de lo mencionado anteriormente para que se vean y se puedan editar las notas y documentos de la misma forma que ocurre en Proyecto y Comisiones
-* Modificar el formulario de edición de registro de uniformidad para que no se utilice el obsoleto formato de documentos
-* Actualiza los documentos de los esquemas de base de datos, tanto el inglés como el español
+* Modifica de todas las tablas de tipo documentos que aplican: (Centros, Profesionales, Proyectos, Registro Uniformes)
+** Ahora utilizarán el FS, con path, en lugar de BLOB.
+** Por ahora, se aceptará cualquier tipo de archivos
+** También se aceptará cualquier tipo de codificación, sobretodo UTF-8.
+* Modificar las vistas show para que sean compatibles con el nuevo sistema de ficheros
+* Eliminar métodos obsoletos que ya no se necesitan, ahora que no está el tipo Blob
+* Limpiar Modelos y Controladres, sobretodo si ya no se necesita castear o agregar si sí se necesita pero con otros parámetros.
 
+* Hay que arreglar la función de descargar archivo, actualmente al intentar descargar un archivo que no se encuentra, da error 404 en una página nueva. Activa por ahora un alert conforme no se ha encontrado sin redirigir erroneamente. 
 
 To know:
 * En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo trash/master_checklist.txt como instrucciones básicas
 * Todo debe de estar maquetado lo más simple posible con tailwind + daisyUI respetando el resto de diseños de la página web, en especifico los "componentes/contents" ej; (resources/views/components/contents/projectcommission/projectCommissionShow.blade.php, resources/views/components/contents/professional/professionalForm.blade.php, resources/views/components/contents/center/centersList.blade.php)
-* No se pueden crear más migraciones, no de tipo add delete o modificación, pero sí para tablas totalmente nuevas.
+* No se pueden crear más migraciones, ni de tipo add, delete o modificación, pero sí para tablas totalmente nuevas. En caso de necesitar modificar una tabla, se ha de modificar el archivo ya creado y testear de inmediato con fresh o incluso borrando el caché.

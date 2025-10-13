@@ -11,6 +11,27 @@
 - Yoel Berjaga García
 - Rubén Gallardo Mancha
 
+## Database Configuration
+
+The application uses a remote MySQL database hosted on AlwaysData:
+- **Hostname**: mysql-rubengmpineda.alwaysdata.net
+- **IP Address**: 185.31.40.34
+- **Database**: rubengmpineda_abp
+- **Username**: 431396_abp
+- **Port**: 3306
+
+### Troubleshooting Database Connection
+
+If you encounter DNS resolution issues with the hostname, use the IP address directly in your `.env` file:
+
+```env
+DB_HOST=185.31.40.34
+```
+
+**Common Error**: `Name or service not known` - This indicates DNS resolution failure. Use the IP address instead of the hostname.
+
+For detailed database configuration information, see [DATABASE_CONFIG.md](DATABASE_CONFIG.md).
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

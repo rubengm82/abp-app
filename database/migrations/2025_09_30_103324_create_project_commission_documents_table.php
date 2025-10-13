@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('file_name', 255)->comment('File name');
             $table->string('original_name', 255)->comment('Original file name');
-            $table->binary('file_content')->nullable()->comment('File content as blob');
+            $table->string('file_path', 500)->nullable()->comment('File path in filesystem');
             $table->integer('file_size')->nullable()->comment('File size in bytes');
             $table->string('mime_type', 100)->nullable()->comment('MIME type of the file');
             $table->unsignedBigInteger('project_commission_id')->comment('Project/Commission reference');

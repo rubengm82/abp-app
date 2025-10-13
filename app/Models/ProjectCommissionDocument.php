@@ -14,7 +14,7 @@ class ProjectCommissionDocument extends Model
         'professional_id',
         'file_name',
         'original_name',
-        'file_content',
+        'file_path',
         'file_size',
         'mime_type',
     ];

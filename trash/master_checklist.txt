@@ -80,3 +80,4 @@
 - Validar tanto en frontend como backend
 - Hacer los comentarios en Ingles, menos los todos de recordatorio y revisión
 - Usar relaciones de Eloquent correctamente
+- Insisto en revisar los seeders antes de ejecutar el php... --seed
