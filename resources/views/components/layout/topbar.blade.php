@@ -22,7 +22,7 @@
         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 z-20">
             <!-- Version APP -->
             <li class="text-gray-400 pointer-events-none">
-                <span class="pl-2 pr-2 w-full block text-right cursor-default">Versió 0.2</span>
+                <span class="pl-2 pr-2 w-full block text-right cursor-default">Versió 0.2.1</span>
             </li>
 
             <!-- Items - Menu -->

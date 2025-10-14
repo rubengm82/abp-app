@@ -100,7 +100,7 @@
             <div class="space-y-4">
                 <div>
                     <label class="font-semibold text-gray-600">Observacions:</label>
-                    <p class="text-lg mt-2">{{ $materialAssignment->observations ?: 'No hi ha observacions' }}</p>
+                    <p class="text-lg mt-2 break-words overflow-wrap-anywhere">{{ $materialAssignment->observations ?: 'No hi ha observacions' }}</p>
                 </div>
                 <div>
                     <label class="font-semibold text-gray-600">Data de creació:</label>

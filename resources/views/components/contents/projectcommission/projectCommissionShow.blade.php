@@ -53,7 +53,7 @@
                 <h2 class="card-title text-xl mb-4">Descripció</h2>
                 <div class="space-y-4">
                     <div>
-                        <p class="text-lg mt-2">{{ $projectCommission->description ?: 'No hi ha descripció disponible' }}</p>
+                        <p class="text-lg mt-2 break-words overflow-wrap-anywhere">{{ $projectCommission->description ?: 'No hi ha descripció disponible' }}</p>
                     </div>
                 </div>
             </div>
