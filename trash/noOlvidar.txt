@@ -28,3 +28,5 @@ Olga:
 * Qué hacer cuando hay dos métodos exactamente iguales en 2o+ controladores distintos
 * SQL vs Blade
 * Separar Proyectos y Comisiones?
+
+* Archivos limitados en subida, modificar en apache o servidor web (php.ini)
