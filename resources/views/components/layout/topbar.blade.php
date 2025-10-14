@@ -4,10 +4,9 @@
     <!-- Logo  -->
     <div class="flex items-center text-lg font-bold select-none">
         <a href="{{ route('home') }}" class="block px-4 py-2 no-underline">
-            <span class="text-[#ff7500]">{{ Auth::user()->professional->role }}</span>
-            <span class="text-[#fafafa]">- {{ (Auth::user()->professional->center)->name }}</span>
-            <span class="text-[#fafafa]">({{ Auth::user()->professional->name . ' ' . Auth::user()->professional->surname1 . ' ' . Auth::user()->professional->surname2 }})</span>
-
+            <span class="text-[#ff7500]">{{ Auth::user()->role }}</span>
+            <span class="text-[#fafafa]">- {{ (Auth::user()->center)->name }}</span>
+            <span class="text-[#fafafa]">({{ Auth::user()->name . ' ' . Auth::user()->surname1 . ' ' . Auth::user()->surname2 }})</span>
         </a>
     </div>
 
