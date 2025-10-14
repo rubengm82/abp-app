@@ -28,27 +28,29 @@
             
             <form action="{{ route('login') }}" method="POST" class="space-y-4">
                 @csrf
-                
+
                 <!-- Usuario -->
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div class="flex items-center w-2/3 mx-auto border border-orange-300 rounded-full focus-within:ring-1 focus-within:ring-orange-400 focus-within:border-orange-400">
+                    <div class="flex items-center pl-3">
                         <span>👤</span>
                         <div class="ml-2 w-px h-6 bg-gray-300"></div>
                     </div>
                     <input type="text" name="user" value="{{ old('user') }}" placeholder="Usuari"
                         autocomplete="username"
-                        class="w-full pl-12 pr-3 py-2 border-1 border-orange-300 rounded-full focus:outline-none focus:ring-1 focus:ring-orange-400 focus:border-orange-400" required>
+                        class="flex-1 pl-3 pr-3 py-2 outline-none rounded-r-full"
+                        required>
                 </div>
 
                 <!-- Contraseña -->
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div class="flex items-center w-2/3 mx-auto border border-orange-300 rounded-full focus-within:ring-1 focus-within:ring-orange-400 focus-within:border-orange-400">
+                    <div class="flex items-center pl-3">
                         <span>🔒</span>
                         <div class="ml-2 w-px h-6 bg-gray-300"></div>
                     </div>
                     <input type="password" name="password" placeholder="Password"
                         autocomplete="current-password"
-                        class="w-full pl-12 pr-3 py-2 border-1 border-orange-300 rounded-full focus:outline-none focus:ring-1 focus:ring-orange-400 focus:border-orange-400" required>
+                        class="flex-1 pl-3 pr-3 py-2 outline-none rounded-r-full"
+                        required>
                 </div>
 
                 <!-- Error de login -->
