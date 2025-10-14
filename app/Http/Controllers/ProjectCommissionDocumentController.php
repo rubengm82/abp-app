@@ -6,6 +6,7 @@ use App\Models\ProjectCommissionDocument;
 use App\Models\ProjectCommission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectCommissionDocumentController extends Controller
 {
@@ -18,7 +19,7 @@ class ProjectCommissionDocumentController extends Controller
             'files.*' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,txt'
         ]);
 
-        $professionalId = auth()->user()->professional_id ?? null;
+        $professionalId = Auth::user()->id ?? null;
         
         // Si no hay profesional logueado, usar el primero disponible
         if (!$professionalId) {

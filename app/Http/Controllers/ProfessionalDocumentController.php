@@ -6,6 +6,7 @@ use App\Models\ProfessionalDocument;
 use App\Models\Professional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProfessionalDocumentController extends Controller
 {
@@ -18,7 +19,7 @@ class ProfessionalDocumentController extends Controller
             'document' => 'required|file|max:10240'
         ]);
 
-        $uploadedByProfessionalId = auth()->user()->professional_id ?? null;
+        $uploadedByProfessionalId = Auth::user()->id ?? null;
         
         //TODO TEMPORAL
         // Si no hay profesional logueado, usar el primero disponible

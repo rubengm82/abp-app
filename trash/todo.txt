@@ -1,14 +1,6 @@
-# Modificación base de datos Blob > Path (FS) - TODO LIST
+# NAME - TODO LIST
 
-* Modifica de todas las tablas de tipo documentos que aplican: (Centros, Profesionales, Proyectos, Registro Uniformes)
-** Ahora utilizarán el FS, con path, en lugar de BLOB.
-** Por ahora, se aceptará cualquier tipo de archivos
-** También se aceptará cualquier tipo de codificación, sobretodo UTF-8.
-* Modificar las vistas show para que sean compatibles con el nuevo sistema de ficheros
-* Eliminar métodos obsoletos que ya no se necesitan, ahora que no está el tipo Blob
-* Limpiar Modelos y Controladres, sobretodo si ya no se necesita castear o agregar si sí se necesita pero con otros parámetros.
-
-* Hay que arreglar la función de descargar archivo, actualmente al intentar descargar un archivo que no se encuentra, da error 404 en una página nueva. Activa por ahora un alert conforme no se ha encontrado sin redirigir erroneamente. 
+* 
 
 To know:
 * En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo trash/master_checklist.txt como instrucciones básicas

@@ -22,15 +22,6 @@ class CenterDocumentController extends Controller
             ]);
 
             $uploadedByProfessionalId = Auth::user()->id ?? null;
-            
-            //TODO TEMPORAL
-            // Si no hay profesional logueado, usar el primero disponible
-            if (!$uploadedByProfessionalId) {
-                $firstProfessional = Professional::where('status', 1)->first();
-                if ($firstProfessional) {
-                    $uploadedByProfessionalId = $firstProfessional->id;
-                }
-            }
 
             $file = $request->file('document');
             $fileName = time() . '_' . $file->getClientOriginalName();
@@ -38,22 +29,11 @@ class CenterDocumentController extends Controller
             $fileSize = $file->getSize();
             $mimeType = $file->getMimeType();
             
-            // Log inicio de subida
-            syslog(LOG_INFO, "Iniciando subida de archivo: {$originalName}, tamaño: {$fileSize} bytes, tipo: {$mimeType}");
-            
-            // Verificar espacio disponible
-            $freeSpace = disk_free_space(storage_path('app/public'));
-            if ($fileSize > $freeSpace) {
-                syslog(LOG_ERR, "Error: Espacio insuficiente. Archivo: {$fileSize} bytes, Disponible: {$freeSpace} bytes");
-                return redirect()->route('center_show', $center)->with('error_document_size', 'No hay espacio suficiente para subir el archivo');
-            }
-            
             // Store file in filesystem
             $filePath = $file->storeAs('documents/centers', $fileName, 'public');
             
             if (!$filePath) {
-                syslog(LOG_ERR, "Error: Fallo al almacenar archivo {$originalName}");
-                return redirect()->route('center_show', $center)->with('error_document_upload', 'Error al subir el archivo');
+                return redirect()->route('center_show', $center)->with('error_document_upload', 'Error en pujar el document');
             }
 
             CenterDocument::create([
@@ -66,15 +46,11 @@ class CenterDocumentController extends Controller
                 'uploaded_by_professional_id' => $uploadedByProfessionalId
             ]);
 
-            syslog(LOG_INFO, "Archivo subido exitosamente: {$originalName} -> {$filePath}");
             return redirect()->route('center_show', $center)->with('success_document_added', 'Document afegit correctament!');
             
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            syslog(LOG_ERR, "Error de validación en subida de archivo: " . $e->getMessage());
-            throw $e;
         } catch (\Exception $e) {
-            syslog(LOG_ERR, "Error inesperado en subida de archivo: " . $e->getMessage());
-            return redirect()->route('center_show', $center)->with('error_document_upload', 'Error al subir el archivo');
+            syslog(LOG_ERR, "abp - Error inesperado en subida de archivo: " . $e->getMessage());
+            return redirect()->route('center_show', $center)->with('error_document_upload', 'Error en pujar el document');
         }
     }
 
