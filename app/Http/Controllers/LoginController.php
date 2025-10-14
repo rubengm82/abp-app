@@ -34,7 +34,7 @@ class LoginController extends Controller
         }
 
         // Credenciales incorrectas
-        return back()->with('login_error', 'Usuario o contraseña incorrectos')->withInput($request->only('user'));
+        return back()->with('login_error', 'Usuari o contrasenya incorrectes')->withInput($request->only('user'));
     }
 
     // Logout
