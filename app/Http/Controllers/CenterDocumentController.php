@@ -8,6 +8,7 @@ use App\Models\Professional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\mainlog;
 
 class CenterDocumentController extends Controller
 {
@@ -16,6 +17,8 @@ class CenterDocumentController extends Controller
      */
     public function store(Request $request, Center $center)
     {
+        mainlog::log("Iniciando store en CenterDocumentController para center_id: " . $center->id);
+        
         try {
             $request->validate([
                 'document' => 'required|file|max:10240'
@@ -31,10 +34,6 @@ class CenterDocumentController extends Controller
             
             // Store file in filesystem
             $filePath = $file->storeAs('documents/centers', $fileName, 'public');
-            
-            if (!$filePath) {
-                return redirect()->route('center_show', $center)->with('error_document_upload', 'Error en pujar el document');
-            }
 
             CenterDocument::create([
                 'center_id' => $center->id,
@@ -45,11 +44,11 @@ class CenterDocumentController extends Controller
                 'mime_type' => $mimeType,
                 'uploaded_by_professional_id' => $uploadedByProfessionalId
             ]);
-
+            mainlog::log("Documento creado correctamente");
             return redirect()->route('center_show', $center)->with('success_document_added', 'Document afegit correctament!');
             
         } catch (\Exception $e) {
-            syslog(LOG_ERR, "abp - Error inesperado en subida de archivo: " . $e->getMessage());
+            mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage());
             return redirect()->route('center_show', $center)->with('error_document_upload', 'Error en pujar el document');
         }
     }

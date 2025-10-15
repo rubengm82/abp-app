@@ -1,12 +1,12 @@
 * Modificar botones de descarga a: "Exportar a CSV" y abrir panel de formato (Lista completa, Uniformidad...)
 * Añadir notas naranjas/warning que son de tipo privado / solo admin etc
-* Añadir timestamp a archvios descargados
-* Login y guardado de rol y name en session
+* [] Añadir timestamp a archvios descargados
+* [] Login y guardado de rol y name en session
 * Sort features
-* Paginación (Ralf)
-* Transacción (Ralf)
-* Particion de tablas (Ralf: Sólo investigar)
-* indices y comb.indices (Ralf)
+* Paginación
+* Transacción
+* Particion de tablas
+* indices y comb.indices
 * Cifrado de todo, unidireccional para contraeñas, bidirecional campos delicados (Ralf)
 * Crear nuestro propio confirm al eliminar documentos, notas y registros
 * Añadir confirmar o confirmar y continuar en creación de nuevos registros
@@ -20,7 +20,7 @@
 * No existe control de sql no aceptada ej: Varchar >
 * Upload no funciona tamaño alto
 * No toast para error al subir
-* 
+* Pasar los toads al topbar// y generalizarlos ahí, para ahorrar código.
 
 
 

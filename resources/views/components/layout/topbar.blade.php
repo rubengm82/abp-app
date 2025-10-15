@@ -38,3 +38,11 @@
     </div>
 
 </div>
+
+@if (session('warning'))
+    <div class="toast toast-end">
+        <div class="alert alert-warning">
+            <span>{{ session('warning') }}</span>
+        </div>
+    </div>
+@endif

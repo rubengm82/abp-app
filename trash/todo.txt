@@ -1,8 +1,19 @@
 # NAME - TODO LIST
 
+* No toast para error al subir
 * 
 
 To know:
 * En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo trash/master_checklist.txt como instrucciones básicas
 * Todo debe de estar maquetado lo más simple posible con tailwind + daisyUI respetando el resto de diseños de la página web, en especifico los "componentes/contents" ej; (resources/views/components/contents/projectcommission/projectCommissionShow.blade.php, resources/views/components/contents/professional/professionalForm.blade.php, resources/views/components/contents/center/centersList.blade.php)
 * No se pueden crear más migraciones, ni de tipo add, delete o modificación, pero sí para tablas totalmente nuevas. En caso de necesitar modificar una tabla, se ha de modificar el archivo ya creado y testear de inmediato con fresh o incluso borrando el caché.
+
+Apuntes, no tener en cuenta:
+* No hay toast de error en subida de archivos
+* Limpiar formulario de edición de profesionales
+** Modificación de campo login => user
+** Comprobar estado de cómo se edita la contraseña, plahecolder etc
+* Arreglar formulario de alta de profesionales
+** Se hashea la passw en la tabla?
+** Se comprueba primero si el user / mail ya existe?
+** Cambio campo login => user

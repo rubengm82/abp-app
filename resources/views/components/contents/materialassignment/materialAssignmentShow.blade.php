@@ -323,4 +323,13 @@ function openEditNoteModal(noteId, noteText) {
         </div>
     </div>
 @endif
+
+@if (session('error_document_upload'))
+    <div class="toast toast-end">
+        <div class="alert alert-error">
+            <span>{{ session('error_document_upload') }}</span>
+        </div>
+    </div>
+@endif
+
 @endsection

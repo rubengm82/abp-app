@@ -7,6 +7,7 @@ use App\Models\ProjectCommission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\mainlog;
 
 class ProjectCommissionDocumentController extends Controller
 {
@@ -15,51 +16,60 @@ class ProjectCommissionDocumentController extends Controller
      */
     public function store(Request $request, ProjectCommission $projectCommission)
     {
-        $request->validate([
-            'files.*' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,txt'
-        ]);
-
-        $professionalId = Auth::user()->id ?? null;
+        mainlog::log("Iniciando store en ProjectCommissionDocumentController para project_commission_id: " . $projectCommission->id);
         
-        // Si no hay profesional logueado, usar el primero disponible
-        if (!$professionalId) {
-            $firstProfessional = \App\Models\Professional::where('status', 1)->first();
-            if ($firstProfessional) {
-                $professionalId = $firstProfessional->id;
+        try {
+            $request->validate([
+                'files.*' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,txt'
+            ]);
+
+            $professionalId = Auth::user()->id ?? null;
+            
+            // Si no hay profesional logueado, usar el primero disponible
+            if (!$professionalId) {
+                $firstProfessional = \App\Models\Professional::where('status', 1)->first();
+                if ($firstProfessional) {
+                    $professionalId = $firstProfessional->id;
+                }
             }
-        }
 
-        $uploadedFiles = [];
+            $uploadedFiles = [];
 
-        if ($request->hasFile('files')) {
-            foreach ($request->file('files') as $file) {
-                $originalName = $file->getClientOriginalName();
-                $fileSize = $file->getSize();
-                $mimeType = $file->getMimeType();
-                $fileName = time() . '_' . $originalName;
-                
-                // Store file in filesystem
-                $filePath = $file->storeAs('documents/project-commissions', $fileName, 'public');
-                
-                ProjectCommissionDocument::create([
-                    'project_commission_id' => $projectCommission->id,
-                    'professional_id' => $professionalId,
-                    'file_name' => $fileName,
-                    'original_name' => $originalName,
-                    'file_path' => $filePath,
-                    'file_size' => $fileSize,
-                    'mime_type' => $mimeType,
-                ]);
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $file) {
+                    $originalName = $file->getClientOriginalName();
+                    $fileSize = $file->getSize();
+                    $mimeType = $file->getMimeType();
+                    $fileName = time() . '_' . $originalName;
+                    
+                    // Store file in filesystem
+                    $filePath = $file->storeAs('documents/project-commissions', $fileName, 'public');
+                    
+                    ProjectCommissionDocument::create([
+                        'project_commission_id' => $projectCommission->id,
+                        'professional_id' => $professionalId,
+                        'file_name' => $fileName,
+                        'original_name' => $originalName,
+                        'file_path' => $filePath,
+                        'file_size' => $fileSize,
+                        'mime_type' => $mimeType,
+                    ]);
 
-                $uploadedFiles[] = $originalName;
+                    $uploadedFiles[] = $originalName;
+                }
             }
+
+            $message = count($uploadedFiles) > 1 
+                ? count($uploadedFiles) . ' arxius pujats correctament!'
+                : 'Arxiu pujat correctament!';
+
+            mainlog::log("Documentos creados correctamente: " . count($uploadedFiles) . " archivos");
+            return redirect()->route('projectcommission_show', $projectCommission)->with('success_document_added', $message);
+            
+        } catch (\Exception $e) {
+            mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage(), LOG_ERR);
+            return redirect()->route('projectcommission_show', $projectCommission)->with('error_document_upload', 'Error en pujar els documents');
         }
-
-        $message = count($uploadedFiles) > 1 
-            ? count($uploadedFiles) . ' arxius pujats correctament!'
-            : 'Arxiu pujat correctament!';
-
-        return redirect()->route('projectcommission_show', $projectCommission)->with('success_document_added', $message);
     }
 
     /**

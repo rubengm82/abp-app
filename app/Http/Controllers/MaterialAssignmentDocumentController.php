@@ -8,6 +8,7 @@ use App\Models\Professional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\mainlog;
 
 class MaterialAssignmentDocumentController extends Controller
 {
@@ -16,41 +17,42 @@ class MaterialAssignmentDocumentController extends Controller
      */
     public function store(Request $request, MaterialAssignment $materialAssignment)
     {
-        $request->validate([
-            'document' => 'required|file|max:10240'
-        ]);
-
-        $uploadedByProfessionalId = Auth::user()->id ?? null;
+        mainlog::log("Iniciando store en MaterialAssignmentDocumentController para material_assignment_id: " . $materialAssignment->id);
         
-        //TODO TEMPORAL
-        // Si no hay profesional logueado, usar el primero disponible
-        if (!$uploadedByProfessionalId) {
-            $firstProfessional = Professional::where('status', 1)->first();
-            if ($firstProfessional) {
-                $uploadedByProfessionalId = $firstProfessional->id;
-            }
+        try {
+            $request->validate([
+                'document' => 'required|file|max:10240'
+            ]);
+            mainlog::log("Documento validado");
+
+            $uploadedByProfessionalId = Auth::user()->id ?? null;
+            
+            $file = $request->file('document');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $originalName = $file->getClientOriginalName();
+            $fileSize = $file->getSize();
+            $mimeType = $file->getMimeType();
+            
+            // Store file in filesystem
+            $filePath = $file->storeAs('documents/material-assignments', $fileName, 'public');
+
+            MaterialAssignmentDocument::create([
+                'material_assignment_id' => $materialAssignment->id,
+                'file_name' => $fileName,
+                'original_name' => $originalName,
+                'file_path' => $filePath,
+                'file_size' => $fileSize,
+                'mime_type' => $mimeType,
+                'uploaded_by_professional_id' => $uploadedByProfessionalId
+            ]);
+
+            mainlog::log("Documento creado correctamente");
+            return redirect()->route('materialassignment_show', $materialAssignment)->with('success_document_added', 'Document afegit correctament!');
+            
+        } catch (\Exception $e) {
+            mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage(), LOG_ERR);
+            return redirect()->route('materialassignment_show', $materialAssignment)->with('error_document_upload', 'Error en pujar el document');
         }
-
-        $file = $request->file('document');
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $originalName = $file->getClientOriginalName();
-        $fileSize = $file->getSize();
-        $mimeType = $file->getMimeType();
-        
-        // Store file in filesystem
-        $filePath = $file->storeAs('documents/material-assignments', $fileName, 'public');
-
-        MaterialAssignmentDocument::create([
-            'material_assignment_id' => $materialAssignment->id,
-            'file_name' => $fileName,
-            'original_name' => $originalName,
-            'file_path' => $filePath,
-            'file_size' => $fileSize,
-            'mime_type' => $mimeType,
-            'uploaded_by_professional_id' => $uploadedByProfessionalId
-        ]);
-
-        return redirect()->route('materialassignment_show', $materialAssignment)->with('success_document_added', 'Document afegit correctament!');
     }
 
     /**
