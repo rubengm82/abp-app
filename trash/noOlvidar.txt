@@ -20,7 +20,7 @@
 * No existe control de sql no aceptada ej: Varchar >
 * Upload no funciona tamaño alto
 * No toast para error al subir
-* Pasar los toads al topbar// y generalizarlos ahí, para ahorrar código.
+* Generalizar los toads y generalizarlos ahí, para ahorrar código.
 
 
 

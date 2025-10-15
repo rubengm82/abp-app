@@ -5,7 +5,7 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">{{ $projectCommission->name }}</h1>
         <div class="flex gap-2">
-            <a href="{{ route('projectcommissions_list') }}" class="btn btn-sm btn-outline">Tornar a la llista</a>
+            <a href="{{ url()->previous() }}" class="btn btn-sm btn-outline">Tornar</a>
             <a href="{{ route('projectcommission_edit', $projectCommission) }}" class="btn btn-sm btn-info">Editar</a>
             @if($projectCommission->status == 'Actiu')
                 <a href="{{ route('projectcommission_desactivate', $projectCommission) }}" class="btn btn-sm btn-error">Desactivar</a>

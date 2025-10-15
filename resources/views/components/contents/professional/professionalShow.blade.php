@@ -5,7 +5,7 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1>
         <div class="flex gap-2">
-            <a href="{{ route('professionals_list') }}" class="btn btn-sm btn-outline">Tornar a la llista</a>
+            <a href="{{ url()->previous() }}" class="btn btn-sm btn-outline">Tornar</a>
             <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
             @if($professional->status == 1)
                 <a href="{{ route('professional_desactivate', $professional) }}" class="btn btn-sm btn-error">Desactivar</a>
