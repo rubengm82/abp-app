@@ -4,6 +4,23 @@
 <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Editar professional</h1>
 
 <div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+    <!-- Mostrar errores de validación -->
+    @if ($errors->any())
+        <div class="alert alert-error mb-4">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <div>
+                    <h3 class="font-bold">Hi ha errors en el formulari:</h3>
+                    <ul class="list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <form action="{{ route('professional_update', $professional->id) }}" method="post" class="space-y-4">
         @csrf
 
@@ -35,8 +52,8 @@
         <textarea name="cvitae" id="id_cvitae" rows="4" placeholder="Currículum Vitae..." class="textarea textarea-bordered w-full">{{ old('cvitae', $professional->cvitae) }}</textarea>
 
 
-        <input type="text" name="login" id="id_login" placeholder="Usuari de login" class="input input-bordered w-full" value="{{ old('login', $professional->login) }}">
-        <input type="password" name="password" id="id_password" placeholder="Contrasenya (deixar buit per mantenir l'actual)" class="input input-bordered w-full">
+        <input type="text" name="user" id="id_user" placeholder="Nom d'usuari" class="input input-bordered w-full" value="{{ old('user', $professional->user) }}" autocomplete="off">
+        <input type="password" name="password" id="id_password" placeholder="Contrasenya (deixar buit per mantenir l'actual)" class="input input-bordered w-full" autocomplete="new-password">
 
         <div class="flex gap-2 mt-4">
             <a href="{{ route('professionals_list') }}" class="btn flex-1">Cancel·lar</a>
@@ -44,4 +61,7 @@
         </div>
     </form>
 </div>
+
+@include('components.layout.mainToasts')
+
 @endsection

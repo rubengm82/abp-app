@@ -243,60 +243,6 @@ function openEditNoteModal(noteId, noteText) {
 }
 </script>
 
-{{-- TOAST: SUCCESS MESSAGES --}}
-@if (session('success_desactivated'))
-    <div class="toast toast-end">
-        <div class="alert alert-success">
-            <span>{{ session('success_desactivated') }}</span>
-        </div>
-    </div>
-@endif
+@include('components.layout.mainToasts')
 
-@if (session('success_note_added'))
-    <div class="toast toast-end">
-        <div class="alert alert-success">
-            <span>{{ session('success_note_added') }}</span>
-        </div>
-    </div>
-@endif
-
-@if (session('success_note_deleted'))
-    <div class="toast toast-end">
-        <div class="alert alert-success">
-            <span>{{ session('success_note_deleted') }}</span>
-        </div>
-    </div>
-@endif
-
-@if (session('success_note_updated'))
-    <div class="toast toast-end">
-        <div class="alert alert-success">
-            <span>{{ session('success_note_updated') }}</span>
-        </div>
-    </div>
-@endif
-
-@if (session('success_document_added'))
-    <div class="toast toast-end">
-        <div class="alert alert-success">
-            <span>{{ session('success_document_added') }}</span>
-        </div>
-    </div>
-@endif
-
-@if (session('success_document_deleted'))
-    <div class="toast toast-end">
-        <div class="alert alert-success">
-            <span>{{ session('success_document_deleted') }}</span>
-        </div>
-    </div>
-@endif
-
-@if (session('error_document_not_found'))
-    <div class="toast toast-end">
-        <div class="alert alert-error">
-            <span>{{ session('error_document_not_found') }}</span>
-        </div>
-    </div>
-@endif
 @endsection

@@ -34,6 +34,7 @@ class ProfessionalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'center_id' => 'nullable|exists:centers,id',
             'name' => 'required|string|max:255',
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
@@ -52,23 +53,23 @@ class ProfessionalController extends Controller
         // Create professional
         $professional = Professional::create([
             'center_id' => $validated['center_id'] ?? null,
-            'role' => $validated['role'],
+            'role' => $validated['role'] ?? null,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
-            'surname2' => $validated['surname2'],
+            'surname2' => $validated['surname2'] ?? null,
             'dni' => $validated['dni'],
-            'phone' => $validated['phone'],
-            'email' => $validated['email'],
-            'address' => $validated['address'],
+            'phone' => $validated['phone'] ?? null,
+            'email' => $validated['email'] ?? null,
+            'address' => $validated['address'] ?? null,
             'employment_status' => $validated['employment_status'] ?? 'Actiu',
-            'cvitae' => $validated['cvitae'],
+            'cvitae' => $validated['cvitae'] ?? null,
             'user' => $validated['user'],
             'password' => $validated['password'], // Will be hashed in the model booted()
-            'key_code' => $validated['key_code'],
+            'key_code' => $validated['key_code'] ?? null,
             'status' => 1,
         ]);
 
-        return redirect()->route('professional_form')->with('success', 'Professional afegit correctament!');
+        return redirect()->route('professionals_list')->with('success', 'Professional afegit correctament!');
     }
 
     /**
@@ -97,6 +98,7 @@ class ProfessionalController extends Controller
         $professional = Professional::findOrFail($id);
 
         $validated = $request->validate([
+            'center_id' => 'nullable|exists:centers,id',
             'name' => 'required|string|max:255',
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
@@ -114,19 +116,19 @@ class ProfessionalController extends Controller
 
         $professional->update([
             'center_id' => $validated['center_id'] ?? $professional->center_id,
-            'role' => $validated['role'],
+            'role' => $validated['role'] ?? $professional->role,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
-            'surname2' => $validated['surname2'],
+            'surname2' => $validated['surname2'] ?? $professional->surname2,
             'dni' => $validated['dni'],
-            'phone' => $validated['phone'],
-            'email' => $validated['email'],
-            'address' => $validated['address'],
-            'employment_status' => $validated['employment_status'],
-            'cvitae' => $validated['cvitae'],
-            'user' => $validated['user'],
+            'phone' => $validated['phone'] ?? $professional->phone,
+            'email' => $validated['email'] ?? $professional->email,
+            'address' => $validated['address'] ?? $professional->address,
+            'employment_status' => $validated['employment_status'] ?? $professional->employment_status,
+            'cvitae' => $validated['cvitae'] ?? $professional->cvitae,
+            'user' => $validated['user'] ?? $professional->user,
             'password' => $validated['password'] ?: $professional->password,
-            'key_code' => $validated['key_code'],
+            'key_code' => $validated['key_code'] ?? $professional->key_code,
         ]);
 
         // Update associated user if exists
@@ -136,7 +138,7 @@ class ProfessionalController extends Controller
             ]);
         }
 
-        return redirect()->route('professionals_list')->with('success_updated', 'Professional actualitzat correctament!');
+        return redirect()->route('professionals_list')->with('success', 'Professional actualitzat correctament!');
     }
 
     /**
@@ -146,7 +148,7 @@ class ProfessionalController extends Controller
     {
         $professional = Professional::findOrFail($professional_id);
         $professional->update(['status' => 1]);
-        return redirect()->route('professionals_desactivated_list')->with('success_activated', 'Professional activat correctament!');
+        return redirect()->route('professionals_desactivated_list')->with('success', 'Professional activat correctament!');
     }
 
     /**
@@ -157,7 +159,7 @@ class ProfessionalController extends Controller
         $professional = Professional::findOrFail($professional_id);
         $professional->update(['status' => 0]);
         syslog(1, "Professional desactivat correctament!");
-        return redirect()->route('professionals_list')->with('success_desactivated', 'Professional desactivat correctament!');
+        return redirect()->route('professionals_list')->with('success', 'Professional desactivat correctament!');
     }
 
     /**

@@ -9,7 +9,6 @@ To know:
 * No se pueden crear más migraciones, ni de tipo add, delete o modificación, pero sí para tablas totalmente nuevas. En caso de necesitar modificar una tabla, se ha de modificar el archivo ya creado y testear de inmediato con fresh o incluso borrando el caché.
 
 Apuntes, no tener en cuenta:
-* No hay toast de error en subida de archivos
 * Limpiar formulario de edición de profesionales
 ** Modificación de campo login => user
 ** Comprobar estado de cómo se edita la contraseña, plahecolder etc
