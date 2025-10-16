@@ -1,43 +1,114 @@
 @extends('app')
 
 @section('content')
-<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Editar projecte/comissió</h1>
+<div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Editar projecte/comissió</h1>
+    
+    <!-- Show validation errors -->
+    @if ($errors->any())
+        <div class="alert alert-error mb-6">
+            <div>
+                <div>
+                    <h3 class="font-bold">Hi ha errors en el formulari:</h3>
+                    <ul class="list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    @endif
 
-<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
-    <form action="{{ route('projectcommission_update', $projectCommission) }}" method="post" class="space-y-4">
+    <form action="{{ route('projectcommission_update', $projectCommission) }}" method="post" class="space-y-6">
         @csrf
 
-        <input type="text" name="name" id="id_name" placeholder="Nom/Títol del projecte/comissió" class="input input-bordered w-full" value="{{ $projectCommission->name }}" required>
-        
-        <select name="type" id="id_type" class="select select-bordered w-full" required>
-            <option value="">Selecciona el tipus</option>
-            <option value="Projecte" {{ $projectCommission->type == 'Projecte' ? 'selected' : '' }}>Projecte</option>
-            <option value="Comissió" {{ $projectCommission->type == 'Comissió' ? 'selected' : '' }}>Comissió</option>
-        </select>
+        <!-- Basic Information -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">Informació Bàsica</h2>
+                <div class="space-y-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Nom/Títol del projecte/comissió *</span>
+                        </label>
+                        <input type="text" name="name" id="id_name" placeholder="Ex: Projecte de renovació de l'edifici principal" class="input input-bordered w-full" value="{{ old('name', $projectCommission->name) }}" required>
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Tipus *</span>
+                        </label>
+                        <select name="type" id="id_type" class="select select-bordered w-full" required>
+                            <option value="">Selecciona el tipus</option>
+                            <option value="Projecte" {{ old('type', $projectCommission->type) == 'Projecte' ? 'selected' : '' }}>Projecte</option>
+                            <option value="Comissió" {{ old('type', $projectCommission->type) == 'Comissió' ? 'selected' : '' }}>Comissió</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <input type="date" name="start_date" id="id_start_date" class="input input-bordered w-full" value="{{ $projectCommission->start_date }}">
-        
-        <input type="date" name="estimated_end_date" id="id_estimated_end_date" class="input input-bordered w-full" value="{{ $projectCommission->estimated_end_date }}">
+        <!-- Dates and Timeline -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">Dates i Cronograma</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Data d'inici</span>
+                        </label>
+                        <input type="date" name="start_date" id="id_start_date" class="input input-bordered w-full" value="{{ old('start_date', $projectCommission->start_date) }}">
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Data estimada de finalització</span>
+                        </label>
+                        <input type="date" name="estimated_end_date" id="id_estimated_end_date" class="input input-bordered w-full" value="{{ old('estimated_end_date', $projectCommission->estimated_end_date) }}">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <select name="responsible_professional_id" id="id_responsible_professional_id" class="select select-bordered w-full">
-            <option value="">Professional responsable</option>
-            @foreach($professionals as $professional)
-                <option value="{{ $professional->id }}" {{ $projectCommission->responsible_professional_id == $professional->id ? 'selected' : '' }}>
-                    {{ $professional->name }} {{ $professional->surname1 }}
-                </option>
-            @endforeach
-        </select>
+        <!-- Project Details -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">Detalls del Projecte/Comissió</h2>
+                <div class="space-y-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Professional responsable</span>
+                        </label>
+                        <select name="responsible_professional_id" id="id_responsible_professional_id" class="select select-bordered w-full">
+                            <option value="">Selecciona un professional</option>
+                            @foreach($professionals as $professional)
+                                <option value="{{ $professional->id }}" {{ old('responsible_professional_id', $projectCommission->responsible_professional_id) == $professional->id ? 'selected' : '' }}>
+                                    {{ $professional->name }} {{ $professional->surname1 }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Descripció</span>
+                        </label>
+                        <textarea name="description" id="id_description" placeholder="Descriu els objectius, abast i detalls del projecte/comissió..." class="textarea textarea-bordered w-full" rows="4">{{ old('description', $projectCommission->description) }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <textarea name="description" id="id_description" placeholder="Descripció del projecte/comissió" class="textarea textarea-bordered w-full" rows="4">{{ $projectCommission->description }}</textarea>
-        
-        <!-- <textarea name="notes" id="id_notes" placeholder="Notes addicionals" class="textarea textarea-bordered w-full" rows="3">{{ $projectCommission->notes }}</textarea> -->
-        
-        <div class="flex gap-2">
-            <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-outline flex-1">Cancel·lar</a>
-            <input type="submit" value="Actualitzar" class="btn btn-info flex-1">
+        <!-- Action Buttons -->
+        <div class="flex justify-between gap-4">
+            <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-outline">Tornar</a>
+            <div class="flex gap-4">
+                <a href="{{ route('projectcommission_edit', $projectCommission) }}" class="btn btn-outline">Netejar</a>
+                <input type="submit" value="Actualitzar Projecte/Comissió" class="btn btn-info">
+            </div>
         </div>
     </form>
-
 </div>
 
 @include('components.layout.mainToasts')

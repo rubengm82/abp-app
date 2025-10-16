@@ -1,12 +1,12 @@
 @extends('app')
 
 @section('content')
-<h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Editar professional</h1>
-
-<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Editar professional</h1>
+    
     <!-- Show validation errors -->
     @if ($errors->any())
-        <div class="alert alert-error mb-4">
+        <div class="alert alert-error mb-6">
             <div>
                 <div>
                     <h3 class="font-bold">Hi ha errors en el formulari:</h3>
@@ -20,43 +20,158 @@
         </div>
     @endif
 
-    <form action="{{ route('professional_update', $professional->id) }}" method="post" class="space-y-4">
+    <form action="{{ route('professional_update', $professional->id) }}" method="post" class="space-y-6">
         @csrf
 
-        <!-- Campos del formulario -->
-        <input type="text" name="name" id="id_name" placeholder="Nom" class="input input-bordered w-full" value="{{ old('name', $professional->name) }}" required>
-        <input type="text" name="surname1" id="id_surname1" placeholder="Primer cognom" class="input input-bordered w-full" value="{{ old('surname1', $professional->surname1) }}" required>
-        <input type="text" name="surname2" id="id_surname2" placeholder="Segon cognom" class="input input-bordered w-full" value="{{ old('surname2', $professional->surname2) }}">
-        <input type="text" name="dni" id="id_dni" placeholder="DNI" class="input input-bordered w-full" value="{{ old('dni', $professional->dni) }}" required>
+        <!-- Personal Information -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">Informació Personal</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Nom *</span>
+                        </label>
+                        <input type="text" name="name" id="id_name" placeholder="Ex: Joan" class="input input-bordered w-full" value="{{ old('name', $professional->name) }}" required>
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Primer cognom *</span>
+                        </label>
+                        <input type="text" name="surname1" id="id_surname1" placeholder="Ex: García" class="input input-bordered w-full" value="{{ old('surname1', $professional->surname1) }}" required>
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Segon cognom</span>
+                        </label>
+                        <input type="text" name="surname2" id="id_surname2" placeholder="Ex: López" class="input input-bordered w-full" value="{{ old('surname2', $professional->surname2) }}">
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">DNI *</span>
+                        </label>
+                        <input type="text" name="dni" id="id_dni" placeholder="Ex: 12345678A" class="input input-bordered w-full" value="{{ old('dni', $professional->dni) }}" required>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <select name="role" id="id_role" class="select select-bordered w-full">
-            <option value="">Rol del professional</option>
-            <option value="Directiu" {{ old('role', $professional->role) == 'Directiu' ? 'selected' : '' }}>Directiu</option>
-            <option value="Administració" {{ old('role', $professional->role) == 'Administració' ? 'selected' : '' }}>Administració</option>
-            <option value="Tècnic" {{ old('role', $professional->role) == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
-        </select>
+        <!-- Professional Information -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">Informació Professional</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Rol del professional</span>
+                        </label>
+                        <select name="role" id="id_role" class="select select-bordered w-full">
+                            <option value="">Selecciona un rol</option>
+                            <option value="Directiu" {{ old('role', $professional->role) == 'Directiu' ? 'selected' : '' }}>Directiu</option>
+                            <option value="Administració" {{ old('role', $professional->role) == 'Administració' ? 'selected' : '' }}>Administració</option>
+                            <option value="Tècnic" {{ old('role', $professional->role) == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
+                        </select>
+                    </div>
 
-        <select name="employment_status" id="id_employment_status" class="select select-bordered w-full">
-            <option value="">Estat de treball</option>
-            <option value="Actiu" {{ old('employment_status', $professional->employment_status) == 'Actiu' ? 'selected' : '' }}>Actiu</option>
-            <option value="Suplència" {{ old('employment_status', $professional->employment_status) == 'Suplència' ? 'selected' : '' }}>Suplència</option>
-            <option value="Baixa" {{ old('employment_status', $professional->employment_status) == 'Baixa' ? 'selected' : '' }}>Baixa</option>
-            <option value="No contractat" {{ old('employment_status', $professional->employment_status) == 'No contractat' ? 'selected' : '' }}>No contractat</option>
-        </select>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Estat de treball</span>
+                        </label>
+                        <select name="employment_status" id="id_employment_status" class="select select-bordered w-full">
+                            <option value="">Selecciona estat</option>
+                            <option value="Actiu" {{ old('employment_status', $professional->employment_status) == 'Actiu' ? 'selected' : '' }}>Actiu</option>
+                            <option value="Suplència" {{ old('employment_status', $professional->employment_status) == 'Suplència' ? 'selected' : '' }}>Suplència</option>
+                            <option value="Baixa" {{ old('employment_status', $professional->employment_status) == 'Baixa' ? 'selected' : '' }}>Baixa</option>
+                            <option value="No contractat" {{ old('employment_status', $professional->employment_status) == 'No contractat' ? 'selected' : '' }}>No contractat</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <input type="text" name="phone" id="id_phone" placeholder="Telèfon" class="input input-bordered w-full" value="{{ old('phone', $professional->phone) }}">
-        <input type="email" name="email" id="id_email" placeholder="Correu electrònic" class="input input-bordered w-full" value="{{ old('email', $professional->email) }}">
-        <input type="text" name="address" id="id_address" placeholder="Adreça" class="input input-bordered w-full" value="{{ old('address', $professional->address) }}">
-        <input type="text" name="key_code" id="id_key_code" placeholder="Codi de clau" class="input input-bordered w-full" value="{{ old('key_code', $professional->key_code) }}">
-        <textarea name="cvitae" id="id_cvitae" rows="4" placeholder="Currículum Vitae..." class="textarea textarea-bordered w-full">{{ old('cvitae', $professional->cvitae) }}</textarea>
+        <!-- Contact Information -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">Informació de Contacte</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Telèfon</span>
+                        </label>
+                        <input type="text" name="phone" id="id_phone" placeholder="Ex: 612 345 678" class="input input-bordered w-full" value="{{ old('phone', $professional->phone) }}">
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Correu electrònic *</span>
+                        </label>
+                        <input type="email" name="email" id="id_email" placeholder="Ex: joan@empresa.com" class="input input-bordered w-full" value="{{ old('email', $professional->email) }}" required>
+                    </div>
+                    
+                    <div class="form-control md:col-span-2">
+                        <label class="label">
+                            <span class="label-text">Adreça</span>
+                        </label>
+                        <input type="text" name="address" id="id_address" placeholder="Ex: Carrer Major, 123, Barcelona" class="input input-bordered w-full" value="{{ old('address', $professional->address) }}">
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Additional Information -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">Informació Adicional</h2>
+                <div class="space-y-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Codi de clau</span>
+                        </label>
+                        <input type="text" name="key_code" id="id_key_code" placeholder="Ex: ABC123" class="input input-bordered w-full" value="{{ old('key_code', $professional->key_code) }}">
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Currículum Vitae</span>
+                        </label>
+                        <textarea name="cvitae" id="id_cvitae" rows="4" placeholder="Descriu l'experiència professional, formació i habilitats..." class="textarea textarea-bordered w-full">{{ old('cvitae', $professional->cvitae) }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <input type="text" name="user" id="id_user" placeholder="Nom d'usuari" class="input input-bordered w-full" value="{{ old('user', $professional->user) }}" autocomplete="off">
-        <input type="password" name="password" id="id_password" placeholder="Contrasenya (deixar buit per mantenir l'actual)" class="input input-bordered w-full" autocomplete="new-password">
+        <!-- Access Credentials -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">Credencials d'Accés</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Nom d'usuari *</span>
+                        </label>
+                        <input type="text" name="user" id="id_user" placeholder="Ex: joan.garcia" class="input input-bordered w-full" value="{{ old('user', $professional->user) }}" autocomplete="off" required>
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Contrasenya</span>
+                        </label>
+                        <input type="password" name="password" id="id_password" placeholder="Deixar buit per mantenir l'actual" class="input input-bordered w-full" autocomplete="new-password">
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="flex gap-2 mt-4">
-            <a href="{{ route('professionals_list') }}" class="btn flex-1">Cancel·lar</a>
-            <input type="submit" value="Actualitzar" class="btn btn-info flex-1">
+        <!-- Action Buttons -->
+        <div class="flex justify-between gap-4">
+            <a href="{{ route('professionals_list') }}" class="btn btn-outline">Tornar</a>
+            <div class="flex gap-4">
+                <a href="{{ route('professional_edit', $professional->id) }}" class="btn btn-outline">Netejar</a>
+                <input type="submit" value="Actualitzar Professional" class="btn btn-info">
+            </div>
         </div>
     </form>
 </div>

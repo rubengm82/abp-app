@@ -1,11 +1,22 @@
-# Jueves - TODO LIST
+# Formulario de alta de profesional - TODO LIST
 
-* Hablar sobre los toads e implementarlos
-* Añadir svgs y empezar a utilizarlos
-* Figma ??
-...
+* Propón una mejor diseño utilizando las herramientas disponibles, tailwind y daisyui, del formulario de alta de profesionales
+** File: resources/views/components/contents/professional/professionalForm.blade.php
+
+
 
 To know:
 * En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo trash/master_checklist.txt como instrucciones básicas
 * Todo debe de estar maquetado lo más simple posible con tailwind + daisyUI respetando el resto de diseños de la página web, en especifico los "componentes/contents" ej; (resources/views/components/contents/projectcommission/projectCommissionShow.blade.php, resources/views/components/contents/professional/professionalForm.blade.php, resources/views/components/contents/center/centersList.blade.php)
 * No se pueden crear más migraciones, ni de tipo add, delete o modificación, pero sí para tablas totalmente nuevas. En caso de necesitar modificar una tabla, se ha de modificar el archivo ya creado y testear de inmediato con fresh o incluso borrando el caché.
+
+
+To commit:
+* Sólo se pueden logear usuarios activos
+* Mejorada maquetación del formulario de alta y edición de profesionales y proyectos
+** input reset por <a> con route para limpiar sesion
+
+
+/ 
+alias ga="git add trash/ app/ resources/ database/"
+/

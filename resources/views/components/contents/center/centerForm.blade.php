@@ -13,8 +13,8 @@
         
         
         <div class="flex gap-2">
-            <input type="reset" value="Reset" class="btn flex-1">
-            <input type="submit" value="Acceptar" class="btn btn-info flex-1">
+            <input type="reset" value="Netejar" class="btn flex-1">
+            <input type="submit" value="Crear Centre" class="btn btn-info flex-1">
         </div>
     </form>
 

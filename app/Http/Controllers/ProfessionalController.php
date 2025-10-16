@@ -46,7 +46,7 @@ class ProfessionalController extends Controller
             'employment_status' => 'nullable|string|max:50',
             'cvitae' => 'nullable|string',
             'user' => 'nullable|string|max:100|unique:professionals,user',
-            'password' => 'nullable|string|min:6',
+            'password' => 'nullable|string|min:4',
             'key_code' => 'nullable|string|max:50',
         ]);
 
@@ -110,7 +110,7 @@ class ProfessionalController extends Controller
             'employment_status' => 'nullable|string|max:50',
             'cvitae' => 'nullable|string',
             'user' => 'nullable|string|max:100|unique:professionals,user,' . $id,
-            'password' => 'nullable|string|min:6',
+            'password' => 'nullable|string|min:4',
             'key_code' => 'nullable|string|max:50',
         ]);
 

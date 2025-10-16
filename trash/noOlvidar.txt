@@ -31,5 +31,6 @@ Olga:
 * SQL vs Blade
 * Separar Proyectos y Comisiones?
 * Back loopero, se arregla con #1 ?
+* El botón reset sólo limpia el DOM no la session, por lo que no borra los old()s
 
 * Archivos limitados en subida, modificar en apache//servidor web (php.ini)
