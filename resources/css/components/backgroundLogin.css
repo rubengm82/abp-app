@@ -1,0 +1,15 @@
+.bg-login-animated {
+    background: linear-gradient(-45deg, #FF9030, #FF5E62, #FFB347, #6A11CB);
+    background-color: #555555;
+    background-size: 400% 400%;
+    animation: gradient_login_bg 15s ease infinite;
+    height: 100vh;
+    position: relative;
+    z-index: 0;
+}
+
+@keyframes gradient_login_bg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
