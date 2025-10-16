@@ -52,7 +52,7 @@ class CenterSeeder extends Seeder
 //     for ($i = 1; $i <= 5000; $i++) {
 //         $centers[] = [
 //             'name' => 'Centro Repetido',
-//             'address' => 'Direccion genérica ' . $i,
+//             'address' => 'Generic address ' . $i,
 //             'phone' => '+34 600 100 ' . sprintf('%03d', $i),
 //             'email' => 'centro'.$i.'@generic.cat',
 //             'status' => '1',

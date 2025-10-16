@@ -7,7 +7,8 @@
 * Transacción
 * Particion de tablas
 * indices y comb.indices
-* Cifrado de todo, unidireccional para contraeñas, bidirecional campos delicados (Ralf)
+* Cifrado de todo, unidireccional para contraeñas, bidirecional campos delicados
+
 * Crear nuestro propio confirm al eliminar documentos, notas y registros
 * Añadir confirmar o confirmar y continuar en creación de nuevos registros
 * Añadir #s para dónde estoy en la página
@@ -31,4 +32,4 @@ Olga:
 * Separar Proyectos y Comisiones?
 * Back loopero, se arregla con #1 ?
 
-* Archivos limitados en subida, modificar en apache o servidor web (php.ini)
+* Archivos limitados en subida, modificar en apache//servidor web (php.ini)

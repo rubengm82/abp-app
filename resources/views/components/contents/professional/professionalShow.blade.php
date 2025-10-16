@@ -16,7 +16,7 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Informació personal -->
+        <!-- Personal information -->
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació personal</h2>
@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <!-- Informació de contacte -->
+        <!-- Contact information -->
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació de contacte</h2>
@@ -71,7 +71,7 @@
         </div>
     </div>
 
-    <!-- Currículum Vitae -->
+    <!-- Curriculum Vitae -->
     <div class="card bg-base-100 shadow-xl mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Currículum Vitae</h2>
@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <!-- Informació addicional -->
+    <!-- Additional information -->
     <div class="card bg-base-100 shadow-xl mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
@@ -236,7 +236,7 @@
     </div>
 </div>
 
-<!-- Modal para añadir nota -->
+<!-- Modal to add note -->
 <dialog id="addNoteModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Afegir Nova Nota</h3>

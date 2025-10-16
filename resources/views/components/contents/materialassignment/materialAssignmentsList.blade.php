@@ -30,7 +30,8 @@
             <tr class="hover:bg-base-300">
                 <th>{{ $assignment->id }}</th>
                 <td>
-                    <a href="{{ route('professional_show', $assignment->professional->id) }}" class="link link-primary">
+                    <a href="{{ route('professional_show', $assignment->professional->id) }}" 
+                       class="text-primary font-semibold hover:text-orange-600 transition-all duration-200">
                         {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }}
                     </a>
                 </td>
@@ -72,7 +73,7 @@
                         <span class="text-gray-400">-</span>
                     @endif
                 </td>
-                <!-- TODO: REVISAR, SE HABía pedido que no se podían ni editar ni borrar estos registros... -->
+                <!-- TODO: REVIEW, if it was requested that these records could not be edited or deleted... -->
                 <td class="flex justify-end gap-2">
                     <a href="{{ route('materialassignment_show', $assignment) }}" class="btn btn-xs btn-info">Veure</a>
                     <a href="{{ route('materialassignment_edit', $assignment) }}" class="btn btn-xs btn-warning">Editar</a>

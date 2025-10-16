@@ -26,7 +26,7 @@ class LoginController extends Controller
         // Buscar profesional por username
         $professional = Professional::where('user', $request->input('user'))->first();
 
-        // Comprobar contraseña y autenticar
+        // Check password and authenticate
         if ($professional && Hash::check($request->input('password'), $professional->password)) {
             Auth::login($professional); // login manual
             $request->session()->regenerate(); // seguridad

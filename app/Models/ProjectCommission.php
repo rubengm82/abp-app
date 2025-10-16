@@ -53,7 +53,7 @@ class ProjectCommission extends Model
     }
 
     // /**
-    //  * Relación con las asignaciones del proyecto/comisión
+    //  * Relationship with project/commission assignments
     //  */
     // public function assignments()
     // {

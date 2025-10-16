@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Afegir professional</h1>
 
 <div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
-    <!-- Mostrar errores de validación -->
+    <!-- Show validation errors -->
     @if ($errors->any())
         <div class="alert alert-error mb-4">
             <div>

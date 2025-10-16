@@ -41,7 +41,7 @@ class MaterialAssignmentNoteSeeder extends Seeder
             ];
             
             foreach ($materialAssignments as $materialAssignment) {
-                // Crear entre 1-2 notas por asignación
+                // Create between 1-2 notes per assignment
                 $numNotes = rand(1, 2);
                 
                 for ($i = 0; $i < $numNotes; $i++) {

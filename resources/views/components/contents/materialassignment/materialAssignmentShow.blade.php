@@ -11,7 +11,7 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Informació de l'assignació -->
+        <!-- Assignment information -->
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació de l'Assignació</h2>
@@ -203,7 +203,7 @@
     </div>
 </div>
 
-<!-- Modal para añadir nota -->
+<!-- Modal to add note -->
 <dialog id="addNoteModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Afegir Nova Nota</h3>

@@ -24,7 +24,7 @@ class ProfessionalSeeder extends Seeder
                 'employment_status' => 'Actiu',
                 'cvitae' => 'Es el root',
                 'user' => 'admin',
-                'password' => 'admin', // hash automático
+                'password' => 'admin', // automatic hash
                 'key_code' => 'KEY000',
                 'status' => 1,
             ],
@@ -126,7 +126,7 @@ class ProfessionalSeeder extends Seeder
                 'employment_status' => 'Actiu',
                 'cvitae' => 'Responsable de projectes',
                 'user' => 'ruben.gallardo',
-                'password' => 'admin', // hash automático
+                'password' => 'admin', // automatic hash
                 'key_code' => 'KEY006',
                 'status' => 1,
             ],
@@ -143,7 +143,7 @@ class ProfessionalSeeder extends Seeder
                 'employment_status' => 'Actiu',
                 'cvitae' => 'Tècnic administratiu',
                 'user' => 'yoel.berjaga',
-                'password' => 'admin', // hash automático
+                'password' => 'admin', // automatic hash
                 'key_code' => 'KEY007',
                 'status' => 1,
             ],

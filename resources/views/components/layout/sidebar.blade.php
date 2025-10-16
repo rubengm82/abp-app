@@ -1,6 +1,6 @@
 <div class="w-64 bg-[#d0d0d0] fixed top-16 bottom-0 left-0 flex flex-col justify-between shadow-md">
 
-    <!-- Menú de navegación -->
+    <!-- Navigation menu -->
     <nav class="flex-1 overflow-auto">
         <ul class="text-[#555555]">
             <li>

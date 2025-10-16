@@ -26,13 +26,13 @@ class Professional extends Authenticatable
         'employment_status',
         'cvitae',
         'user',       // username
-        'password',   // contraseña hasheada
+        'password',   // hashed password
         'key_code',
         'status'
     ];
 
     /**
-     * Mutator para hashear la contraseña automáticamente
+     * Mutator to automatically hash the password
      */
     public function setPasswordAttribute($value)
     {
@@ -58,20 +58,20 @@ class Professional extends Authenticatable
     }
 
     /**
-     * Boot method: crea user automáticamente al crear professional
-     * y borra user al eliminar professional
+     * Boot method: automatically creates user when creating professional
+     * and deletes user when deleting professional
      */
     protected static function booted()
     {
         static::created(function ($professional) {
-            // Preparar datos mínimos
+            // Prepare minimum data
             $userData = [
                 'name' => $professional->name,
                 'email' => $professional->email,
                 'password' => $professional->password, // ya hasheada
             ];
 
-            // Añadir 'user' solo si existe la columna en la tabla
+            // Add 'user' only if the column exists in the table
             if (Schema::hasColumn('users', 'user')) {
                 $userData['user'] = $professional->user;
             }

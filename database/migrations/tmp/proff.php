@@ -15,7 +15,7 @@ Schema::create('professional', function (Blueprint $table) {
             $table->string('email', 255)->nullable()->comment('Email address');
             $table->string('address', 500)->nullable()->comment('Address');
             
-            // Estado laboral (en catalán, incluyendo opción de trabajador no contratado)
+            // Employment status (in Catalan, including option for non-contracted worker)
             $table->enum('employment_status', ['Actiu', 'Suplència', 'Baixa', 'No contractat'])->default('Actiu')->comment('Estat laboral');
             
             // Additional information

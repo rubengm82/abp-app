@@ -43,18 +43,7 @@ class CenterController extends Controller
      */
     public function store(Request $request)
     {
-        // echo "Aquí está guardando con un insert el formulario!";
-        // echo "<br>";
-        // echo $request->input('name');
-        // echo "<br>";
-        // echo $request->input('address');
-        // echo "<br>";
-        // echo $request->input('phone');
-        // echo "<br>";
-        // echo $request->input('email');
-
-        //echo "Centre afegit!";
-
+     
         $status_actived = '1';
 
         Center::create([
@@ -90,7 +79,7 @@ class CenterController extends Controller
      */
     public function update(Request $request, Center $center)
     {
-        //TODO: Considerar añadir validación en el request
+        //TODO: Consider adding validation in the request
         $center->update($request->all());
         
         return redirect()->route('centers_list')->with('success', 'Centre actualitzat correctament!');

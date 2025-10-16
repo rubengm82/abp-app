@@ -14,7 +14,7 @@ class MaterialAssignmentController extends Controller
     public function index()
     {
         $materialAssignments = MaterialAssignment::with(['professional', 'assignedBy'])
-            ->orderBy('assignment_date', 'desc')//TODO: Añadir filtrado por minuto
+            ->orderBy('assignment_date', 'desc')//TODO: Add filtering by minute
             ->get();
         
         return view('components.contents.materialassignment.materialAssignmentsList')
@@ -117,7 +117,7 @@ class MaterialAssignmentController extends Controller
     /**
      * Download CSV with material assignments for professionals.
      */
-    //TODO: Método duplicado, utilizar sólo el de ProfessionalController!, no eliminar por ahora.
+    //TODO: Duplicated method, use only the one from ProfessionalController!, do not delete for now.
     public function downloadCSV()
     {
         $professionals = Professional::where('status', 1)->get();

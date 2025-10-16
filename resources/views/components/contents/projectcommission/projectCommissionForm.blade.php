@@ -16,8 +16,8 @@
             <option value="Comissió">Comissió</option>
         </select>
 
-        <!-- TODO: Revisar si es necesario el "título" para especificar el uso de los campos -->
-        <!-- TODO: Revisar el formato de fecha que se está utilizando! -->
+        <!-- TODO: Review if "title" is necessary to specify the use of fields -->
+        <!-- TODO: Review the date format being used! -->
 
         <!-- <input type="date" name="start_date" id="id_start_date" class="input input-bordered w-full" placeholder="Data d'inici">
         <input type="date" name="estimated_end_date" id="id_estimated_end_date" class="input input-bordered w-full" placeholder="Data estimada de finalització"> -->

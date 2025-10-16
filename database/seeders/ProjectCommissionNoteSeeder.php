@@ -36,7 +36,7 @@ class ProjectCommissionNoteSeeder extends Seeder
             ];
             
             foreach ($projectCommissions as $projectCommission) {
-                // Crear entre 2-4 notas por proyecto/comisión
+                // Create between 2-4 notes per project/commission
                 $numNotes = rand(2, 4);
                 
                 for ($i = 0; $i < $numNotes; $i++) {

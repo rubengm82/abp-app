@@ -15,7 +15,7 @@ class MaterialAssignmentSeeder extends Seeder
     public function run(): void
     {
         $materialAssignments = [
-            // Joan García - Assignació inicial
+            // Joan García - Initial assignment
             [
                 'professional_id' => 1,
                 'shirt_size' => 'L',
@@ -27,7 +27,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Joan García - Renovació uniforme
+            // Joan García - Uniform renewal
             [
                 'professional_id' => 1,
                 'shirt_size' => 'XL',
@@ -39,7 +39,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Maria López - Assignació inicial
+            // Maria López - Initial assignment
             [
                 'professional_id' => 2,
                 'shirt_size' => 'M',
@@ -51,7 +51,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Pere Sánchez - Assignació inicial
+            // Pere Sánchez - Initial assignment
             [
                 'professional_id' => 3,
                 'shirt_size' => 'XL',
@@ -63,7 +63,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Anna Torres - Assignació inicial
+            // Anna Torres - Initial assignment
             [
                 'professional_id' => 4,
                 'shirt_size' => 'S',
@@ -75,7 +75,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Carles Molina - Assignació inicial
+            // Carles Molina - Initial assignment
             [
                 'professional_id' => 5,
                 'shirt_size' => 'L',
@@ -87,7 +87,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Assignacions parcials (només samarreta)
+            // Partial assignments (only shirt)
             [
                 'professional_id' => 1,
                 'shirt_size' => 'L',
@@ -99,7 +99,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Assignacions parcials (només sabates)
+            // Partial assignments (only shoes)
             [
                 'professional_id' => 3,
                 'shirt_size' => null,
@@ -123,7 +123,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Assignació recent per demostrar funcionalitat
+            // Recent assignment to demonstrate functionality
             [
                 'professional_id' => 4,
                 'shirt_size' => 'M',

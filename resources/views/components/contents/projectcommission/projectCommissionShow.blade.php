@@ -171,7 +171,7 @@
     </div>
 </div>
 
-<!-- Modal para añadir nota -->
+<!-- Modal to add note -->
 <dialog id="addNoteModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Afegir Nova Nota</h3>

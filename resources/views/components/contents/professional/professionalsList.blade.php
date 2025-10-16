@@ -32,12 +32,12 @@
             </thead>
             @foreach ($professionals as $professional)
             <tbody>
-                <!-- TODO: Añadir contorl de overflow-->
+                <!-- TODO: Add overflow control -->
                 @if ($professional->status == 1)
                 <tr class="hover:bg-base-300">
                     <th>{{ $professional->id }}</th>
                     <td>{{ $professional->center_id }}</td>
-                    <!-- TODO: Añadir hover a codi -->
+                    <!-- TODO: Add hover to code -->
                     <td>{{ $professional->key_code }}</td>
                     <td>{{ $professional->name }}</td>
                     <td>{{ $professional->surname1 }} </td>

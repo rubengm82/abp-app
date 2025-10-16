@@ -56,7 +56,7 @@ class MaterialAssignmentDocumentSeeder extends Seeder
             ];
             
             foreach ($materialAssignments as $materialAssignment) {
-                // Crear entre 1-2 documentos por asignación
+                // Create between 1-2 documents per assignment
                 $numDocuments = rand(1, 2);
                 
                 for ($i = 0; $i < $numDocuments; $i++) {
