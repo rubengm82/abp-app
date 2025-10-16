@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Center;
 use Illuminate\Http\Request;
-
+use App\Helpers\mainlog;
 class CenterController extends Controller
 {
     /**
@@ -12,6 +12,7 @@ class CenterController extends Controller
      */
     public function index(Request $request)
     {
+        mainlog::log("Iniciando index en CenterController");
         $centers = Center::all();
 
         // if ($query) {
@@ -71,6 +72,7 @@ class CenterController extends Controller
      */
     public function show(string $id)
     {
+        mainlog::log("Iniciando show en CenterController para center_id: " . $id);
         $center = Center::with(['notes', 'documents'])->findOrFail($id);
         return view('components.contents.center.centerShow')->with('center', $center);
     }
