@@ -18,13 +18,7 @@
         </div>
     </form>
 
-    {{-- TOAST: SUCCESS ADDED --}}
-    @if (session('success_added'))
-        <div class="toast toast-end">
-            <div class="alert alert-success">
-                <span>{{ session('success_added') }}</span>
-            </div>
-        </div>
-    @endif
 </div>
+
+@include('components.layout.mainToasts')
 @endsection

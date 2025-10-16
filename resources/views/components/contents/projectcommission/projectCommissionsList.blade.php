@@ -59,4 +59,5 @@
     
 </div>
 
+@include('components.layout.mainToasts')
 @endsection

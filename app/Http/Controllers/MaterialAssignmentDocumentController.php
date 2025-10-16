@@ -47,11 +47,11 @@ class MaterialAssignmentDocumentController extends Controller
             ]);
 
             mainlog::log("Documento creado correctamente");
-            return redirect()->route('materialassignment_show', $materialAssignment)->with('success_document_added', 'Document afegit correctament!');
+            return redirect()->route('materialassignment_show', $materialAssignment)->with('success', 'Document afegit correctament!');
             
         } catch (\Exception $e) {
             mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage(), LOG_ERR);
-            return redirect()->route('materialassignment_show', $materialAssignment)->with('error_document_upload', 'Error en pujar el document');
+            return redirect()->route('materialassignment_show', $materialAssignment)->with('error', 'Error en pujar el document');
         }
     }
 
@@ -63,7 +63,7 @@ class MaterialAssignmentDocumentController extends Controller
         $path = storage_path('app/public/' . $document->file_path);
 
         if (!file_exists($path)) {
-            return redirect()->back()->with('error_document_not_found', 'Document no trobat!');
+            return redirect()->back()->with('error', 'Document no trobat!');
         }
 
         return response()->download($path, $document->original_name);
@@ -83,6 +83,6 @@ class MaterialAssignmentDocumentController extends Controller
         
         $document->delete();
         
-        return redirect()->route('materialassignment_show', $materialAssignment)->with('success_document_deleted', 'Document eliminat correctament!');
+        return redirect()->route('materialassignment_show', $materialAssignment)->with('success', 'Document eliminat correctament!');
     }
 }

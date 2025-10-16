@@ -33,7 +33,7 @@
             <span class="label-text">Rol del professional</span>
         </label>
         <select name="role" id="id_role" class="select select-bordered w-full">
-            <option value="">Selecciona un rol</option>
+            <option value=""></option>
             <option value="Directiu" {{ old('role') == 'Directiu' ? 'selected' : '' }}>Directiu</option>
             <option value="Administració" {{ old('role') == 'Administració' ? 'selected' : '' }}>Administració</option>
             <option value="Tècnic" {{ old('role') == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
@@ -43,7 +43,7 @@
             <span class="label-text">Estat de treball</span>
         </label>
         <select name="employment_status" id="id_employment_status" class="select select-bordered w-full">
-            <option value="">Selecciona un estat</option>
+            <option value=""></option>
             <option value="Actiu" {{ old('employment_status') == 'Actiu' ? 'selected' : '' }}>Actiu</option>
             <option value="Suplència" {{ old('employment_status') == 'Suplència' ? 'selected' : '' }}>Suplència</option>
             <option value="Baixa" {{ old('employment_status') == 'Baixa' ? 'selected' : '' }}>Baixa</option>
@@ -66,4 +66,5 @@
     </form>
 </div>
 
+@include('components.layout.mainToasts')
 @endsection

@@ -138,7 +138,7 @@ class ProfessionalController extends Controller
             ]);
         }
 
-        return redirect()->route('professionals_list')->with('success_updated', 'Professional actualitzat correctament!');
+        return redirect()->route('professionals_list')->with('success', 'Professional actualitzat correctament!');
     }
 
     /**
@@ -148,7 +148,7 @@ class ProfessionalController extends Controller
     {
         $professional = Professional::findOrFail($professional_id);
         $professional->update(['status' => 1]);
-        return redirect()->route('professionals_desactivated_list')->with('success_activated', 'Professional activat correctament!');
+        return redirect()->route('professionals_desactivated_list')->with('success', 'Professional activat correctament!');
     }
 
     /**
@@ -159,7 +159,7 @@ class ProfessionalController extends Controller
         $professional = Professional::findOrFail($professional_id);
         $professional->update(['status' => 0]);
         syslog(1, "Professional desactivat correctament!");
-        return redirect()->route('professionals_list')->with('success_desactivated', 'Professional desactivat correctament!');
+        return redirect()->route('professionals_list')->with('success', 'Professional desactivat correctament!');
     }
 
     /**

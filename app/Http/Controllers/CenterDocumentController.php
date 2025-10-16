@@ -45,11 +45,11 @@ class CenterDocumentController extends Controller
                 'uploaded_by_professional_id' => $uploadedByProfessionalId
             ]);
             mainlog::log("Documento creado correctamente");
-            return redirect()->route('center_show', $center)->with('success_document_added', 'Document afegit correctament!');
+            return redirect()->route('center_show', $center)->with('success', 'Document afegit correctament!');
             
         } catch (\Exception $e) {
             mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage());
-            return redirect()->route('center_show', $center)->with('error_document_upload', 'Error en pujar el document');
+            return redirect()->route('center_show', $center)->with('error', 'Error en pujar el document');
         }
     }
 
@@ -71,7 +71,7 @@ class CenterDocumentController extends Controller
         $path = storage_path('app/public/' . $document->file_path);
 
         if (!file_exists($path)) {
-            return redirect()->back()->with('error_document_not_found', 'Document no trobat!');
+            return redirect()->back()->with('error', 'Document no trobat!');
         }
 
         return response()->download($path, $document->original_name);
@@ -91,6 +91,6 @@ class CenterDocumentController extends Controller
         
         $document->delete();
         
-        return redirect()->route('center_show', $center)->with('success_document_deleted', 'Document eliminat correctament!');
+        return redirect()->route('center_show', $center)->with('success', 'Document eliminat correctament!');
     }
 }

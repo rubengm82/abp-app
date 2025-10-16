@@ -34,7 +34,7 @@ class ProfessionalNoteController extends Controller
             'created_by_professional_id' => $createdByProfessionalId
         ]);
 
-        return redirect()->route('professional_show', $professional)->with('success_note_added', 'Nota afegida correctament!');
+        return redirect()->route('professional_show', $professional)->with('success', 'Nota afegida correctament!');
     }
 
     /**
@@ -50,7 +50,7 @@ class ProfessionalNoteController extends Controller
             'notes' => $request->input('notes')
         ]);
 
-        return redirect()->route('professional_show', $note->professional)->with('success_note_updated', 'Nota actualitzada correctament!');
+        return redirect()->route('professional_show', $note->professional)->with('success', 'Nota actualitzada correctament!');
     }
 
     /**
@@ -61,6 +61,6 @@ class ProfessionalNoteController extends Controller
         $professional = $note->professional;
         $note->delete();
         
-        return redirect()->route('professional_show', $professional)->with('success_note_deleted', 'Nota eliminada correctament!');
+        return redirect()->route('professional_show', $professional)->with('success', 'Nota eliminada correctament!');
     }
 }

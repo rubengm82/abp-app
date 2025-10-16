@@ -64,7 +64,7 @@ class CenterController extends Controller
             'email' => $request->input('email'),
             'status' => $status_actived,
         ]);
-        return redirect()->route('center_form')->with('success_added', 'Centre afegit correctament!');
+        return redirect()->route('center_form')->with('success', 'Centre afegit correctament!');
     }
 
     /**
@@ -93,7 +93,7 @@ class CenterController extends Controller
         //TODO: Considerar añadir validación en el request
         $center->update($request->all());
         
-        return redirect()->route('centers_list')->with('success_updated', 'Centre actualitzat correctament!');
+        return redirect()->route('centers_list')->with('success', 'Centre actualitzat correctament!');
     }
 
     /**
@@ -127,7 +127,7 @@ class CenterController extends Controller
         // $center->status = 1;
         // $center->save();
         
-        return redirect()->route('centers_desactivated_list')->with('success_activated', 'Centre activat correctament!');;;
+        return redirect()->route('centers_desactivated_list')->with('success', 'Centre activat correctament!');;;
     }
 
     /**
@@ -140,7 +140,7 @@ class CenterController extends Controller
         // $center->status = 0;
         // $center->save();
         
-        return redirect()->route('centers_list')->with('success_desactivated', 'Centre desactivat correctament!');;
+        return redirect()->route('centers_list')->with('success', 'Centre desactivat correctament!');;
     }
 
     /**

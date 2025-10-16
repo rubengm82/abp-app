@@ -54,7 +54,7 @@ class ProjectCommissionController extends Controller
             'status' => $status_active,
         ]);
 
-        return redirect()->route('projectcommission_form')->with('success_added', 'Projecte/Comissió afegit correctament!');
+        return redirect()->route('projectcommission_form')->with('success', 'Projecte/Comissió afegit correctament!');
     }
 
     /**
@@ -93,7 +93,7 @@ class ProjectCommissionController extends Controller
             'notes' => $request->input('notes'),
         ]);
 
-        return redirect()->route('projectcommission_show', $projectCommission)->with('success_updated', 'Projecte/Comissió actualitzat correctament!');
+        return redirect()->route('projectcommission_show', $projectCommission)->with('success', 'Projecte/Comissió actualitzat correctament!');
     }
 
     /**
@@ -104,7 +104,7 @@ class ProjectCommissionController extends Controller
         $projectCommission->status = 'Actiu';
         $projectCommission->save();
         
-        return redirect()->route('projectcommissions_desactivated_list')->with('success_activated', 'Projecte/Comissió activat correctament!');
+        return redirect()->route('projectcommissions_desactivated_list')->with('success', 'Projecte/Comissió activat correctament!');
     }
 
     /**
@@ -116,7 +116,7 @@ class ProjectCommissionController extends Controller
         $projectCommission->status = 'Inactiu';
         $projectCommission->save();
         
-        return redirect()->route('projectcommissions_list')->with('success_desactivated', 'Projecte/Comissió desactivat correctament!');
+        return redirect()->route('projectcommissions_list')->with('success', 'Projecte/Comissió desactivat correctament!');
     }
 
     /**

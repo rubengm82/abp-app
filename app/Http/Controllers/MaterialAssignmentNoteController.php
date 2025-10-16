@@ -35,7 +35,7 @@ class MaterialAssignmentNoteController extends Controller
             'created_by_professional_id' => $createdByProfessionalId
         ]);
 
-        return redirect()->route('materialassignment_show', $materialAssignment)->with('success_note_added', 'Nota afegida correctament!');
+        return redirect()->route('materialassignment_show', $materialAssignment)->with('success', 'Nota afegida correctament!');
     }
 
     /**
@@ -51,7 +51,7 @@ class MaterialAssignmentNoteController extends Controller
             'notes' => $request->input('notes')
         ]);
 
-        return redirect()->route('materialassignment_show', $note->materialAssignment)->with('success_note_updated', 'Nota actualitzada correctament!');
+        return redirect()->route('materialassignment_show', $note->materialAssignment)->with('success', 'Nota actualitzada correctament!');
     }
 
     /**
@@ -62,6 +62,6 @@ class MaterialAssignmentNoteController extends Controller
         $materialAssignment = $note->materialAssignment;
         $note->delete();
         
-        return redirect()->route('materialassignment_show', $materialAssignment)->with('success_note_deleted', 'Nota eliminada correctament!');
+        return redirect()->route('materialassignment_show', $materialAssignment)->with('success', 'Nota eliminada correctament!');
     }
 }

@@ -22,11 +22,13 @@
 * No toast para error al subir
 * Generalizar los toads y generalizarlos ahí, para ahorrar código.
 
-
+*#1 Intentar hacer response() en lugar de redirect() al subir y bajar documentos/notas para evitar recargar la página.
+Habrá que alimentar a los toads con esto. [Preguntar Olga]
+* 
 
 Olga:
-* Qué hacer cuando hay dos métodos exactamente iguales en 2o+ controladores distintos
 * SQL vs Blade
 * Separar Proyectos y Comisiones?
+* Back loopero, se arregla con #1 ?
 
 * Archivos limitados en subida, modificar en apache o servidor web (php.ini)

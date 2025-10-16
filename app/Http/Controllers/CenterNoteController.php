@@ -35,7 +35,7 @@ class CenterNoteController extends Controller
             'created_by_professional_id' => $createdByProfessionalId
         ]);
 
-        return redirect()->route('center_show', $center)->with('success_note_added', 'Nota afegida correctament!');
+        return redirect()->route('center_show', $center)->with('success', 'Nota afegida correctament!');
     }
 
     /**
@@ -51,7 +51,7 @@ class CenterNoteController extends Controller
             'notes' => $request->input('notes')
         ]);
 
-        return redirect()->route('center_show', $note->center)->with('success_note_updated', 'Nota actualitzada correctament!');
+        return redirect()->route('center_show', $note->center)->with('success', 'Nota actualitzada correctament!');
     }
 
     /**
@@ -62,6 +62,6 @@ class CenterNoteController extends Controller
         $center = $note->center;
         $note->delete();
         
-        return redirect()->route('center_show', $center)->with('success_note_deleted', 'Nota eliminada correctament!');
+        return redirect()->route('center_show', $center)->with('success', 'Nota eliminada correctament!');
     }
 }

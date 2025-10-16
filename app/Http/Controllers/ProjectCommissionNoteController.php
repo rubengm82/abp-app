@@ -35,7 +35,7 @@ class ProjectCommissionNoteController extends Controller
             'professional_id' => $professionalId
         ]);
 
-        return redirect()->route('projectcommission_show', $projectCommission)->with('success_note_added', 'Nota afegida correctament!');
+        return redirect()->route('projectcommission_show', $projectCommission)->with('success', 'Nota afegida correctament!');
     }
 
     /**
@@ -51,7 +51,7 @@ class ProjectCommissionNoteController extends Controller
             'notes' => $request->input('notes')
         ]);
 
-        return redirect()->route('projectcommission_show', $note->projectCommission)->with('success_note_updated', 'Nota actualitzada correctament!');
+        return redirect()->route('projectcommission_show', $note->projectCommission)->with('success', 'Nota actualitzada correctament!');
     }
 
     /**
@@ -62,6 +62,6 @@ class ProjectCommissionNoteController extends Controller
         $projectCommission = $note->projectCommission;
         $note->delete();
         
-        return redirect()->route('projectcommission_show', $projectCommission)->with('success_note_deleted', 'Nota eliminada correctament!');
+        return redirect()->route('projectcommission_show', $projectCommission)->with('success', 'Nota eliminada correctament!');
     }
 }

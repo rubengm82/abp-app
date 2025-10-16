@@ -101,29 +101,7 @@
         </div>
     @endif
     
-    {{-- TOAST: SUCCESS MESSAGES --}}
-    @if (session('success'))
-        <div class="toast toast-end">
-            <div class="alert alert-success">
-                <span>{{ session('success') }}</span>
-            </div>
-        </div>
-    @endif
-
-    @if (session('success_updated'))
-        <div class="toast toast-end">
-            <div class="alert alert-success">
-                <span>{{ session('success_updated') }}</span>
-            </div>
-        </div>
-    @endif
-
-    @if (session('success_deleted'))
-        <div class="toast toast-end">
-            <div class="alert alert-success">
-                <span>{{ session('success_deleted') }}</span>
-            </div>
-        </div>
-    @endif
 </div>
+
+@include('components.layout.mainToasts')
 @endsection

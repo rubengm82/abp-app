@@ -71,16 +71,8 @@
             <p class="text-gray-500 mb-4">Tots els professionals estan actualment actius.</p>
         </div>
     @endif
-    @if (session('success_activated'))
-        <div class="toast toast-end">
-            <div class="alert alert-success">
-                <span>{{ session('success_activated') }}</span>
-            </div>
-        </div>
-    @endif
     
 </div>
 
-
-
+@include('components.layout.mainToasts')
 @endsection

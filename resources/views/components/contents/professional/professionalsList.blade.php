@@ -75,23 +75,8 @@
             <a href="{{ route('professional_form') }}" class="btn btn-primary">Afegir Primer Professional</a>
         </div>
     @endif
-    @if (session('success_updated'))
-        <div class="toast toast-end">
-            <div class="alert alert-success">
-                <span>{{ session('success_updated') }}</span>
-            </div>
-        </div>
-    @endif
-    @if (session('success_desactivated'))
-        <div class="toast toast-end">
-            <div class="alert alert-success">
-                <span>{{ session('success_desactivated') }}</span>
-            </div>
-        </div>
-    @endif
     
 </div>
 
-
-
+@include('components.layout.mainToasts')
 @endsection

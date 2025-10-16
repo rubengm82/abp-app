@@ -100,7 +100,7 @@ class MaterialAssignmentController extends Controller
         $materialAssignment->update($validated);
 
         return redirect()->route('materialassignments_list')
-            ->with('success_updated', 'Assignació de material actualitzada correctament!');
+            ->with('success', 'Assignació de material actualitzada correctament!');
     }
 
     /**
@@ -111,7 +111,7 @@ class MaterialAssignmentController extends Controller
         $materialAssignment->delete();
         
         return redirect()->route('materialassignments_list')
-            ->with('success_deleted', 'Assignació de material eliminada correctament!');
+            ->with('success', 'Assignació de material eliminada correctament!');
     }
 
     /**

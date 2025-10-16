@@ -64,11 +64,11 @@ class ProjectCommissionDocumentController extends Controller
                 : 'Arxiu pujat correctament!';
 
             mainlog::log("Documentos creados correctamente: " . count($uploadedFiles) . " archivos");
-            return redirect()->route('projectcommission_show', $projectCommission)->with('success_document_added', $message);
+            return redirect()->route('projectcommission_show', $projectCommission)->with('success', $message);
             
         } catch (\Exception $e) {
             mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage(), LOG_ERR);
-            return redirect()->route('projectcommission_show', $projectCommission)->with('error_document_upload', 'Error en pujar els documents');
+            return redirect()->route('projectcommission_show', $projectCommission)->with('error', 'Error en pujar els documents');
         }
     }
 
@@ -86,7 +86,7 @@ class ProjectCommissionDocumentController extends Controller
         
         $document->delete();
         
-        return redirect()->route('projectcommission_show', $projectCommission)->with('success_document_deleted', 'Arxiu eliminat correctament!');
+        return redirect()->route('projectcommission_show', $projectCommission)->with('success', 'Arxiu eliminat correctament!');
     }
 
     /**
@@ -97,7 +97,7 @@ class ProjectCommissionDocumentController extends Controller
         $path = storage_path('app/public/' . $document->file_path);
 
         if (!file_exists($path)) {
-            return redirect()->back()->with('error_document_not_found', 'Document no trobat!');
+            return redirect()->back()->with('error', 'Document no trobat!');
         }
 
         return response()->download($path, $document->original_name);
