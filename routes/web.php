@@ -61,8 +61,8 @@ Route::middleware('auth')->get('/professional/desactivate/{professional_id}', [P
 Route::middleware('auth')->post('/professional_update/{id}', [ProfessionalController::class, "update"])->name("professional_update");
 Route::middleware('auth')->get('/professional_edit/{id}', [ProfessionalController::class, "edit"])->name("professional_edit");
 Route::middleware('auth')->get('/professional_show/{id}', [ProfessionalController::class, "show"])->name("professional_show");
-Route::middleware('auth')->get('/professionals/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
 Route::middleware('auth')->get('/professionals/downloadCSV/material-assignments', [ProfessionalController::class, 'downloadCSVMaterialAssignments'])->name('professionals.downloadCSV.materialAssignments');
+Route::middleware('auth')->get('/professionals/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
 
 /* Professional Notes */
 Route::middleware('auth')->post('/professional/{professional}/notes', [ProfessionalNoteController::class, 'store'])->name('professional_note_add');

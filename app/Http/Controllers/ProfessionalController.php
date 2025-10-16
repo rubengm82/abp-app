@@ -243,6 +243,7 @@ class ProfessionalController extends Controller
         }
 
         fclose($handle);
+        
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 }

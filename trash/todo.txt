@@ -18,5 +18,5 @@ To commit:
 
 
 / 
-alias ga="git add trash/ app/ resources/ database/"
+alias gam="git add trash/ app/ resources/ database/ routes/ && gis"
 /
