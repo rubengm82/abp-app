@@ -169,6 +169,15 @@ class ProfessionalController extends Controller
     }
 
     /**
+     * Display a listing of the resource (Test version with advanced features)
+     */
+    public function indexTest()
+    {
+        $professionals = Professional::with('center')->get();
+        return view("components.contents.professional.professionalsListTest")->with('professionals', $professionals);
+    }
+
+    /**
      * Download CSV by status
      */
     public function downloadCSV(int $statusParam)
