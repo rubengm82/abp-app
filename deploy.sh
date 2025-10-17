@@ -34,7 +34,7 @@ log "Instalando dependencias de PHP..."
 composer install --optimize-autoloader --no-dev --no-interaction
 
 log "Instalando dependencias de Node.js..."
-npm install --production --silent
+npm install --silent  # ← CAMBIO AQUÍ: quitar --production
 
 log "Compilando assets frontend..."
 npm run build
