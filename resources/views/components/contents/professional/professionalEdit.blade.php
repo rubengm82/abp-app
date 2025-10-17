@@ -187,7 +187,6 @@
 
         <!-- Action Buttons -->
         <div class="flex justify-end gap-4">
-            <a href="{{ route('professional_edit', $professional->id) }}" class="btn btn-outline">Netejar</a>
             <input type="submit" value="Actualitzar Professional" class="btn btn-info">
         </div>
     </form>

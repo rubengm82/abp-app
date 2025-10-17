@@ -9,18 +9,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('centers_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Llistat de Centres <small>(Desactivats)</small>
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('professionals_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
                     Llistar Professionals
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('professionals_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Llistar Professionals <small>(Desactivats)</small>
                 </a>
             </li>
             <li>
@@ -29,13 +19,28 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('projectcommissions_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Llistar Projectes/Comissions <small>(Desactivats)</small>
+                <a href="{{ route('materialassignments_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Registre de Uniformitat
                 </a>
             </li>
             <li>
-                <a href="{{ route('materialassignments_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Registre de Uniformitat
+                <a href="" class="block px-4 py-2 cursor-default">
+                    _____________________________
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('centers_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistat de Centres <small>(Desactivats)</small>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('professionals_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Professionals <small>(Desactivats)</small>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('projectcommissions_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Projectes/Comissions <small>(Desactivats)</small>
                 </a>
             </li>
         </ul>

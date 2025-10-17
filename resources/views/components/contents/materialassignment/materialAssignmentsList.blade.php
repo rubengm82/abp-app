@@ -22,7 +22,7 @@
                 <th>Data Assignació</th>
                 <th>Assignat per</th>
                 <th>Observacions</th>
-                <th>Accions</th>
+                <th></th>
             </tr>
         </thead>
         @foreach ($materialAssignments as $assignment)
@@ -77,13 +77,13 @@
                 <td class="flex justify-end gap-2">
                     <a href="{{ route('materialassignment_show', $assignment) }}" class="btn btn-xs btn-info">Veure</a>
                     <a href="{{ route('materialassignment_edit', $assignment) }}" class="btn btn-xs btn-warning">Editar</a>
-                    <form action="{{ route('materialassignment_delete', $assignment) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-xs btn-error" onclick="return confirm('Estàs segur que vols eliminar aquesta assignació?')">
-                            Eliminar
-                        </button>
-                    </form>
+                    <x-partials.modal id="deleteAssignment{{ $assignment->id }}" msj="Estàs segur que vols eliminar aquesta assignació?" btnText="Eliminar">
+                        <form action="{{ route('materialassignment_delete', $assignment) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                        </form>
+                    </x-partials.modal>
                 </td>
             </tr>
         </tbody>

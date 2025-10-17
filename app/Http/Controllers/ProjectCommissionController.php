@@ -92,7 +92,7 @@ class ProjectCommissionController extends Controller
             'notes' => $request->input('notes'),
         ]);
 
-        return redirect()->route('projectcommission_show', $projectCommission)->with('success', 'Projecte/Comissió actualitzat correctament!');
+        return redirect()->route('projectcommissions_list', $projectCommission)->with('success', 'Projecte/Comissió actualitzat correctament!');
     }
 
     /**

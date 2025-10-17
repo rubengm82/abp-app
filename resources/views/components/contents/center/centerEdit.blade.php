@@ -12,7 +12,6 @@
         <input type="text" name="email" id="id_email" placeholder="Email" value="{{ old('name', $center->email) }}" class="input input-bordered w-full">
         
         <div class="flex justify-end gap-2">
-            <a href="{{ route('center_edit', $center) }}" class="btn btn-outline">Netejar</a>
             <input type="submit" value="Actualitzar" class="btn btn-info">
         </div>
     </form>

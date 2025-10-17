@@ -128,7 +128,6 @@
 
         <!-- Action Buttons -->
         <div class="flex justify-end gap-4">
-            <a href="{{ route('materialassignment_edit', $materialAssignment) }}" class="btn btn-outline">Netejar</a>
             <button type="submit" class="btn btn-info">Actualitzar Assignació</button>
         </div>
     </form>

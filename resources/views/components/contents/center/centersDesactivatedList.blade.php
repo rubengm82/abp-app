@@ -31,8 +31,8 @@
                         <td>{{ $center->phone }}</td>
                         <td>{{ $center->email }}</td>
                         <td class="flex justify-end gap-2">
-                            <a href="{{ route('center_show', $center) }}" class="btn btn-sm btn-info">Veure</a>
-                            <a href="{{ route('center_activate', $center) }}" class="btn btn-sm btn-success">Activar</a>
+                            <a href="{{ route('center_show', $center) }}" class="btn btn-xs btn-info">Veure</a>
+                            <a href="{{ route('center_activate', $center) }}" class="btn btn-xs btn-success">Activar</a>
                         </td>
                     </tr>
                 </tbody>

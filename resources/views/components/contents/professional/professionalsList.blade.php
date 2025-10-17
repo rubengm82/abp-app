@@ -61,9 +61,11 @@
                         </span>
                     </td>
                     <td class="flex justify-end gap-2">
-                        <a href="{{ route('professional_show', $professional->id) }}" class="btn btn-sm btn-info">Veure</a>
-                        <a href="{{ route('professional_edit', $professional->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                        <a href="{{ route('professional_desactivate', $professional->id) }}" class="btn btn-sm btn-error">Desactivar</a>
+                        <a href="{{ route('professional_show', $professional->id) }}" class="btn btn-xs btn-info">Veure</a>
+                        <a href="{{ route('professional_edit', $professional->id) }}" class="btn btn-xs btn-warning">Editar</a>
+                        <x-partials.modal id="desactivateProfessional{{ $professional->id }}" msj="Estàs segur que vols desactivar aquest professional?" btnText="Desactivar">
+                            <a href="{{ route('professional_desactivate', $professional->id) }}" class="btn btn-sm btn-error">Acceptar</a>
+                        </x-partials.modal>
                     </td>
                     </tr>
                 @endif
