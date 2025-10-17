@@ -19,6 +19,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('professionals_list_test') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
+                    Llistar Professionals <small>(Test)</small>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('professionals_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
                     Llistar Professionals <small>(Desactivats)</small>
                 </a>
