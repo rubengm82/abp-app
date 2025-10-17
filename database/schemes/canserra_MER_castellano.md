@@ -7,8 +7,9 @@
 - **Tablas separadas para seguimientos**: Los campos de seguimiento múltiple (SEGUIMIENTO_LABORAL, SEGUIMIENTO_MANTENIMIENTO) deberían implementarse como tablas separadas para permitir múltiples entradas por seguimiento.
 
 ### GESTIÓN DE DOCUMENTOS
-- **Tabla DOCUMENTOS separada**: Se recomienda crear una tabla DOCUMENTOS independiente que referencie cualquier entidad del sistema, permitiendo múltiples archivos por registro, metadatos completos (tamaño, tipo MIME, fecha de subida, usuario) y mejor auditoría.
-- **Campos de documentos actuales**: Los campos VARCHAR(500) actuales (ACTIVIDAD.archivo, REGISTRO.archivo, etc.) deberían migrarse a la nueva tabla DOCUMENTOS en la implementación.
+- **Almacenamiento en sistema de archivos**: Los documentos se almacenan en el sistema de archivos (storage/app/public/documents/) con rutas de archivo almacenadas en la base de datos para mejor rendimiento y escalabilidad.
+- **Metadatos de archivos**: Metadatos completos (tamaño, tipo MIME, fecha de subida, usuario) se almacenan en las tablas de la base de datos.
+- **Campos de documentos actuales**: Los campos VARCHAR(500) actuales (ACTIVIDAD.archivo, REGISTRO.archivo, etc.) deberían migrarse a las nuevas tablas DOCUMENTOS en la implementación.
 
 ### IMPLEMENTACIÓN FUTURA
 - **Fase 1**: Mantener estructura actual con campos TEXT y VARCHAR para documentos
@@ -245,7 +246,7 @@
 - profesional_id (INT, FK → PROFESIONAL)
 - nombre_archivo (VARCHAR(255))
 - nombre_original (VARCHAR(255))
-- contenido_archivo (BLOB)
+- ruta_archivo (VARCHAR(500))
 - tamaño_archivo (INT)
 - tipo_mime (VARCHAR(100))
 - created_at (TIMESTAMP)
@@ -279,7 +280,7 @@
 - id (INT, PK)
 - nombre_archivo (VARCHAR(255))
 - nombre_original (VARCHAR(255))
-- contenido_archivo (BLOB)
+- ruta_archivo (VARCHAR(500))
 - tamaño_archivo (INT)
 - tipo_mime (VARCHAR(100))
 - profesional_id (INT, FK → PROFESIONAL)
@@ -299,7 +300,7 @@
 - id (INT, PK)
 - nombre_archivo (VARCHAR(255))
 - nombre_original (VARCHAR(255))
-- contenido_archivo (BLOB)
+- ruta_archivo (VARCHAR(500))
 - tamaño_archivo (INT)
 - tipo_mime (VARCHAR(100))
 - centro_id (INT, FK → CENTRO)
@@ -319,7 +320,7 @@
 - id (INT, PK)
 - nombre_archivo (VARCHAR(255))
 - nombre_original (VARCHAR(255))
-- contenido_archivo (BLOB)
+- ruta_archivo (VARCHAR(500))
 - tamaño_archivo (INT)
 - tipo_mime (VARCHAR(100))
 - asignación_material_id (INT, FK → ASIGNACIÓN_MATERIAL)

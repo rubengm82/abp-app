@@ -342,11 +342,14 @@ public function store(Request $request, Center $center) {
     }
     
     $file = $request->file('document');
+    $fileName = time() . '_' . $file->getClientOriginalName();
+    $filePath = $file->storeAs('documents/centers', $fileName, 'public');
+    
     CenterDocument::create([
         'center_id' => $center->id,
-        'file_name' => time() . '_' . $file->getClientOriginalName(),
+        'file_name' => $fileName,
         'original_name' => $file->getClientOriginalName(),
-        'file_content' => file_get_contents($file->getRealPath()),
+        'file_path' => $filePath,
         'file_size' => $file->getSize(),
         'mime_type' => $file->getMimeType(),
         'uploaded_by_professional_id' => $uploadedByProfessionalId
@@ -367,9 +370,7 @@ Route::get('/center/documents/{document}/download', [CenterDocumentController::c
 
 // Controlador
 public function download(CenterDocument $document) {
-    return response($document->file_content)
-        ->header('Content-Type', $document->mime_type)
-        ->header('Content-Disposition', 'attachment; filename="' . $document->original_name . '"');
+    return Storage::disk('public')->download($document->file_path, $document->original_name);
 }
 ```
 
@@ -451,14 +452,14 @@ Redirección → center_show con mensaje de éxito
 Usuario hace clic en "Pujar Document" → Modal se abre
 Usuario selecciona archivo → POST /center/{center}/documents (multipart/form-data)
 CenterDocumentController::store() → Validación → Procesamiento de archivo
-CenterDocument::create() con file_content como BLOB
+Archivo se guarda en storage/app/public/documents/ + registro en BD con file_path
 Redirección → center_show con mensaje de éxito
 ```
 
 ### 5. Flujo de Descarga de Documento
 ```
 Usuario hace clic en enlace de documento → GET /center/documents/{document}/download
-CenterDocumentController::download() → Lectura de file_content
+CenterDocumentController::download() → Lectura de archivo desde filesystem usando file_path
 Response con headers apropiados → Descarga directa en navegador
 ```
 
@@ -472,7 +473,7 @@ Response con headers apropiados → Descarga directa en navegador
 - **Sin selección manual**: Los formularios no incluyen selects de usuario (simplificación UX)
 
 ### Gestión de Archivos
-- **Almacenamiento**: Archivos se guardan como BLOB en base de datos        ////(Hablar con Olga sobre esto)
+- **Almacenamiento**: Archivos se guardan en el sistema de archivos (storage/app/public/documents/) con rutas almacenadas en BD
 - **Metadatos**: Se almacenan nombre original, tamaño, tipo MIME, fecha de subida
 - **Validación**: Máximo 10MB, tipos permitidos: PDF, DOC, DOCX, JPG, JPEG, PNG, TXT
 - **Nombres únicos**: Se genera nombre único con timestamp para evitar conflictos
