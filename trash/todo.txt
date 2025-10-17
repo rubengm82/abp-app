@@ -1,7 +1,29 @@
-# Formulario de alta de profesional - TODO LIST
+# Formulario de profesional - TODO LIST
 
-* Propón una mejor diseño utilizando las herramientas disponibles, tailwind y daisyui, del formulario de alta de profesionales
-** File: resources/views/components/contents/professional/professionalForm.blade.php
+✅ Revisar inputs requireds de profesionales, cuáles deben de ser required
+** ✅ En el formulario - AGREGADO campo center_id y email como required
+** ✅ En el controlador - CORREGIDO: center_id, email, user ahora son required
+** ✅ Revisar que el formulario de edición no permita eliminar y dejar en null ciertos campos
+*** ✅ Revisar el controlador - CORREGIDO: campos críticos ahora son required
+✅ Revisar qué se utiliza en el topbar y arreglar los ?? 
+** ✅ CORREGIDO: Usado ?-> para acceso seguro y cambiados textos por defecto a catalán
+
+
+CAMBIOS REALIZADOS:
+* ✅ Agregado campo de selección de centro (center_id) a formularios de creación y edición
+* ✅ Corregidas validaciones en ProfessionalController: center_id, email, user ahora son required
+* ✅ Campo email ya tenía required en formulario de creación
+* ✅ Arreglado topbar: acceso seguro con ?-> y textos por defecto en catalán
+* ✅ Actualizada lógica de creación/actualización para campos required
+* ✅ CORREGIDO ordenamiento de registros de uniformes: cambiado de assignment_date a created_at para orden correcto
+* ✅ CORREGIDO botón Editar en projectCommissionShow: ahora solo aparece si status es Actiu
+* ✅ CORREGIDO error de linting en JavaScript de notas de proyectos
+* ✅ CORREGIDO error de linting en JavaScript de notas de profesionales
+* ✅ CORREGIDO botón Editar en centerShow: ahora solo aparece si status es 1
+* ✅ CORREGIDO botón Editar en professionalShow: ahora solo aparece si status es 1
+* ✅ CORREGIDO error de linting en JavaScript de notas de centros
+* ✅ IMPLEMENTADO redirect con fragmentos (#) para documentos: ahora al subir/eliminar documentos redirige a la sección de documentos
+* ✅ IMPLEMENTADO redirect con fragmentos (#) para notas: ahora al agregar/editar/eliminar notas redirige a la sección de notas
 
 
 
@@ -12,10 +34,14 @@ To know:
 
 
 To commit:
-* Sólo se pueden logear usuarios activos
-* Mejorada maquetación del formulario de alta y edición de profesionales y proyectos
-** input reset por <a> con route para limpiar sesion
-
+* Faltaba el center_id en el formulario
+* Modificados los campos required en el formulario de alta y edición
+* Corregido también en el controlador
+* Included toasts en login
+* Revertidos url()->previous temporalmente
+* Registro de uniformes ahora ordena por: assignment_date -> created_at, que es un campo datatime
+* Desactivado botón de edición en los shows con status 0
+* Añadidas anclas en los shows para una mejor navegación respecto a notas y documentos
 
 / 
 alias gam="git add trash/ app/ resources/ database/ routes/ && gis"

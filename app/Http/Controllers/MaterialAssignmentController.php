@@ -14,7 +14,7 @@ class MaterialAssignmentController extends Controller
     public function index()
     {
         $materialAssignments = MaterialAssignment::with(['professional', 'assignedBy'])
-            ->orderBy('assignment_date', 'desc')//TODO: Add filtering by minute
+            ->orderBy('created_at', 'desc')
             ->get();
         
         return view('components.contents.materialassignment.materialAssignmentsList')

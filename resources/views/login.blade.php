@@ -77,3 +77,4 @@
 <script src="{{ asset('js/components/partials/toast.js') }}"></script>
 </body>
 </html>
+@include('components.layout.mainToasts')

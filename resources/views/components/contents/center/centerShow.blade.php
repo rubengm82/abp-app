@@ -6,7 +6,9 @@
         <h1 class="text-3xl font-bold text-gray-800">{{ $center->name }}</h1>
         <div class="flex gap-2">
             <a href="{{ route('centers_list') }}" class="btn btn-sm btn-outline">Tornar a la llista</a>
-            <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
+            @if($center->status == 1)
+                <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
+            @endif
             @if($center->status == 1)
                 <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Desactivar</a>
             @else
@@ -81,7 +83,7 @@
     </div>
 
     <!-- Documents Section -->
-    <div class="card bg-base-100 shadow-xl mt-6">
+    <div id="documents-section" class="card bg-base-100 shadow-xl mt-6">
         <div class="card-body">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="card-title text-xl">Documents</h2>
@@ -128,7 +130,7 @@
     </div>
 
     <!-- Notes Section -->
-    <div class="card bg-base-100 shadow-xl mt-6">
+    <div id="notes-section" class="card bg-base-100 shadow-xl mt-6">
         <div class="card-body">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="card-title text-xl">Notes</h2>
@@ -147,7 +149,7 @@
                                     <span class="ml-2">{{ $note->created_at ? $note->created_at->format('d/m/Y H:i') : 'Data desconeguda' }}</span>
                                 </div>
                                 <div class="flex gap-2">
-                                    <button class="btn btn-xs btn-info" onclick="openEditNoteModal({{ $note->id }}, '{{ addslashes($note->notes) }}')">
+                                    <button class="btn btn-xs btn-info" data-note-id="{{ $note->id }}" data-note-content="{{ $note->notes }}" onclick="openEditNoteModal(this.dataset.noteId, this.dataset.noteContent)">
                                         Editar
                                     </button>
                                     <form action="{{ route('center_note_delete', $note) }}" method="POST" class="inline">

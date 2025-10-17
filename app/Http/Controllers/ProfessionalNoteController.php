@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProfessionalNote;
 use App\Models\Professional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfessionalNoteController extends Controller
 {
@@ -17,7 +18,7 @@ class ProfessionalNoteController extends Controller
             'notes' => 'required|string|max:1000'
         ]);
 
-        $createdByProfessionalId = auth()->user()->professional_id ?? null;
+        $createdByProfessionalId = Auth::user()->professional_id ?? null;
         
         //TODO TEMPORAL
         // Si no hay profesional logueado, usar el primero disponible
@@ -34,7 +35,7 @@ class ProfessionalNoteController extends Controller
             'created_by_professional_id' => $createdByProfessionalId
         ]);
 
-        return redirect()->route('professional_show', $professional)->with('success', 'Nota afegida correctament!');
+        return redirect()->route('professional_show', $professional->id . '#notes-section')->with('success', 'Nota afegida correctament!');
     }
 
     /**
@@ -50,7 +51,7 @@ class ProfessionalNoteController extends Controller
             'notes' => $request->input('notes')
         ]);
 
-        return redirect()->route('professional_show', $note->professional)->with('success', 'Nota actualitzada correctament!');
+        return redirect()->route('professional_show', $note->professional->id . '#notes-section')->with('success', 'Nota actualitzada correctament!');
     }
 
     /**
@@ -61,6 +62,6 @@ class ProfessionalNoteController extends Controller
         $professional = $note->professional;
         $note->delete();
         
-        return redirect()->route('professional_show', $professional)->with('success', 'Nota eliminada correctament!');
+        return redirect()->route('professional_show', $professional->id . '#notes-section')->with('success', 'Nota eliminada correctament!');
     }
 }

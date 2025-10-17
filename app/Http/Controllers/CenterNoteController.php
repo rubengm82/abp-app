@@ -6,6 +6,7 @@ use App\Models\CenterNote;
 use App\Models\Center;
 use App\Models\Professional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CenterNoteController extends Controller
 {
@@ -18,7 +19,7 @@ class CenterNoteController extends Controller
             'notes' => 'required|string|max:1000'
         ]);
 
-        $createdByProfessionalId = auth()->user()->professional_id ?? null;
+        $createdByProfessionalId = Auth::user()->professional_id ?? null;
         
         //TODO TEMPORAL
         // Si no hay profesional logueado, usar el primero disponible
@@ -35,7 +36,7 @@ class CenterNoteController extends Controller
             'created_by_professional_id' => $createdByProfessionalId
         ]);
 
-        return redirect()->route('center_show', $center)->with('success', 'Nota afegida correctament!');
+        return redirect()->route('center_show', $center->id . '#notes-section')->with('success', 'Nota afegida correctament!');
     }
 
     /**
@@ -51,7 +52,7 @@ class CenterNoteController extends Controller
             'notes' => $request->input('notes')
         ]);
 
-        return redirect()->route('center_show', $note->center)->with('success', 'Nota actualitzada correctament!');
+        return redirect()->route('center_show', $note->center->id . '#notes-section')->with('success', 'Nota actualitzada correctament!');
     }
 
     /**
@@ -62,6 +63,6 @@ class CenterNoteController extends Controller
         $center = $note->center;
         $note->delete();
         
-        return redirect()->route('center_show', $center)->with('success', 'Nota eliminada correctament!');
+        return redirect()->route('center_show', $center->id . '#notes-section')->with('success', 'Nota eliminada correctament!');
     }
 }
