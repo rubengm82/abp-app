@@ -30,7 +30,7 @@
             <!-- Filtros -->
             <div class="flex gap-2">
                 <input type="text" id="searchInput" placeholder="Cercar professionals..." 
-                       class="input input-bordered input-sm" onkeyup="filterContent()">
+                       class="input input-bordered input-sm w-64" onkeyup="filterContent()">
                 
                 <select id="roleFilter" class="select select-bordered select-sm" onchange="filterContent()">
                     <option value="">Tots els rols</option>
