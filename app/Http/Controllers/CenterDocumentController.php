@@ -45,7 +45,7 @@ class CenterDocumentController extends Controller
                 'uploaded_by_professional_id' => $uploadedByProfessionalId
             ]);
             mainlog::log("Documento creado correctamente");
-            return redirect()->route('center_show', $center)->with('success', 'Document afegit correctament!');
+            return redirect()->route('center_show', $center->id . '#documents-section')->with('success', 'Document afegit correctament!');
             
         } catch (\Exception $e) {
             mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage());
@@ -91,6 +91,6 @@ class CenterDocumentController extends Controller
         
         $document->delete();
         
-        return redirect()->route('center_show', $center)->with('success', 'Document eliminat correctament!');
+        return redirect()->route('center_show', $center->id . '#documents-section')->with('success', 'Document eliminat correctament!');
     }
 }

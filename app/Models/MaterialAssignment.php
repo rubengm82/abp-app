@@ -48,7 +48,7 @@ class MaterialAssignment extends Model
     public static function getLatestForProfessional($professionalId)
     {
         return self::where('professional_id', $professionalId)
-            ->orderBy('assignment_date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->first();
     }
 
@@ -59,7 +59,7 @@ class MaterialAssignment extends Model
     {
         $assignment = self::where('professional_id', $professionalId)
             ->whereNotNull('shirt_size')
-            ->orderBy('assignment_date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->first();
         
         return $assignment ? $assignment->shirt_size : null;
@@ -72,7 +72,7 @@ class MaterialAssignment extends Model
     {
         $assignment = self::where('professional_id', $professionalId)
             ->whereNotNull('pants_size')
-            ->orderBy('assignment_date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->first();
         
         return $assignment ? $assignment->pants_size : null;
@@ -85,7 +85,7 @@ class MaterialAssignment extends Model
     {
         $assignment = self::where('professional_id', $professionalId)
             ->whereNotNull('shoe_size')
-            ->orderBy('assignment_date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->first();
         
         return $assignment ? $assignment->shoe_size : null;

@@ -54,7 +54,7 @@ class ProfessionalDocumentController extends Controller
             ]);
 
             mainlog::log("Documento creado correctamente");
-            return redirect()->route('professional_show', $professional)->with('success', 'Document afegit correctament!');
+            return redirect()->route('professional_show', $professional->id . '#documents-section')->with('success', 'Document afegit correctament!');
             
         } catch (\Exception $e) {
             mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage(), LOG_ERR);
@@ -90,6 +90,6 @@ class ProfessionalDocumentController extends Controller
         
         $document->delete();
         
-        return redirect()->route('professional_show', $professional)->with('success', 'Document eliminat correctament!');
+        return redirect()->route('professional_show', $professional->id . '#documents-section')->with('success', 'Document eliminat correctament!');
     }
 }

@@ -34,32 +34,32 @@ class ProfessionalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'center_id' => 'nullable|exists:centers,id',
+            'center_id' => 'required|exists:centers,id',
             'name' => 'required|string|max:255',
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
             'dni' => 'required|string|max:20|unique:professionals,dni',
             'role' => 'nullable|string|max:100',
             'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255|unique:professionals,email',
+            'email' => 'required|email|max:255|unique:professionals,email',
             'address' => 'nullable|string|max:500',
             'employment_status' => 'nullable|string|max:50',
             'cvitae' => 'nullable|string',
-            'user' => 'nullable|string|max:100|unique:professionals,user',
-            'password' => 'nullable|string|min:4',
+            'user' => 'required|string|max:100|unique:professionals,user',
+            'password' => 'required|string|min:4',
             'key_code' => 'nullable|string|max:50',
         ]);
 
         // Create professional
         $professional = Professional::create([
-            'center_id' => $validated['center_id'] ?? null,
+            'center_id' => $validated['center_id'],
             'role' => $validated['role'] ?? null,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
             'surname2' => $validated['surname2'] ?? null,
             'dni' => $validated['dni'],
             'phone' => $validated['phone'] ?? null,
-            'email' => $validated['email'] ?? null,
+            'email' => $validated['email'],
             'address' => $validated['address'] ?? null,
             'employment_status' => $validated['employment_status'] ?? 'Actiu',
             'cvitae' => $validated['cvitae'] ?? null,
@@ -98,35 +98,35 @@ class ProfessionalController extends Controller
         $professional = Professional::findOrFail($id);
 
         $validated = $request->validate([
-            'center_id' => 'nullable|exists:centers,id',
+            'center_id' => 'required|exists:centers,id',
             'name' => 'required|string|max:255',
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
             'dni' => 'required|string|max:20|unique:professionals,dni,' . $id,
             'role' => 'nullable|string|max:100',
             'phone' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:255|unique:professionals,email,' . $id,
+            'email' => 'required|email|max:255|unique:professionals,email,' . $id,
             'address' => 'nullable|string|max:500',
             'employment_status' => 'nullable|string|max:50',
             'cvitae' => 'nullable|string',
-            'user' => 'nullable|string|max:100|unique:professionals,user,' . $id,
+            'user' => 'required|string|max:100|unique:professionals,user,' . $id,
             'password' => 'nullable|string|min:4',
             'key_code' => 'nullable|string|max:50',
         ]);
 
         $professional->update([
-            'center_id' => $validated['center_id'] ?? $professional->center_id,
+            'center_id' => $validated['center_id'],
             'role' => $validated['role'] ?? $professional->role,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
             'surname2' => $validated['surname2'] ?? $professional->surname2,
             'dni' => $validated['dni'],
             'phone' => $validated['phone'] ?? $professional->phone,
-            'email' => $validated['email'] ?? $professional->email,
+            'email' => $validated['email'],
             'address' => $validated['address'] ?? $professional->address,
             'employment_status' => $validated['employment_status'] ?? $professional->employment_status,
             'cvitae' => $validated['cvitae'] ?? $professional->cvitae,
-            'user' => $validated['user'] ?? $professional->user,
+            'user' => $validated['user'],
             'password' => $validated['password'] ?: $professional->password,
             'key_code' => $validated['key_code'] ?? $professional->key_code,
         ]);
