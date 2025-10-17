@@ -9,7 +9,9 @@
                 <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
             @if($center->status == 1)
-                <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Desactivar</a>
+                <x-partials.modal id="desactivateCenter{{ $center->id }}" msj="Estàs segur que vols desactivar aquest centre?" btnText="Desactivar" class="btn-sm btn-error">
+                    <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Acceptar</a>
+                </x-partials.modal>
             @else
                 <a href="{{ route('center_activate', $center) }}" class="btn btn-sm btn-success">Activar</a>
             @endif
@@ -111,13 +113,15 @@
                                         <span class="ml-2">{{ $document->created_at ? $document->created_at->format('d/m/Y H:i') : 'Data desconeguda' }}</span>
                                     </div>
                                 </div>
-                                <form action="{{ route('center_document_delete', $document) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-xs btn-error" onclick="return confirm('Estàs segur que vols eliminar aquest document?')">
-                                        Eliminar
-                                    </button>
-                                </form>
+                                <x-partials.modal id="deleteDocument{{ $document->id }}" msj="Estàs segur que vols eliminar aquest document?" btnText="Eliminar" class="btn-xs btn-error">
+                                    <form action="{{ route('center_document_delete', $document) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-error">
+                                            Acceptar
+                                        </button>
+                                    </form>
+                                </x-partials.modal>
                             </div>
                         </div>
                     @endforeach
@@ -151,13 +155,15 @@
                                     <button class="btn btn-xs btn-info" data-note-id="{{ $note->id }}" data-note-content="{{ $note->notes }}" onclick="openEditNoteModal(this.dataset.noteId, this.dataset.noteContent)">
                                         Editar
                                     </button>
-                                    <form action="{{ route('center_note_delete', $note) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-xs btn-error" onclick="return confirm('Estàs segur que vols eliminar aquesta nota?')">
-                                            Eliminar
-                                        </button>
-                                    </form>
+                                    <x-partials.modal id="deleteNote{{ $note->id }}" msj="Estàs segur que vols eliminar aquesta nota?" btnText="Eliminar" class="btn-xs btn-error">
+                                        <form action="{{ route('center_note_delete', $note) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-error">
+                                                Acceptar
+                                            </button>
+                                        </form>
+                                    </x-partials.modal>
                                 </div>
                             </div>
                             <p class="text-gray-800 break-words whitespace-pre-wrap">{{ $note->notes }}</p>
@@ -184,14 +190,14 @@
                 <textarea name="notes" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="document.getElementById('addNoteModal').close()">Cancel·lar</button>
-                <button type="submit" class="btn btn-primary">Afegir Nota</button>
+                <button type="button" class="btn btn-sm" onclick="document.getElementById('addNoteModal').close()">Cancel·lar</button>
+                <button type="submit" class="btn btn-sm btn-info">Afegir Nota</button>
             </div>
         </form>
     </div>
 </dialog>
 
-<!-- Modal para editar nota -->
+<!-- Modal to edit note -->
 <dialog id="editNoteModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Editar Nota</h3>
@@ -205,14 +211,14 @@
                 <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="document.getElementById('editNoteModal').close()">Cancel·lar</button>
-                <button type="submit" class="btn btn-primary">Guardar Canvis</button>
+                <button type="button" class="btn btn-sm" onclick="document.getElementById('editNoteModal').close()">Cancel·lar</button>
+                <button type="submit" class="btn btn-sm btn-info">Desar Canvis</button>
             </div>
         </form>
     </div>
 </dialog>
 
-<!-- Modal para pujar documents -->
+<!-- Modal to upload documents -->
 <dialog id="addDocumentModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Pujar Document</h3>
@@ -228,8 +234,8 @@
                 </div>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="this.closest('dialog').close()">Cancel·lar</button>
-                <button type="submit" class="btn btn-primary">Pujar Document</button>
+                <button type="button" class="btn btn-sm" onclick="this.closest('dialog').close()">Cancel·lar</button>
+                <button type="submit" class="btn btn-sm btn-info">Pujar Document</button>
             </div>
         </form>
     </div>

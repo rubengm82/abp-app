@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista d'Assignacions de Material</h1>
 @if($materialAssignments->count() > 0)
 <div class="flex justify-end gap-4 mb-4">
-    <a href="{{ route('materialassignment_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar CSV</a>
+    <a href="{{ route('materialassignment_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
     <a href="{{ route('materialassignment_form') }}" class="btn btn-sm btn-primary">Afegir Assignació</a>
 </div>
 @endif
@@ -37,21 +37,21 @@
                 </td>
                 <td class="text-center">
                     @if($assignment->shirt_size)
-                        <span class="badge badge-info">{{ $assignment->shirt_size }}</span>
+                        <span class="badge badge-outline badge-info">{{ $assignment->shirt_size }}</span>
                     @else
                         <span class="text-gray-400">-</span>
                     @endif
                 </td>
                 <td class="text-center">
                     @if($assignment->pants_size)
-                        <span class="badge badge-info">{{ $assignment->pants_size }}</span>
+                        <span class="badge badge-outline badge-info">{{ $assignment->pants_size }}</span>
                     @else
                         <span class="text-gray-400">-</span>
                     @endif
                 </td>
                 <td class="text-center">
                     @if($assignment->shoe_size)
-                        <span class="badge badge-info">{{ $assignment->shoe_size }}</span>
+                        <span class="badge badge-outline badge-info">{{ $assignment->shoe_size }}</span>
                     @else
                         <span class="text-gray-400">-</span>
                     @endif
@@ -76,14 +76,6 @@
                 <!-- TODO: REVIEW, if it was requested that these records could not be edited or deleted... -->
                 <td class="flex justify-end gap-2">
                     <a href="{{ route('materialassignment_show', $assignment) }}" class="btn btn-xs btn-info">Veure</a>
-                    <a href="{{ route('materialassignment_edit', $assignment) }}" class="btn btn-xs btn-warning">Editar</a>
-                    <x-partials.modal id="deleteAssignment{{ $assignment->id }}" msj="Estàs segur que vols eliminar aquesta assignació?" btnText="Eliminar">
-                        <form action="{{ route('materialassignment_delete', $assignment) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
-                        </form>
-                    </x-partials.modal>
                 </td>
             </tr>
         </tbody>

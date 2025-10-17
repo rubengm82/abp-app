@@ -34,10 +34,6 @@
                         <td>{{ $center->email }}</td>
                         <td class="flex justify-end gap-2">
                             <a href="{{ route('center_show', $center) }}" class="btn btn-xs btn-info">Veure</a>
-                            <a href="{{ route('center_edit', $center) }}" class="btn btn-xs btn-warning">Editar</a>
-                            <x-partials.modal id="desactivateCenter{{ $center->id }}" msj="Estàs segur que vols desactivar aquest centre?" btnText="Desactivar">
-                                <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Acceptar</a>
-                            </x-partials.modal>
                         </td>
                     </tr>
                 </tbody>

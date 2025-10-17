@@ -35,10 +35,6 @@
                         <td>{{ $projectCommission->start_date}}</td>
                         <td class="flex justify-end gap-2">
                             <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-xs btn-info">Veure</a>
-                            <a href="{{ route('projectcommission_edit', $projectCommission) }}" class="btn btn-xs btn-warning">Editar</a>
-                            <x-partials.modal id="desactivateProjectCommission{{ $projectCommission->id }}" msj="Estàs segur que vols desactivar aquesta comissió?" btnText="Desactivar">
-                                <a href="{{ route('projectcommission_desactivate', $projectCommission) }}" class="btn btn-sm btn-error">Acceptar</a>
-                            </x-partials.modal>
                         </td>
                     </tr>
                 </tbody>

@@ -3,11 +3,18 @@
 @section('content')
 <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-gray-800">Detalls de l'Assignació de Material</h1>
-        <div class="flex gap-2">
-            <a href="{{ route('materialassignment_edit', $materialAssignment) }}" class="btn btn-sm btn-warning">Editar</a>
-        </div>
+    <h1 class="text-3xl font-bold text-gray-800">Detalls de l'Assignació de Material</h1>
+    <div class="flex gap-2">
+        <a href="{{ route('materialassignment_edit', $materialAssignment) }}" class="btn btn-sm btn-info">Editar</a>
+        <x-partials.modal id="deleteAssignment{{ $materialAssignment->id }}" msj="Estàs segur que vols eliminar aquesta assignació?" btnText="Eliminar" class="btn-sm btn-error">
+            <form action="{{ route('materialassignment_delete', $materialAssignment) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+            </form>
+        </x-partials.modal>
     </div>
+</div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Assignment information -->
@@ -141,13 +148,15 @@
                                         <span class="ml-2">{{ $document->created_at ? $document->created_at->format('d/m/Y H:i') : 'Data desconeguda' }}</span>
                                     </div>
                                 </div>
-                                <form action="{{ route('materialassignment_document_delete', $document) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-xs btn-error" onclick="return confirm('Estàs segur que vols eliminar aquest document?')">
-                                        Eliminar
-                                    </button>
-                                </form>
+                                <x-partials.modal id="deleteDocument{{ $document->id }}" msj="Estàs segur que vols eliminar aquest document?" btnText="Eliminar" class="btn-xs btn-error">
+                                    <form action="{{ route('materialassignment_document_delete', $document) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-error">
+                                            Acceptar
+                                        </button>
+                                    </form>
+                                </x-partials.modal>
                             </div>
                         </div>
                     @endforeach
@@ -181,13 +190,15 @@
                                     <button class="btn btn-xs btn-info" data-note-id="{{ $note->id }}" data-note-content="{{ $note->notes }}" onclick="openEditNoteModal(this.dataset.noteId, this.dataset.noteContent)">
                                         Editar
                                     </button>
-                                    <form action="{{ route('materialassignment_note_delete', $note) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-xs btn-error" onclick="return confirm('Estàs segur que vols eliminar aquesta nota?')">
-                                            Eliminar
-                                        </button>
-                                    </form>
+                                    <x-partials.modal id="deleteNote{{ $note->id }}" msj="Estàs segur que vols eliminar aquesta nota?" btnText="Eliminar" class="btn-xs btn-error">
+                                        <form action="{{ route('materialassignment_note_delete', $note) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-error">
+                                                Acceptar
+                                            </button>
+                                        </form>
+                                    </x-partials.modal>
                                 </div>
                             </div>
                             <p class="text-gray-800 break-words whitespace-pre-wrap">{{ $note->notes }}</p>
@@ -214,8 +225,8 @@
                 <textarea name="notes" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="document.getElementById('addNoteModal').close()">Cancel·lar</button>
-                <button type="submit" class="btn btn-primary">Afegir Nota</button>
+                <button type="button" class="btn btn-sm" onclick="document.getElementById('addNoteModal').close()">Cancel·lar</button>
+                <button type="submit" class="btn btn-sm btn-info">Afegir Nota</button>
             </div>
         </form>
     </div>
@@ -235,8 +246,8 @@
                 <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="document.getElementById('editNoteModal').close()">Cancel·lar</button>
-                <button type="submit" class="btn btn-primary">Guardar Canvis</button>
+                <button type="button" class="btn btn-sm" onclick="document.getElementById('editNoteModal').close()">Cancel·lar</button>
+                <button type="submit" class="btn btn-sm btn-info">Desar Canvis</button>
             </div>
         </form>
     </div>
@@ -258,8 +269,8 @@
                 </div>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="this.closest('dialog').close()">Cancel·lar</button>
-                <button type="submit" class="btn btn-primary">Pujar Document</button>
+                <button type="button" class="btn btn-sm" onclick="this.closest('dialog').close()">Cancel·lar</button>
+                <button type="submit" class="btn btn-sm btn-info">Pujar Document</button>
             </div>
         </form>
     </div>

@@ -1,14 +1,16 @@
 @props([
-    'id',          // Unique ID for the modal
-    'msj' => 'Estàs segur?',  // Message inside the modal
-    'btnText' => 'Obrir'      // Text for the button that opens the modal
+    'id',                // Unique ID for the modal
+    'msj' => 'Estàs segur?',  // Message text
+    'btnText' => 'Obrir',     // Button text
+    'textSize' => 'text-sm',  // Tailwind text size for the message
+    'width' => 'w-100',        // Tailwind width class for the modal
 ])
 
 <!-- Hidden checkbox that controls the modal -->
 <input type="checkbox" id="{{ $id }}" class="hidden peer" />
 
 <!-- Button that opens the modal -->
-<label for="{{ $id }}" class="btn btn-xs btn-error cursor-pointer">
+<label for="{{ $id }}" {{ $attributes->merge(['class' => 'btn cursor-pointer']) }}>
     {{ $btnText }}
 </label>
 
@@ -16,13 +18,13 @@
 <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50
             opacity-0 pointer-events-none transition-opacity duration-200
             peer-checked:opacity-100 peer-checked:pointer-events-auto">
-    <div class="bg-white rounded-lg p-6 w-80">
-        <p class="mb-6 text-gray-600">{{ $msj }}</p>
+    <div class="bg-base-100 text-base-content rounded-lg p-6 {{ $width }}">
+        <p class="mb-6 {{ $textSize }}">{{ $msj }}</p>
         <div class="flex justify-end space-x-2">
-            <!-- Cancel: closes the modal -->
+            <!-- Cancel -->
             <label for="{{ $id }}" class="btn btn-sm cursor-pointer">Cancel·lar</label>
 
-            <!-- Accept / Action: slot where you put form or link -->
+            <!-- Accept / Action -->
             {{ $slot }}
         </div>
     </div>

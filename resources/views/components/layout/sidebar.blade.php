@@ -5,7 +5,7 @@
         <ul class="text-[#555555]">
             <li>
                 <a href="{{ route('centers_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Llistat de Centres
+                    Llistar de Centres
                 </a>
             </li>
             <li>
@@ -30,7 +30,7 @@
             </li>
             <li>
                 <a href="{{ route('centers_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#fafafa] select-none">
-                    Llistat de Centres <small>(Desactivats)</small>
+                    Llistar de Centres <small>(Desactivats)</small>
                 </a>
             </li>
             <li>

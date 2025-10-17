@@ -53,7 +53,7 @@
                     <td>{{ $professional->phone }}</td>
                     <td>{{ $professional->email }}</td>
                     <td>
-                        <span class="badge {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
+                        <span class="badge {{ $professional->employment_status === 'Actiu' ? 'badge badge-outline badge-success' : 'badge badge-outline badge-warning' }}">
                             {{ $professional->employment_status }}
                         </span>
                     </td>
