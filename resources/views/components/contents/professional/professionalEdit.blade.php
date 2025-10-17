@@ -1,8 +1,8 @@
 @extends('app')
 
 @section('content')
-<div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Editar professional</h1>
+<div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
+    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6 text-center">Editar professional</h1>
     
     <!-- Show validation errors -->
     @if ($errors->any())
@@ -24,7 +24,7 @@
         @csrf
 
         <!-- Personal Information -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació Personal</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -60,7 +60,7 @@
         </div>
 
         <!-- Center Selection -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Centre d'Assignació</h2>
                 <div class="form-control">
@@ -80,7 +80,7 @@
         </div>
 
         <!-- Professional Information -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació Professional</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -113,7 +113,7 @@
         </div>
 
         <!-- Contact Information -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació de Contacte</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -142,7 +142,7 @@
         </div>
 
         <!-- Additional Information -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació Adicional</h2>
                 <div class="space-y-4">
@@ -164,7 +164,7 @@
         </div>
 
         <!-- Access Credentials -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Credencials d'Accés</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

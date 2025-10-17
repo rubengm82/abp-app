@@ -1,8 +1,8 @@
 @extends('app')
 
 @section('content')
-<div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Afegir projecte/comissió</h1>
+<div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
+    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6 text-center">Afegir projecte/comissió</h1>
     
     <!-- Show validation errors -->
     @if ($errors->any())
@@ -24,7 +24,7 @@
         @csrf
 
         <!-- Basic Information -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació Bàsica</h2>
                 <div class="space-y-4">
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Dates and Timeline -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Dates i Cronograma</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -72,7 +72,7 @@
         </div>
 
         <!-- Project Details -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Detalls del Projecte/Comissió</h2>
                 <div class="space-y-4">

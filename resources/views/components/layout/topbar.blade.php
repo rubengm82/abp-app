@@ -1,4 +1,4 @@
-<div class="h-16 bg-[#555555] flex items-center justify-between px-4 w-full fixed top-0 left-0 z-10 shadow-xl ">
+<div class="h-16 bg-[#555555] flex items-center justify-between px-4 w-full fixed top-0 left-0 z-10 shadow-xl">
 
     {{-- LEFT --}}
     <!-- Logo  -->
@@ -10,9 +10,7 @@
         </a>
     </div>
 
-
     {{-- RIGHT --}}
-    <!-- Dropdown usuario -->
     <div class="dropdown dropdown-end">
         
         <!-- Button dropdown - ICON USER -->
@@ -27,7 +25,20 @@
                 <span class="pl-2 pr-2 w-full block text-right cursor-default">Sprint 2 | Versió 0.2.0</span>
             </li>
 
-            <!-- Items - Menu -->
+            <!-- Dark/Light Mode Toggle -->
+            <li class="p-2">
+                <div class="flex items-center justify-between w-full">
+                    <span>Clar | Fosc</span>
+                    <input
+                        type="checkbox"
+                        id="theme-toggle"
+                        class="toggle toggle-sm"
+                        title="Canviar Dark/Light"
+                    />
+                </div>
+            </li>
+
+            <!-- Logout -->
             <li>
                 <a href="{{ route('logout') }}" class="flex items-center justify-start gap-2 w-full text-left">
                     <i class="fa-solid fa-arrow-right"></i> Sortir
@@ -35,7 +46,6 @@
             </li>
         </ul>
     </div>
-
 </div>
 
 @if (session('warning'))

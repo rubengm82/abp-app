@@ -7,16 +7,16 @@
     <title>@yield('title', 'Valparadis App')</title>
     @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-100">
+<body class="bg-base-200">
 
-    <!-- TopBar full width -->
+    <!-- Full-width TopBar -->
     <x-layout.topbar />
 
-    <!-- Sidebar fijo a la izquierda -->
+    <!-- Fixed Sidebar on the left -->
     <x-layout.sidebar />
 
-    <!-- Contenido principal -->
-    <main class="ml-64 mt-16 p-4 overflow-auto min-h-[calc(100vh-4rem)] bg-white rounded-tl-2xl shadow-inner">
+    <!-- Main content -->
+    <main class="ml-64 mt-16 p-4 overflow-auto min-h-[calc(100vh-4rem)] bg-base-100 rounded-tl-2xl shadow-inner">
 
         @hasSection('content')
             <div class="w-full">
@@ -30,6 +30,7 @@
 
     </main>
 
-<script src="{{ asset('js/components/partials/toast.js') }}"></script>
+    <script src="{{ asset('js/components/partials/toast.js') }}"></script>
+    <script src="{{ asset('js/components/partials/themeswitch.js') }}"></script>
 </body>
 </html>

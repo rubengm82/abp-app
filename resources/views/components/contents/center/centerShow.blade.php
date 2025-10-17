@@ -1,9 +1,9 @@
 @extends('app')
 
 @section('content')
-<div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-gray-800">{{ $center->name }}</h1>
+        <h1 class="text-3xl font-bold">{{ $center->name }}</h1>
         <div class="flex gap-2">
             @if($center->status == 1)
                 <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
@@ -20,21 +20,21 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Basic information -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl bg-base-100 text-base-content">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació bàsica</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold text-gray-600">Nom del centre:</label>
-                        <p class="text-lg">{{ $center->name }}</p>
+                        <label class="font-semibold">Nom del centre:</label>
+                        <p>{{ $center->name }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">ID:</label>
-                        <p class="text-lg">{{ $center->id }}</p>
+                        <label class="font-semibold">ID:</label>
+                        <p>{{ $center->id }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Estat:</label>
-                        <p class="text-lg">
+                        <label class="font-semibold">Estat:</label>
+                        <p>
                             <span class="badge {{ $center->status == 1 ? 'badge-success' : 'badge-error' }}">
                                 {{ $center->status == 1 ? 'Actiu' : 'Inactiu' }}
                             </span>
@@ -45,21 +45,21 @@
         </div>
 
         <!-- Contact information -->
-        <div class="card bg-base-100 shadow-xl">
+        <div class="card shadow-xl bg-base-100 text-base-content">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació de contacte</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold text-gray-600">Adreça:</label>
-                        <p class="text-lg">{{ $center->address ?: 'No especificada' }}</p>
+                        <label class="font-semibold">Adreça:</label>
+                        <p>{{ $center->address ?: 'No especificada' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Telèfon:</label>
-                        <p class="text-lg">{{ $center->phone ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Telèfon:</label>
+                        <p>{{ $center->phone ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Email:</label>
-                        <p class="text-lg">{{ $center->email ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Email:</label>
+                        <p>{{ $center->email ?: 'No especificat' }}</p>
                     </div>
                 </div>
             </div>
@@ -67,24 +67,24 @@
     </div>
 
     <!-- Additional information -->
-    <div class="card bg-base-100 shadow-xl mt-6">
+    <div class="card shadow-xl bg-base-100 text-base-content mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="font-semibold text-gray-600">Data de creació:</label>
-                    <p class="text-lg">{{ $center->created_at ? $center->created_at->format('d/m/Y H:i') : 'No especificada' }}</p>
+                    <label class="font-semibold">Data de creació:</label>
+                    <p>{{ $center->created_at ? $center->created_at->format('d/m/Y H:i') : 'No especificada' }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold text-gray-600">Última actualització:</label>
-                    <p class="text-lg">{{ $center->updated_at ? $center->updated_at->format('d/m/Y H:i') : 'No especificada' }}</p>
+                    <label class="font-semibold">Última actualització:</label>
+                    <p>{{ $center->updated_at ? $center->updated_at->format('d/m/Y H:i') : 'No especificada' }}</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Documents Section -->
-    <div id="documents-section" class="card bg-base-100 shadow-xl mt-6">
+    <div id="documents-section" class="card shadow-xl bg-base-100 text-base-content mt-6">
         <div class="card-body">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="card-title text-xl">Documents</h2>
@@ -97,7 +97,7 @@
             @if($center->documents && $center->documents->count() > 0)
                 <div class="space-y-3">
                     @foreach($center->documents->sortByDesc('created_at') as $document)
-                        <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-green-500">
+                        <div class="bg-base-200 p-4 rounded-lg border-l-4 border-green-500">
                             <div class="flex justify-between items-center">
                                 <div class="flex-1">
                                     <div class="flex items-center gap-3">
@@ -127,13 +127,13 @@
                     @endforeach
                 </div>
             @else
-                <p class="text-gray-500 italic">No hi ha documents per aquest centre.</p>
+                <p class="italic text-gray-500">No hi ha documents per aquest centre.</p>
             @endif
         </div>
     </div>
 
     <!-- Notes Section -->
-    <div id="notes-section" class="card bg-base-100 shadow-xl mt-6">
+    <div id="notes-section" class="card shadow-xl bg-base-100 text-base-content mt-6">
         <div class="card-body">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="card-title text-xl">Notes</h2>
@@ -145,9 +145,9 @@
             @if($center->notes && $center->notes->count() > 0)
                 <div class="space-y-4">
                     @foreach($center->notes->sortByDesc('created_at') as $note)
-                        <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <div class="bg-base-200 p-4 rounded-lg border-l-4 border-blue-500">
                             <div class="flex justify-between items-start mb-2">
-                                <div class="text-sm text-gray-600">
+                                <div class="text-sm text-base-content">
                                     <strong>{{ $note->createdByProfessional->name ?? 'Usuari desconegut' }} {{ $note->createdByProfessional->surname1 ?? '' }}</strong>
                                     <span class="ml-2">{{ $note->created_at ? $note->created_at->format('d/m/Y H:i') : 'Data desconeguda' }}</span>
                                 </div>
@@ -166,12 +166,12 @@
                                     </x-partials.modal>
                                 </div>
                             </div>
-                            <p class="text-gray-800 break-words whitespace-pre-wrap">{{ $note->notes }}</p>
+                            <p class="break-words whitespace-pre-wrap text-base-content">{{ $note->notes }}</p>
                         </div>
                     @endforeach
                 </div>
             @else
-                <p class="text-gray-500 italic">No hi ha notes per aquest centre.</p>
+                <p class="italic text-gray-500">No hi ha notes per aquest centre.</p>
             @endif
         </div>
     </div>
@@ -179,7 +179,7 @@
 
 <!-- Modal to add note -->
 <dialog id="addNoteModal" class="modal">
-    <div class="modal-box">
+    <div class="modal-box bg-base-100 text-base-content">
         <h3 class="font-bold text-lg mb-4">Afegir Nova Nota</h3>
         <form action="{{ route('center_note_add', $center) }}" method="POST">
             @csrf
@@ -187,7 +187,7 @@
                 <label class="label">
                     <span class="label-text">Nota:</span>
                 </label>
-                <textarea name="notes" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
+                <textarea name="notes" class="textarea textarea-bordered w-full bg-base-100 text-base-content" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
             <div class="modal-action">
                 <button type="button" class="btn btn-sm" onclick="document.getElementById('addNoteModal').close()">Cancel·lar</button>
@@ -199,7 +199,7 @@
 
 <!-- Modal to edit note -->
 <dialog id="editNoteModal" class="modal">
-    <div class="modal-box">
+    <div class="modal-box bg-base-100 text-base-content">
         <h3 class="font-bold text-lg mb-4">Editar Nota</h3>
         <form id="editNoteForm" method="POST">
             @csrf
@@ -208,7 +208,7 @@
                 <label class="label">
                     <span class="label-text">Nota:</span>
                 </label>
-                <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
+                <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full bg-base-100 text-base-content" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
             <div class="modal-action">
                 <button type="button" class="btn btn-sm" onclick="document.getElementById('editNoteModal').close()">Cancel·lar</button>
@@ -220,7 +220,7 @@
 
 <!-- Modal to upload documents -->
 <dialog id="addDocumentModal" class="modal">
-    <div class="modal-box">
+    <div class="modal-box bg-base-100 text-base-content">
         <h3 class="font-bold text-lg mb-4">Pujar Document</h3>
         <form action="{{ route('center_document_add', $center) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -228,7 +228,7 @@
                 <label class="label">
                     <span class="label-text">Seleccionar Document:</span>
                 </label>
-                <input type="file" name="document" class="file-input file-input-bordered w-full" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt" required>
+                <input type="file" name="document" class="file-input file-input-bordered w-full bg-base-100 text-base-content" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt" required>
                 <div class="label">
                     <span class="label-text-alt">Formats suportats: PDF, DOC, DOCX, JPG, JPEG, PNG, TXT</span>
                 </div>
