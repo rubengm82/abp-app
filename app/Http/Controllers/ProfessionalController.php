@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Professional;
-use App\Models\User;
-use App\Models\Center;
 use App\Models\MaterialAssignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +14,7 @@ class ProfessionalController extends Controller
      */
     public function index()
     {
-        $professionals = Professional::all();
+        $professionals = Professional::with('center')->get();
         return view("components.contents.professional.professionalsList")->with('professionals', $professionals);
     }
 
@@ -77,7 +75,7 @@ class ProfessionalController extends Controller
      */
     public function show(string $id)
     {
-        $professional = Professional::with(['documents', 'notes'])->findOrFail($id);
+        $professional = Professional::with(['center', 'documents', 'notes'])->findOrFail($id);
         return view('components.contents.professional.professionalShow')->with('professional', $professional);
     }
 
@@ -158,16 +156,15 @@ class ProfessionalController extends Controller
     {
         $professional = Professional::findOrFail($professional_id);
         $professional->update(['status' => 0]);
-        syslog(1, "Professional desactivat correctament!");
         return redirect()->route('professionals_list')->with('success', 'Professional desactivat correctament!');
     }
 
     /**
      * Display a listing of the desactivated professionals
      */
-    public function index_desactivatedCenters()
+    public function index_desactivatedProfessionals()
     {
-        $professionals = Professional::all();
+        $professionals = Professional::with('center')->get();
         return view("components.contents.professional.professionalsDesactivatedList")->with('professionals', $professionals);
     }
 
@@ -176,18 +173,18 @@ class ProfessionalController extends Controller
      */
     public function downloadCSV(int $statusParam)
     {
-        $professionals = Professional::where('status', $statusParam)->get();
+        $professionals = Professional::with('center')->where('status', $statusParam)->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = $statusParam == 1 ? "professionals_actius_{$timestamp}.csv" : "professionals_no_actius_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID','Centre ID','Role','Name','Surname1','Surname2','DNI','Phone','Email','Address','Employment Status','CV','User','Password','Key Code','Status']);
+        fputcsv($handle, ['ID','Centre','Role','Name','Surname1','Surname2','DNI','Phone','Email','Address','Employment Status','CV','User','Password','Key Code','Status']);
 
         foreach ($professionals as $professional) {
             fputcsv($handle, [
                 $professional->id,
-                $professional->center_id,
+                $professional->center ? $professional->center->name : 'No assignat',
                 $professional->role,
                 $professional->name,
                 $professional->surname1,

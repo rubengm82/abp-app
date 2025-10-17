@@ -34,7 +34,16 @@
                 @if ($professional->status == 0)
                 <tr class="hover:bg-base-300">
                     <th>{{ $professional->id }}</th>
-                    <td>{{ $professional->center_id }}</td>
+                    <td>
+                        @if($professional->center)
+                            <a href="{{ route('center_show', $professional->center->id) }}" 
+                               class="text-primary font-semibold hover:text-orange-600 transition-all duration-200">
+                                {{ $professional->center->name }}
+                            </a>
+                        @else
+                            <span class="text-gray-400">No assignat</span>
+                        @endif
+                    </td>
                     <!-- TODO: Add hover to code -->
                     <td>{{ $professional->key_code }}</td>
                     <td>{{ $professional->name }}</td>

@@ -32,6 +32,19 @@
                         <p class="text-lg">{{ $professional->dni }}</p>
                     </div>
                     <div>
+                        <label class="font-semibold text-gray-600">Centre:</label>
+                        <p class="text-lg">
+                            @if($professional->center)
+                                <a href="{{ route('center_show', $professional->center->id) }}" 
+                                   class="text-primary font-semibold hover:text-orange-600 transition-all duration-200">
+                                    {{ $professional->center->name }}
+                                </a>
+                            @else
+                                <span class="text-gray-400">No assignat</span>
+                            @endif
+                        </p>
+                    </div>
+                    <div>
                         <label class="font-semibold text-gray-600">Rol:</label>
                         <p class="text-lg">{{ $professional->role ?: 'No especificat' }}</p>
                     </div>
