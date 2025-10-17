@@ -15,10 +15,10 @@ class MaterialAssignmentDocumentSeeder extends Seeder
      */
     public function run(): void
     {
-        // Obtener algunas asignaciones de material existentes
+        // Get some material assignments existing
         $materialAssignments = MaterialAssignment::take(3)->get();
         
-        // Obtener algunos profesionales existentes
+        // Get some professionals existing
         $professionals = Professional::where('status', 1)->get();
         
         if ($materialAssignments->count() > 0 && $professionals->count() > 0) {

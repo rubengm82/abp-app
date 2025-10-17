@@ -15,7 +15,7 @@ class ProfessionalNote extends Model
     ];
 
     /**
-     * Relación con el profesional
+     * Relationship with the professional
      */
     public function professional()
     {
@@ -23,7 +23,7 @@ class ProfessionalNote extends Model
     }
 
     /**
-     * Relación con el profesional que creó la nota
+     * Relationship with the professional that created the note
      */
     public function createdByProfessional()
     {

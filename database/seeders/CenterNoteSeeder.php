@@ -15,10 +15,10 @@ class CenterNoteSeeder extends Seeder
      */
     public function run(): void
     {
-        // Obtener algunos centros existentes
+        // Get some centers existing
         $centers = Center::where('status', 1)->get();
         
-        // Obtener algunos profesionales existentes
+        // Get some professionals existing
         $professionals = Professional::where('status', 1)->get();
         
         if ($centers->count() > 0 && $professionals->count() > 0) {
@@ -41,7 +41,7 @@ class CenterNoteSeeder extends Seeder
             ];
             
             foreach ($centers as $center) {
-                // Crear entre 2-4 notas por centro
+                // Create between 2-4 notes per center
                 $numNotes = rand(2, 4);
                 
                 for ($i = 0; $i < $numNotes; $i++) {

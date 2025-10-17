@@ -15,7 +15,7 @@ class CenterNote extends Model
     ];
 
     /**
-     * Relación con el centro
+     * Relationship with the center
      */
     public function center()
     {
@@ -23,7 +23,7 @@ class CenterNote extends Model
     }
 
     /**
-     * Relación con el profesional que creó la nota
+     * Relationship with the professional that created the note
      */
     public function createdByProfessional()
     {

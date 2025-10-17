@@ -186,12 +186,9 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex justify-between gap-4">
-            <a href="{{ route('professionals_list') }}" class="btn btn-outline">Tornar</a>
-            <div class="flex gap-4">
-                <a href="{{ route('professional_form') }}" class="btn btn-outline">Netejar</a>
-                <input type="submit" value="Crear Professional" class="btn btn-info">
-            </div>
+        <div class="flex justify-end gap-4">
+            <a href="{{ route('professional_form') }}" class="btn btn-outline">Netejar</a>
+            <input type="submit" value="Crear Professional" class="btn btn-info">
         </div>
     </form>
 </div>

@@ -15,7 +15,7 @@ class ProjectCommissionNote extends Model
     ];
 
     /**
-     * Relación con el proyecto/comisión
+     * Relationship with the project/commission
      */
     public function projectCommission()
     {
@@ -23,7 +23,7 @@ class ProjectCommissionNote extends Model
     }
 
     /**
-     * Relación con el profesional que creó la nota
+     * Relationship with the professional that created the note
      */
     public function professional()
     {

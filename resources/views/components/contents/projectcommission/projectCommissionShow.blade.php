@@ -5,7 +5,6 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">{{ $projectCommission->name }}</h1>
         <div class="flex gap-2">
-            <a href="{{ route('projectcommissions_list') }}" class="btn btn-sm btn-outline">Tornar</a>
             @if($projectCommission->status == 'Actiu')
                 <a href="{{ route('projectcommission_edit', $projectCommission) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
@@ -168,7 +167,7 @@
                                     <button class="btn btn-xs btn-info" data-note-id="{{ $note->id }}" data-note-content="{{ $note->notes }}" onclick="openEditNoteModal(this.dataset.noteId, this.dataset.noteContent)">
                                         Editar
                                     </button>
-                                    {{-- TODO: Cambiar el botón "Eliminar" por un icono de papelera de color rojo --}}
+                                    {{-- TODO: Change the "Eliminar" button to a red trash icon --}}
                                     <form action="{{ route('projectcommission_note_delete', $note) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
@@ -209,7 +208,7 @@
     </div>
 </dialog>
 
-<!-- Modal para editar nota -->
+<!-- Modal to edit note -->
 <dialog id="editNoteModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Editar Nota</h3>
@@ -230,7 +229,7 @@
     </div>
 </dialog>
 
-<!-- Modal para pujar arxius -->
+<!-- Modal to upload files -->
 <dialog id="addFileModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Pujar Arxius</h3>

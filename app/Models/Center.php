@@ -16,7 +16,7 @@ class Center extends Model
     ];
 
     /**
-     * Relación con los profesionales del centro
+     * Relationship with professionals of the center
      */
     public function professionals()
     {
@@ -24,7 +24,7 @@ class Center extends Model
     }
 
     /**
-     * Relación con las notas del centro
+     * Relationship with notes of the center
      */
     public function notes()
     {
@@ -32,7 +32,7 @@ class Center extends Model
     }
 
     /**
-     * Relación con los documentos del centro
+     * Relationship with documents of the center
      */
     public function documents()
     {

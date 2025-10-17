@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\CenterNote;
 use App\Models\Center;
-use App\Models\Professional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,17 +18,8 @@ class CenterNoteController extends Controller
             'notes' => 'required|string|max:1000'
         ]);
 
-        $createdByProfessionalId = Auth::user()->professional_id ?? null;
+        $createdByProfessionalId = Auth::user()->id ?? null;
         
-        //TODO TEMPORAL
-        // Si no hay profesional logueado, usar el primero disponible
-        if (!$createdByProfessionalId) {
-            $firstProfessional = Professional::where('status', 1)->first();
-            if ($firstProfessional) {
-                $createdByProfessionalId = $firstProfessional->id;
-            }
-        }
-
         CenterNote::create([
             'center_id' => $center->id,
             'notes' => $request->input('notes'),

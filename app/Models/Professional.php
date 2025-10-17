@@ -41,7 +41,7 @@ class Professional extends Authenticatable
         }
     }
 
-    // Relaciones
+    // Relationships
     public function center() { return $this->belongsTo(Center::class); }
     public function materialAssignments() { return $this->hasMany(MaterialAssignment::class); }
     public function notes() { return $this->hasMany(ProfessionalNote::class); }
@@ -50,7 +50,7 @@ class Professional extends Authenticatable
     public function uploadedDocuments() { return $this->hasMany(ProfessionalDocument::class, 'uploaded_by_professional_id'); }
 
     /**
-     * Relación con el modelo User
+     * Relationship with the user model
      */
     public function userAccount()
     {
@@ -76,7 +76,7 @@ class Professional extends Authenticatable
                 $userData['user'] = $professional->user;
             }
 
-            // Crear user relacionado
+            // Create related user
             $professional->userAccount()->create($userData);
         });
 

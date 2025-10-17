@@ -5,7 +5,6 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1>
         <div class="flex gap-2">
-            <a href="{{ route('professionals_list') }}" class="btn btn-sm btn-outline">Tornar</a>
             @if($professional->status == 1)
                 <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
@@ -271,7 +270,7 @@
     </div>
 </dialog>
 
-<!-- Modal para editar nota -->
+<!-- Modal to edit note -->
 <dialog id="editNoteModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Editar Nota</h3>
@@ -292,7 +291,7 @@
     </div>
 </dialog>
 
-<!-- Modal para pujar documents -->
+<!-- Modal to upload documents -->
 <dialog id="addDocumentModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Pujar Document</h3>

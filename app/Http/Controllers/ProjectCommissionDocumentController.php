@@ -23,16 +23,8 @@ class ProjectCommissionDocumentController extends Controller
                 'files.*' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,txt'
             ]);
 
-            $professionalId = Auth::user()->id ?? null;
+            $uploadedByProfessionalId = Auth::user()->id ?? null;
             
-            // Si no hay profesional logueado, usar el primero disponible
-            if (!$professionalId) {
-                $firstProfessional = \App\Models\Professional::where('status', 1)->first();
-                if ($firstProfessional) {
-                    $professionalId = $firstProfessional->id;
-                }
-            }
-
             $uploadedFiles = [];
 
             if ($request->hasFile('files')) {
@@ -47,7 +39,7 @@ class ProjectCommissionDocumentController extends Controller
                     
                     ProjectCommissionDocument::create([
                         'project_commission_id' => $projectCommission->id,
-                        'professional_id' => $professionalId,
+                        'professional_id' => $uploadedByProfessionalId,
                         'file_name' => $fileName,
                         'original_name' => $originalName,
                         'file_path' => $filePath,

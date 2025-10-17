@@ -15,17 +15,6 @@ class CenterController extends Controller
         mainlog::log("Iniciando index en CenterController");
         $centers = Center::all();
 
-        // if ($query) {
-        //     $centers = Center::where('name', 'like', '%' . $query . '%')
-        //         ->orWhere('address', 'like', '%' . $query . '%')
-        //         ->orWhere('phone', 'like', '%' . $query . '%')
-        //         ->orWhere('email', 'like', '%' . $query . '%')
-        //         ->get();
-        // } else {
-        //     $centers = Center::all();
-        // }
-        
-        
         return view("components.contents.center.centersList")
             ->with('centers', $centers);
     }
@@ -112,11 +101,8 @@ class CenterController extends Controller
     public function activateStatus(Request $request, Center $center)
     {
         $center->update(['status' => 1]);
-
-        // $center->status = 1;
-        // $center->save();
         
-        return redirect()->route('centers_desactivated_list')->with('success', 'Centre activat correctament!');;;
+        return redirect()->route('centers_desactivated_list')->with('success', 'Centre activat correctament!');
     }
 
     /**
@@ -125,11 +111,8 @@ class CenterController extends Controller
     public function desactivateStatus(Request $request, Center $center)
     {
         $center->update(['status' => 0]);
-
-        // $center->status = 0;
-        // $center->save();
         
-        return redirect()->route('centers_list')->with('success', 'Centre desactivat correctament!');;
+        return redirect()->route('centers_list')->with('success', 'Centre desactivat correctament!');
     }
 
     /**

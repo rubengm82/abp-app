@@ -3,23 +3,6 @@
 @section('content')
 <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Llista de centres</h1>
 
-<!-- Search Bar
-<div class="max-w-md mx-auto mb-6">
-    <form method="GET" action="{{ route('centers_list') }}" class="flex gap-2">
-        <input 
-            type="text" 
-            name="search" 
-            placeholder="Cercar centres..." 
-            value="{{ $searchQuery ?? '' }}"
-            class="input input-bordered w-full"
-        >
-        <button type="submit" class="btn btn-primary">Cercar</button>
-        @if($searchQuery ?? false)
-            <a href="{{ route('centers_list') }}" class="btn btn-ghost">Netejar</a>
-        @endif
-    </form>
-</div> -->
-
 @if($centers->where('status', 1)->count() > 0)
 <div class="flex justify-end gap-4">
     <a href="{{ route('centers.downloadCSV', ['status' => 1]) }}" class="btn btn-sm btn-warning">Descarregar Llista</a>

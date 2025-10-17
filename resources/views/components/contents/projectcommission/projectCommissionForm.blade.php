@@ -101,12 +101,9 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex justify-between gap-4">
-            <a href="{{ route('projectcommissions_list') }}" class="btn btn-outline">Tornar</a>
-            <div class="flex gap-4">
-                <a href="{{ route('projectcommission_form') }}" class="btn btn-outline">Netejar</a>
-                <input type="submit" value="Crear Projecte/Comissió" class="btn btn-info">
-            </div>
+        <div class="flex justify-end gap-4">
+            <a href="{{ route('projectcommission_form') }}" class="btn btn-outline">Netejar</a>
+            <input type="submit" value="Crear Projecte/Comissió" class="btn btn-info">
         </div>
     </form>
 </div>

@@ -25,7 +25,7 @@ class ProfessionalDocument extends Model
     ];
 
     /**
-     * Relación con el profesional
+     * Relationship with the professional
      */
     public function professional()
     {
@@ -33,7 +33,7 @@ class ProfessionalDocument extends Model
     }
 
     /**
-     * Relación con el profesional que subió el documento
+     * Relationship with the professional that uploaded the document
      */
     public function uploadedByProfessional()
     {

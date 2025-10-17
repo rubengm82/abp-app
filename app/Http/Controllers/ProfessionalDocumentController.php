@@ -25,15 +25,6 @@ class ProfessionalDocumentController extends Controller
 
             $uploadedByProfessionalId = Auth::user()->id ?? null;
             
-            //TODO TEMPORAL
-            // Si no hay profesional logueado, usar el primero disponible
-            if (!$uploadedByProfessionalId) {
-                $firstProfessional = Professional::where('status', 1)->first();
-                if ($firstProfessional) {
-                    $uploadedByProfessionalId = $firstProfessional->id;
-                }
-            }
-
             $file = $request->file('document');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $originalName = $file->getClientOriginalName();

@@ -15,12 +15,12 @@ class CenterDocumentSeeder extends Seeder
      */
     public function run(): void
     {
-        // Obtener algunos centros y profesionales para crear documentos
+        // Get some centers and professionals to create documents
         $centers = Center::take(3)->get();
         $professionals = Professional::take(2)->get();
 
         if ($centers->isEmpty() || $professionals->isEmpty()) {
-            $this->command->warn('No hay centros o profesionales disponibles para crear documentos.');
+            $this->command->warn('No hi ha centres o professionals disponibles per crear documents.');
             return;
         }
 
@@ -33,7 +33,7 @@ class CenterDocumentSeeder extends Seeder
         ];
 
         foreach ($centers as $center) {
-            // Crear 2-3 documentos por centro
+            // Create 2-3 documents per center
             $numDocuments = rand(2, 3);
             
             for ($i = 0; $i < $numDocuments; $i++) {
@@ -44,7 +44,7 @@ class CenterDocumentSeeder extends Seeder
                     'file_name' => 'center_' . $center->id . '_doc_' . ($i + 1) . '.pdf',
                     'original_name' => $documentType . '.pdf',
                     'file_path' => 'documents/centers/' . 'center_' . $center->id . '_doc_' . ($i + 1) . '.pdf',
-                    'file_size' => rand(50000, 500000), // Entre 50KB y 500KB
+                    'file_size' => rand(50000, 500000), // Between 50KB and 500KB
                     'mime_type' => 'application/pdf',
                     'center_id' => $center->id,
                     'uploaded_by_professional_id' => $professional->id,

@@ -14,7 +14,7 @@ class ProfessionalNoteSeeder extends Seeder
      */
     public function run(): void
     {
-        // Obtener algunos profesionales existentes
+        // Get some professionals existing
         $professionals = Professional::where('status', 1)->get();
         
         if ($professionals->count() > 0) {
@@ -37,7 +37,7 @@ class ProfessionalNoteSeeder extends Seeder
             ];
             
             foreach ($professionals as $professional) {
-                // Crear entre 1-3 notas por profesional
+                // Create between 1-3 notes per professional
                 $numNotes = rand(1, 3);
                 
                 for ($i = 0; $i < $numNotes; $i++) {

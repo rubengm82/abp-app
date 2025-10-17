@@ -5,7 +5,6 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">Detalls de l'Assignació de Material</h1>
         <div class="flex gap-2">
-            <a href="{{ route('materialassignments_list') }}" class="btn btn-sm btn-outline">Tornar a la llista</a>
             <a href="{{ route('materialassignment_edit', $materialAssignment) }}" class="btn btn-sm btn-warning">Editar</a>
         </div>
     </div>
@@ -92,7 +91,6 @@
             </div>
         </div>
     </div>
-    <!-- TODO: Revisar tema de documentos -->
     <!-- Observations and documents -->
     <div class="card bg-base-100 shadow-xl mt-6">
         <div class="card-body">
@@ -180,7 +178,7 @@
                                     <span class="ml-2">{{ $note->created_at ? $note->created_at->format('d/m/Y H:i') : 'Data desconeguda' }}</span>
                                 </div>
                                 <div class="flex gap-2">
-                                    <button class="btn btn-xs btn-info" onclick="openEditNoteModal({{ $note->id }}, '{{ addslashes($note->notes) }}')">
+                                    <button class="btn btn-xs btn-info" data-note-id="{{ $note->id }}" data-note-content="{{ $note->notes }}" onclick="openEditNoteModal(this.dataset.noteId, this.dataset.noteContent)">
                                         Editar
                                     </button>
                                     <form action="{{ route('materialassignment_note_delete', $note) }}" method="POST" class="inline">
@@ -223,7 +221,7 @@
     </div>
 </dialog>
 
-<!-- Modal para editar nota -->
+<!-- Modal to edit note -->
 <dialog id="editNoteModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Editar Nota</h3>
@@ -244,7 +242,7 @@
     </div>
 </dialog>
 
-<!-- Modal para pujar documents -->
+<!-- Modal to upload documents -->
 <dialog id="addDocumentModal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg mb-4">Pujar Document</h3>

@@ -25,7 +25,7 @@ class CenterDocument extends Model
     ];
 
     /**
-     * Relación con el centro
+     * Relationship with the center
      */
     public function center()
     {
@@ -33,7 +33,7 @@ class CenterDocument extends Model
     }
 
     /**
-     * Relación con el profesional que subió el documento
+     * Relationship with the professional that uploaded the document
      */
     public function uploadedByProfessional()
     {

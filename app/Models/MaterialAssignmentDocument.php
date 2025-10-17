@@ -25,7 +25,7 @@ class MaterialAssignmentDocument extends Model
     ];
 
     /**
-     * Relación con la asignación de material
+     * Relationship with the material assignment
      */
     public function materialAssignment()
     {
@@ -33,7 +33,7 @@ class MaterialAssignmentDocument extends Model
     }
 
     /**
-     * Relación con el profesional que subió el documento
+     * Relationship with the professional that uploaded the document
      */
     public function uploadedByProfessional()
     {

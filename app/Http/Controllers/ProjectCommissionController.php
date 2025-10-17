@@ -33,7 +33,6 @@ class ProjectCommissionController extends Controller
     {
         $professionals = Professional::where('status', 1)->get();
         return view("components.contents.projectcommission.projectCommissionForm")->with('professionals', $professionals);
-        // return view("components.contents.projectcommission.projectCommissionForm");
     }
 
     /**
@@ -45,7 +44,7 @@ class ProjectCommissionController extends Controller
 
         ProjectCommission::create([
             'name' => $request->input('name'),
-            'type' => $request->input('type'), //REVISAR
+            'type' => $request->input('type'),
             'start_date' => $request->input('start_date'),
             'estimated_end_date' => $request->input('estimated_end_date'),
             'responsible_professional_id' => $request->input('responsible_professional_id'),
@@ -69,7 +68,7 @@ class ProjectCommissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ProjectCommission $projectCommission)//REVISAR ENTERO
+    public function edit(ProjectCommission $projectCommission)
     {
         $professionals = Professional::where('status', 1)->get();
         return view("components.contents.projectcommission.projectCommissionEdit")->with([

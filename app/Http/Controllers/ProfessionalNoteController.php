@@ -18,17 +18,8 @@ class ProfessionalNoteController extends Controller
             'notes' => 'required|string|max:1000'
         ]);
 
-        $createdByProfessionalId = Auth::user()->professional_id ?? null;
+        $createdByProfessionalId = Auth::user()->id ?? null;
         
-        //TODO TEMPORAL
-        // Si no hay profesional logueado, usar el primero disponible
-        if (!$createdByProfessionalId) {
-            $firstProfessional = Professional::where('status', 1)->first();
-            if ($firstProfessional) {
-                $createdByProfessionalId = $firstProfessional->id;
-            }
-        }
-
         ProfessionalNote::create([
             'professional_id' => $professional->id,
             'notes' => $request->input('notes'),

@@ -76,7 +76,7 @@ class ProjectCommissionSeeder extends Seeder
             ],
         ];
 
-        // Elimina toda la tabla primero antes de insertar datos
+        // Delete all data from the table before inserting data
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('project_commissions')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

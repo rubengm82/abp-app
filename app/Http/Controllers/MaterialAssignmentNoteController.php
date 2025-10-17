@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\MaterialAssignmentNote;
 use App\Models\MaterialAssignment;
-use App\Models\Professional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MaterialAssignmentNoteController extends Controller
 {
@@ -18,16 +18,7 @@ class MaterialAssignmentNoteController extends Controller
             'notes' => 'required|string|max:1000'
         ]);
 
-        $createdByProfessionalId = auth()->user()->professional_id ?? null;
-        
-        //TODO TEMPORAL
-        // Si no hay profesional logueado, usar el primero disponible
-        if (!$createdByProfessionalId) {
-            $firstProfessional = Professional::where('status', 1)->first();
-            if ($firstProfessional) {
-                $createdByProfessionalId = $firstProfessional->id;
-            }
-        }
+        $createdByProfessionalId = Auth::user()->id ?? null;
 
         MaterialAssignmentNote::create([
             'material_assignment_id' => $materialAssignment->id,

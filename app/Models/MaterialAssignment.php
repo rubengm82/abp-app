@@ -43,7 +43,6 @@ class MaterialAssignment extends Model
 
     /**
      * Get the latest material assignment for a professional. 
-     * No utilizar ya que se necesita especificar el item
      */
     public static function getLatestForProfessional($professionalId)
     {
@@ -92,7 +91,7 @@ class MaterialAssignment extends Model
     }
 
     /**
-     * Relación con las notas de la asignación de material
+     * Relationship with notes of the material assignment
      */
     public function notes()
     {
@@ -100,7 +99,7 @@ class MaterialAssignment extends Model
     }
 
     /**
-     * Relación con los documentos de la asignación de material
+     * Relationship with documents of the material assignment
      */
     public function documents()
     {

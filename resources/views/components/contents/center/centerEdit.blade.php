@@ -11,9 +11,9 @@
         <input type="text" name="phone" id="id_phone" placeholder="Telèfon" value="{{ old('name', $center->phone) }}" class="input input-bordered w-full">
         <input type="text" name="email" id="id_email" placeholder="Email" value="{{ old('name', $center->email) }}" class="input input-bordered w-full">
         
-        <div class="flex gap-2">
-            <a href="{{ route('centers_list') }}" class="btn flex-1">Cancel·lar</a>
-            <input type="submit" value="Actualitzar" class="btn btn-info flex-1">
+        <div class="flex justify-end gap-2">
+            <a href="{{ route('center_edit', $center) }}" class="btn btn-outline">Netejar</a>
+            <input type="submit" value="Actualitzar" class="btn btn-info">
         </div>
     </form>
 </div>

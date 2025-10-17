@@ -1,6 +1,6 @@
 <div class="w-64 bg-[#d0d0d0] fixed top-16 bottom-0 left-0 flex flex-col justify-between shadow-md">
 
-    <!-- Menú de navegación -->
+    <!-- Navigation menu -->
     <nav class="flex-1 overflow-auto p-2">
         <div class="space-y-2">
             <!-- Centros Section -->
@@ -92,7 +92,7 @@
         </div>
     </nav>
 
-    <!-- Logo de la empresa abajo -->
+    <!-- Company logo below -->
     <div class="p-4">
         <img src="{{ asset('images/paradis-logo.svg') }}" alt="Paradis Logo" class="w-full">
     </div>

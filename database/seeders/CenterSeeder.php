@@ -41,37 +41,4 @@ class CenterSeeder extends Seeder
 
         DB::table('centers')->insert($centers);
     }
-// public function run()
-// {
-//     // Elimina toda la tabla antes de insertar datos masivos
-//     DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-//     DB::table('centers')->truncate();
-//     DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-//     $centers = [];
-//     for ($i = 1; $i <= 5000; $i++) {
-//         $centers[] = [
-//             'name' => 'Centro Repetido',
-//             'address' => 'Generic address ' . $i,
-//             'phone' => '+34 600 100 ' . sprintf('%03d', $i),
-//             'email' => 'centro'.$i.'@generic.cat',
-//             'status' => '1',
-//             'created_at' => now(),
-//             'updated_at' => now(),
-//         ];
-//     }
-    
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-//     DB::table('centers')->insert($centers);
-// }
 }

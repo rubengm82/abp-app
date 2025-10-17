@@ -5,7 +5,6 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">{{ $center->name }}</h1>
         <div class="flex gap-2">
-            <a href="{{ route('centers_list') }}" class="btn btn-sm btn-outline">Tornar a la llista</a>
             @if($center->status == 1)
                 <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
             @endif

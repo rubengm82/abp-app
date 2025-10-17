@@ -41,7 +41,7 @@
         </ul>
     </nav>
 
-    <!-- Logo de la empresa abajo -->
+    <!-- Company logo below -->
     <div class="p-4">
         <img src="{{ asset('images/paradis-logo.svg') }}" alt="Paradis Logo" class="w-full">
     </div>

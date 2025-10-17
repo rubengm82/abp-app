@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MaterialAssignment;
 use App\Models\Professional;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MaterialAssignmentController extends Controller
 {
@@ -42,20 +43,20 @@ class MaterialAssignmentController extends Controller
             'pants_size' => 'nullable|string|in:XS,S,M,L,XL,2XL,3XL,4XL,36,38,40,42,44,46,48,50,52,54,56',
             'shoe_size' => 'nullable|string|in:34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56',
             'assignment_date' => 'required|date',
-            'assigned_by_professional_id' => 'nullable|exists:professionals,id',
             'observations' => 'nullable|string|max:1000',
         ]);
 
-        // TODO: Get assigned_by_professional_id from logged user
-        // For now, use the first available professional
-        if (!$validated['assigned_by_professional_id']) {
-            $firstProfessional = Professional::where('status', 1)->first();
-            if ($firstProfessional) {
-                $validated['assigned_by_professional_id'] = $firstProfessional->id;
-            }
-        }
+        $assignedByProfessionalId = Auth::user()->id ?? null;
 
-        MaterialAssignment::create($validated);
+        MaterialAssignment::create([
+            'professional_id' => $validated['professional_id'],
+            'shirt_size' => $validated['shirt_size'],
+            'pants_size' => $validated['pants_size'],
+            'shoe_size' => $validated['shoe_size'],
+            'assignment_date' => $validated['assignment_date'],
+            'assigned_by_professional_id' => $assignedByProfessionalId,
+            'observations' => $validated['observations'],
+        ]);
 
         return redirect()->route('materialassignments_list')
             ->with('success', 'Assignació de material creada correctament!');

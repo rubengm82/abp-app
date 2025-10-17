@@ -127,12 +127,9 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex justify-between gap-4">
-            <a href="{{ route('materialassignment_show', $materialAssignment) }}" class="btn btn-outline">Tornar</a>
-            <div class="flex gap-4">
-                <a href="{{ route('materialassignment_edit', $materialAssignment) }}" class="btn btn-outline">Netejar</a>
-                <button type="submit" class="btn btn-info">Actualitzar Assignació</button>
-            </div>
+        <div class="flex justify-end gap-4">
+            <a href="{{ route('materialassignment_edit', $materialAssignment) }}" class="btn btn-outline">Netejar</a>
+            <button type="submit" class="btn btn-info">Actualitzar Assignació</button>
         </div>
     </form>
 </div>

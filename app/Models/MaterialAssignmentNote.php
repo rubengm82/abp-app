@@ -15,7 +15,7 @@ class MaterialAssignmentNote extends Model
     ];
 
     /**
-     * Relación con la asignación de material
+     * Relationship with the material assignment
      */
     public function materialAssignment()
     {
@@ -23,7 +23,7 @@ class MaterialAssignmentNote extends Model
     }
 
     /**
-     * Relación con el profesional que creó la nota
+     * Relationship with the professional that created the note
      */
     public function createdByProfessional()
     {

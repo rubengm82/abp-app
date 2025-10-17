@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProjectCommissionNote;
 use App\Models\ProjectCommission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectCommissionNoteController extends Controller
 {
@@ -18,21 +19,12 @@ class ProjectCommissionNoteController extends Controller
             'notes' => 'required|string|max:1000'
         ]);
 
-        $professionalId = auth()->user()->professional_id ?? null;
+        $createdByProfessionalId = Auth::user()->id ?? null;
         
-        //TODO TEMPORAL
-        // Si no hay profesional logueado, usar el primero disponible
-        if (!$professionalId) {
-            $firstProfessional = \App\Models\Professional::where('status', 1)->first();
-            if ($firstProfessional) {
-                $professionalId = $firstProfessional->id;
-            }
-        }
-
         ProjectCommissionNote::create([
             'project_commission_id' => $projectCommission->id,
             'notes' => $request->input('notes'),
-            'professional_id' => $professionalId
+            'professional_id' => $createdByProfessionalId
         ]);
 
         return redirect()->route('projectcommission_show', $projectCommission)->with('success', 'Nota afegida correctament!');

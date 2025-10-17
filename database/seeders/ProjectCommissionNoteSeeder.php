@@ -15,10 +15,10 @@ class ProjectCommissionNoteSeeder extends Seeder
      */
     public function run(): void
     {
-        // Obtener algunos proyectos/comisiones existentes
+        // Get some project/commission existing
         $projectCommissions = ProjectCommission::take(3)->get();
         
-        // Obtener algunos profesionales existentes
+        // Get some professionals existing
         $professionals = Professional::where('status', 1)->take(3)->get();
         
         if ($projectCommissions->count() > 0 && $professionals->count() > 0) {
@@ -36,7 +36,7 @@ class ProjectCommissionNoteSeeder extends Seeder
             ];
             
             foreach ($projectCommissions as $projectCommission) {
-                // Create between 2-4 notes per project/commission
+                // Create between 2-4 notes per project/project commission
                 $numNotes = rand(2, 4);
                 
                 for ($i = 0; $i < $numNotes; $i++) {

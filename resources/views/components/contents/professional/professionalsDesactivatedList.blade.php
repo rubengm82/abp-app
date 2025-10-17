@@ -30,7 +30,6 @@
             </thead>
             @foreach ($professionals as $professional)
             <tbody>
-                <!-- TODO: Add overflow control -->
                 @if ($professional->status == 0)
                 <tr class="hover:bg-base-300">
                     <th>{{ $professional->id }}</th>
@@ -44,7 +43,6 @@
                             <span class="text-gray-400">No assignat</span>
                         @endif
                     </td>
-                    <!-- TODO: Add hover to code -->
                     <td>{{ $professional->key_code }}</td>
                     <td>{{ $professional->name }}</td>
                     <td>{{ $professional->surname1 }} </td>
@@ -69,7 +67,6 @@
             @endforeach
         </table>
     @else
-    <!-- TODO: Mover el icono y utilizar el svg master -->
         <div class="text-center py-12">
             <div class="text-gray-400 text-lg mb-4">
                 <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

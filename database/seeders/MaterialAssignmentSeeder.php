@@ -111,7 +111,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            // Assignacions antigues (per mostrar històric)
+            // Ancient assignments (to show historical functionality)
             [
                 'professional_id' => 2,
                 'shirt_size' => 'S',
@@ -137,7 +137,7 @@ class MaterialAssignmentSeeder extends Seeder
             ],
         ];
         
-        // Elimina toda la tabla primero antes de insertar datos
+        // Delete all data from the table before inserting data
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('material_assignments')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

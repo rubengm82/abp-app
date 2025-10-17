@@ -3,11 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectCommission extends Model
 {
-    // use SoftDeletes;
     
     protected $table = 'project_commissions';
     
@@ -21,12 +19,6 @@ class ProjectCommission extends Model
         'type',
         'status'
     ];
-
-    // protected $dates = [
-    //     'start_date',
-    //     'estimated_end_date',
-    //     'deleted_at'
-    // ];
 
     /**
      * Relación con el profesional responsable para mostrar el nombre del profesional responsable
@@ -51,12 +43,4 @@ class ProjectCommission extends Model
     {
         return $this->hasMany(ProjectCommissionDocument::class, 'project_commission_id')->orderBy('created_at', 'desc');
     }
-
-    // /**
-    //  * Relationship with project/commission assignments
-    //  */
-    // public function assignments()
-    // {
-    //     return $this->hasMany(ProjectCommissionAssignment::class);
-    // }
 }

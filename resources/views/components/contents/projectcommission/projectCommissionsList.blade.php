@@ -44,7 +44,6 @@
             @endforeach
         </table>
     @else
-    <!-- TODO: Mover el icono y utilizar el svg master -->
         <div class="text-center py-12">
             <div class="text-gray-400 text-lg mb-4">
                 <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

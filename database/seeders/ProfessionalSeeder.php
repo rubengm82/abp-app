@@ -149,12 +149,12 @@ class ProfessionalSeeder extends Seeder
             ],
         ];
 
-        // Elimina todos los registros sin usar truncate para respetar FK
+        // Delete all records without using truncate to respect FKs
         Professional::query()->delete();
 
-        // Crear profesionales usando Eloquent para que se aplique el mutator
+        // Create professionals using Eloquent to apply the mutator
         foreach ($professionals as $p) {
-            // Si la columna 'user' no existe en 'professionals', la quitamos
+            // If the 'user' column does not exist in 'professionals', remove it
             if (!Schema::hasColumn('professionals', 'user')) {
                 unset($p['user']);
             }

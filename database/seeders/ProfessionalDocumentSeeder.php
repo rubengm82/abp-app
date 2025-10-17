@@ -14,7 +14,7 @@ class ProfessionalDocumentSeeder extends Seeder
      */
     public function run(): void
     {
-        // Obtener algunos profesionales existentes
+        // Get some professionals existing
         $professionals = Professional::where('status', 1)->get();
         
         if ($professionals->count() > 0) {
@@ -52,7 +52,7 @@ class ProfessionalDocumentSeeder extends Seeder
             ];
             
             foreach ($professionals as $professional) {
-                // Crear entre 1-2 documentos por profesional
+                // Create between 1-2 documents per professional
                 $numDocuments = rand(1, 2);
                 
                 for ($i = 0; $i < $numDocuments; $i++) {
