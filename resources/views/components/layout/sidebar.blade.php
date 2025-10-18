@@ -1,25 +1,25 @@
-<div class="w-64 bg-base-200 dark:bg-base-300 fixed top-16 bottom-0 left-0 flex flex-col justify-between shadow-md">
+<div class="w-64 fixed top-16 bottom-0 left-0 flex flex-col justify-between shadow-md bg-[#b9bec1] text-gray-800">
 
     <!-- Navigation menu -->
     <nav class="flex-1 overflow-auto">
-        <ul class="text-base-content dark:text-base-content">
+        <ul class="select-none">
             <li>
-                <a href="{{ route('centers_list') }}" class="block px-4 py-2 hover:bg-base-100 dark:hover:bg-base-200 select-none">
+                <a href="{{ route('centers_list') }}" class="block px-4 py-2 hover:bg-[#a0a6af]">
                     Llistar de Centres
                 </a>
             </li>
             <li>
-                <a href="{{ route('professionals_list') }}" class="block px-4 py-2 hover:bg-base-100 dark:hover:bg-base-200 select-none">
+                <a href="{{ route('professionals_list') }}" class="block px-4 py-2 hover:bg-[#a0a6af]">
                     Llistar Professionals
                 </a>
             </li>
             <li>
-                <a href="{{ route('projectcommissions_list') }}" class="block px-4 py-2 hover:bg-base-100 dark:hover:bg-base-200 select-none">
+                <a href="{{ route('projectcommissions_list') }}" class="block px-4 py-2 hover:bg-[#a0a6af]">
                     Llistar Projectes/Comissions
                 </a>
             </li>
             <li>
-                <a href="{{ route('materialassignments_list') }}" class="block px-4 py-2 hover:bg-base-100 dark:hover:bg-base-200 select-none">
+                <a href="{{ route('materialassignments_list') }}" class="block px-4 py-2 hover:bg-[#a0a6af]">
                     Registre de Uniformitat
                 </a>
             </li>
@@ -29,17 +29,17 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('centers_desactivated_list') }}" class="block px-4 py-2 hover:bg-base-100 dark:hover:bg-base-200 select-none">
+                <a href="{{ route('centers_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#a0a6af]">
                     Llistar de Centres <small>(Desactivats)</small>
                 </a>
             </li>
             <li>
-                <a href="{{ route('professionals_desactivated_list') }}" class="block px-4 py-2 hover:bg-base-100 dark:hover:bg-base-200 select-none">
+                <a href="{{ route('professionals_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#a0a6af]">
                     Llistar Professionals <small>(Desactivats)</small>
                 </a>
             </li>
             <li>
-                <a href="{{ route('projectcommissions_desactivated_list') }}" class="block px-4 py-2 hover:bg-base-100 dark:hover:bg-base-200 select-none">
+                <a href="{{ route('projectcommissions_desactivated_list') }}" class="block px-4 py-2 hover:bg-[#a0a6af]">
                     Llistar Projectes/Comissions <small>(Desactivats)</small>
                 </a>
             </li>
