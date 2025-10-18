@@ -1,5 +1,6 @@
 </br>
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://www.fundaciovallparadis.cat/img/fvallparadis-logo.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://laravel.com](https://www.inslapineda.com/" target="_blank"><img src="https://agora.xtec.cat/ieslapineda/wp-content/uploads/usu2392/2023/05/logo.png" width="250" alt="InsLaPineda Logo"></a></p>
+<p align="center"><a href="https://www.fundaciovallparadis.cat/" target="_blank"><img src="https://www.fundaciovallparadis.cat/img/fvallparadis-logo.svg" width="250" alt="FundacioVallparadis Logo"></a></p>
 </br>
 
 ## Project ABP 2025/26 - Ins.LaPineda
