@@ -7,7 +7,7 @@
     'uploadedByField' => null,      // FK
 ])
 
-<div class="card bg-base-100 text-base-content shadow-xl mt-6">
+<div class="card bg-base-100 text-base-content shadow-xl mt-6" id="documents-section">
     <div class="card-body">
         <div class="flex justify-between items-center mb-4">
             <h2 class="card-title text-xl">{{ $title }}</h2>

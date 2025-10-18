@@ -26,7 +26,7 @@ class MaterialAssignmentNoteController extends Controller
             'created_by_professional_id' => $createdByProfessionalId
         ]);
 
-        return redirect()->route('materialassignment_show', $materialAssignment)->with('success', 'Nota afegida correctament!');
+        return redirect()->route('materialassignment_show', $materialAssignment->id . '#notes-section')->with('success', 'Nota afegida correctament!');
     }
 
     /**

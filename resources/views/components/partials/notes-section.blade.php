@@ -6,7 +6,7 @@
     'createdByField' => null,     // FK
 ])
 
-<div class="card bg-base-100 text-base-content shadow-xl mt-6">
+<div class="card bg-base-100 text-base-content shadow-xl mt-6" id="notes-section">
     <div class="card-body">
         {{-- Title and Button Add --}}
         <div class="flex justify-between items-center mb-4">

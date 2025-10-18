@@ -27,7 +27,7 @@ class ProjectCommissionNoteController extends Controller
             'professional_id' => $createdByProfessionalId
         ]);
 
-        return redirect()->route('projectcommission_show', $projectCommission)->with('success', 'Nota afegida correctament!');
+        return redirect()->route('projectcommission_show', $projectCommission->id . '#notes-section')->with('success', 'Nota afegida correctament!');
     }
 
     /**

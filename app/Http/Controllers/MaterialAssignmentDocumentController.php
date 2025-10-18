@@ -47,7 +47,7 @@ class MaterialAssignmentDocumentController extends Controller
             ]);
 
             mainlog::log("Documento creado correctamente");
-            return redirect()->route('materialassignment_show', $materialAssignment)->with('success', 'Document afegit correctament!');
+            return redirect()->route('materialassignment_show', $materialAssignment->id . '#documents-section')->with('success', 'Document afegit correctament!');
             
         } catch (\Exception $e) {
             mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage(), LOG_ERR);
