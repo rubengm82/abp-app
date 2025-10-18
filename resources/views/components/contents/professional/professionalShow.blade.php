@@ -160,152 +160,25 @@
         </div>
     </div>
 
-    <!-- Documents Section -->
-    <div id="documents-section" class="card bg-base-100 text-base-content shadow-xl mt-6">
-        <div class="card-body">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="card-title text-xl">Documents</h2>
-                <button class="btn btn-sm btn-primary" onclick="document.getElementById('addDocumentModal').showModal()">Pujar Document</button>
-            </div>
+    <!-- Documents -->
+    <x-partials.documents-section
+        :items="$professional->documents"
+        title="Documents"            
+        uploadAction="{{ route('professional_document_add', $professional) }}"
+        downloadRoute="professional_document_download"
+        deleteRoute="professional_document_delete"
+        uploadedByField="uploadedByProfessional"
+    />
 
-            @if($professional->documents && $professional->documents->count() > 0)
-                <div class="space-y-3">
-                    @foreach($professional->documents->sortByDesc('created_at') as $document)
-                        <div class="bg-base-200 p-4 rounded-lg border-l-4 border-green-500">
-                            <div class="flex justify-between items-center">
-                                <div class="flex-1">
-                                    <div class="flex items-center gap-3">
-                                        <a href="{{ route('professional_document_download', $document) }}" class="text-blue-600 hover:text-blue-800 font-medium">
-                                            {{ $document->original_name ?: 'Document sense nom' }}
-                                        </a>
-                                        <span class="text-sm text-gray-500">
-                                            ({{ $document->file_size ? number_format($document->file_size / 1024, 2) . ' KB' : 'Mida desconeguda' }})
-                                        </span>
-                                    </div>
-                                    <div class="text-sm text-gray-600 mt-1">
-                                        <strong>{{ $document->uploadedByProfessional->name ?? 'Usuari desconegut' }} {{ $document->uploadedByProfessional->surname1 ?? '' }}</strong>
-                                        <span class="ml-2">{{ $document->created_at ? $document->created_at->format('d/m/Y H:i') : 'Data desconeguda' }}</span>
-                                    </div>
-                                </div>
-                                <x-partials.modal id="deleteProfessionalDocument{{ $document->id }}" msj="Estàs segur que vols eliminar aquest document?" btnText="Eliminar" class="btn-xs btn-error">
-                                    <form action="{{ route('professional_document_delete', $document) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
-                                    </form>
-                                </x-partials.modal>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <p class="text-gray-500 italic">No hi ha documents per aquest professional.</p>
-            @endif
-        </div>
-    </div>
+    <!-- Notes  -->
+    <x-partials.notes-section
+        :items="$professional->notes"
+        title="Notes"
+        addAction="{{ route('professional_note_add', $professional) }}"
+        deleteRoute="professional_note_delete"
+        createdByField="createdByProfessional"
+    />
 
-    <!-- Notes Section -->
-    <div id="notes-section" class="card bg-base-100 text-base-content shadow-xl mt-6">
-        <div class="card-body">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="card-title text-xl">Notes</h2>
-                <button class="btn btn-sm btn-primary" onclick="document.getElementById('addNoteModal').showModal()">Afegir Nota</button>
-            </div>
-
-            @if($professional->notes && $professional->notes->count() > 0)
-                <div class="space-y-4">
-                    @foreach($professional->notes->sortByDesc('created_at') as $note)
-                        <div class="bg-base-200 p-4 rounded-lg border-l-4 border-blue-500">
-                            <div class="flex justify-between items-start mb-2">
-                                <div class="text-sm text-gray-600">
-                                    <strong>{{ $note->createdByProfessional->name ?? 'Usuari desconegut' }} {{ $note->createdByProfessional->surname1 ?? '' }}</strong>
-                                    <span class="ml-2">{{ $note->created_at ? $note->created_at->format('d/m/Y H:i') : 'Data desconeguda' }}</span>
-                                </div>
-                                <div class="flex gap-2">
-                                    <button class="btn btn-xs btn-info" data-note-id="{{ $note->id }}" data-note-content="{{ $note->notes }}" onclick="openEditNoteModal(this.dataset.noteId, this.dataset.noteContent)">
-                                        Editar
-                                    </button>
-                                    <x-partials.modal id="deleteProfessionalNote{{ $note->id }}" msj="Estàs segur que vols eliminar aquesta nota?" btnText="Eliminar" class="btn-xs btn-error">
-                                        <form action="{{ route('professional_note_delete', $note) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
-                                        </form>
-                                    </x-partials.modal>
-                                </div>
-                            </div>
-                            <p class="text-base-content break-words whitespace-pre-wrap">{{ $note->notes }}</p>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <p class="text-gray-500 italic">No hi ha notes per aquest professional.</p>
-            @endif
-        </div>
-    </div>
-</div>
-
-<!-- Modals (Add/Edit Notes & Documents) -->
-<dialog id="addNoteModal" class="modal">
-    <div class="modal-box">
-        <h3 class="font-bold text-lg mb-4">Afegir Nova Nota</h3>
-        <form action="{{ route('professional_note_add', $professional) }}" method="POST">
-            @csrf
-            <div class="form-control mb-4">
-                <label class="label"><span class="label-text">Nota:</span></label>
-                <textarea name="notes" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
-            </div>
-            <div class="modal-action">
-                <button type="button" class="btn btn-sm" onclick="document.getElementById('addNoteModal').close()">Cancel·lar</button>
-                <button type="submit" class="btn btn-sm btn-info">Afegir Nota</button>
-            </div>
-        </form>
-    </div>
-</dialog>
-
-<dialog id="editNoteModal" class="modal">
-    <div class="modal-box">
-        <h3 class="font-bold text-lg mb-4">Editar Nota</h3>
-        <form id="editNoteForm" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="form-control mb-4">
-                <label class="label"><span class="label-text">Nota:</span></label>
-                <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full" rows="4" required></textarea>
-            </div>
-            <div class="modal-action">
-                <button type="button" class="btn btn-sm" onclick="document.getElementById('editNoteModal').close()">Cancel·lar</button>
-                <button type="submit" class="btn btn-sm btn-info">Desar Canvis</button>
-            </div>
-        </form>
-    </div>
-</dialog>
-
-<dialog id="addDocumentModal" class="modal">
-    <div class="modal-box">
-        <h3 class="font-bold text-lg mb-4">Pujar Document</h3>
-        <form action="{{ route('professional_document_add', $professional) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-control mb-4">
-                <label class="label"><span class="label-text">Seleccionar Document:</span></label>
-                <input type="file" name="document" class="file-input file-input-bordered w-full" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt" required>
-                <div class="label"><span class="label-text-alt">Formats suportats: PDF, DOC, DOCX, JPG, JPEG, PNG, TXT</span></div>
-            </div>
-            <div class="modal-action">
-                <button type="button" class="btn btn-sm" onclick="this.closest('dialog').close()">Cancel·lar</button>
-                <button type="submit" class="btn btn-sm btn-info">Pujar Document</button>
-            </div>
-        </form>
-    </div>
-</dialog>
-
-<script>
-function openEditNoteModal(noteId, noteText) {
-    document.getElementById('editNoteText').value = noteText;
-    document.getElementById('editNoteForm').action = `/professional/notes/${noteId}`;
-    document.getElementById('editNoteModal').showModal();
-}
-</script>
 
 @include('components.layout.mainToasts')
 @endsection

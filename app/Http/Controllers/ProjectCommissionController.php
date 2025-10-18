@@ -61,7 +61,7 @@ class ProjectCommissionController extends Controller
      */
     public function show(ProjectCommission $projectCommission)
     {
-        $projectCommission->load(['responsibleProfessional.center', 'projectNotes.professional']);
+        $projectCommission->load(['responsibleProfessional.center', 'projectNotes.createdByProfessional']);
         return view("components.contents.projectcommission.projectCommissionShow")->with('projectCommission', $projectCommission);
     }
 

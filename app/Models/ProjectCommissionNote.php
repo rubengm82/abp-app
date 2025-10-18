@@ -25,7 +25,7 @@ class ProjectCommissionNote extends Model
     /**
      * Relationship with the professional that created the note
      */
-    public function professional()
+    public function createdByProfessional()
     {
         return $this->belongsTo(Professional::class, 'professional_id');
     }

@@ -39,7 +39,7 @@ class ProjectCommissionDocument extends Model
     /**
      * Get the professional that uploaded the document.
      */
-    public function professional(): BelongsTo
+    public function uploadedByProfessional(): BelongsTo
     {
         return $this->belongsTo(Professional::class);
     }

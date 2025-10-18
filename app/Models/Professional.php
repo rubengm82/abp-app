@@ -47,7 +47,7 @@ class Professional extends Authenticatable
     public function notes() { return $this->hasMany(ProfessionalNote::class); }
     public function documents() { return $this->hasMany(ProfessionalDocument::class); }
     public function createdNotes() { return $this->hasMany(ProfessionalNote::class, 'created_by_professional_id'); }
-    public function uploadedDocuments() { return $this->hasMany(ProfessionalDocument::class, 'uploaded_by_professional_id'); }
+    public function uploadedByProfessional() { return $this->hasMany(ProfessionalDocument::class, 'uploaded_by_professional_id'); }
 
     /**
      * Relationship with the user model
