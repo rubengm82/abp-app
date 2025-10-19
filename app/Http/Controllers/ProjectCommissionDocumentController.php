@@ -34,7 +34,7 @@ class ProjectCommissionDocumentController extends Controller
             $mimeType = $file->getMimeType();
             
             // Store file in filesystem
-            $filePath = $file->storeAs('documents/professionals', $fileName, 'public');
+            $filePath = $file->storeAs('documents/project-commissions', $fileName, 'public');
                     
             ProjectCommissionDocument::create([
                 'project_commission_id' => $projectCommission->id,
