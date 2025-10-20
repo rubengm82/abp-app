@@ -25,8 +25,6 @@ class ProjectCommissionDocumentController extends Controller
 
             $uploadedByProfessionalId = Auth::user()->id ?? null;
             
-            $uploadedByProfessionalId = Auth::user()->id ?? null;
-            
             $file = $request->file('document');
             $fileName = time() . '_' . $file->getClientOriginalName();
             $originalName = $file->getClientOriginalName();

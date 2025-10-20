@@ -1,10 +1,10 @@
 @props([
-    'items' => collect(),           // Collection Documents
-    'title' => 'Documents',         // Title
-    'uploadAction' => null,         // Route Upload
-    'downloadRoute' => null,        // Route Download
-    'deleteRoute' => null,          // Route Delete
-    'uploadedByField' => null,      // FK
+    'items' => collect(),
+    'title' => 'Documents',
+    'uploadAction' => null,
+    'downloadRoute' => null,
+    'deleteRoute' => null,
+    'uploadedByField' => null,
 ])
 
 <div class="card bg-base-100 text-base-content shadow-xl mt-6">
@@ -12,10 +12,11 @@
         <div class="flex justify-between items-center mb-4">
             <h2 class="card-title text-xl" id="documents-section">{{ $title }}</h2>
             @if($uploadAction)
-                <button class="btn btn-sm btn-primary" onclick="addDocumentModal.showModal()">Pujar Document</button>
+                <button class="btn btn-sm btn-primary" data-open-modal="addDocumentModal">Pujar Document</button>
             @endif
         </div>
 
+        {{-- List Documents --}}
         @if($items->count())
             <div class="space-y-3">
                 @foreach($items->sortByDesc('created_at') as $item)
@@ -42,7 +43,7 @@
                                     <form action="{{ route($deleteRoute, $item) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                                        <button type="submit" class="btn btn-sm btn-error" data-loading-text="Eliminant...">Acceptar</button>
                                     </form>
                                 </x-partials.modal>
                             @endif
@@ -56,19 +57,21 @@
     </div>
 </div>
 
-{{-- Modal upload document --}}
+{{-- Modal Upload Document --}}
 @if($uploadAction)
 <dialog id="addDocumentModal" class="modal">
-  <div class="modal-box">
-    <h3 class="font-bold text-lg">Pujar {{ Str::singular($title) }}</h3>
-    <form method="POST" action="{{ $uploadAction }}" enctype="multipart/form-data">
-      @csrf
-      <input type="file" name="document" class="file-input file-input-bordered w-full mt-4" required>
-      <div class="modal-action">
-        <button type="submit" class="btn btn-primary">Pujar</button>
-        <button type="button" class="btn" onclick="addDocumentModal.close()">Tancar</button>
-      </div>
-    </form>
-  </div>
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Pujar Document</h3>
+        <form action="{{ $uploadAction }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="document" class="file-input file-input-bordered w-full mt-4" required>
+            <div class="modal-action">
+                <button type="button" class="btn btn-sm" data-close-modal="addDocumentModal">Cancel·lar</button>
+                <button type="submit" class="btn btn-sm btn-info" data-loading-text="Pujant...">Pujar</button>
+            </div>
+        </form>
+    </div>
 </dialog>
 @endif
+
+<script src="{{ asset('js/components/partials/documents-section.js') }}"></script>

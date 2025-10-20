@@ -34,5 +34,6 @@
 
     <script src="{{ asset('js/components/partials/toast.js') }}"></script>
     <script src="{{ asset('js/components/partials/themeswitch.js') }}"></script>
+    <script src="{{ asset('js/components/partials/modal.js') }}"></script>
 </body>
 </html>

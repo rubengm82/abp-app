@@ -3,7 +3,7 @@
     'msj' => 'Estàs segur?',  // Message text
     'btnText' => 'Obrir',     // Button text
     'textSize' => 'text-sm',  // Tailwind text size for the message
-    'width' => 'w-100',        // Tailwind width class for the modal
+    'width' => 'w-100',       // Tailwind width class for the modal
 ])
 
 <!-- Hidden checkbox that controls the modal -->
@@ -25,7 +25,9 @@
             <label for="{{ $id }}" class="btn btn-sm cursor-pointer">Cancel·lar</label>
 
             <!-- Accept / Action -->
-            {{ $slot }}
+            <div class="accept-btn-container">
+                {{ $slot }}
+            </div>
         </div>
     </div>
 </div>
