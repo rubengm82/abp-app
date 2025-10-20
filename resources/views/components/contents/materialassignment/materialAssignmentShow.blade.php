@@ -136,6 +136,7 @@
         title="Notes"
         addAction="{{ route('materialassignment_note_add', $materialAssignment) }}"
         deleteRoute="materialassignment_note_delete"
+        :editRoute="'materialassignment_note_update'"
         createdByField="createdByProfessional"
     />
 

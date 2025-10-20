@@ -170,13 +170,14 @@
         uploadedByField="uploadedByProfessional"
     />
 
-    <!-- Notes  -->
+    <!-- Notes -->
     <x-partials.notes-section
-        :items="$professional->notes"
-        title="Notes"
-        addAction="{{ route('professional_note_add', $professional) }}"
-        deleteRoute="professional_note_delete"
-        createdByField="createdByProfessional"
+    :items="$professional->notes"
+    title="Notes"
+    addAction="{{ route('professional_note_add', $professional) }}"
+    deleteRoute="professional_note_delete"
+    :editRoute="'professional_note_update'"
+    createdByField="createdByProfessional"
     />
 
 

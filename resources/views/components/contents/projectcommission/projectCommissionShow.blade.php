@@ -118,6 +118,7 @@
         title="Notes"
         addAction="{{ route('projectcommission_note_add', $projectCommission) }}"
         deleteRoute="projectcommission_note_delete"
+        :editRoute="'projectcommission_note_update'"
         createdByField="createdByProfessional"
     />
 

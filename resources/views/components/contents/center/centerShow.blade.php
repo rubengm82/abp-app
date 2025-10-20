@@ -99,6 +99,7 @@
         title="Notes"                                       {{-- Title --}}
         addAction="{{ route('center_note_add', $center) }}" {{-- Route Add --}}
         deleteRoute="center_note_delete"                    {{-- Route Delete --}}
+        :editRoute="'center_note_update'"                   {{-- Route Update --}}
         createdByField="createdByProfessional"              {{-- FK --}}
     />
 

@@ -1,9 +1,10 @@
 @props([
-    'items' => collect(),         // Collection notes
-    'title' => 'Notes',           // Title
-    'addAction' => null,          // Route Add Note
-    'deleteRoute' => null,        // Route Delete Note
-    'createdByField' => null,     // FK
+    'items' => collect(),
+    'title' => 'Notes',
+    'addAction' => null,
+    'deleteRoute' => null,
+    'editRoute' => null,
+    'createdByField' => null,
 ])
 
 <div class="card bg-base-100 text-base-content shadow-xl mt-6" id="notes-section">
@@ -30,7 +31,7 @@
                             <div class="flex gap-2">
                                 {{-- Botón editar --}}
                                 <button class="btn btn-xs btn-info"
-                                        onclick="openEditNoteModal({{ $item->id }}, `{{ addslashes($item->notes ?? $item->text ?? '') }}`)">
+                                    onclick="openEditNoteModal('{{ route($editRoute, $item) }}', `{{ addslashes($item->notes ?? $item->text ?? '') }}`)">
                                     Editar
                                 </button>
 
@@ -101,9 +102,9 @@
 </dialog>
 
 <script>
-function openEditNoteModal(noteId, noteText) {
+function openEditNoteModal(url, noteText) {
     document.getElementById('editNoteText').value = noteText;
-    document.getElementById('editNoteForm').action = `/professional/notes/${noteId}`;
+    document.getElementById('editNoteForm').action = url;
     document.getElementById('editNoteModal').showModal();
 }
 </script>
