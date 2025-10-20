@@ -43,7 +43,7 @@ class ProjectCommissionNoteController extends Controller
             'notes' => $request->input('notes')
         ]);
 
-        return redirect()->route('projectcommission_show', $note->projectCommission)->with('success', 'Nota actualitzada correctament!');
+        return redirect()->route('projectcommission_show', $note->projectCommission->id . '#notes-section')->with('success', 'Nota actualitzada correctament!');
     }
 
     /**
@@ -54,6 +54,6 @@ class ProjectCommissionNoteController extends Controller
         $projectCommission = $note->projectCommission;
         $note->delete();
         
-        return redirect()->route('projectcommission_show', $projectCommission)->with('success', 'Nota eliminada correctament!');
+        return redirect()->route('projectcommission_show', $projectCommission->id . '#notes-section')->with('success', 'Nota eliminada correctament!');
     }
 }

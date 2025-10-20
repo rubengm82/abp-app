@@ -51,7 +51,7 @@ class MaterialAssignmentDocumentController extends Controller
             
         } catch (\Exception $e) {
             mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage(), LOG_ERR);
-            return redirect()->route('materialassignment_show', $materialAssignment)->with('error', 'Error en pujar el document');
+            return redirect()->route('materialassignment_show', $materialAssignment->id . '#documents-section')->with('error', 'Error en pujar el document');
         }
     }
 

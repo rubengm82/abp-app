@@ -49,7 +49,7 @@ class CenterDocumentController extends Controller
             
         } catch (\Exception $e) {
             mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage());
-            return redirect()->route('center_show', $center)->with('error', 'Error en pujar el document');
+            return redirect()->route('center_show', $center->id . '#documents-section')->with('error', 'Error en pujar el document');
         }
     }
 

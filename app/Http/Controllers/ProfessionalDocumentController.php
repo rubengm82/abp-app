@@ -49,7 +49,7 @@ class ProfessionalDocumentController extends Controller
             
         } catch (\Exception $e) {
             mainlog::log("Error inesperado en subida de archivo: " . $e->getMessage(), LOG_ERR);
-            return redirect()->route('professional_show', $professional)->with('error', 'Error en pujar el document');
+            return redirect()->route('professional_show', $professional->id . '#documents-section')->with('error', 'Error en pujar el document');
         }
     }
 

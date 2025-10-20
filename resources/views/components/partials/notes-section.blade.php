@@ -7,11 +7,11 @@
     'createdByField' => null,
 ])
 
-<div class="card bg-base-100 text-base-content shadow-xl mt-6" id="notes-section">
+<div class="card bg-base-100 text-base-content shadow-xl mt-6">
     <div class="card-body">
         {{-- Title and Button Add --}}
         <div class="flex justify-between items-center mb-4">
-            <h2 class="card-title text-xl">{{ $title }}</h2>
+            <h2 class="card-title text-xl" id="notes-section">{{ $title }}</h2>
             @if($addAction)
                 <button class="btn btn-sm btn-primary" onclick="document.getElementById('addNoteModal').showModal()">Afegir Nota</button>
             @endif
