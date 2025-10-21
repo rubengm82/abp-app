@@ -12,10 +12,10 @@
 <body class="bg-base-200">
 
     <!-- Full-width TopBar -->
-    <x-layout.topbar />
+    <x-layout-components.topbar />
 
     <!-- Fixed Sidebar on the left -->
-    <x-layout.sidebar />
+    <x-layout-components.sidebar />
 
     <!-- Main content -->
     <main class="ml-64 mt-16 p-4 overflow-auto min-h-[calc(100vh-4rem)] bg-base-100 rounded-tl-2xl shadow-inner">

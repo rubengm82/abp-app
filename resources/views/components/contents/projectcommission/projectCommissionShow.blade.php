@@ -123,5 +123,5 @@
     />
 
 
-@include('components.layout.mainToasts')
+@include('components.partials.mainToasts')
 @endsection
