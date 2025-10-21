@@ -20,7 +20,9 @@
             <!-- Right panel (login form) -->
             <div class="lg:w-1/2 w-[500px] p-6 bg-gray-100 mx-auto flex flex-col justify-center">
                 <img src="{{ asset('images/paradis-logo.svg') }}" alt="vallparadis logo" class="w-2/3 mx-auto mt-1">
-                <img src="{{ asset('images/user_login.png') }}" alt="dummy user" class="mt-3 mb-6 w-36 h-36 mx-auto">
+                <div>
+                    <x-partials.icon name="user" class="w-38 h-38 text-white bg-amber-500 border rounded-full p-5 mx-auto mt-2 mb-5" />
+                </div>
                 
                 <form action="{{ route('login') }}" method="POST" class="space-y-4">
                     @csrf
