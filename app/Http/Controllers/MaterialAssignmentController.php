@@ -127,7 +127,7 @@ class MaterialAssignmentController extends Controller
             ->get();
         
         $timestamp = now()->format('Y-m-d_H-i-s');
-        $filename = "assignacions_material_{$timestamp}.csv";
+        $filename = "registre_assignacions_material_{$timestamp}.csv";
         
         $handle = fopen($filename, 'w+');
         fputcsv($handle, ['ID', 'Professional', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per', 'Observacions']);

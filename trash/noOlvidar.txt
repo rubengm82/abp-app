@@ -23,6 +23,7 @@
 * No toast para error al subir
 * Generalizar los toads y generalizarlos ahí, para ahorrar código.
 
+
 *#1 Intentar hacer response() en lugar de redirect() al subir y bajar documentos/notas para evitar recargar la página.
 Habrá que alimentar a los toads con esto. [Preguntar Olga]
 * 
@@ -32,5 +33,25 @@ Olga:
 * Separar Proyectos y Comisiones?
 * Back loopero, se arregla con #1 ?
 * El botón reset sólo limpia el DOM no la session, por lo que no borra los old()s
+* Falta una columna en el CSV de taquilla
+* Falta minuto en los CSV 
+
+Mon:
+* Añadir migas de pan
+*/ Corregir directorios, específicamente layout
+
 
 * Archivos limitados en subida, modificar en apache//servidor web (php.ini)
+
+
+NEW:
+*/ Falta una columna en el CSV de taquilla
+*/ Falta minuto en los CSV 
+* Cambiar show de profesionales para mejorar el método del material asignado
+* Añadir migas de pan
+* Maquetar Formulario Centro
+* Revisar Codi clau
+** Editar
+*** Alta
+*** Edición
+*** Show

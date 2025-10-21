@@ -27,6 +27,7 @@ class Professional extends Authenticatable
         'cvitae',
         'user',       // username
         'password',   // hashed password
+        'locker_num',
         'key_code',
         'status'
     ];

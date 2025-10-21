@@ -17,7 +17,7 @@
                 <tr class="bg-base-300 text-base-content font-semibold">
                     <th class="px-4 py-2 text-left">ID</th>
                     <th class="px-4 py-2 text-left">Centre</th>
-                    <th class="px-4 py-2 text-left">Codi</th>
+                    <th class="px-4 py-2 text-left">Taquilla</th>
                     <th class="px-4 py-2 text-left">Nom</th>
                     <th class="px-4 py-2 text-left">Primer cognom</th>
                     <th class="px-4 py-2 text-left">Segon cognom</th>
@@ -45,7 +45,7 @@
                                     <span class="text-base-content/50">No assignat</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-2 font-mono">{{ $professional->key_code }}</td>
+                            <td class="px-4 py-2 font-mono">{{ $professional->locker_num }}</td>
                             <td class="px-4 py-2">{{ $professional->name }}</td>
                             <td class="px-4 py-2">{{ $professional->surname1 }}</td>
                             <td class="px-4 py-2">{{ $professional->surname2 }}</td>
