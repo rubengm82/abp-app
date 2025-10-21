@@ -1,18 +1,52 @@
 @extends('app')
 
 @section('content')
-<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar centre</h1>
-
-<div class="max-w-lg mx-auto bg-base-100 p-6 rounded shadow">
-    <form action="{{ route('center_update', $center) }}" method="post" class="space-y-4">
+<div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
+    <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar centre</h1>
+    
+    <form action="{{ route('center_update', $center) }}" method="post" class="space-y-6">
         @csrf
-        <input type="text" name="name" id="id_name" placeholder="Nom" value="{{ old('name', $center->name) }}" class="input input-bordered w-full">
-        <input type="text" name="address" id="id_address" placeholder="Adreça" value="{{ old('name', $center->address) }}" class="input input-bordered w-full">
-        <input type="text" name="phone" id="id_phone" placeholder="Telèfon" value="{{ old('name', $center->phone) }}" class="input input-bordered w-full">
-        <input type="text" name="email" id="id_email" placeholder="Email" value="{{ old('name', $center->email) }}" class="input input-bordered w-full">
-        
-        <div class="flex justify-end gap-2">
-            <input type="submit" value="Actualitzar" class="btn btn-info">
+
+        <!-- Center Information -->
+        <div class="card shadow-xl">
+            <div class="card-body">
+                <h2 class="card-title text-xl mb-4">Informació del Centre</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Nom del centre *</span>
+                        </label>
+                        <input type="text" name="name" id="id_name" placeholder="Ex: Centre Barcelona Nord" class="input input-bordered w-full" value="{{ old('name', $center->name) }}" required>
+                    </div>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Telèfon</span>
+                        </label>
+                        <input type="text" name="phone" id="id_phone" placeholder="Ex: 93 123 45 67" class="input input-bordered w-full" value="{{ old('phone', $center->phone) }}">
+                    </div>
+                    
+                    <div class="form-control md:col-span-2">
+                        <label class="label">
+                            <span class="label-text">Adreça</span>
+                        </label>
+                        <input type="text" name="address" id="id_address" placeholder="Ex: Carrer Major, 123, Barcelona" class="input input-bordered w-full" value="{{ old('address', $center->address) }}">
+                    </div>
+                    
+                    <div class="form-control md:col-span-2">
+                        <label class="label">
+                            <span class="label-text">Correu electrònic</span>
+                        </label>
+                        <input type="email" name="email" id="id_email" placeholder="Ex: info@centrebarcelonanord.com" class="input input-bordered w-full" value="{{ old('email', $center->email) }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex justify-end gap-4">
+            <a href="{{ route('centers_list') }}" class="btn btn-outline">Cancel·lar</a>
+            <input type="submit" value="Actualitzar Centre" class="btn btn-info">
         </div>
     </form>
 </div>

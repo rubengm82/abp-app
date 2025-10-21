@@ -1,6 +1,11 @@
 @extends('app')
 
 @section('content')
+
+@include('components.partials.breadcrumb', [
+    'items' => ['Centres', 'Llistat']
+])
+
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de centres</h1>
 
 @if($centers->where('status', 1)->count() > 0)
@@ -20,7 +25,7 @@
                     <th class="px-4 py-2 text-left">Adreça</th>
                     <th class="px-4 py-2 text-left">Telèfon</th>
                     <th class="px-4 py-2 text-left">Email</th>
-                    <th class="px-4 py-2 text-right">Accions</th>
+                    <th class="px-4 py-2 text-right">Acció</th>
                 </tr>
             </thead>
             <tbody>

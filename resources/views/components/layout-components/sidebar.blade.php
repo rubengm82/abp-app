@@ -20,7 +20,7 @@
             </li>
             <li>
                 <a href="{{ route('materialassignments_list') }}" class="block px-4 py-2 hover:bg-[#a0a6af]">
-                    Registre de Uniformitat
+                    Registre d'Uniformitat
                 </a>
             </li>
             <li>

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
-    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6 text-center">Editar professional</h1>
+    <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar professional</h1>
     
     <!-- Show validation errors -->
     @if ($errors->any())
@@ -146,6 +146,13 @@
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació Adicional</h2>
                 <div class="space-y-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Taquilla</span>
+                        </label>
+                        <input type="text" name="locker_num" id="id_locker_num" placeholder="Ex: 15" class="input input-bordered w-full" value="{{ old('locker_num', $professional->locker_num) }}">
+                    </div>
+                    
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Codi de clau</span>

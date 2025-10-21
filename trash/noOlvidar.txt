@@ -47,11 +47,11 @@ Mon:
 NEW:
 */ Falta una columna en el CSV de taquilla
 */ Falta minuto en los CSV 
-* Cambiar show de profesionales para mejorar el método del material asignado
-* Añadir migas de pan
-* Maquetar Formulario Centro
-* Revisar Codi clau
-** Editar
-*** Alta
-*** Edición
-*** Show
+*/ Cambiar show de profesionales para mejorar el método del material asignado
+*/ Añadir migas de pan
+*/ Maquetar Formulario Centro
+*/ Revisar Codi clau
+**/ Editar
+***/ Alta
+***/ Edición
+***/ Show
