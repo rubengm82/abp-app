@@ -5,6 +5,7 @@
 @if($professionals->where('status', 1)->count() > 0)
 <div class="flex justify-end gap-4">
     <a href="{{ route('professionals.downloadCSV', 1) }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('professionals.downloadCSV.materialAssignments') }}" class="btn btn-sm btn-warning">Descarregar Uniformitat</a>
     <a href="{{ route('professional_form') }}" class="btn btn-sm btn-primary">Afegir Professional</a>
 </div>
 @endif
