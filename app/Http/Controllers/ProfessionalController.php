@@ -179,7 +179,7 @@ class ProfessionalController extends Controller
         $filename = $statusParam == 1 ? "professionals_actius_{$timestamp}.csv" : "professionals_no_actius_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID','Centre','Role','Name','Surname1','Surname2','DNI','Phone','Email','Address','Employment Status','CV','User','Password','Key Code','Status']);
+        fputcsv($handle, ['ID', 'Centre', 'Codi', 'Nom', 'Primer cognom', 'Segon cognom', 'DNI', 'Adreça', 'Rol', 'Telèfon', 'Email', 'Estat', 'Accions']);
 
         foreach ($professionals as $professional) {
             fputcsv($handle, [
@@ -216,7 +216,7 @@ class ProfessionalController extends Controller
         $filename = "professionals_assignacions_material_{$timestamp}.csv";
         $handle = fopen($filename, 'w+');
 
-        fputcsv($handle, ['ID','Name','Surname','Shirt','Pants','Shoes','Assignment Date','Assigned By']);
+        fputcsv($handle, ['ID', 'Nom', 'Primer cognom', 'Segon cognom', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per']);
 
         foreach ($professionals as $professional) {
             $shirtSize = MaterialAssignment::getLatestShirtSize($professional->id);

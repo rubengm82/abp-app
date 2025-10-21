@@ -6,6 +6,7 @@ use App\Models\MaterialAssignment;
 use App\Models\Professional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\mainlog;
 
 class MaterialAssignmentController extends Controller
 {
@@ -116,40 +117,36 @@ class MaterialAssignmentController extends Controller
     }
 
     /**
-     * Download CSV with material assignments for professionals.
+     * Download CSV with all material assignments.
      */
-    //TODO: Duplicated method, use only the one from ProfessionalController!, do not delete for now.
     public function downloadCSV()
     {
-        $professionals = Professional::where('status', 1)->get();
+        mainlog::log("Iniciando downloadCSV en MaterialAssignmentController, descargando todas las asignaciones de material");
+        $materialAssignments = MaterialAssignment::with(['professional', 'assignedBy'])
+            ->orderBy('created_at', 'desc')
+            ->get();
         
         $timestamp = now()->format('Y-m-d_H-i-s');
-        $filename = "assignacions_material_professionals_{$timestamp}.csv";
+        $filename = "assignacions_material_{$timestamp}.csv";
         
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Nom', 'Cognom', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per']);
+        fputcsv($handle, ['ID', 'Professional', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per', 'Observacions']);
         
-        foreach ($professionals as $professional) {
-            $shirtSize = MaterialAssignment::getLatestShirtSize($professional->id);
-            $pantsSize = MaterialAssignment::getLatestPantsSize($professional->id);
-            $shoeSize = MaterialAssignment::getLatestShoeSize($professional->id);
-            
-
-            //REVISAR -> Asegurar de que no esta utilizando la fecha del ultimo registro, ya que pueden ser dias distintos
-            $latestAssignment = MaterialAssignment::getLatestForProfessional($professional->id);
-            $assignmentDate = $latestAssignment ? $latestAssignment->assignment_date->format('d/m/Y') : 'No assignat';
-            $assignedBy = $latestAssignment && $latestAssignment->assignedBy ? 
-                $latestAssignment->assignedBy->name . ' ' . $latestAssignment->assignedBy->surname1 : 'No especificat';
+        foreach ($materialAssignments as $assignment) {
+            $professionalName = $assignment->professional ? 
+                $assignment->professional->name . ' ' . $assignment->professional->surname1 : 'No especificat';
+            $assignedByName = $assignment->assignedBy ? 
+                $assignment->assignedBy->name . ' ' . $assignment->assignedBy->surname1 : 'No especificat';
             
             fputcsv($handle, [
-                $professional->id,
-                $professional->name,
-                $professional->surname1,
-                $shirtSize ?: 'No assignat',
-                $pantsSize ?: 'No assignat',
-                $shoeSize ?: 'No assignat',
-                $assignmentDate,
-                $assignedBy,
+                $assignment->id,
+                $professionalName,
+                $assignment->shirt_size ?: 'No assignat',
+                $assignment->pants_size ?: 'No assignat',
+                $assignment->shoe_size ?: 'No assignat',
+                $assignment->assignment_date->format('d/m/Y'),
+                $assignedByName,
+                $assignment->observations ?: 'Sense observacions',
             ]);
         }
         
