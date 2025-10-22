@@ -37,6 +37,7 @@ return new class extends Migration
                 $table->text('cvitae')->nullable()->comment('Curriculum vitae');
                 $table->string('user', 50)->unique()->nullable()->comment('Login username');
                 $table->string('password', 255)->nullable()->comment('Password hash');
+                $table->string('locker_num',50)->nullable()->comment('Locker number');
                 $table->string('key_code', 50)->nullable()->comment('Key code');
                 $table->integer('status')->nullable()->comment('Active status');
 

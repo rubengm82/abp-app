@@ -45,6 +45,7 @@ class ProfessionalController extends Controller
             'cvitae' => 'nullable|string',
             'user' => 'required|string|max:100|unique:professionals,user',
             'password' => 'required|string|min:4',
+            'locker_num' => 'nullable|string|max:50',
             'key_code' => 'nullable|string|max:50',
         ]);
 
@@ -63,6 +64,7 @@ class ProfessionalController extends Controller
             'cvitae' => $validated['cvitae'] ?? null,
             'user' => $validated['user'],
             'password' => $validated['password'], // Will be hashed in the model booted()
+            'locker_num' => $validated['locker_num'] ?? null,
             'key_code' => $validated['key_code'] ?? null,
             'status' => 1,
         ]);
@@ -109,6 +111,7 @@ class ProfessionalController extends Controller
             'cvitae' => 'nullable|string',
             'user' => 'required|string|max:100|unique:professionals,user,' . $id,
             'password' => 'nullable|string|min:4',
+            'locker_num' => 'nullable|string|max:50',
             'key_code' => 'nullable|string|max:50',
         ]);
 
@@ -126,6 +129,7 @@ class ProfessionalController extends Controller
             'cvitae' => $validated['cvitae'] ?? $professional->cvitae,
             'user' => $validated['user'],
             'password' => $validated['password'] ?: $professional->password,
+            'locker_num' => $validated['locker_num'] ?? $professional->locker_num,
             'key_code' => $validated['key_code'] ?? $professional->key_code,
         ]);
 
@@ -179,25 +183,22 @@ class ProfessionalController extends Controller
         $filename = $statusParam == 1 ? "professionals_actius_{$timestamp}.csv" : "professionals_no_actius_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Centre', 'Codi', 'Nom', 'Primer cognom', 'Segon cognom', 'DNI', 'Adreça', 'Rol', 'Telèfon', 'Email', 'Estat', 'Accions']);
+        fputcsv($handle, ['ID', 'Centre', 'Taquilla', 'Codi', 'Nom', 'Primer cognom', 'Segon cognom', 'DNI', 'Adreça', 'Rol', 'Telèfon', 'Email', 'Estat']);
 
         foreach ($professionals as $professional) {
             fputcsv($handle, [
                 $professional->id,
                 $professional->center ? $professional->center->name : 'No assignat',
-                $professional->role,
+                $professional->locker_num,
+                $professional->key_code,
                 $professional->name,
                 $professional->surname1,
                 $professional->surname2,
                 $professional->dni,
+                $professional->address,
+                $professional->role,
                 $professional->phone,
                 $professional->email,
-                $professional->address,
-                $professional->employment_status,
-                $professional->cvitae,
-                $professional->user,
-                $professional->password,
-                $professional->key_code,
                 $professional->status == 1 ? 'Actiu' : 'No actiu',
             ]);
         }
@@ -213,29 +214,25 @@ class ProfessionalController extends Controller
     {
         $professionals = Professional::where('status', 1)->get();
         $timestamp = now()->format('Y-m-d_H-i-s');
-        $filename = "professionals_assignacions_material_{$timestamp}.csv";
+        $filename = "professionals_taquilles_{$timestamp}.csv";
         $handle = fopen($filename, 'w+');
 
-        fputcsv($handle, ['ID', 'Nom', 'Primer cognom', 'Segon cognom', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per']);
+        fputcsv($handle, ['ID', 'Taquilla', 'Nom', 'Primer cognom', 'Segon cognom', 'Samarreta', 'Pantaló', 'Sabata']);
 
         foreach ($professionals as $professional) {
             $shirtSize = MaterialAssignment::getLatestShirtSize($professional->id);
             $pantsSize = MaterialAssignment::getLatestPantsSize($professional->id);
             $shoeSize = MaterialAssignment::getLatestShoeSize($professional->id);
-            $latestAssignment = MaterialAssignment::getLatestForProfessional($professional->id);
-            $assignmentDate = $latestAssignment ? $latestAssignment->assignment_date->format('d/m/Y') : 'No assignat';
-            $assignedBy = $latestAssignment && $latestAssignment->assignedBy ? 
-                $latestAssignment->assignedBy->name . ' ' . $latestAssignment->assignedBy->surname1 : 'No especificat';
 
             fputcsv($handle, [
                 $professional->id,
+                $professional->locker_num,
                 $professional->name,
                 $professional->surname1,
+                $professional->surname2,
                 $shirtSize ?: 'No assignat',
                 $pantsSize ?: 'No assignat',
                 $shoeSize ?: 'No assignat',
-                $assignmentDate,
-                $assignedBy,
             ]);
         }
 

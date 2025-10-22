@@ -79,10 +79,7 @@
                         <label class="font-semibold">Adreça:</label>
                         <p class="text-lg">{{ $professional->address ?: 'No especificada' }}</p>
                     </div>
-                    <div>
-                        <label class="font-semibold">Codi de clau:</label>
-                        <p class="text-lg">{{ $professional->key_code ?: 'No especificat' }}</p>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -100,7 +97,7 @@
     <div class="card bg-base-100 text-base-content shadow-xl mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
                     <label class="font-semibold">ID:</label>
                     <p class="text-lg">{{ $professional->id }}</p>
@@ -110,12 +107,8 @@
                     <p class="text-lg">{{ $professional->user ?: 'No especificat' }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold">Estat:</label>
-                    <p class="text-lg">
-                        <span class="badge {{ $professional->status == 1 ? 'badge-success' : 'badge-error' }}">
-                            {{ $professional->status == 1 ? 'Actiu' : 'Inactiu' }}
-                        </span>
-                    </p>
+                    <label class="font-semibold">Taquilla:</label>
+                    <p class="text-lg">{{ $professional->locker_num ?: 'No especificat' }}</p>
                 </div>
             </div>
         </div>
