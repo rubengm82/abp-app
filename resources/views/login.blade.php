@@ -77,6 +77,7 @@
     @endif
 
 <script src="{{ asset('js/components/partials/toast.js') }}"></script>
+<script src="{{ asset('js/components/partials/menu-sidebar-reset.js') }}"></script>
 </body>
 </html>
 @include('components.partials.mainToasts')

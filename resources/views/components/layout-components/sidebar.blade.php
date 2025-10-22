@@ -3,24 +3,86 @@
     <!-- Navigation menu -->
     <nav class="flex-1 overflow-auto">
         <ul class="menu bg-base-200 w-full text-xs text-base-100 dark:text-base-content">
+
+            <!-- Submenu Centers -->
             <li>
-                <a href="{{ route('centers_list') }}">
-                    <x-partials.icon name="building-office" class="w-5 h-5 text-primary" />
-                    Llistar de Centres
-                </a>
+                <details>
+                    <summary>
+                        <x-partials.icon name="building-office" class="w-5 h-5 text-primary" />
+                        Centres
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('centers_list') }}">
+                                <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('center_form') }}">
+                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
             </li>
+
+            <!-- Submenu Professionals -->
             <li>
-                <a href="{{ route('professionals_list') }}">
-                    <x-partials.icon name="user-group" class="w-5 h-5 text-primary" />
-                    Llistar Professionals
-                </a>
+                <details>
+                    <summary>
+                        <x-partials.icon name="user-group" class="w-5 h-5 text-primary" />
+                        Professionals
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('professionals_list') }}">
+                                <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('professional_form') }}">
+                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
             </li>
+
+            <!-- Submenu Project/Commissions -->
             <li>
-                <a href="{{ route('projectcommissions_list') }}">
-                    <x-partials.icon name="rectangle-group" class="w-5 h-5 text-primary" />
-                    Llistar Projectes/Comissions
-                </a>
+                <details>
+                    <summary>
+                        <x-partials.icon name="rectangle-group" class="w-5 h-5 text-primary" />
+                        Projectes/Comissions
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('projectcommissions_list') }}">
+                                <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('projectcommission_form') }}">
+                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
             </li>
+
+            <!-- Submenu Material-Assignments -->
             <li>
                 <a href="{{ route('materialassignments_list') }}">
                     <x-partials.icon name="identification" class="w-5 h-5 text-primary" />
@@ -28,7 +90,7 @@
                 </a>
             </li>
 
-            <!-- Submenu Desactivacions -->
+            <!-- Submenu Desactivations -->
             <li>
                 <details>
                     <summary>
@@ -39,19 +101,19 @@
                         <li>
                             <a href="{{ route('centers_desactivated_list') }}">
                                 <x-partials.icon name="building-office" class="w-5 h-5 text-gray-500" />
-                                Llistar de Centres
+                                Centres
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('professionals_desactivated_list') }}">
                                 <x-partials.icon name="user-group" class="w-5 h-5 text-gray-500" />
-                                Llistar Professionals
+                                Professionals
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('projectcommissions_desactivated_list') }}">
                                 <x-partials.icon name="rectangle-group" class="w-5 h-5 text-gray-500" />
-                                Llistar Projectes/Comissions
+                                Projectes/Comissions
                             </a>
                         </li>
                     </ul>
@@ -59,6 +121,7 @@
             </li>
         </ul>
     </nav>
+
 
     <!-- Company logo below -->
     <div class="p-4">

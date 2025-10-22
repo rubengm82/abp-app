@@ -42,7 +42,7 @@
                             <td class="px-4 py-2">
                                 @if($professional->center)
                                     <a href="{{ route('center_show', $professional->center->id) }}" 
-                                       class="text-primary font-medium hover:text-primary-focus transition-colors duration-200">
+                                       class="link link-hover link-info">
                                         {{ $professional->center->name }}
                                     </a>
                                 @else
