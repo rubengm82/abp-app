@@ -76,7 +76,7 @@
         </div>
     @endif
 
-<script src="{{ asset('js/components/partials/toast.js') }}"></script>
+@vite('resources/js/customs/toast.js')
+@include('components.partials.mainToasts')
 </body>
 </html>
-@include('components.partials.mainToasts')

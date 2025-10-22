@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'Valparadis App')</title>
-    <script src="{{ asset('js/components/partials/themeswitch_antiflickering.js') }}"></script>
     
+    <script src="{{ asset('js/components/partials/themeswitch_antiflickering.js') }}"></script>
     @vite('resources/css/app.css')
 </head>
 <body class="bg-base-200">
@@ -32,8 +32,6 @@
 
     </main>
 
-    <script src="{{ asset('js/components/partials/toast.js') }}"></script>
-    <script src="{{ asset('js/components/partials/themeswitch.js') }}"></script>
-    <script src="{{ asset('js/components/partials/modal.js') }}"></script>
+    @stack('scripts_partials_components')
 </body>
 </html>
