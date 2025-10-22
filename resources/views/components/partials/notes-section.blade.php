@@ -104,6 +104,4 @@
     </div>
 </dialog>
 
-@push('scripts_partials_components')
-    @vite('resources/js/customs/partials/notes-section.js')
-@endpush
+<script src="{{ asset('js/components/partials/notes-section.js') }}"></script>

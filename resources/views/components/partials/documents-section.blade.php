@@ -74,6 +74,4 @@
 </dialog>
 @endif
 
-@push('scripts_partials_components')
-    @vite('resources/js/customs/partials/documents-section.js')
-@endpush
+<script src="{{ asset('js/components/partials/documents-section.js') }}"></script>
