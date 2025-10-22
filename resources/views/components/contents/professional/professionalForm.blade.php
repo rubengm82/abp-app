@@ -1,6 +1,14 @@
 @extends('app')
 
 @section('content')
+
+@include('components.partials.breadcrumb', [
+    'items' => [
+        'Professionals' => route('professionals_list'),
+        'Llistat' => route('professionals_list'),
+    ],
+    'current' => 'Afegir Professional'
+])
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Afegir professional</h1>
     

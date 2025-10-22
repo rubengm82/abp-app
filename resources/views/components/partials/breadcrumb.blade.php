@@ -1,9 +1,10 @@
-@props(['items' => []])
+@props(['items' => [], 'current' => null])
 
-<div class="breadcrumbs text-sm mb-4 text-gray-500">
+<div class="breadcrumbs text-sm mb-4">
     <ul>
-        @foreach($items as $item)
-            <li>{{ $item }}</li>
+        @foreach($items as $name => $route)
+            <li><a href="{{ $route }}" class="link link-hover text-gray-400 ">{{ $name }}</a></li>
         @endforeach
+        <li class="text-primary font-medium">{{ $current }}</li>
     </ul>
 </div>

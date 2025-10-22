@@ -3,7 +3,10 @@
 @section('content')
 
 @include('components.partials.breadcrumb', [
-    'items' => ['Centres', 'Llistat']
+    'items' => [
+        'Centres' => null,
+    ],
+    'current' => 'Llistat'
 ])
 
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de centres</h1>

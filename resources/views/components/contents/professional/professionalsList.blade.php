@@ -2,7 +2,10 @@
 
 @section('content')
 @include('components.partials.breadcrumb', [
-    'items' => ['Professionals', 'Llistat']
+    'items' => [
+        'Professionals' => route('professionals_list'),
+    ],
+    'current' => 'Llistat'
 ])
 
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de professionals</h1>

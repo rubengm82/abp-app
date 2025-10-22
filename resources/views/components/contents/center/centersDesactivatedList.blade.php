@@ -1,6 +1,13 @@
 @extends('app')
 
 @section('content')
+
+@include('components.partials.breadcrumb', [
+    'items' => [
+        'Centres' => route('centers_desactivated_list')
+    ],
+    'current' => 'Llistat Desactivats'
+])
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de centres desactivats</h1>
 
 @if($centers->where('status', 0)->count() > 0)
