@@ -22,7 +22,7 @@
         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 z-20">
             <!-- Version APP -->
             <li class="text-gray-400 pointer-events-none">
-                <span class="pl-2 pr-2 w-full block text-right cursor-default">Sprint 2 | Versió 0.2.0</span>
+                <span class="pl-2 pr-2 w-full block text-right cursor-default">Sprint 2 | Versió 0.3.0</span>
             </li>
 
             <!-- Dark/Light Mode Toggle -->
@@ -41,6 +41,7 @@
             <!-- Logout -->
             <li>
                 <a href="{{ route('logout') }}" class="flex items-center justify-start gap-2 w-full text-left">
+                    <x-partials.icon name="arrow-left-start-on-rectangle" class="w-6 h-6 text-base-100 dark:text-base-content"/>
                     <i class="fa-solid fa-arrow-right"></i> Sortir
                 </a>
             </li>
