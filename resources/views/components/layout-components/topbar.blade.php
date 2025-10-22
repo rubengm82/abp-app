@@ -1,51 +1,75 @@
-<div class="h-16 bg-gray-800 flex items-center justify-between px-4 w-full fixed top-0 left-0 z-10 shadow-xl">
+<div class="h-16 bg-gray-750 flex items-center justify-between px-4 w-full fixed top-0 left-0 z-10 shadow-xl">
 
     {{-- LEFT --}}
     <!-- Logo  -->
     <div class="flex items-center text-lg font-bold select-none">
         <a href="{{ route('home') }}" class="block px-4 py-2 no-underline">
-            <span class="text-[#ff7500]">{{ Auth::user()->role ?? 'Sense Rol' }}</span>
-            <span class="text-[#fafafa]">- {{ (Auth::user()->center)->name}}</span>
-            <span class="text-[#fafafa]">({{ (Auth::user()->name) . ' ' . (Auth::user()->surname1) . ' ' . (Auth::user()->surname2 ?? '') }})</span>
+            <span class="text-primary text-3xl">{{ (Auth::user()->center)->name}}</span>
         </a>
     </div>
 
     {{-- RIGHT --}}
-    <div class="dropdown dropdown-end">
+    <div class="flex items-center gap-6 text-gray-500">
         
-        <!-- Button dropdown - ICON USER -->
-        <label tabindex="0" class="bg-orange-500 hover:bg-orange-400 text-white w-9 h-9 flex items-center justify-center rounded-full cursor-pointer">
-            <x-partials.icon name="user" class="w-6 h-6 text-white" />
-        </label>
+        {{-- Time/Date --}}
+        <span id="current-time">{{ \Carbon\Carbon::now()->format('m/d/Y H:i:s') }}</span>
 
-        <!-- Menu -->
-        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 z-20">
-            <!-- Version APP -->
-            <li class="text-gray-400 pointer-events-none">
-                <span class="pl-2 pr-2 w-full block text-right cursor-default">Sprint 2 | Versió 0.2.0</span>
-            </li>
+        <div class="dropdown dropdown-end">
+            <!-- Button dropdown - ICON USER -->
+            <label tabindex="0" class="bg-orange-500 hover:bg-orange-400 text-white w-9 h-9 flex items-center justify-center rounded-full cursor-pointer">
+                <x-partials.icon name="user" class="w-6 h-6 text-white" />
+            </label>
 
-            <!-- Dark/Light Mode Toggle -->
-            <li class="p-2">
-                <div class="flex items-center justify-between w-full">
-                    <span>Clar | Fosc</span>
-                    <input
-                        type="checkbox"
-                        id="theme-toggle"
-                        class="toggle toggle-sm"
-                        title="Canviar Dark/Light"
-                    />
-                </div>
-            </li>
+            <!-- Menu -->
+            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2 z-20">
+                
+                <!-- Version APP -->
+                <li class="text-gray-400 pointer-events-none pr-2">
+                    <span class=" w-full block text-right cursor-default">Sprint 3 | Versió 0.3.0</span>
+                </li>
 
-            <!-- Logout -->
-            <li>
-                <a href="{{ route('logout') }}" class="flex items-center justify-start gap-2 w-full text-left">
-                    <i class="fa-solid fa-arrow-right"></i> Sortir
-                </a>
-            </li>
-        </ul>
+                <!-- Separator -->
+                <span class="block border-t border-gray-400 my-2 w-full rounded-none"></span>
+                
+                <li class="text-gray-400 pointer-events-none flex flex-col items-center gap-1">
+                    <span class="text-base-100 font-bold dark:text-base-content text-center">
+                        {{ (Auth::user()->name) . ' ' . (Auth::user()->surname1) . ' ' . (Auth::user()->surname2 ?? '') }}
+                    </span>
+                    <span class="text-primary font-bold text-center text-xl">
+                        {{ Auth::user()->role ?? 'Sense Rol' }}
+                    </span>
+                </li>
+                
+                <!-- Separator -->
+                <span class="block border-t border-gray-400 my-2 w-full rounded-none"></span>
+                
+                <!-- Dark/Light Mode Toggle -->
+                <li class="p-2">
+                    <div class="flex items-center justify-between w-full">
+                        <span>Clar | Fosc</span>
+                        <input
+                            type="checkbox"
+                            id="theme-toggle"
+                            class="toggle toggle-sm"
+                            title="Canviar Dark/Light"
+                        />
+                    </div>
+                </li>
+
+                <!-- Separator -->
+                <span class="block border-t border-gray-400 my-2 w-full rounded-none"></span>
+
+                <!-- Logout -->
+                <li>
+                    <a href="{{ route('logout') }}" class="flex items-center justify-start gap-2 w-full text-left">
+                        <x-partials.icon name="arrow-left-start-on-rectangle" class="w-6 h-6 text-base-100 dark:text-base-content"/>
+                        <i class="fa-solid fa-arrow-right"></i> Sortir
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
+
 </div>
 
 @if (session('warning'))
@@ -55,3 +79,6 @@
         </div>
     </div>
 @endif
+
+
+<script src="{{ asset('js/components/partials/hora-topbar.js') }}"></script>

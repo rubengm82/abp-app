@@ -33,7 +33,7 @@
                             <td class="px-4 py-2">
                                 @if($projectCommission->responsibleProfessional)
                                     <a href="{{ route('professional_show', $projectCommission->responsibleProfessional->id) }}" 
-                                       class="text-primary font-semibold hover:text-primary-focus transition-all duration-200">
+                                       class="link link-hover link-info">
                                         {{ $projectCommission->responsibleProfessional->name }} {{ $projectCommission->responsibleProfessional->surname1 }}
                                     </a>
                                 @else
