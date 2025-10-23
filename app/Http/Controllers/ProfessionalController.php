@@ -115,7 +115,7 @@ class ProfessionalController extends Controller
             'key_code' => 'nullable|string|max:50',
         ]);
 
-        $professional->update([
+        $updateData = [
             'center_id' => $validated['center_id'],
             'role' => $validated['role'] ?? $professional->role,
             'name' => $validated['name'],
@@ -128,17 +128,23 @@ class ProfessionalController extends Controller
             'employment_status' => $validated['employment_status'] ?? $professional->employment_status,
             'cvitae' => $validated['cvitae'] ?? $professional->cvitae,
             'user' => $validated['user'],
-            'password' => $validated['password'] ?: $professional->password,
             'locker_num' => $validated['locker_num'] ?? $professional->locker_num,
             'key_code' => $validated['key_code'] ?? $professional->key_code,
-        ]);
+        ];
+
+        // Solo incluir password si tiene contenido
+        if (!empty($validated['password'])) {
+            $updateData['password'] = $validated['password'];
+        }
+
+        $professional->update($updateData);
 
         // Update associated user if exists
-        if ($professional->userAccount && $validated['password']) {
-            $professional->userAccount->update([
-                'password' => Hash::make($validated['password'])
-            ]);
-        }
+        // if ($professional->userAccount && $validated['password']) {
+        //     $professional->userAccount->update([
+        //         'password' => Hash::make($validated['password'])
+        //     ]);
+        // }
 
         return redirect()->route('professionals_list')->with('success', 'Professional actualitzat correctament!');
     }
