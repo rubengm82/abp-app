@@ -1,6 +1,14 @@
 @extends('app')
 
 @section('content')
+
+<x-partials.breadcrumb
+    :items="[
+        'Projectes' => route('projectcommissions_list'),
+        'Detalls' => route('projectcommission_show', $projectCommission->id),
+    ]"
+    :current="'Editar'"
+    />
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar projecte/comissió</h1>
     

@@ -1,6 +1,13 @@
 @extends('app')
 
 @section('content')
+
+<x-partials.breadcrumb
+    :items="[
+        'Projectes' => route('projectcommissions_list'),
+    ]"
+    :current="'Afegir Projecte/Comissió'"
+    />
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Afegir projecte/comissió</h1>
     

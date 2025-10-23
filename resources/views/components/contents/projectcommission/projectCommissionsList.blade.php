@@ -1,6 +1,13 @@
 @extends('app')
 
 @section('content')
+
+<x-partials.breadcrumb
+    :items="[
+        'Projectes' => null,
+    ]"
+    :current="'Llistat'"
+    />
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de projectes i comissions</h1>
 
 @if($projectCommissions->where('status', 'Actiu')->count() > 0)

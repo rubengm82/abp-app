@@ -1,6 +1,13 @@
 @extends('app')
 
 @section('content')
+
+<x-partials.breadcrumb
+    :items="[
+        'Projectes' => route('projectcommissions_list'),
+    ]"
+    :current="'Detalls'"
+    />
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
     <!-- Header: Nombre y acciones -->
     <div class="flex justify-between items-center mb-6">

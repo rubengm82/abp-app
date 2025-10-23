@@ -4,8 +4,7 @@
 
 <x-partials.breadcrumb
     :items="[
-        'Centres' => route('centers_list'),
-        'Llistat' => route('centers_list'),
+        'Centres' => null,
     ]"
     :current="'Llistat Desactivats'"
     />

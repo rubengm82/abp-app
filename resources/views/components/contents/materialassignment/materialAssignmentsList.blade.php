@@ -1,6 +1,13 @@
 @extends('app')
 
 @section('content')
+
+<x-partials.breadcrumb
+    :items="[
+        'Uniformitat' => null,
+    ]"
+    :current="'Llistat'"
+    />
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista d'Assignacions de Material</h1>
 
 @if($materialAssignments->count() > 0)

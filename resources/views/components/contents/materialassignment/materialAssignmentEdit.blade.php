@@ -1,6 +1,14 @@
 @extends('app')
 
 @section('content')
+
+<x-partials.breadcrumb
+    :items="[
+        'Uniformitat' => route('materialassignments_list'),
+        'Detalls' => route('materialassignment_show', $materialAssignment->id),
+    ]"
+    :current="'Editar'"
+    />
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar Assignació de Material</h1>
     
