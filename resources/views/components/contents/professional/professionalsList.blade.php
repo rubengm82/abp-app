@@ -1,12 +1,13 @@
 @extends('app')
 
 @section('content')
-@include('components.partials.breadcrumb', [
-    'items' => [
+
+<x-partials.breadcrumb
+    :items="[
         'Professionals' => route('professionals_list'),
-    ],
-    'current' => 'Llistat'
-])
+    ]"
+    :current="'Llistat'"
+    />
 
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de professionals</h1>
 @if($professionals->where('status', 1)->count() > 0)

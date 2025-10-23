@@ -2,13 +2,13 @@
 
 @section('content')
 
-@include('components.partials.breadcrumb', [
-    'items' => [
+<x-partials.breadcrumb
+    :items="[
         'Professionals' => route('professionals_list'),
         'Llistat' => route('professionals_list'),
-    ],
-    'current' => 'Detalls'
-])
+    ]"
+    :current="'Detalls'"
+    />
 <div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1>

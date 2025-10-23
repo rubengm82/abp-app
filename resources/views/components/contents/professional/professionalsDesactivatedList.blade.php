@@ -2,12 +2,12 @@
 
 @section('content')
 
-@include('components.partials.breadcrumb', [
-    'items' => [
+<x-partials.breadcrumb
+    :items="[
         'Professionals' => route('professionals_desactivated_list'),
-    ],
-    'current' => 'Llistat Desactivats'
-])
+    ]"
+    :current="'Llistat Desactivats'"
+    />
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de professionals desactivats</h1>
 
 @if($professionals->where('status', 0)->count() > 0)

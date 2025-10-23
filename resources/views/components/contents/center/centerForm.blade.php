@@ -2,13 +2,13 @@
 
 @section('content')
 
-@include('components.partials.breadcrumb', [
-    'items' => [
+<x-partials.breadcrumb
+    :items="[
         'Centres' => route('centers_list'),
         'Llistat' => route('centers_list'),
-    ],
-    'current' => 'Afegir Centre'
-])
+    ]"
+    :current="'Afegir Centre'"
+    />
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Afegir centre</h1>
     
