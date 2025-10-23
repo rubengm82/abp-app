@@ -10,9 +10,9 @@
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 p-6 rounded-lg shadow-lg overflow-x-auto">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
     @if($materialAssignments->count() > 0)
-        <table class="table w-full table-xs table-zebra table-hover text-sm">
+        <table class="table w-full table-xs table-hover text-sm">
             <thead>
                 <tr class="bg-base-300 text-base-content font-semibold">
                     <th class="px-4 py-2 text-left">ID</th>
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 @foreach ($materialAssignments as $assignment)
-                    <tr class="hover:bg-base-200 transition-colors">
+                    <tr class="hover:bg-base-300 transition-colors">
                         <td class="px-4 py-2">{{ $assignment->id }}</td>
                         <td class="px-4 py-2 font-medium">
                             <a href="{{ route('professional_show', $assignment->professional->id) }}" 

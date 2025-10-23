@@ -18,7 +18,7 @@
     <x-layout-components.sidebar />
 
     <!-- Main content -->
-    <main class="ml-64 mt-16 p-4 overflow-auto min-h-[calc(100vh-4rem)] bg-base-100 shadow-inner">
+    <main class="ml-64 mt-16 p-4 overflow-auto min-h-[calc(100vh-4rem)] bg-base-300 shadow-inner">
 
         @hasSection('content')
             <div class="w-full">
