@@ -53,6 +53,15 @@
                             </a>
                         </li>
                     </ul>
+                    <!-- ENRUTAMIENTO TEMPORAL HARDCODEADO, DECIDIR DÓNDE COLOCARLO-->
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('professional_evaluation') }}">
+                                <x-partials.icon name="clipboard-document-check" class="w-5 h-5 text-secondary" />
+                                Qüestionari valoració test
+                            </a>
+                        </li>
+                    </ul>
                 </details>
             </li>
 

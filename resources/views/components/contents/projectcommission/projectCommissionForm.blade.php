@@ -80,7 +80,7 @@
                         <label class="label">
                             <span class="label-text">Professional responsable</span>
                         </label>
-                        <select name="responsible_professional_id" id="id_responsible_professional_id" class="select select-bordered w-full">
+                        <select name="responsible_professional_id" id="id_responsible_professional_id" class="select select-bordered w-full" required>
                             <option value="">Selecciona un professional</option>
                             @foreach($professionals as $professional)
                                 <option value="{{ $professional->id }}" {{ old('responsible_professional_id') == $professional->id ? 'selected' : '' }}>

@@ -122,6 +122,37 @@
         createdByField="createdByProfessional"
     />
 
+    <!-- Professionals Assigned -->
+    <div class="card bg-base-100 shadow-xl mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4">Equip del Projecte</h2>
+            
+            @if($projectCommission->assignments->count() > 0)
+                <div class="space-y-3">
+                    @foreach($projectCommission->assignments as $assignment)
+                        <div class="flex items-center justify-between p-3 bg-base-200 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div>
+                                    <a href="{{ route('professional_show', $assignment->professional->id) }}" 
+                                       class="font-semibold text-black hover:text-gray-700 transition-all duration-200">
+                                        {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }} {{ $assignment->professional->surname2 }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="text-sm text-base-content/70">
+                                Assignat el {{ $assignment->created_at->format('d/m/Y') }}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-center py-8 text-base-content/50">
+                    <i class="fas fa-users text-4xl mb-4"></i>
+                    <p class="text-lg">No hi ha professionals assignats al projecte</p>
+                </div>
+            @endif
+        </div>
+    </div>
 
 @include('components.partials.mainToasts')
 @endsection

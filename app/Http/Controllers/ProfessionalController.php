@@ -132,7 +132,7 @@ class ProfessionalController extends Controller
             'key_code' => $validated['key_code'] ?? $professional->key_code,
         ];
 
-        // Solo incluir password si tiene contenido
+        // Only include password if it has content
         if (!empty($validated['password'])) {
             $updateData['password'] = $validated['password'];
         }

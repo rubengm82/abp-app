@@ -43,4 +43,21 @@ class ProjectCommission extends Model
     {
         return $this->hasMany(ProjectCommissionDocument::class, 'project_commission_id')->orderBy('created_at', 'desc');
     }
+
+    /**
+     * Relationship with the assignments of professionals to the project/commission
+     */
+    public function assignments()
+    {
+        return $this->hasMany(ProjectCommissionAssignment::class)->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Relationship many-to-many with professionals through the assignments
+     */
+    public function assignedProfessionals()
+    {
+        return $this->belongsToMany(Professional::class, 'project_commission_assignments')
+                    ->withTimestamps();
+    }
 }

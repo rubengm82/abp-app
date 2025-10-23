@@ -20,13 +20,15 @@ class DatabaseSeeder extends Seeder
             ProjectCommissionDocumentSeeder::class,
             MaterialAssignmentSeeder::class,
             ProjectCommissionNoteSeeder::class,
-            // New seeders for notes and documents
             ProfessionalNoteSeeder::class,
             ProfessionalDocumentSeeder::class,
             CenterNoteSeeder::class,
             CenterDocumentSeeder::class,
             MaterialAssignmentNoteSeeder::class,
             MaterialAssignmentDocumentSeeder::class,
+            QuizSeeder::class,
+            EvaluationsSeeder::class,
+            ProjectCommissionAssignmentSeeder::class,
         ]);
     }
 }

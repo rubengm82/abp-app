@@ -49,6 +49,25 @@ class Professional extends Authenticatable
     public function documents() { return $this->hasMany(ProfessionalDocument::class); }
     public function createdNotes() { return $this->hasMany(ProfessionalNote::class, 'created_by_professional_id'); }
     public function uploadedByProfessional() { return $this->hasMany(ProfessionalDocument::class, 'uploaded_by_professional_id'); }
+    
+    /**
+     * Relación con las asignaciones de proyectos/comisiones donde es responsable
+     */
+    public function responsibleProjects() { return $this->hasMany(ProjectCommission::class, 'responsible_professional_id'); }
+    
+    /**
+     * Relación con las asignaciones de proyectos/comisiones donde participa
+     */
+    public function projectAssignments() { return $this->hasMany(ProjectCommissionAssignment::class); }
+    
+    /**
+     * Relación many-to-many con proyectos/comisiones a través de las asignaciones
+     */
+    public function assignedProjects()
+    {
+        return $this->belongsToMany(ProjectCommission::class, 'project_commission_assignments')
+                    ->withTimestamps();
+    }
 
     /**
      * Relationship with the user model

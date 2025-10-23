@@ -122,10 +122,10 @@
         </div>
     </div>
 
-    <!-- Assignacions de material -->
+    <!-- Material Assignments -->
     <div class="card bg-base-100 text-base-content shadow-xl mt-6">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Assignacions de Material</h2>
+            <h2 class="card-title text-xl mb-4">Uniformitat Assignada</h2>
             @php
                 $shirtSize = \App\Models\MaterialAssignment::getLatestShirtSize($professional->id);
                 $pantsSize = \App\Models\MaterialAssignment::getLatestPantsSize($professional->id);

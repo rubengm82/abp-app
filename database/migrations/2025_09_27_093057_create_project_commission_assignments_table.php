@@ -15,14 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('project_commission_id')->comment('Project/Commission reference');
             $table->unsignedBigInteger('professional_id')->comment('Professional reference');
-            $table->date('assignment_date')->comment('Assignment date')->nullable();
-            $table->string('status', 50)->comment('Assignment status')->nullable();
-            $table->text('notes')->comment('Assignment notes')->nullable();;
-
+            
             // FKs
             $table->foreign('project_commission_id')->references('id')->on('project_commissions')->onDelete('cascade');
             $table->foreign('professional_id')->references('id')->on('professionals')->onDelete('cascade');
-
+            
             $table->timestamps();
         });
     }

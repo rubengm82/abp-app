@@ -74,6 +74,11 @@ Route::middleware('auth')->post('/professional/documents/{professional}', [Profe
 Route::middleware('auth')->delete('/professional/documents/{document}', [ProfessionalDocumentController::class, 'destroy'])->name('professional_document_delete');
 Route::middleware('auth')->get('/professional/documents/download/{document}', [ProfessionalDocumentController::class, 'download'])->name('professional_document_download');
 
+/* Professional Evaluation  ENRUTAMIENTO TEMPORAL HARDCODEADO*/
+Route::middleware('auth')->get('/professional/evaluation', function () {
+    return view('components.contents.professional.professionalEvaluation');
+})->name('professional_evaluation');
+
 /* ------------------------ PROJECT COMMISSIONS ------------------------ */
 Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
 Route::middleware('auth')->post('/projectcommission/add', [ProjectCommissionController::class, "store"])->name("projectcommission_add");

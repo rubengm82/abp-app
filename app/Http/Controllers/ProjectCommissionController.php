@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectCommission;
 use App\Models\Professional;
+use App\Models\ProjectCommissionAssignment;
 use Illuminate\Http\Request;
 
 class ProjectCommissionController extends Controller
@@ -61,7 +62,11 @@ class ProjectCommissionController extends Controller
      */
     public function show(ProjectCommission $projectCommission)
     {
-        $projectCommission->load(['responsibleProfessional.center', 'projectNotes.createdByProfessional']);
+        $projectCommission->load([
+            'responsibleProfessional.center', 
+            'projectNotes.createdByProfessional',
+            'assignments.professional.center'
+        ]);
         return view("components.contents.projectcommission.projectCommissionShow")->with('projectCommission', $projectCommission);
     }
 
