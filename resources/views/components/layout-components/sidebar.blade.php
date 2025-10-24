@@ -94,7 +94,7 @@
             <li>
                 <details>
                     <summary>
-                        <x-partials.icon name="rectangle-group" class="w-5 h-5 text-primary" />
+                        <x-partials.icon name="academic-cap" class="w-5 h-5 text-primary" />
                         Cursos
                     </summary>
                     <ul class="text-xs">
@@ -107,7 +107,7 @@
                     </ul>
                     <ul class="text-xs">
                         <li>
-                            <a href="{{ route('projectcommission_form') }}">
+                            <a href="{{ route('course_form') }}">
                                 <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
                                 Afegir
                             </a>

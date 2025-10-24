@@ -11,19 +11,20 @@
 
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de cursos</h1>
 
-@if($courses->where('status', 1)->count() > 0)
+@if($courses->count() > 0)
 <div class="flex justify-end gap-4">
-    {{-- <a href="{{ route('courses.downloadCSV', ['status' => 1]) }}" class="btn btn-sm btn-warning">Descarregar Llista</a> --}}
-    {{-- <a href="{{ route('course_form') }}" class="btn btn-sm btn-primary">Afegir Curs</a> --}}
+    <a href="{{ route('courses_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('course_form') }}" class="btn btn-sm btn-primary">Afegir Curs</a>
 </div>
 @endif
 
 <div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
-    @if($courses->where('status', 1)->count() > 0)
+    @if($courses->count() > 0)
         <table class="table w-full table-xs table-hover text-sm">
             <thead>
                 <tr class="bg-base-300 text-base-content font-semibold">
                     <th class="px-4 py-2 text-left">ID</th>
+                    <th class="px-4 py-2 text-left">Centre de Formació</th>
                     <th class="px-4 py-2 text-left">Codi FORCEM</th>
                     <th class="px-4 py-2 text-left">Hores totals</th>
                     <th class="px-4 py-2 text-left">Tipus de curs</th>
@@ -40,25 +41,24 @@
             </thead>
             <tbody>
                 @foreach($courses as $course)
-                    @if($course->status == 1)
-                        <tr class="hover:bg-base-300 transition-colors">
-                            <td class="px-4 py-2">{{ $course->id }}</td>
-                            <td class="px-4 py-2">{{ $course->forcem_code }}</td>
-                            <td class="px-4 py-2">{{ $course->total_hours }}</td>
-                            <td class="px-4 py-2">{{ $course->type }}</td>
-                            <td class="px-4 py-2">{{ $course->attendance_type }}</td>
-                            <td class="px-4 py-2 font-medium">{{ $course->training_name }}</td>
-                            <td class="px-4 py-2">{{ $course->workshop }}</td>
-                            <td class="px-4 py-2">{{ $course->conference_day }}</td>
-                            <td class="px-4 py-2">{{ $course->congress }}</td>
-                            <td class="px-4 py-2">{{ $course->attendee }}</td>
-                            <td class="px-4 py-2">{{ \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') }}</td>
-                            <td class="px-4 py-2">{{ \Carbon\Carbon::parse($course->end_date)->format('d/m/Y') }}</td>
-                            <td class="px-4 py-2 text-right flex justify-end gap-2">
-                                {{-- <a href="{{ route('course_show', $course) }}" class="btn btn-xs btn-info">Veure</a> --}}
-                            </td>
-                        </tr>
-                    @endif
+                    <tr class="hover:bg-base-300 transition-colors">
+                        <td class="px-4 py-2">{{ Str::limit($course->id, 12) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($course->training_center, 20) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($course->forcem_code, 12) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($course->total_hours, 12) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($course->type, 12) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($course->attendance_type, 12) }}</td>
+                        <td class="px-4 py-2 font-medium">{{ Str::limit($course->training_name, 20) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($course->workshop, 20) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($course->conference_day, 12) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($course->congress, 20) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($course->attendee, 20) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit(\Carbon\Carbon::parse($course->start_date)->format('d/m/Y'), 20) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit(\Carbon\Carbon::parse($course->end_date)->format('d/m/Y'), 20) }}</td>
+                        <td class="px-4 py-2 text-right flex justify-end gap-2">
+                            <a href="{{ route('course_show', $course) }}" class="btn btn-xs btn-info">Veure</a>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

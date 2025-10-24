@@ -102,6 +102,7 @@
 
         <!-- Action Buttons -->
         <div class="flex justify-end gap-4">
+            <a href="{{ route('projectcommissions_list') }}" class="btn btn-outline">Cancel·lar</a>
             <input type="submit" value="Actualitzar Projecte/Comissió" class="btn btn-info">
         </div>
     </form>

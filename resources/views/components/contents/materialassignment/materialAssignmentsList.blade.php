@@ -32,7 +32,7 @@
                         <td class="px-4 py-2">{{ $assignment->id }}</td>
                         <td class="px-4 py-2 font-medium">
                             <a href="{{ route('professional_show', $assignment->professional->id) }}" 
-                               class="text-primary font-semibold hover:text-primary-focus transition-all duration-200">
+                               class="link link-hover link-info">
                                 {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }}
                             </a>
                         </td>

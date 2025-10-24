@@ -119,3 +119,10 @@ Route::middleware('auth')->get('/materialassignment/documents/download/{document
 
 /* ------------------------ COURSES ------------------------ */
 Route::middleware('auth')->get('/courses/list', [CourseController::class, 'index'])->name('courses_list');
+Route::middleware('auth')->get('/courses/show/{course}', [CourseController::class, 'show'])->name('course_show');
+Route::middleware('auth')->delete('/courses/course/{course}', [CourseController::class, 'destroy'])->name('course_delete');
+Route::middleware('auth')->get('/courses/form/', [CourseController::class, 'create'])->name('course_form');
+Route::middleware('auth')->post('/courses/add', [CourseController::class, "store"])->name("course_add");
+Route::middleware('auth')->get('/courses/edit/{course}', [CourseController::class, 'edit'])->name('course_edit');
+Route::middleware('auth')->put('/courses/update/{course}', [CourseController::class, 'update'])->name('course_update');
+Route::middleware('auth')->get('/courses/downloadCSV', [CourseController::class, 'downloadCSV'])->name('courses_downloadCSV');
