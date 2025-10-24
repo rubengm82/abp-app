@@ -90,6 +90,32 @@
                 </a>
             </li>
 
+            <!-- Submenu Courses -->
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="rectangle-group" class="w-5 h-5 text-primary" />
+                        Cursos
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('courses_list') }}">
+                                <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('projectcommission_form') }}">
+                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+
             <!-- Submenu Desactivations -->
             <li>
                 <details>

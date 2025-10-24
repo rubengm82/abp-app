@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             ProjectCommissionDocumentSeeder::class,
             MaterialAssignmentSeeder::class,
             ProjectCommissionNoteSeeder::class,
+            CourseSeeder::class,
             // New seeders for notes and documents
             ProfessionalNoteSeeder::class,
             ProfessionalDocumentSeeder::class,

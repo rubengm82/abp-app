@@ -13,6 +13,7 @@ use App\Http\Controllers\ProjectCommissionDocumentController;
 use App\Http\Controllers\MaterialAssignmentController;
 use App\Http\Controllers\MaterialAssignmentNoteController;
 use App\Http\Controllers\MaterialAssignmentDocumentController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
 /* ------------------------ LOGIN ------------------------ */
@@ -115,3 +116,6 @@ Route::middleware('auth')->delete('/materialassignment/notes/{note}', [MaterialA
 Route::middleware('auth')->post('/materialassignment/documents/{materialAssignment}', [MaterialAssignmentDocumentController::class, 'store'])->name('materialassignment_document_add');
 Route::middleware('auth')->delete('/materialassignment/documents/{document}', [MaterialAssignmentDocumentController::class, 'destroy'])->name('materialassignment_document_delete');
 Route::middleware('auth')->get('/materialassignment/documents/download/{document}', [MaterialAssignmentDocumentController::class, 'download'])->name('materialassignment_document_download');
+
+/* ------------------------ COURSES ------------------------ */
+Route::middleware('auth')->get('/courses/list', [CourseController::class, 'index'])->name('courses_list');
