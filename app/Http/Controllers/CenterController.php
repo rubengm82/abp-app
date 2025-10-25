@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Center;
-use Illuminate\Http\Request;
+use App\Models\NotesComponent;
 use App\Helpers\mainlog;
 use App\Models\DocumentComponent;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -203,6 +204,43 @@ class CenterController extends Controller
         $document->delete();
 
         return back()->with('success', 'Document eliminat correctament!');
+    }
+
+
+    //// NOTES ////
+    public function center_note_add(Request $request, Center $center)
+    {
+        $request->validate([
+            'notes' => 'required|string|max:1000'
+        ]);
+
+        $center->notes()->create([
+            'notes' => $request->input('notes'),
+            'created_by_professional_id' => Auth::id()
+        ]);
+
+        return redirect()->route('center_show', $center->id . '#notes-section')
+                         ->with('success', 'Nota afegida correctament!');
+    }
+
+    public function center_note_update(Request $request, NotesComponent $note)
+    {
+        $request->validate([
+            'notes' => 'required|string|max:1000'
+        ]);
+
+        $note->update(['notes' => $request->input('notes')]);
+
+        return redirect()->route('center_show', $note->noteable->id . '#notes-section')
+                         ->with('success', 'Nota actualitzada correctament!');
+    }
+
+    public function center_note_delete(NotesComponent $note)
+    {
+        $note->delete();
+
+        return redirect()->route('center_show', $note->noteable->id . '#notes-section')
+                         ->with('success', 'Nota eliminada correctament!');
     }
 
 }

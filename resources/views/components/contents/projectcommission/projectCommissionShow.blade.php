@@ -121,7 +121,7 @@
 
     <!-- Notes  -->
     <x-partials.notes-section
-        :items="$projectCommission->projectNotes"
+        :items="$projectCommission->notes"
         title="Notes"
         addAction="{{ route('projectcommission_note_add', $projectCommission) }}"
         deleteRoute="projectcommission_note_delete"

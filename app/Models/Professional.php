@@ -46,9 +46,8 @@ class Professional extends Authenticatable
     // Relationships
     public function center() { return $this->belongsTo(Center::class); }
     public function materialAssignments() { return $this->hasMany(MaterialAssignment::class); }
-    public function notes() { return $this->hasMany(ProfessionalNote::class); }
+    public function notes() { return $this->morphMany(NotesComponent::class, 'noteable')->orderBy('created_at', 'desc'); }
     public function documents() { return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc'); }
-    public function createdNotes() { return $this->hasMany(ProfessionalNote::class, 'created_by_professional_id'); }
     
     /**
      * Relación con las asignaciones de proyectos/comisiones donde es responsable

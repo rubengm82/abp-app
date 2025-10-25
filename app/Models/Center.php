@@ -29,7 +29,7 @@ class Center extends Model
      */
     public function notes()
     {
-        return $this->hasMany(CenterNote::class);
+        return $this->morphMany(NotesComponent::class, 'noteable')->orderBy('created_at', 'desc');
     }
 
     /**
@@ -37,6 +37,6 @@ class Center extends Model
      */
     public function documents(): MorphMany
     {
-        return $this->morphMany(DocumentComponent::class, 'documentable');
+        return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc');
     }
 }

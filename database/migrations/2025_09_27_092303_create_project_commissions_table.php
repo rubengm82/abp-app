@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date('estimated_end_date')->comment('Estimated end date')->nullable();
             $table->unsignedBigInteger('responsible_professional_id')->comment('Responsible professional');
             $table->text('description')->comment('Project description')->nullable();
-            $table->text('notes')->comment('Additional notes')->nullable();
             $table->enum('type', ['Projecte', 'Comissió'])->comment('Type: Projecte, Comissió')->nullable();
             $table->enum('status', ['Actiu', 'Inactiu'])->comment('Status: Actiu, Inactiu')->nullable();
             // FKs

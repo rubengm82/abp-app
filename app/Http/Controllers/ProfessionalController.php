@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Professional;
 use App\Models\MaterialAssignment;
 use App\Models\DocumentComponent;
+use App\Models\NotesComponent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -306,4 +307,41 @@ class ProfessionalController extends Controller
         return back()->with('success', 'Document eliminat correctament!');
     }
     
+
+    //// NOTES ////
+    public function professional_note_add(Request $request, Professional $professional)
+    {
+        $request->validate([
+            'notes' => 'required|string|max:1000'
+        ]);
+
+        $professional->notes()->create([
+            'notes' => $request->input('notes'),
+            'created_by_professional_id' => Auth::id()
+        ]);
+
+        return redirect()->route('professional_show', $professional->id . '#notes-section')
+                         ->with('success', 'Nota afegida correctament!');
+    }
+
+    public function professional_note_update(Request $request, NotesComponent $note)
+    {
+        $request->validate([
+            'notes' => 'required|string|max:1000'
+        ]);
+
+        $note->update(['notes' => $request->input('notes')]);
+
+        return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
+                         ->with('success', 'Nota actualitzada correctament!');
+    }
+
+    public function professional_note_delete(NotesComponent $note)
+    {
+        $note->delete();
+
+        return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
+                         ->with('success', 'Nota eliminada correctament!');
+    }
+
 }

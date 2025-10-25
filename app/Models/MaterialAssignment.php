@@ -96,7 +96,7 @@ class MaterialAssignment extends Model
      */
     public function notes()
     {
-        return $this->hasMany(MaterialAssignmentNote::class);
+        return $this->morphMany(NotesComponent::class, 'noteable')->orderBy('created_at', 'desc');
     }
 
     /**

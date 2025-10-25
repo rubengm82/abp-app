@@ -16,7 +16,6 @@ class ProjectCommission extends Model
         'estimated_end_date',
         'responsible_professional_id',
         'description',
-        'notes',
         'type',
         'status'
     ];
@@ -32,9 +31,9 @@ class ProjectCommission extends Model
     /**
      * Relación con las notas del proyecto/comisión
      */
-    public function projectNotes()
+    public function notes()
     {
-        return $this->hasMany(ProjectCommissionNote::class, 'project_commission_id')->orderBy('created_at', 'desc');
+        return $this->morphMany(NotesComponent::class, 'noteable')->orderBy('created_at', 'desc');
     }
 
     /**

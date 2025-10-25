@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\MaterialAssignment;
 use App\Models\Professional;
 use App\Models\DocumentComponent;
+use App\Models\NotesComponent;
+use App\Helpers\mainlog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Helpers\mainlog;
 
 class MaterialAssignmentController extends Controller
 {
@@ -210,6 +211,43 @@ class MaterialAssignmentController extends Controller
         $document->delete();
 
         return back()->with('success', 'Document eliminat correctament!');
+    }
+
+
+    //// NOTES ////
+    public function materialassignment_note_add(Request $request, MaterialAssignment $materialAssignment)
+    {
+        $request->validate([
+            'notes' => 'required|string|max:1000'
+        ]);
+
+        $materialAssignment->notes()->create([
+            'notes' => $request->input('notes'),
+            'created_by_professional_id' => Auth::id()
+        ]);
+
+        return redirect()->route('materialassignment_show', $materialAssignment->id . '#notes-section')
+                         ->with('success', 'Nota afegida correctament!');
+    }
+
+    public function materialassignment_note_update(Request $request, NotesComponent $note)
+    {
+        $request->validate([
+            'notes' => 'required|string|max:1000'
+        ]);
+
+        $note->update(['notes' => $request->input('notes')]);
+
+        return redirect()->route('materialassignment_show', $note->noteable->id . '#notes-section')
+                         ->with('success', 'Nota actualitzada correctament!');
+    }
+
+    public function materialassignment_note_delete(NotesComponent $note)
+    {
+        $note->delete();
+
+        return redirect()->route('materialassignment_show', $note->noteable->id . '#notes-section')
+                         ->with('success', 'Nota eliminada correctament!');
     }
 
 }
