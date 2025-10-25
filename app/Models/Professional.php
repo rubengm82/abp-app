@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Professional extends Authenticatable
 {
@@ -46,9 +47,8 @@ class Professional extends Authenticatable
     public function center() { return $this->belongsTo(Center::class); }
     public function materialAssignments() { return $this->hasMany(MaterialAssignment::class); }
     public function notes() { return $this->hasMany(ProfessionalNote::class); }
-    public function documents() { return $this->hasMany(ProfessionalDocument::class); }
+    public function documents() { return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc'); }
     public function createdNotes() { return $this->hasMany(ProfessionalNote::class, 'created_by_professional_id'); }
-    public function uploadedByProfessional() { return $this->hasMany(ProfessionalDocument::class, 'uploaded_by_professional_id'); }
     
     /**
      * Relación con las asignaciones de proyectos/comisiones donde es responsable

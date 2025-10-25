@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class MaterialAssignment extends Model
 {
@@ -101,8 +102,9 @@ class MaterialAssignment extends Model
     /**
      * Relationship with documents of the material assignment
      */
-    public function documents()
+    public function documents(): MorphMany
     {
-        return $this->hasMany(MaterialAssignmentDocument::class);
+        return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc');
     }
+
 }

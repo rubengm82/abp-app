@@ -111,7 +111,7 @@
 
     <!-- Documents -->
     <x-partials.documents-section
-        :items="$projectCommission->projectCommissionDocuments"
+        :items="$projectCommission->documents"
         title="Documents"
         uploadAction="{{ route('projectcommission_document_add', $projectCommission) }}"
         downloadRoute="projectcommission_document_download"

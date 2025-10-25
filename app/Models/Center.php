@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Center extends Model
 {
@@ -34,8 +35,8 @@ class Center extends Model
     /**
      * Relationship with documents of the center
      */
-    public function documents()
+    public function documents(): MorphMany
     {
-        return $this->hasMany(CenterDocument::class);
+        return $this->morphMany(DocumentComponent::class, 'documentable');
     }
 }

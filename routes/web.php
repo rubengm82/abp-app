@@ -47,9 +47,9 @@ Route::middleware('auth')->put('/center/notes/{note}', [CenterNoteController::cl
 Route::middleware('auth')->delete('/center/notes/{note}', [CenterNoteController::class, 'destroy'])->name('center_note_delete');
 
 /* Center Documents */
-Route::middleware('auth')->post('/center/documents/{center}', [CenterDocumentController::class, 'store'])->name('center_document_add');
-Route::middleware('auth')->delete('/center/documents/{document}', [CenterDocumentController::class, 'destroy'])->name('center_document_delete');
-Route::middleware('auth')->get('/center/documents/download/{document}', [CenterDocumentController::class, 'download'])->name('center_document_download');
+Route::middleware('auth')->post('/center/documents/{center}', [CenterController::class, 'center_document_add'])->name('center_document_add');
+Route::middleware('auth')->delete('/center/documents/{document}', [CenterController::class, 'center_document_delete'])->name('center_document_delete');
+Route::middleware('auth')->get('/center/documents/download/{document}', [CenterController::class, 'center_document_download'])->name('center_document_download');
 
 /* ------------------------ PROFESSIONALS ------------------------ */
 Route::middleware('auth')->get('/professional/form', [ProfessionalController::class, "create"])->name("professional_form");
@@ -70,9 +70,9 @@ Route::middleware('auth')->put('/professional/notes/{note}', [ProfessionalNoteCo
 Route::middleware('auth')->delete('/professional/notes/{note}', [ProfessionalNoteController::class, 'destroy'])->name('professional_note_delete');
 
 /* Professional Documents */
-Route::middleware('auth')->post('/professional/documents/{professional}', [ProfessionalDocumentController::class, 'store'])->name('professional_document_add');
-Route::middleware('auth')->delete('/professional/documents/{document}', [ProfessionalDocumentController::class, 'destroy'])->name('professional_document_delete');
-Route::middleware('auth')->get('/professional/documents/download/{document}', [ProfessionalDocumentController::class, 'download'])->name('professional_document_download');
+Route::middleware('auth')->post('/professional/documents/{professional}', [ProfessionalController::class, 'professional_document_add'])->name('professional_document_add');
+Route::middleware('auth')->delete('/professional/documents/{document}', [ProfessionalController::class, 'professional_document_delete'])->name('professional_document_delete');
+Route::middleware('auth')->get('/professional/documents/download/{document}', [ProfessionalController::class, 'professional_document_download'])->name('professional_document_download');
 
 /* Professional Evaluation  ENRUTAMIENTO TEMPORAL HARDCODEADO*/
 Route::middleware('auth')->get('/professional/evaluation', function () {
@@ -97,9 +97,9 @@ Route::middleware('auth')->put('/projectcommission/notes/{note}', [ProjectCommis
 Route::middleware('auth')->delete('/projectcommission/notes/{note}', [ProjectCommissionNoteController::class, 'destroy'])->name('projectcommission_note_delete');
 
 /* Project Commission Documents */
-Route::middleware('auth')->post('/projectcommission/documents/{projectCommission}', [ProjectCommissionDocumentController::class, 'store'])->name('projectcommission_document_add');
-Route::middleware('auth')->delete('/projectcommission/documents/{document}', [ProjectCommissionDocumentController::class, 'destroy'])->name('projectcommission_document_delete');
-Route::middleware('auth')->get('/projectcommission/documents/download/{document}', [ProjectCommissionDocumentController::class, 'download'])->name('projectcommission_document_download');
+Route::middleware('auth')->post('/projectcommission/documents/{projectCommission}', [ProjectCommissionController::class, 'projectcommission_document_add'])->name('projectcommission_document_add');
+Route::middleware('auth')->delete('/projectcommission/documents/{document}', [ProjectCommissionController::class, 'projectcommission_document_delete'])->name('projectcommission_document_delete');
+Route::middleware('auth')->get('/projectcommission/documents/download/{document}', [ProjectCommissionController::class, 'projectcommission_document_download'])->name('projectcommission_document_download');
 
 /* ------------------------ MATERIAL ASSIGNMENTS ------------------------ */
 Route::middleware('auth')->get('/materialassignments/list', [MaterialAssignmentController::class, 'index'])->name('materialassignments_list');
@@ -117,6 +117,6 @@ Route::middleware('auth')->put('/materialassignment/notes/{note}', [MaterialAssi
 Route::middleware('auth')->delete('/materialassignment/notes/{note}', [MaterialAssignmentNoteController::class, 'destroy'])->name('materialassignment_note_delete');
 
 /* Material Assignment Documents */
-Route::middleware('auth')->post('/materialassignment/documents/{materialAssignment}', [MaterialAssignmentDocumentController::class, 'store'])->name('materialassignment_document_add');
-Route::middleware('auth')->delete('/materialassignment/documents/{document}', [MaterialAssignmentDocumentController::class, 'destroy'])->name('materialassignment_document_delete');
-Route::middleware('auth')->get('/materialassignment/documents/download/{document}', [MaterialAssignmentDocumentController::class, 'download'])->name('materialassignment_document_download');
+Route::middleware('auth')->post('/materialassignment/documents/{materialAssignment}', [MaterialAssignmentController::class, 'materialassignment_document_add'])->name('materialassignment_document_add');
+Route::middleware('auth')->delete('/materialassignment/documents/{document}', [MaterialAssignmentController::class, 'materialassignment_document_delete'])->name('materialassignment_document_delete');
+Route::middleware('auth')->get('/materialassignment/documents/download/{document}', [MaterialAssignmentController::class, 'materialassignment_document_download'])->name('materialassignment_document_download');

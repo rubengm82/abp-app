@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\MaterialAssignment;
 use App\Models\Professional;
+use App\Models\DocumentComponent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Helpers\mainlog;
 
 class MaterialAssignmentController extends Controller
@@ -154,4 +156,60 @@ class MaterialAssignmentController extends Controller
         
         return response()->download($filename)->deleteFileAfterSend(true);
     }
+
+    //// DOCUMENTS ////
+    // Upload Document to server
+    public function materialassignment_document_add(Request $request, MaterialAssignment $materialAssignment)
+    {
+        $request->validate([
+            'file' => 'required|file|max:10240', 
+        ]);
+
+        $file = $request->file('file');
+
+        // File name: original_name + fecha
+        $timestamp = now()->format('Ymd_His');
+        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension = $file->getClientOriginalExtension();
+        $fileName = $originalName . '_' . $timestamp . '.' . $extension;
+
+        $filePath = $file->storeAs('documents/material-assignments', $fileName, 'public');
+
+        $materialAssignment->documents()->create([
+            'file_name' => $fileName,
+            'original_name' => $file->getClientOriginalName(),
+            'file_path' => $filePath,
+            'file_size' => $file->getSize(),
+            'mime_type' => $file->getMimeType(),
+            'uploaded_by_professional_id' => Auth::user()->id,
+        ]);
+
+        return back()->with('success', 'Document pujat correctament!');
+    }
+
+
+    // Download Document to server
+    public function materialassignment_document_download(DocumentComponent $document)
+    {
+        $path = storage_path('app/public/' . $document->file_path);
+
+        if (file_exists($path)) {
+            return response()->download($path, $document->original_name);
+        }
+
+        return back()->with('error', 'El document no existeix.');
+    }
+
+    // Delete Document to server
+    public function materialassignment_document_delete(DocumentComponent $document)
+    {
+        if (Storage::disk('public')->exists($document->file_path)) {
+            Storage::disk('public')->delete($document->file_path);
+        }
+
+        $document->delete();
+
+        return back()->with('success', 'Document eliminat correctament!');
+    }
+
 }

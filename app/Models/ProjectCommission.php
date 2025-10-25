@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class ProjectCommission extends Model
 {
@@ -39,9 +40,9 @@ class ProjectCommission extends Model
     /**
      * Relación con los documentos del proyecto/comisión
      */
-    public function projectCommissionDocuments()
+    public function documents(): MorphMany
     {
-        return $this->hasMany(ProjectCommissionDocument::class, 'project_commission_id')->orderBy('created_at', 'desc');
+        return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc');
     }
 
     /**

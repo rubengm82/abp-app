@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Center;
 use Illuminate\Http\Request;
 use App\Helpers\mainlog;
+use App\Models\DocumentComponent;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 class CenterController extends Controller
 {
     /**
@@ -143,6 +147,62 @@ class CenterController extends Controller
         fclose($handle);
 
         return response()->download($filename)->deleteFileAfterSend(true);
+    }
+
+
+    //// DOCUMENTS ////
+    // Upload Document to server
+    public function center_document_add(Request $request, Center $center)
+    {
+        $request->validate([
+            'file' => 'required|file|max:10240', 
+        ]);
+
+        $file = $request->file('file');
+
+        // File name: original_name + fecha
+        $timestamp = now()->format('Ymd_His');
+        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension = $file->getClientOriginalExtension();
+        $fileName = $originalName . '_' . $timestamp . '.' . $extension;
+
+        $filePath = $file->storeAs('documents/centers', $fileName, 'public');
+
+        $center->documents()->create([
+            'file_name' => $fileName,
+            'original_name' => $file->getClientOriginalName(),
+            'file_path' => $filePath,
+            'file_size' => $file->getSize(),
+            'mime_type' => $file->getMimeType(),
+            'uploaded_by_professional_id' => Auth::user()->id,
+        ]);
+
+        return back()->with('success', 'Document pujat correctament!');
+    }
+
+
+    // Download Document to server
+    public function center_document_download(DocumentComponent $document)
+    {
+        $path = storage_path('app/public/' . $document->file_path);
+
+        if (file_exists($path)) {
+            return response()->download($path, $document->original_name);
+        }
+
+        return back()->with('error', 'El document no existeix.');
+    }
+
+    // Delete Document to server
+    public function center_document_delete(DocumentComponent $document)
+    {
+        if (Storage::disk('public')->exists($document->file_path)) {
+            Storage::disk('public')->delete($document->file_path);
+        }
+
+        $document->delete();
+
+        return back()->with('success', 'Document eliminat correctament!');
     }
 
 }
