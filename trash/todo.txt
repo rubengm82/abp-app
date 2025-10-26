@@ -1,4 +1,4 @@
-# Formulario de profesional - TODO LIST
+# Sprint 3 Inicio - TODO LIST
 
 
 
@@ -10,14 +10,11 @@ To know:
 
 
 To commit:
-* Agregado centro en professionalShow: ahora muestra a qué centro pertenece el profesional con enlace al centro
-* Agregado centro en projectCommissionShow: ahora muestra el centro del profesional responsable con enlace al centro
-* CORREGIDO formato de enlaces al centro: ahora usan el mismo estilo que en materialAssignmentsList (text-primary font-semibold hover:text-orange-600 transition-all duration-200)
-* Agregado enlace al profesional responsable en projectCommissionShow: ahora es clickeable y redirige al show del profesional
-* CORREGIDO listado de profesionales: ahora muestra nombre del centro en lugar del ID, con enlace al centro
-* LIMPIADO controlador de profesionales: eliminadas redundancias, código sin usar, y corregido método mal nombrado
-* CORREGIDO listado de profesionales desactivados: aplicados los mismos cambios para mantener consistencia
-
-/ 
-alias gam="git add trash/ app/ resources/ database/ routes/ && gis"
-/
+* Añadida lectura de profesionales de la tabla "asignación de proyectos" en el show de proyectos
+** Aún no se puede asignar profesionales manualmente
+* Añadido seeder para el quiz y evaluaciones
+** Aún no se pueden hacer los quiz
+** Añadida maquetación de prueba de quiz (registros hardcodeados)
+* Editadas migraciones de quiz, evaluacion y asignación de proyectos
+* Arreglado error de hasheo de contraseña
+* Añadido bread a todo el proyecto
