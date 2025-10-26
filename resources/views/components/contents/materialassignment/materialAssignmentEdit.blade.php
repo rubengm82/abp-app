@@ -119,6 +119,7 @@
 
         <!-- Botón de acción -->
         <div class="flex justify-end gap-4">
+            <a href="{{ route('materialassignments_list') }}" class="btn btn-outline">Cancel·lar</a>
             <button type="submit" class="btn btn-info">Actualitzar Assignació</button>
         </div>
     </form>
