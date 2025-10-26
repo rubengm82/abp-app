@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             QuizSeeder::class,
             EvaluationsSeeder::class,
             ProjectCommissionAssignmentSeeder::class,
+            CourseSeeder::class,
         ]);
     }
 }
