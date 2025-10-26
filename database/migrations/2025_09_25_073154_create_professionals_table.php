@@ -19,10 +19,10 @@ return new class extends Migration
                 $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('cascade');
 
                 // Professional info
-                $table->enum('role', ['Directiu', 'Administració', 'Tècnic'])->nullable()->comment('Professional role');
                 $table->string('name', 100)->comment('First name');
                 $table->string('surname1', 100)->comment('First surname');
                 $table->string('surname2', 100)->nullable()->comment('Second surname');
+                $table->enum('role', ['Directiu', 'Administració', 'Tècnic'])->nullable()->comment('Professional role');
                 $table->string('dni', 100)->unique()->comment('DNI');
 
                 // Contact info

@@ -83,20 +83,10 @@ class Professional extends Authenticatable
     protected static function booted()
     {
         static::created(function ($professional) {
-            // Prepare minimum data
-            $userData = [
-                'name' => $professional->name,
-                'email' => $professional->email,
-                'password' => $professional->password, // ya hasheada
-            ];
-
-            // Add 'user' only if the column exists in the table
-            if (Schema::hasColumn('users', 'user')) {
-                $userData['user'] = $professional->user;
-            }
-
-            // Create related user
-            $professional->userAccount()->create($userData);
+            // Create a minimal user placeholder linked to this professional.
+            // We intentionally do NOT copy name/email/password here to avoid
+            // duplicating sensitive data or creating sync issues.
+            $professional->userAccount()->create([]);
         });
 
         static::deleting(function ($professional) {
