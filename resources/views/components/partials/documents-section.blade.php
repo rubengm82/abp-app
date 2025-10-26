@@ -64,7 +64,7 @@
         <h3 class="font-bold text-lg">Pujar Document</h3>
         <form action="{{ $uploadAction }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="file" name="document" class="file-input file-input-bordered w-full mt-4" required>
+            <input type="file" name="file" class="file-input file-input-bordered w-full mt-4" required>
             <div class="modal-action">
                 <button type="button" class="btn btn-sm" data-close-modal="addDocumentModal">Cancel·lar</button>
                 <button type="submit" class="btn btn-sm btn-info" data-loading-text="Pujant...">Pujar</button>

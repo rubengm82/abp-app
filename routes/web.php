@@ -43,14 +43,14 @@ Route::middleware('auth')->get('/center/show/{id}', [CenterController::class, "s
 Route::middleware('auth')->get('/centers/downloadCSV/{status}', [CenterController::class, 'downloadCSV'])->name('centers.downloadCSV');
 
 /* Center Notes */
-Route::middleware('auth')->post('/center/notes/{center}', [CenterNoteController::class, 'store'])->name('center_note_add');
-Route::middleware('auth')->put('/center/notes/{note}', [CenterNoteController::class, 'update'])->name('center_note_update');
-Route::middleware('auth')->delete('/center/notes/{note}', [CenterNoteController::class, 'destroy'])->name('center_note_delete');
+Route::middleware('auth')->post('/center/notes/{center}', [CenterController::class, 'center_note_add'])->name('center_note_add');
+Route::middleware('auth')->put('/center/notes/{note}', [CenterController::class, 'center_note_update'])->name('center_note_update');
+Route::middleware('auth')->delete('/center/notes/{note}', [CenterController::class, 'center_note_delete'])->name('center_note_delete');
 
 /* Center Documents */
-Route::middleware('auth')->post('/center/documents/{center}', [CenterDocumentController::class, 'store'])->name('center_document_add');
-Route::middleware('auth')->delete('/center/documents/{document}', [CenterDocumentController::class, 'destroy'])->name('center_document_delete');
-Route::middleware('auth')->get('/center/documents/download/{document}', [CenterDocumentController::class, 'download'])->name('center_document_download');
+Route::middleware('auth')->post('/center/documents/{center}', [CenterController::class, 'center_document_add'])->name('center_document_add');
+Route::middleware('auth')->delete('/center/documents/{document}', [CenterController::class, 'center_document_delete'])->name('center_document_delete');
+Route::middleware('auth')->get('/center/documents/download/{document}', [CenterController::class, 'center_document_download'])->name('center_document_download');
 
 /* ------------------------ PROFESSIONALS ------------------------ */
 Route::middleware('auth')->get('/professional/form', [ProfessionalController::class, "create"])->name("professional_form");
@@ -66,14 +66,14 @@ Route::middleware('auth')->get('/professionals/downloadCSV/material_assignments'
 Route::middleware('auth')->get('/professionals/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
 
 /* Professional Notes */
-Route::middleware('auth')->post('/professional/{professional}/notes', [ProfessionalNoteController::class, 'store'])->name('professional_note_add');
-Route::middleware('auth')->put('/professional/notes/{note}', [ProfessionalNoteController::class, 'update'])->name('professional_note_update');
-Route::middleware('auth')->delete('/professional/notes/{note}', [ProfessionalNoteController::class, 'destroy'])->name('professional_note_delete');
+Route::middleware('auth')->post('/professional/{professional}/notes', [ProfessionalController::class, 'professional_note_add'])->name('professional_note_add');
+Route::middleware('auth')->put('/professional/notes/{note}', [ProfessionalController::class, 'professional_note_update'])->name('professional_note_update');
+Route::middleware('auth')->delete('/professional/notes/{note}', [ProfessionalController::class, 'professional_note_delete'])->name('professional_note_delete');
 
 /* Professional Documents */
-Route::middleware('auth')->post('/professional/documents/{professional}', [ProfessionalDocumentController::class, 'store'])->name('professional_document_add');
-Route::middleware('auth')->delete('/professional/documents/{document}', [ProfessionalDocumentController::class, 'destroy'])->name('professional_document_delete');
-Route::middleware('auth')->get('/professional/documents/download/{document}', [ProfessionalDocumentController::class, 'download'])->name('professional_document_download');
+Route::middleware('auth')->post('/professional/documents/{professional}', [ProfessionalController::class, 'professional_document_add'])->name('professional_document_add');
+Route::middleware('auth')->delete('/professional/documents/{document}', [ProfessionalController::class, 'professional_document_delete'])->name('professional_document_delete');
+Route::middleware('auth')->get('/professional/documents/download/{document}', [ProfessionalController::class, 'professional_document_download'])->name('professional_document_download');
 
 /* Professional Evaluation  ENRUTAMIENTO TEMPORAL HARDCODEADO*/
 Route::middleware('auth')->get('/professional/evaluation', function () {
@@ -93,14 +93,14 @@ Route::middleware('auth')->get('/projectcommission/show/{projectCommission}', [P
 Route::middleware('auth')->get('/projectcommissions/downloadCSV/{status}', [ProjectCommissionController::class, 'downloadCSV'])->name('projectcommissions.downloadCSV');
 
 /* Project Commission Notes */
-Route::middleware('auth')->post('/projectcommission/notes/{projectCommission}', [ProjectCommissionNoteController::class, 'store'])->name('projectcommission_note_add');
-Route::middleware('auth')->put('/projectcommission/notes/{note}', [ProjectCommissionNoteController::class, 'update'])->name('projectcommission_note_update');
-Route::middleware('auth')->delete('/projectcommission/notes/{note}', [ProjectCommissionNoteController::class, 'destroy'])->name('projectcommission_note_delete');
+Route::middleware('auth')->post('/projectcommission/notes/{projectCommission}', [ProjectCommissionController::class, 'projectcommission_note_add'])->name('projectcommission_note_add');
+Route::middleware('auth')->put('/projectcommission/notes/{note}', [ProjectCommissionController::class, 'projectcommission_note_update'])->name('projectcommission_note_update');
+Route::middleware('auth')->delete('/projectcommission/notes/{note}', [ProjectCommissionController::class, 'projectcommission_note_delete'])->name('projectcommission_note_delete');
 
 /* Project Commission Documents */
-Route::middleware('auth')->post('/projectcommission/documents/{projectCommission}', [ProjectCommissionDocumentController::class, 'store'])->name('projectcommission_document_add');
-Route::middleware('auth')->delete('/projectcommission/documents/{document}', [ProjectCommissionDocumentController::class, 'destroy'])->name('projectcommission_document_delete');
-Route::middleware('auth')->get('/projectcommission/documents/download/{document}', [ProjectCommissionDocumentController::class, 'download'])->name('projectcommission_document_download');
+Route::middleware('auth')->post('/projectcommission/documents/{projectCommission}', [ProjectCommissionController::class, 'projectcommission_document_add'])->name('projectcommission_document_add');
+Route::middleware('auth')->delete('/projectcommission/documents/{document}', [ProjectCommissionController::class, 'projectcommission_document_delete'])->name('projectcommission_document_delete');
+Route::middleware('auth')->get('/projectcommission/documents/download/{document}', [ProjectCommissionController::class, 'projectcommission_document_download'])->name('projectcommission_document_download');
 
 /* ------------------------ MATERIAL ASSIGNMENTS ------------------------ */
 Route::middleware('auth')->get('/materialassignments/list', [MaterialAssignmentController::class, 'index'])->name('materialassignments_list');
@@ -113,14 +113,14 @@ Route::middleware('auth')->delete('/materialassignment/delete/{materialAssignmen
 Route::middleware('auth')->get('/materialassignment/downloadCSV', [MaterialAssignmentController::class, 'downloadCSV'])->name('materialassignment_downloadCSV');
 
 /* Material Assignment Notes */
-Route::middleware('auth')->post('/materialassignment/notes/{materialAssignment}', [MaterialAssignmentNoteController::class, 'store'])->name('materialassignment_note_add');
-Route::middleware('auth')->put('/materialassignment/notes/{note}', [MaterialAssignmentNoteController::class, 'update'])->name('materialassignment_note_update');
-Route::middleware('auth')->delete('/materialassignment/notes/{note}', [MaterialAssignmentNoteController::class, 'destroy'])->name('materialassignment_note_delete');
+Route::middleware('auth')->post('/materialassignment/notes/{materialAssignment}', [MaterialAssignmentController::class, 'materialassignment_note_add'])->name('materialassignment_note_add');
+Route::middleware('auth')->put('/materialassignment/notes/{note}', [MaterialAssignmentController::class, 'materialassignment_note_update'])->name('materialassignment_note_update');
+Route::middleware('auth')->delete('/materialassignment/notes/{note}', [MaterialAssignmentController::class, 'materialassignment_note_delete'])->name('materialassignment_note_delete');
 
 /* Material Assignment Documents */
-Route::middleware('auth')->post('/materialassignment/documents/{materialAssignment}', [MaterialAssignmentDocumentController::class, 'store'])->name('materialassignment_document_add');
-Route::middleware('auth')->delete('/materialassignment/documents/{document}', [MaterialAssignmentDocumentController::class, 'destroy'])->name('materialassignment_document_delete');
-Route::middleware('auth')->get('/materialassignment/documents/download/{document}', [MaterialAssignmentDocumentController::class, 'download'])->name('materialassignment_document_download');
+Route::middleware('auth')->post('/materialassignment/documents/{materialAssignment}', [MaterialAssignmentController::class, 'materialassignment_document_add'])->name('materialassignment_document_add');
+Route::middleware('auth')->delete('/materialassignment/documents/{document}', [MaterialAssignmentController::class, 'materialassignment_document_delete'])->name('materialassignment_document_delete');
+Route::middleware('auth')->get('/materialassignment/documents/download/{document}', [MaterialAssignmentController::class, 'materialassignment_document_download'])->name('materialassignment_document_download');
 
 /* ------------------------ COURSES ------------------------ */
 Route::middleware('auth')->get('/courses/list', [CourseController::class, 'index'])->name('courses_list');
@@ -131,3 +131,4 @@ Route::middleware('auth')->post('/courses/add', [CourseController::class, "store
 Route::middleware('auth')->get('/courses/edit/{course}', [CourseController::class, 'edit'])->name('course_edit');
 Route::middleware('auth')->put('/courses/update/{course}', [CourseController::class, 'update'])->name('course_update');
 Route::middleware('auth')->get('/courses/downloadCSV', [CourseController::class, 'downloadCSV'])->name('courses_downloadCSV');
+

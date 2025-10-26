@@ -111,7 +111,7 @@
 
     <!-- Documents -->
     <x-partials.documents-section
-        :items="$projectCommission->projectCommissionDocuments"
+        :items="$projectCommission->documents"
         title="Documents"
         uploadAction="{{ route('projectcommission_document_add', $projectCommission) }}"
         downloadRoute="projectcommission_document_download"
@@ -121,7 +121,7 @@
 
     <!-- Notes  -->
     <x-partials.notes-section
-        :items="$projectCommission->projectNotes"
+        :items="$projectCommission->notes"
         title="Notes"
         addAction="{{ route('projectcommission_note_add', $projectCommission) }}"
         deleteRoute="projectcommission_note_delete"

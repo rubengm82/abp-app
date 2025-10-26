@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
             CenterSeeder::class,
             ProfessionalSeeder::class,
             ProjectCommissionSeeder::class,
-            ProjectCommissionDocumentSeeder::class,
             MaterialAssignmentSeeder::class,
             QuizSeeder::class,
             EvaluationsSeeder::class,
