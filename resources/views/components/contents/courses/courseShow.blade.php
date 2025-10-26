@@ -106,24 +106,24 @@
     </div>
 
     <!-- Documents -->
-    {{-- <x-partials.documents-section
-        :items="$course->courseDocuments"
+    <x-partials.documents-section
+        :items="$course->documents"
         title="Documents"
         uploadAction="{{ route('course_document_add', $course) }}"
         downloadRoute="course_document_download"
         deleteRoute="course_document_delete"
         uploadedByField="uploadedByProfessional"
-    /> --}}
+    />
 
     <!-- Notes -->
-    {{-- <x-partials.notes-section
-        :items="$course->courseNotes"
+    <x-partials.notes-section
+        :items="$course->notes"
         title="Notes"
         addAction="{{ route('course_note_add', $course) }}"
         deleteRoute="course_note_delete"
         :editRoute="'course_note_update'"
         createdByField="createdByProfessional"
-    /> --}}
+    />
 
 @include('components.partials.mainToasts')
 @endsection

@@ -132,3 +132,12 @@ Route::middleware('auth')->get('/courses/edit/{course}', [CourseController::clas
 Route::middleware('auth')->put('/courses/update/{course}', [CourseController::class, 'update'])->name('course_update');
 Route::middleware('auth')->get('/courses/downloadCSV', [CourseController::class, 'downloadCSV'])->name('courses_downloadCSV');
 
+/* Material Assignment Notes */
+Route::middleware('auth')->post('/courses/notes/{course}', [CourseController::class, 'course_note_add'])->name('course_note_add');
+Route::middleware('auth')->put('/courses/notes/{note}', [CourseController::class, 'course_note_update'])->name('course_note_update');
+Route::middleware('auth')->delete('/courses/notes/{note}', [CourseController::class, 'course_note_delete'])->name('course_note_delete');
+
+/* Material Assignment Documents */
+Route::middleware('auth')->post('/courses/documents/{course}', [CourseController::class, 'course_document_add'])->name('course_document_add');
+Route::middleware('auth')->delete('/courses/documents/{document}', [CourseController::class, 'course_document_delete'])->name('course_document_delete');
+Route::middleware('auth')->get('/courses/documents/download/{document}', [CourseController::class, 'course_document_download'])->name('course_document_download');

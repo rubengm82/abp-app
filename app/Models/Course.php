@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Course extends Model
 {
@@ -22,4 +23,20 @@ class Course extends Model
         'start_date',
         'end_date',
     ];
+
+    /**
+     * Relationship with notes of the center
+     */
+    public function notes()
+    {
+        return $this->morphMany(NotesComponent::class, 'noteable')->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Relationship with documents of the center
+     */
+    public function documents(): MorphMany
+    {
+        return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc');
+    }
 }
