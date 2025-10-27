@@ -53,10 +53,18 @@
                             </a>
                         </li>
                     </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('professional_evaluations_list') }}">
+                                <x-partials.icon name="clipboard-document-check" class="w-5 h-5 text-secondary" />
+                                Evaluacions
+                            </a>
+                        </li>
+                    </ul>
                     <!-- ENRUTAMIENTO TEMPORAL HARDCODEADO, DECIDIR DÓNDE COLOCARLO-->
                     <ul class="text-xs">
                         <li>
-                            <a href="{{ route('professional_evaluation') }}">
+                            <a href="{{ route('professional_evaluations_quiz') }}">
                                 <x-partials.icon name="clipboard-document-check" class="w-5 h-5 text-secondary" />
                                 Qüestionari valoració test
                             </a>

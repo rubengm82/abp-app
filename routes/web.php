@@ -14,6 +14,7 @@ use App\Http\Controllers\MaterialAssignmentController;
 use App\Http\Controllers\MaterialAssignmentNoteController;
 use App\Http\Controllers\MaterialAssignmentDocumentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EvaluationsController;
 use Illuminate\Support\Facades\Route;
 
 /* ------------------------ LOGIN ------------------------ */
@@ -75,10 +76,14 @@ Route::middleware('auth')->post('/professional/documents/{professional}', [Profe
 Route::middleware('auth')->delete('/professional/documents/{document}', [ProfessionalController::class, 'professional_document_delete'])->name('professional_document_delete');
 Route::middleware('auth')->get('/professional/documents/download/{document}', [ProfessionalController::class, 'professional_document_download'])->name('professional_document_download');
 
-/* Professional Evaluation  ENRUTAMIENTO TEMPORAL HARDCODEADO*/
-Route::middleware('auth')->get('/professional/evaluation', function () {
-    return view('components.contents.professional.professionalEvaluation');
-})->name('professional_evaluation');
+/* Evaluations */
+/* Professional Quiz  ENRUTAMIENTO TEMPORAL HARDCODEADO*/
+Route::middleware('auth')->get('/professional/evalaluations/quiz', function () {
+    return view('components.contents.professional.evaluations.professionalQuiz');
+})->name('professional_evaluations_quiz');
+/* END HARDCODEADO */
+
+Route::middleware('auth')->get('/professionals/evaluations/list', [EvaluationsController::class, "index"])->name("professional_evaluations_list");
 
 /* ------------------------ PROJECT COMMISSIONS ------------------------ */
 Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");

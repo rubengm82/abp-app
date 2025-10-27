@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
             
-            $table->string('evaluation_id')->comment('Unique evaluation ID for grouping records');
-            
             // Professional references
             $table->foreignId('evaluator_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Evaluator professional');
             $table->foreignId('evaluated_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Evaluated professional');
@@ -23,7 +21,6 @@ return new class extends Migration
             $table->foreignId('question_id')->constrained('quiz')->onDelete('cascade')->comment('Question ID from quiz table');
             $table->integer('answer')->comment('Answer value from 0 to 3'); 
             
-            $table->date('evaluation_date')->comment('Evaluation date');
             $table->timestamps();
         });
     }
