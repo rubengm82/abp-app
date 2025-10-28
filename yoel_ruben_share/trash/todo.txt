@@ -1,14 +1,15 @@
 # Sprint 3 Inicio - TODO LIST
 
 Todo:
-* Añadir botón de "Asignar profesionales" en el show de Proyectos y Comisiones
-* Añadir página donde aparece el dragueable (por ahora la muestra está en resources/views/components/contents/courses/courseShow.blade.php@[128-166])
+* Añadir botón de "Assignar professionals" en el show de Proyectos y Comisiones, en el bloque del equipo. [Equip del projecte]
+* Añadir view (el botón anterior lleva a esta view) donde aparece el dragueable (la muestra está en resources/views/components/contents/courses/courseShow.blade.php@[128-166])
 * Alimentar al dragueable con información de la base datos;
-** dándole a la izquierda todos los profesionales que no están asignados al Proyecto referente
+** Dándole a la izquierda todos los profesionales que no están asignados al Proyecto referente
 ** Dándole a la derecha todos los profesionales asignados al proyecto
-* Añadir botón para confirmar cambios en el bloque dragueable
+* Añadir botón para confirmar cambios y otro para cancelar en el bloque dragueable 
 ** Añadir método que actualice la base de datos en el controlador (dejar vacía por ahora)
-** CONTINUAR
+* Debes tener en cuenta el modelo, el controlador y el archivo de rutas, por si debes de hacer cambios
+* El método debe de hacer un return con el with para el toast
 
 Apuntes: 
 * Añadir listado de Cursos en Profesional Show      [Yoel]
@@ -18,17 +19,24 @@ Apuntes:
 * Añadir listado de Profesionales en Proyectos Show [Yoel]  [Done]
 
 * Maquetación y figma
-** Lista dragueable de asignación (both)            [Yoel] 
-* Lista dragueable, rellenar por debe (Proy)        [Yoel]
+** Lista dragueable de asignación (both)            [Yoel]  (Done Proyectos)
+* Lista dragueable, rellenar por db (Proy)        [Yoel]  (Done Proyectos)
 
 * Mover Trash
 
+* Hablar sobre el script de IDs hidden
 
 To know:
 * En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo trash/master_checklist.txt como instrucciones básicas
 * Todo debe de estar maquetado lo más simple posible con tailwind + daisyUI respetando el resto de diseños de la página web, en especifico los "componentes/contents" ej; (resources/views/components/contents/projectcommission/projectCommissionShow.blade.php, resources/views/components/contents/professional/professionalForm.blade.php, resources/views/components/contents/center/centersList.blade.php)
 * No se pueden crear más migraciones, ni de tipo add, delete o modificación, pero sí para tablas totalmente nuevas. En caso de necesitar modificar una tabla, se ha de modificar el archivo ya creado y testear de inmediato con fresh o incluso borrando el caché.
-
+* Todos los los comentarios deben de estar en inglés, todos los strings que aparecen en el html, en Catalán
+* Todos los botones de la web deben de respetar el mismo tamaño.
 
 To commit:
 * Creada carpeta 'yoel_ruben_share': Moved 'schemes' y 'trash'
+* Añadido botón para asignar en el show de Proyectos
+* Añadida View para el formulario de asignacion de Proyectos
+* El bloque dragueable recibe los parámetros de base de datos
+* Añadido método para actualizar las asignaciones
+* Hablar sobre el script de IDs hidden

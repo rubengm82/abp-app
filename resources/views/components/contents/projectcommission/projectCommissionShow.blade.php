@@ -132,7 +132,12 @@
     <!-- Professionals Assigned -->
     <div class="card bg-base-100 shadow-xl mt-6">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Equip del Projecte</h2>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="card-title text-xl">Equip del Projecte</h2>
+                <a href="{{ route('projectcommission_assign_professionals', $projectCommission) }}" class="btn btn-sm btn-primary">
+                    Assignar professionals
+                </a>
+            </div>
             
             @if($projectCommission->assignments->count() > 0)
                 <div class="space-y-3">
