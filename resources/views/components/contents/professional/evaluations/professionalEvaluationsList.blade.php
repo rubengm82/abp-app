@@ -15,6 +15,7 @@
 @if($groupedEvaluations->count() > 0)
 <div class="flex justify-end gap-4">
     <a href="{{ route('professional_evaluations.downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('professional_evaluations_quiz_form') }}" class="btn btn-sm btn-primary">Afegir Evaluació</a>
 </div>
 @endif
 
@@ -49,6 +50,21 @@
                     </td>
 
                     <td class="px-4 py-2 text-right">
+                         <x-partials.modal 
+                            id="deleteEvaluation{{ $evaluatedId }}" 
+                            msj="Estàs segur que vols eliminar aquesta avalució?" 
+                            btnText="Eliminar" 
+                            class="btn-xs btn-error" 
+                            width="60">
+                            
+                            <form action="{{ route('professional_evaluations_delete') }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="evaluated_id" value="{{ $group->first()->evaluated_professional_id }}">
+                                <input type="hidden" name="evaluator_id" value="{{ $group->first()->evaluator_professional_id }}">
+                                <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                            </form>
+                        </x-partials.modal>
                         <a href="" class="btn btn-xs btn-info">Veure</a>
                     </td>
                 </tr>

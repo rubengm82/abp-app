@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
 use App\Models\Professional;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 
 class EvaluationsController extends Controller
@@ -36,7 +37,10 @@ class EvaluationsController extends Controller
      */
     public function create()
     {
-        //
+        $questions = Quiz::all();
+        return view("components.contents.professional.evaluations.professionalQuiz",[
+            'questions' => $questions,
+        ]);
     }
 
     /**
@@ -44,7 +48,23 @@ class EvaluationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'avaluat' => 'required|exists:professionals,id',
+            'evaluador' => 'required|exists:professionals,id',
+            'questions.*' => 'required|integer|min:0|max:3',
+        ]);
+
+        foreach ($request->questions as $quiz_id => $answer_value) {
+            Evaluation::create([
+                'evaluated_professional_id' => $request->input('avaluat'),
+                'evaluator_professional_id' => $request->input('evaluador'),
+                'question_id' => $quiz_id,
+                'answer' => $answer_value,
+            ]);
+        }
+
+        return redirect()->route('professional_evaluations_list')
+            ->with('success', 'Evaluació afegida correctament!');
     }
 
     /**
@@ -74,9 +94,23 @@ class EvaluationsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evaluation $evaluations)
+    public function destroy(Request $request)
     {
-        //
+         $request->validate([
+            'evaluated_id' => 'required|integer',
+            'evaluator_id' => 'required|integer',
+        ]);
+
+        $evaluatedId = $request->input('evaluated_id');
+        $evaluatorId = $request->input('evaluator_id');
+
+        // Borrar todas las evaluaciones de ese par evaluador/avaluat
+        Evaluation::where('evaluated_professional_id', $evaluatedId)
+                  ->where('evaluator_professional_id', $evaluatorId)
+                  ->delete();
+
+        return redirect()->route('professional_evaluations_list')
+                         ->with('success', 'Avaluació eliminada correctament.');
     }
 
 

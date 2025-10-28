@@ -37,37 +37,56 @@
                         <x-partials.icon name="user-group" class="w-5 h-5 text-primary" />
                         Professionals
                     </summary>
+
+                    <!-- List Professionals -->
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('professionals_list') }}">
                                 <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
-                                Llistar
+                                List
                             </a>
                         </li>
                     </ul>
+
+                    <!-- Add Professional -->
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('professional_form') }}">
                                 <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
-                                Afegir
+                                Add
                             </a>
                         </li>
                     </ul>
+
+                    <!-- Submenu Evaluations -->
                     <ul class="text-xs">
                         <li>
-                            <a href="{{ route('professional_evaluations_list') }}">
-                                <x-partials.icon name="clipboard-document-check" class="w-5 h-5 text-secondary" />
-                                Evaluacions
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- ENRUTAMIENTO TEMPORAL HARDCODEADO, DECIDIR DÓNDE COLOCARLO-->
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{ route('professional_evaluations_quiz') }}">
-                                <x-partials.icon name="clipboard-document-check" class="w-5 h-5 text-secondary" />
-                                Qüestionari valoració test
-                            </a>
+                            <details>
+                                <summary>
+                                    <x-partials.icon name="clipboard-document-check" class="w-5 h-5 text-primary" />
+                                    Evaluations
+                                </summary>
+
+                                <!-- List Evaluations -->
+                                <ul class="text-xs">
+                                    <li>
+                                        <a href="{{ route('professional_evaluations_list') }}">
+                                            <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                            List
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <!-- Add Evaluation -->
+                                <ul class="text-xs">
+                                    <li>
+                                        <a href="{{ route('professional_evaluations_quiz_form') }}">
+                                            <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                            Add
+                                        </a>
+                                    </li>
+                                </ul>
+                            </details>
                         </li>
                     </ul>
                 </details>

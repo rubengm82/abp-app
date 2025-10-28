@@ -13,6 +13,7 @@ class Evaluation extends Model
         'evaluator_professional_id', 
         'evaluated_professional_id',
         'question_id',
+        'answer',
     ];
 
 

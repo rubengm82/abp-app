@@ -76,15 +76,12 @@ Route::middleware('auth')->post('/professional/documents/{professional}', [Profe
 Route::middleware('auth')->delete('/professional/documents/{document}', [ProfessionalController::class, 'professional_document_delete'])->name('professional_document_delete');
 Route::middleware('auth')->get('/professional/documents/download/{document}', [ProfessionalController::class, 'professional_document_download'])->name('professional_document_download');
 
-/* Evaluations */
-/* Professional Quiz  ENRUTAMIENTO TEMPORAL HARDCODEADO*/
-Route::middleware('auth')->get('/professional/evalaluations/quiz', function () {
-    return view('components.contents.professional.evaluations.professionalQuiz');
-})->name('professional_evaluations_quiz');
-/* END HARDCODEADO */
-
+/* Professional| EVALUATIONS */
 Route::middleware('auth')->get('/professionals/evaluations/list', [EvaluationsController::class, "index"])->name("professional_evaluations_list");
+Route::middleware('auth')->get('/professionals/evaluations/quiz/form', [EvaluationsController::class, "create"])->name("professional_evaluations_quiz_form");
+Route::middleware('auth')->post('/professionals/evaluations/quiz/add', [EvaluationsController::class, "store"])->name("professional_evaluations_add");
 Route::middleware('auth')->get('/professionals/evaluations/downloadCSV/', [EvaluationsController::class, 'downloadCSV'])->name('professional_evaluations.downloadCSV');
+Route::middleware('auth')->delete('/professionals/evaluations/delete', [EvaluationsController::class, 'destroy'])->name('professional_evaluations_delete');
 
 /* ------------------------ PROJECT COMMISSIONS ------------------------ */
 Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");

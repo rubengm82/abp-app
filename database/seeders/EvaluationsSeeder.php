@@ -12,38 +12,17 @@ class EvaluationsSeeder extends Seeder
      */
     public function run(): void
     {
+
+        DB::table('evaluations')->truncate();
+
         // Test evaluation data
         $evaluations = [];
 
         // Evaluation 1 - Professional 1 evaluating Professional 2
         for ($question = 1; $question <= 20; $question++) {
             $evaluations[] = [
-                'evaluator_professional_id' => 1,
-                'evaluated_professional_id' => 2,
-                'question_id' => $question,
-                'answer' => rand(0, 3),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        }
-
-        // Evaluation 2 - Professional 2 evaluating Professional 3
-        for ($question = 1; $question <= 20; $question++) {
-            $evaluations[] = [
                 'evaluator_professional_id' => 2,
-                'evaluated_professional_id' => 3,
-                'question_id' => $question,
-                'answer' => rand(0, 3),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        }
-
-        // Evaluation 3 - Professional 3 evaluating Professional 1
-        for ($question = 1; $question <= 20; $question++) {
-            $evaluations[] = [
-                'evaluator_professional_id' => 3,
-                'evaluated_professional_id' => 1,
+                'evaluated_professional_id' => 4,
                 'question_id' => $question,
                 'answer' => rand(0, 3),
                 'created_at' => now(),
