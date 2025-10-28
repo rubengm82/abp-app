@@ -1,0 +1,34 @@
+# Sprint 3 Inicio - TODO LIST
+
+Todo:
+* Añadir botón de "Asignar profesionales" en el show de Proyectos y Comisiones
+* Añadir página donde aparece el dragueable (por ahora la muestra está en resources/views/components/contents/courses/courseShow.blade.php@[128-166])
+* Alimentar al dragueable con información de la base datos;
+** dándole a la izquierda todos los profesionales que no están asignados al Proyecto referente
+** Dándole a la derecha todos los profesionales asignados al proyecto
+* Añadir botón para confirmar cambios en el bloque dragueable
+** Añadir método que actualice la base de datos en el controlador (dejar vacía por ahora)
+** CONTINUAR
+
+Apuntes: 
+* Añadir listado de Cursos en Profesional Show      [Yoel]
+* Añadir listado de Proyectos en Profesional Show   [Yoel]  
+
+* Añadir listado de Profesionales en Cursos Show    [Rubén]
+* Añadir listado de Profesionales en Proyectos Show [Yoel]  [Done]
+
+* Maquetación y figma
+** Lista dragueable de asignación (both)            [Yoel] 
+* Lista dragueable, rellenar por debe (Proy)        [Yoel]
+
+* Mover Trash
+
+
+To know:
+* En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo trash/master_checklist.txt como instrucciones básicas
+* Todo debe de estar maquetado lo más simple posible con tailwind + daisyUI respetando el resto de diseños de la página web, en especifico los "componentes/contents" ej; (resources/views/components/contents/projectcommission/projectCommissionShow.blade.php, resources/views/components/contents/professional/professionalForm.blade.php, resources/views/components/contents/center/centersList.blade.php)
+* No se pueden crear más migraciones, ni de tipo add, delete o modificación, pero sí para tablas totalmente nuevas. En caso de necesitar modificar una tabla, se ha de modificar el archivo ya creado y testear de inmediato con fresh o incluso borrando el caché.
+
+
+To commit:
+* Creada carpeta 'yoel_ruben_share': Moved 'schemes' y 'trash'
