@@ -15,4 +15,19 @@ class Evaluation extends Model
         'question_id',
     ];
 
+
+    /* ************ */
+    // Relationships /
+    /* ************ */
+
+    // Evaluations --> | evaluator | evaluated |
+    public function evaluatorProfessional()
+    {
+        return $this->belongsTo(Professional::class, 'evaluator_professional_id');
+    }
+    public function evaluatedProfessional()
+    {
+        return $this->belongsTo(Professional::class, 'evaluated_professional_id');
+    }
+
 }
