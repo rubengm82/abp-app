@@ -59,7 +59,7 @@
             <!-- Action Buttons -->
             <div class="flex justify-end gap-3 mt-6">
                 <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-outline">Cancel·lar</a>
-                <button type="submit" class="btn btn-primary">Confirmar canvis</button>
+                <button type="submit" class="btn btn-info">Confirmar canvis</button>
             </div>
         </form>
     </div>
@@ -69,28 +69,7 @@
 
 @include('components.partials.mainToasts')
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('assignmentForm');
-    
-    form.addEventListener('submit', function(e) {
-        const assigned = document.getElementById('assigned');
-        const professionalItems = assigned.querySelectorAll('.professional-item');
-        
-        // Clean old hidden inputs inside the form
-        form.querySelectorAll('input[name="professional_ids[]"]').forEach(input => input.remove());
-        
-        // Create new hidden inputs with the IDs of the assigned list
-        professionalItems.forEach(function(item) {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'professional_ids[]';
-            input.value = item.dataset.id;
-            form.appendChild(input);
-        });
-    });
-});
-</script>
+<script src="{{ asset('js/components/partials/drag_drop_id_assignor.js') }}"></script>
 
 @endsection
 

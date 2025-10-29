@@ -1,0 +1,359 @@
+// =====================================================
+// DATABASE SCHEMA - MER (ENTITY-RELATIONSHIP MODEL)
+// DBML (Database Markup Language) Definition
+// Updated based on actual migrations (September-October 2025)
+// =====================================================
+
+Project canserra_MER {
+  database_type: 'MySQL'
+  Note: '''
+    # Database Schema - MER (Entity-Relationship Model)
+    
+    ## DESIGN RECOMMENDATIONS
+    
+    ### POLYMORPHIC RELATIONS
+    - **documents_component**: Uses polymorphic relations (documentable_id/documentable_type) to attach documents to any model
+    - **notes_component**: Uses polymorphic relations (noteable_id/noteable_type) to attach notes to any model
+    
+    ### EVALUATION SYSTEM
+    - **evaluations**: Uses evaluation_id to group multiple question-answer pairs into a single evaluation session
+    - **quiz**: Stores individual questions
+    - Each evaluation record links to one quiz question with an answer value (0-3)
+  '''
+}
+
+// =====================================================
+// CORE TABLES
+// =====================================================
+
+Table users {
+  id int [pk, increment, note: 'Primary key']
+  professional_id int [ref: > PROFESSIONAL.id, null, note: 'Reference to professional']
+  name varchar(255) [note: 'User name']
+  email varchar(255) [note: 'User email']
+  password varchar(255) [note: 'Password hash']
+  remember_token varchar(100) [note: 'Remember token']
+  email_verified_at timestamp [null, note: 'Email verification timestamp']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table CENTER {
+  id int [pk, increment, note: 'Primary key']
+  name varchar(100) [not null, note: 'Center name']
+  address varchar(100) [null, note: 'Center address']
+  phone varchar(50) [null, note: 'Contact phone']
+  email varchar(100) [null, note: 'Contact email']
+  status int [null, note: 'Center status']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table PROFESSIONAL {
+  id int [pk, increment, note: 'Primary key']
+  center_id int [ref: > CENTER.id, null, note: 'Reference to center']
+  name varchar(100) [not null, note: 'First name']
+  surname1 varchar(100) [not null, note: 'First surname']
+  surname2 varchar(100) [null, note: 'Second surname']
+  role enum('Directiu', 'Administració', 'Tècnic') [null, note: 'Professional role']
+  dni varchar(100) [unique, note: 'DNI']
+  phone varchar(20) [null, note: 'Contact phone']
+  email varchar(255) [unique, null, note: 'Email address']
+  address varchar(500) [null, note: 'Address']
+  employment_status enum('Actiu', 'Suplència', 'Baixa', 'No contractat') [null, note: 'Employment status']
+  cvitae text [null, note: 'Curriculum vitae']
+  user varchar(50) [unique, null, note: 'Login username']
+  password varchar(255) [null, note: 'Password hash']
+  locker_num varchar(50) [null, note: 'Locker number']
+  key_code varchar(50) [null, note: 'Key code']
+  status int [null, note: 'Status: 1=Active, 0=Inactive']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// MATERIAL AND EQUIPMENT MANAGEMENT
+// =====================================================
+
+Table MATERIAL_ASSIGNMENT {
+  id int [pk, increment, note: 'Primary key']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  shirt_size enum('XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56') [null, note: 'Shirt size']
+  pants_size enum('XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56') [null, note: 'Pants size']
+  shoe_size enum('34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56') [null, note: 'Shoe size']
+  assignment_date date [not null, note: 'Assignment date']
+  assigned_by_professional_id int [ref: > PROFESSIONAL.id, null, note: 'Professional who assigned']
+  observations text [null, note: 'Observations about assignment']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// RECORD MANAGEMENT
+// =====================================================
+
+Table RECORD {
+  id int [pk, increment, note: 'Primary key']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  type enum('Seguiment', 'Avaluació', 'Accident', 'Baixa_llarga', 'Observació') [note: 'Record type']
+  date date [not null, note: 'Record date']
+  description text [null, note: 'Record description']
+  comments text [null, note: 'Additional comments']
+  file varchar(500) [null, note: 'Attached file path']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// TRAINING AND COURSE MANAGEMENT
+// =====================================================
+
+Table COURSE {
+  id int [pk, increment, note: 'Primary key']
+  training_center varchar(255) [null, note: 'Training center name']
+  forcem_code varchar(50) [null, note: 'FORCEM code']
+  total_hours int [null, note: 'Total course hours']
+  type varchar(100) [null, note: 'Course type']
+  attendance_type enum('Presencial', 'Online', 'Mixto') [null, note: 'Attendance type']
+  training_name varchar(255) [null, note: 'Training name']
+  workshop varchar(255) [null, note: 'Workshop name']
+  conference_day varchar(255) [null, note: 'Conference day']
+  congress varchar(255) [null, note: 'Congress name']
+  attendee varchar(255) [null, note: 'Attendee name']
+  start_date date [null, note: 'Course start date']
+  end_date date [null, note: 'Course end date']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table COURSE_ASSIGNMENT {
+  id int [pk, increment, note: 'Primary key']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  course_id int [ref: > COURSE.id, not null, note: 'Course reference']
+  certificate enum('Entregat', 'Pendent') [default: 'Pendent', note: 'Certificate status']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// QUIZ AND EVALUATION MANAGEMENT
+// =====================================================
+
+Table QUIZ {
+  id int [pk, increment, note: 'Primary key']
+  question text [null, note: 'Question']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table EVALUATION {
+  id int [pk, increment, note: 'Primary key']
+  evaluation_id varchar(255) [note: 'Unique evaluation ID for grouping records']
+  evaluator_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Evaluator professional']
+  evaluated_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Evaluated professional']
+  question_id int [ref: > QUIZ.id, not null, note: 'Question ID from quiz table']
+  answer int [not null, note: 'Answer value from 0 to 3']
+  evaluation_date date [not null, note: 'Evaluation date']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// SERVICE AND CONTACT MANAGEMENT
+// =====================================================
+
+Table SERVICE_CONTACT {
+  id int [pk, increment, note: 'Primary key']
+  type varchar(100) [note: 'Type: servicio_general, servicio_complementario, contacto_asistencial, contacto_general']
+  responsible varchar(255) [null, note: 'Responsible person (free text)']
+  phone varchar(20) [null, note: 'Contact phone']
+  email varchar(255) [null, note: 'Contact email']
+  observations text [null, note: 'Observations']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table EXTERNAL_CONTACT {
+  id int [pk, increment, note: 'Primary key']
+  external_contact_type varchar(100) [null, note: 'External contact type']
+  service_reason varchar(255) [null, note: 'Service reason']
+  company varchar(255) [null, note: 'Company name']
+  name varchar(255) [null, note: 'Contact name']
+  surname varchar(255) [null, note: 'Contact surname']
+  phone varchar(20) [null, note: 'Contact phone']
+  email varchar(255) [null, note: 'Contact email']
+  observations text [null, note: 'Observations']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table GENERAL_SERVICE {
+  id int [pk, increment, note: 'Primary key']
+  service_type varchar(100) [null, note: 'Service type']
+  assigned_professional_id int [ref: > PROFESSIONAL.id, null, note: 'Assigned professional']
+  contact_professional_id int [ref: > PROFESSIONAL.id, null, note: 'Contact professional']
+  external_contact_id int [ref: > EXTERNAL_CONTACT.id, null, note: 'External contact reference']
+  start_date date [null, note: 'Service start date']
+  end_date date [null, note: 'Service end date']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table COMPLEMENTARY_SERVICE {
+  id int [pk, increment, note: 'Primary key']
+  service_type varchar(100) [null, note: 'Service type']
+  service_responsible varchar(255) [null, note: 'Service responsible (free text)']
+  start_date date [null, note: 'Service start date']
+  end_date date [null, note: 'Service end date']
+  documents varchar(500) [null, note: 'Related documents']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// FOLLOW-UP AND EVALUATION MANAGEMENT
+// =====================================================
+
+Table WORK_FOLLOW_UP {
+  id int [pk, increment, note: 'Primary key']
+  follow_up_type varchar(100) [null, note: 'Follow-up type']
+  follow_up_date date [not null, note: 'Follow-up date']
+  recorder_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional who recorded']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional being followed']
+  topic varchar(255) [null, note: 'Follow-up topic']
+  comment text [null, note: 'Follow-up comment']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// INCIDENT AND ACCIDENT MANAGEMENT
+// =====================================================
+
+Table ACCIDENT {
+  id int [pk, increment, note: 'Primary key']
+  accident_type varchar(100) [null, note: 'Accident type']
+  start_date date [not null, note: 'Accident start date']
+  end_date date [null, note: 'Accident end date']
+  description text [null, note: 'Accident description']
+  reporting_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional who reported']
+  injured_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Injured professional']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table ACCIDENT_FOLLOW_UP {
+  id int [pk, increment, note: 'Primary key']
+  accident_id int [ref: > ACCIDENT.id, not null, note: 'Accident reference']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  follow_up_date date [not null, note: 'Follow-up date']
+  description text [null, note: 'Follow-up description']
+  notes text [null, note: 'Additional notes']
+  documents varchar(500) [null, note: 'Related documents']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// MAINTENANCE MANAGEMENT
+// =====================================================
+
+Table MAINTENANCE {
+  id int [pk, increment, note: 'Primary key']
+  opening_date date [not null, note: 'Maintenance opening date']
+  description text [null, note: 'Maintenance description']
+  assigned_to_professional_id int [ref: > PROFESSIONAL.id, null, note: 'Assigned professional']
+  documents varchar(500) [null, note: 'Related documents']
+  end_date date [null, note: 'Maintenance end date']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table MAINTENANCE_FOLLOW_UP {
+  id int [pk, increment, note: 'Primary key']
+  maintenance_id int [ref: > MAINTENANCE.id, not null, note: 'Maintenance reference']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  description text [null, note: 'Follow-up description']
+  documents varchar(500) [null, note: 'Related documents']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// HR ISSUES MANAGEMENT
+// =====================================================
+
+Table HR_ISSUES {
+  id int [pk, increment, note: 'Primary key']
+  date date [not null, note: 'Issue date']
+  affected_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Affected professional']
+  registering_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional who registered']
+  referred_to varchar(255) [null, note: 'Referred to (free text)']
+  documents varchar(500) [null, note: 'Related documents']
+  end_date date [null, note: 'Issue resolution date']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table HR_ISSUES_FOLLOW_UP {
+  id int [pk, increment, note: 'Primary key']
+  hr_issue_id int [ref: > HR_ISSUES.id, not null, note: 'HR issue reference']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  description text [null, note: 'Follow-up description']
+  documents varchar(500) [null, note: 'Related documents']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// PROJECT AND COMMISSION MANAGEMENT
+// =====================================================
+
+Table PROJECT_COMMISSION {
+  id int [pk, increment, note: 'Primary key']
+  name varchar(255) [not null, note: 'Project/Commission name']
+  start_date date [null, note: 'Start date']
+  estimated_end_date date [null, note: 'Estimated end date']
+  responsible_professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Responsible professional']
+  description text [null, note: 'Project description']
+  type enum('Projecte', 'Comissió') [null, note: 'Type: Projecte, Comissió']
+  status enum('Actiu', 'Inactiu') [null, note: 'Status: Actiu, Inactiu']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table PROJECT_COMMISSION_ASSIGNMENT {
+  id int [pk, increment, note: 'Primary key']
+  project_commission_id int [ref: > PROJECT_COMMISSION.id, not null, note: 'Project/Commission reference']
+  professional_id int [ref: > PROFESSIONAL.id, not null, note: 'Professional reference']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+// =====================================================
+// POLYMORPHIC DOCUMENT AND NOTE COMPONENTS
+// =====================================================
+
+Table DOCUMENTS_COMPONENT {
+  id int [pk, increment, note: 'Primary key']
+  file_name varchar(255) [not null, note: 'Hashed file name stored in filesystem']
+  original_name varchar(255) [not null, note: 'Original file name uploaded by user']
+  file_path varchar(500) [null, note: 'Path where file is stored in filesystem']
+  file_size int [null, note: 'File size in bytes']
+  mime_type varchar(100) [null, note: 'MIME type of the file']
+  documentable_id int [not null, note: 'Polymorphic: ID of related model']
+  documentable_type varchar(255) [not null, note: 'Polymorphic: Type of related model (App\\Models\\Center, App\\Models\\ProjectCommission, etc.)']
+  uploaded_by_professional_id int [ref: > PROFESSIONAL.id, null, note: 'Professional that uploaded the document']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
+
+Table NOTES_COMPONENT {
+  id int [pk, increment, note: 'Primary key']
+  notes text [null, note: 'Notes content']
+  noteable_id int [not null, note: 'Polymorphic: ID of related model']
+  noteable_type varchar(255) [not null, note: 'Polymorphic: Type of related model (App\\Models\\Center, App\\Models\\Professional, App\\Models\\ProjectCommission, etc.)']
+  created_by_professional_id int [ref: > PROFESSIONAL.id, null, note: 'Professional that created the note']
+  created_at timestamp [note: 'Creation timestamp']
+  updated_at timestamp [note: 'Update timestamp']
+}
