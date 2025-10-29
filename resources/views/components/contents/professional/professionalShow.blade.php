@@ -125,11 +125,6 @@
     <div class="card bg-base-100 text-base-content shadow-xl mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Uniformitat Assignada</h2>
-            @php
-                $shirtSize = \App\Models\MaterialAssignment::getLatestShirtSize($professional->id);
-                $pantsSize = \App\Models\MaterialAssignment::getLatestPantsSize($professional->id);
-                $shoeSize = \App\Models\MaterialAssignment::getLatestShoeSize($professional->id);
-            @endphp
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="text-center">
