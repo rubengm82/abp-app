@@ -2,17 +2,9 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CenterController;
-use App\Http\Controllers\CenterNoteController;
-use App\Http\Controllers\CenterDocumentController;
 use App\Http\Controllers\ProfessionalController;
-use App\Http\Controllers\ProfessionalNoteController;
-use App\Http\Controllers\ProfessionalDocumentController;
 use App\Http\Controllers\ProjectCommissionController;
-use App\Http\Controllers\ProjectCommissionNoteController;
-use App\Http\Controllers\ProjectCommissionDocumentController;
 use App\Http\Controllers\MaterialAssignmentController;
-use App\Http\Controllers\MaterialAssignmentNoteController;
-use App\Http\Controllers\MaterialAssignmentDocumentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EvaluationsController;
 use Illuminate\Support\Facades\Route;
