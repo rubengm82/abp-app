@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             EvaluationsSeeder::class,
             ProjectCommissionAssignmentSeeder::class,
             CourseSeeder::class,
+            CourseAssignmentSeeder::class,
         ]);
     }
 }

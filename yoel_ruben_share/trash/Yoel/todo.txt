@@ -1,17 +1,15 @@
 # Sprint 3 Inicio - TODO LIST
 
 Todo:
-* Añadir botón de "Assignar professionals" en el show de Proyectos y Comisiones, en el bloque del equipo. [Equip del projecte]
-* Añadir view (el botón anterior lleva a esta view) donde aparece el dragueable (la muestra está en resources/views/components/contents/courses/courseShow.blade.php@[128-166])
-* Alimentar al dragueable con información de la base datos;
-** Dándole a la izquierda todos los profesionales que no están asignados al Proyecto referente
-** Dándole a la derecha todos los profesionales asignados al proyecto
-* Añadir botón para confirmar cambios y otro para cancelar en el bloque dragueable 
-** Añadir método que actualice la base de datos en el controlador (dejar vacía por ahora)
-* Debes tener en cuenta el modelo, el controlador y el archivo de rutas, por si debes de hacer cambios
-* El método debe de hacer un return con el with para el toast
-
+* Añadir bloque de "Projectes asignats" en el show de profesionales (resources/views/components/contents/professional/professionalShow.blade.php)
+* Añadir bloque de "Cursos asignats" en el show 
 Apuntes: 
+
+* Required de Cursos
+* Asignación de Prof a Cursos
+* Ver profesionales asignados en un curso
+* Ver los cursos a los que está asignado un profesional
+
 * Añadir listado de Cursos en Profesional Show      [Yoel]
 * Añadir listado de Proyectos en Profesional Show   [Yoel]  
 
@@ -34,7 +32,5 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 
 To commit:
-* Reorganizada carpeta yoel_ruben_share
-* Actualizados esquemas de la base de datos
-* Extraido script del bloque dragueable
+* Añadido bloques de asignaciones en el show de Profesionales
 

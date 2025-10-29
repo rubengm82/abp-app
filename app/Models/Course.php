@@ -39,4 +39,21 @@ class Course extends Model
     {
         return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc');
     }
+
+    /**
+     * Relationship with the assignments of professionals to the course
+     */
+    public function assignments()
+    {
+        return $this->hasMany(CourseAssignment::class)->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Relationship many-to-many with professionals through the assignments
+     */
+    public function assignedProfessionals()
+    {
+        return $this->belongsToMany(Professional::class, 'course_assignments')
+                    ->withTimestamps();
+    }
 }

@@ -180,6 +180,62 @@
     createdByField="createdByProfessional"
     />
 
+    <!-- Projects Assigned -->
+    <div class="card bg-base-100 shadow-xl mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4">Projectes asignats</h2>
+            
+            @if($professional->assignedProjects->count() > 0)
+                <div class="space-y-3">
+                    @foreach($professional->assignedProjects as $project)
+                        <div class="p-3 bg-base-200 rounded-lg">
+                            <div>
+                                <a href="{{ route('projectcommission_show', $project->id) }}" 
+                                   class="font-semibold text-black hover:text-gray-700 transition-all duration-200">
+                                    {{ $project->name }}
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-center py-8 text-base-content/50">
+                    <i class="fas fa-folder text-4xl mb-4"></i>
+                    <p class="text-lg">No hi ha projectes asignats</p>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <!-- Courses Assigned -->
+    <div class="card bg-base-100 shadow-xl mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4">Cursos asignats</h2>
+            
+            @if($professional->assignedCourses->count() > 0)
+                <div class="space-y-3">
+                    @foreach($professional->assignedCourses as $course)
+                        <div class="p-3 bg-base-200 rounded-lg">
+                            <div>
+                                <a href="{{ route('course_show', $course->id) }}" 
+                                   class="font-semibold text-black hover:text-gray-700 transition-all duration-200">
+                                    {{ $course->training_name }}
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-center py-8 text-base-content/50">
+                    <i class="fas fa-book text-4xl mb-4"></i>
+                    <p class="text-lg">No hi ha cursos asignats</p>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    
+
 
 @include('components.partials.mainToasts')
 @endsection

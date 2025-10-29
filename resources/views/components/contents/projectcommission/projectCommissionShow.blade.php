@@ -142,17 +142,12 @@
             @if($projectCommission->assignments->count() > 0)
                 <div class="space-y-3">
                     @foreach($projectCommission->assignments as $assignment)
-                        <div class="flex items-center justify-between p-3 bg-base-200 rounded-lg">
-                            <div class="flex items-center space-x-3">
-                                <div>
-                                    <a href="{{ route('professional_show', $assignment->professional->id) }}" 
-                                       class="font-semibold text-black hover:text-gray-700 transition-all duration-200">
-                                        {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }} {{ $assignment->professional->surname2 }}
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="text-sm text-base-content/70">
-                                Assignat el {{ $assignment->created_at->format('d/m/Y') }}
+                        <div class="p-3 bg-base-200 rounded-lg">
+                            <div>
+                                <a href="{{ route('professional_show', $assignment->professional->id) }}" 
+                                   class="font-semibold text-black hover:text-gray-700 transition-all duration-200">
+                                    {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }} {{ $assignment->professional->surname2 }}
+                                </a>
                             </div>
                         </div>
                     @endforeach

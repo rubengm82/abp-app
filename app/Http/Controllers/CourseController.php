@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Professional;
 use Illuminate\Http\Request;
 use App\Models\NotesComponent;
 use App\Models\DocumentComponent;
@@ -58,7 +59,7 @@ class CourseController extends Controller
      */
     public function show(string $id)
     {
-        $course = Course::findOrFail($id);
+        $course = Course::with([])->findOrFail($id);
         return view("components.contents.courses.courseShow")->with('course', $course);
     }
 
@@ -237,6 +238,59 @@ class CourseController extends Controller
 
         return redirect()->route('course_show', $note->noteable->id . '#notes-section')
                          ->with('success', 'Nota eliminada correctament!');
+    }
+
+    //// PROFESSIONAL ASSIGNMENTS ////
+    /**
+     * Show the form to assign professionals to a course
+     */
+    public function assignProfessionals(Course $course)
+    {
+        // Get all active professionals
+        $allProfessionals = Professional::where('status', 1)->orderBy('name')->get();
+        
+        // Get assigned professional IDs
+        // pluck(): method that extracts a single column
+        $assignedProfessionalIds = $course->assignments->pluck('professional_id')->toArray();
+        
+        // Separate assigned and unassigned professionals
+        $unassignedProfessionals = $allProfessionals->whereNotIn('id', $assignedProfessionalIds);
+        $assignedProfessionals = $allProfessionals->whereIn('id', $assignedProfessionalIds);
+        
+        return view('components.contents.courses.assignProfessionals', [
+            'course' => $course,
+            'unassignedProfessionals' => $unassignedProfessionals,
+            'assignedProfessionals' => $assignedProfessionals
+        ]);
+    }
+
+    /**
+     * Update professional assignments for a course
+     */
+    public function updateProfessionalAssignments(Request $request, Course $course)
+    {
+        // Validate the request
+        $request->validate([
+            'professional_ids' => 'nullable|array',
+            'professional_ids.*' => 'exists:professionals,id'
+        ]);
+
+        // Get the professional IDs from the request
+        $professionalIds = $request->input('professional_ids', []);
+
+        // Delete existing assignments
+        $course->assignments()->delete();
+
+        // Create new assignments
+        foreach ($professionalIds as $professionalId) {
+            $course->assignments()->create([
+                'professional_id' => $professionalId,
+                'certificate' => 'Pendent'
+            ]);
+        }
+
+        return redirect()->route('course_show', $course)
+                         ->with('success', 'Professionals assignats correctament!');
     }
 
 }

@@ -51,11 +51,11 @@
 
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">Codi FORCEM</span>
+                            <span class="label-text">Codi FORCEM *</span>
                         </label>
                         <input type="text" name="forcem_code" id="id_forcem_code" placeholder="Ex: FRC-2025-01" 
                                class="input input-bordered w-full" 
-                               value="{{ old('forcem_code', $course->forcem_code ?? '') }}">
+                               value="{{ old('forcem_code', $course->forcem_code ?? '') }}" required>
                     </div>
 
                     <div class="form-control">
@@ -69,9 +69,9 @@
 
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">Modalitat</span>
+                            <span class="label-text">Modalitat *</span>
                         </label>
-                        <select name="attendance_type" id="id_attendance_type" class="select select-bordered w-full">
+                        <select name="attendance_type" id="id_attendance_type" class="select select-bordered w-full" required>
                             <option value="">Selecciona modalitat</option>
                             <option value="Presencial" {{ old('attendance_type', $course->attendance_type ?? '') == 'Presencial' ? 'selected' : '' }}>Presencial</option>
                             <option value="Online" {{ old('attendance_type', $course->attendance_type ?? '') == 'Online' ? 'selected' : '' }}>Online</option>
@@ -89,10 +89,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">Data d'inici</span>
+                            <span class="label-text">Data d'inici *</span>
                         </label>
                         <input type="date" name="start_date" id="id_start_date" class="input input-bordered w-full" 
-                               value="{{ old('start_date', isset($course->start_date) ? $course->start_date->format('Y-m-d') : '') }}">
+                               value="{{ old('start_date', isset($course->start_date) ? $course->start_date->format('Y-m-d') : '') }}" required>
                     </div>
                     
                     <div class="form-control">
@@ -108,8 +108,10 @@
                     <label class="label">
                         <span class="label-text">Hores totals</span>
                     </label>
+                    
                     <input type="number" name="total_hours" id="id_total_hours" placeholder="Ex: 30" 
                            class="input input-bordered w-full" 
+                           min="0"
                            value="{{ old('total_hours', $course->total_hours ?? '') }}">
                 </div>
             </div>
@@ -133,7 +135,7 @@
                         <label class="label">
                             <span class="label-text">Dia de conferència</span>
                         </label>
-                        <input type="text" name="conference_day" id="id_conference_day" placeholder="Ex: Dimecres" 
+                        <input type="text" name="conference_day" id="id_conference_day" placeholder="Ex: 03/04/2025, Dimecres" 
                                class="input input-bordered w-full" 
                                value="{{ old('conference_day', $course->conference_day ?? '') }}">
                     </div>
@@ -160,7 +162,7 @@
                         <label class="label">
                             <span class="label-text">Centre de Formació</span>
                         </label>
-                        <input type="text" name="training_center" id="id_training_center" placeholder="Ex: Casa Vapor Gran" 
+                        <input type="text" name="training_center" id="id_training_center" placeholder="Ex: Ins la Poma" 
                                class="input input-bordered w-full" 
                                value="{{ old('training_center', $course->training_center ?? '') }}">
                     </div>

@@ -69,6 +69,20 @@ class Professional extends Authenticatable
     }
 
     /**
+     * Relationship with course assignments where the professional participates
+     */
+    public function courseAssignments() { return $this->hasMany(CourseAssignment::class); }
+    
+    /**
+     * Relationship many-to-many with courses through the assignments
+     */
+    public function assignedCourses()
+    {
+        return $this->belongsToMany(Course::class, 'course_assignments')
+                    ->withTimestamps();
+    }
+
+    /**
      * Relationship with the user model
      */
     public function userAccount()

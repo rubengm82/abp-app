@@ -125,45 +125,37 @@
         createdByField="createdByProfessional"
     />
 
-    {{-- DRAG AND DROP --}}
-    <div class="card bg-base-100 shadow-xl mt-6 p-6 select-none">
-        <h3 class="text-xl font-bold mb-6">Cursos Assignats</h3>
-
-        <div class="flex gap-6 mt-4">
-            <!-- Unassigned List -->
-            <div class="w-1/2">
-                <h4 class="text-lg font-semibold mb-3">No assignat</h4>
-                <ul id="unassigned" class="bg-base-200 rounded-lg shadow-md p-4 space-y-3">
-                    <li class="p-3 bg-base-100 rounded-lg shadow cursor-move hover:bg-primary hover:text-white transition">
-                        Element 3
-                    </li>
-                    <li class="p-3 bg-base-100 rounded-lg shadow cursor-move hover:bg-primary hover:text-white transition">
-                        Element 4
-                    </li>
-                    <li class="p-3 bg-base-100 rounded-lg shadow cursor-move hover:bg-primary hover:text-white transition">
-                        Element 5
-                    </li>
-                    <li class="p-3 bg-base-100 rounded-lg shadow cursor-move hover:bg-secondary hover:text-white transition">
-                        Element 6
-                    </li>
-                </ul>
+    <!-- Professionals Assigned -->
+    <div class="card bg-base-100 shadow-xl mt-6">
+        <div class="card-body">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="card-title text-xl">Profesionals apuntats al curs</h2>
+                <a href="{{ route('course_assign_professionals', $course) }}" class="btn btn-sm btn-primary">
+                    Assignar professionals
+                </a>
             </div>
-
-            <!-- Assigned List -->
-            <div class="w-1/2">
-                <h4 class="text-lg font-semibold mb-3">Assignat</h4>
-                <ul id="assigned" class="bg-base-200 rounded-lg shadow-md p-4 space-y-3">
-                    <li class="p-3 bg-base-100 rounded-lg shadow cursor-move hover:bg-secondary hover:text-white transition">
-                        Element 1
-                    </li>
-                    <li class="p-3 bg-base-100 rounded-lg shadow cursor-move hover:bg-secondary hover:text-white transition">
-                        Element 2
-                    </li>
-                </ul>
-            </div>
+            
+            @if($course->assignments->count() > 0)
+                <div class="space-y-3">
+                    @foreach($course->assignments as $assignment)
+                        <div class="p-3 bg-base-200 rounded-lg">
+                            <div>
+                                <a href="{{ route('professional_show', $assignment->professional->id) }}" 
+                                   class="font-semibold text-black hover:text-gray-700 transition-all duration-200">
+                                    {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }} {{ $assignment->professional->surname2 }}
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-center py-8 text-base-content/50">
+                    <i class="fas fa-users text-4xl mb-4"></i>
+                    <p class="text-lg">No hi ha professionals assignats al curs</p>
+                </div>
+            @endif
         </div>
     </div>
-    {{-- END DRAG AND DROP --}}
 
 @include('components.partials.mainToasts')
 @endsection
