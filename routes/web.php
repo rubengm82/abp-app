@@ -105,6 +105,10 @@ Route::middleware('auth')->post('/projectcommission/documents/{projectCommission
 Route::middleware('auth')->delete('/projectcommission/documents/{document}', [ProjectCommissionController::class, 'projectcommission_document_delete'])->name('projectcommission_document_delete');
 Route::middleware('auth')->get('/projectcommission/documents/download/{document}', [ProjectCommissionController::class, 'projectcommission_document_download'])->name('projectcommission_document_download');
 
+/* Project Commission Professional Assignments */
+Route::middleware('auth')->get('/projectcommission/assign-professionals/{projectCommission}', [ProjectCommissionController::class, 'assignProfessionals'])->name('projectcommission_assign_professionals');
+Route::middleware('auth')->post('/projectcommission/update-professional-assignments/{projectCommission}', [ProjectCommissionController::class, 'updateProfessionalAssignments'])->name('projectcommission_update_professional_assignments');
+
 /* ------------------------ MATERIAL ASSIGNMENTS ------------------------ */
 Route::middleware('auth')->get('/materialassignments/list', [MaterialAssignmentController::class, 'index'])->name('materialassignments_list');
 Route::middleware('auth')->get('/materialassignment/form', [MaterialAssignmentController::class, 'create'])->name('materialassignment_form');

@@ -1,3 +1,0 @@
-# Master Todo sprint 3:
-# Modificar si es necesario
-# No eliminar, sólo marcar como hecho

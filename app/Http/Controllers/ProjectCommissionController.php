@@ -10,6 +10,7 @@ use App\Models\NotesComponent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\mainlog;
 
 class ProjectCommissionController extends Controller
 {
@@ -54,7 +55,6 @@ class ProjectCommissionController extends Controller
             'estimated_end_date' => $request->input('estimated_end_date'),
             'responsible_professional_id' => $request->input('responsible_professional_id'),
             'description' => $request->input('description'),
-            'notes' => $request->input('notes'),
             'status' => $status_active,
         ]);
 
@@ -101,7 +101,6 @@ class ProjectCommissionController extends Controller
             'estimated_end_date' => $request->input('estimated_end_date'),
             'responsible_professional_id' => $request->input('responsible_professional_id'),
             'description' => $request->input('description'),
-            'notes' => $request->input('notes'),
         ]);
 
         return redirect()->route('projectcommissions_list', $projectCommission)->with('success', 'Projecte/Comissió actualitzat correctament!');
@@ -251,6 +250,62 @@ class ProjectCommissionController extends Controller
 
         return redirect()->route('projectcommission_show', $note->noteable->id . '#notes-section')
                          ->with('success', 'Nota eliminada correctament!');
+    }
+    
+    //// PROFESSIONAL ASSIGNMENTS ////
+    /**
+     * Show the form to assign professionals to a project commission
+     */
+    public function assignProfessionals(ProjectCommission $projectCommission)
+    {
+        // Get all active professionals
+        $allProfessionals = Professional::where('status', 1)->orderBy('name')->get();
+        
+        // Get assigned professional IDs
+        // pluck(): method that extracts a single column
+        $assignedProfessionalIds = $projectCommission->assignments->pluck('professional_id')->toArray();
+        
+        // Separate assigned and unassigned professionals
+        $unassignedProfessionals = $allProfessionals->whereNotIn('id', $assignedProfessionalIds);
+        $assignedProfessionals = $allProfessionals->whereIn('id', $assignedProfessionalIds);
+        
+        return view('components.contents.projectcommission.assignProfessionals', [
+            'projectCommission' => $projectCommission,
+            'unassignedProfessionals' => $unassignedProfessionals,
+            'assignedProfessionals' => $assignedProfessionals
+        ]);
+    }
+
+    /**
+     * Update professional assignments for a project commission
+     */
+    public function updateProfessionalAssignments(Request $request, ProjectCommission $projectCommission)
+    {
+        mainlog::log("Empieza el método updateProfessionalAssignments");
+        // Validate the request
+        $request->validate([
+            'professional_ids' => 'nullable|array',
+            'professional_ids.*' => 'exists:professionals,id'
+        ]);
+        mainlog::log("Validación completada");
+
+        // Get the professional IDs from the request
+        $professionalIds = $request->input('professional_ids', []);
+        mainlog::log("Profesionales IDs:". json_encode($professionalIds));
+        // Delete existing assignments
+        $projectCommission->assignments()->delete();
+        mainlog::log("Asignaciones eliminadas");
+
+        // Create new assignments
+        foreach ($professionalIds as $professionalId) {
+            $projectCommission->assignments()->create([
+                'professional_id' => $professionalId
+            ]);
+        }
+        mainlog::log("Asignaciones creadas");
+
+        return redirect()->route('projectcommission_show', $projectCommission)
+                         ->with('success', 'Professionals assignats correctament!');
     }
     
 }
