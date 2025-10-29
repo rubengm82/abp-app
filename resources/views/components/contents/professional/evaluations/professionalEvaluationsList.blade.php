@@ -65,7 +65,7 @@
                             </form>
                         </x-partials.modal>
                         
-                        <a href="" class="btn btn-xs btn-info">Veure</a>
+                        <a href="{{ route('professional_evaluation_quiz_show') }}" class="btn btn-xs btn-info">Veure</a>
                     </td>
                 </tr>
                 @endforeach

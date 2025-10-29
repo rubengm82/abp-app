@@ -77,7 +77,7 @@ class EvaluationsController extends Controller
      */
     public function show(Evaluation $evaluations)
     {
-        //
+        return view("components.contents.professional.evaluations.professionalQuizShow");
     }
 
     /**

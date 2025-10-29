@@ -71,6 +71,7 @@ Route::middleware('auth')->get('/professional/documents/download/{document}', [P
 /* Professional| EVALUATIONS */
 Route::middleware('auth')->get('/professionals/evaluations/list', [EvaluationsController::class, "index"])->name("professional_evaluations_list");
 Route::middleware('auth')->get('/professionals/evaluations/quiz/form', [EvaluationsController::class, "create"])->name("professional_evaluations_quiz_form");
+Route::middleware('auth')->get('/professionals/evaluations/quiz/show', [EvaluationsController::class, "show"])->name("professional_evaluation_quiz_show");
 Route::middleware('auth')->post('/professionals/evaluations/quiz/add', [EvaluationsController::class, "store"])->name("professional_evaluations_add");
 Route::middleware('auth')->get('/professionals/evaluations/downloadCSV/', [EvaluationsController::class, 'downloadCSV'])->name('professional_evaluations.downloadCSV');
 Route::middleware('auth')->delete('/professionals/evaluations/delete', [EvaluationsController::class, 'destroy'])->name('professional_evaluations_delete');
