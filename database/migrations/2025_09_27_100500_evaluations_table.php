@@ -20,6 +20,7 @@ return new class extends Migration
             
             $table->foreignId('question_id')->constrained('quiz')->onDelete('cascade')->comment('Question ID from quiz table');
             $table->integer('answer')->comment('Answer value from 0 to 3'); 
+            $table->uuid('evaluation_uuid')->comment('Unique evaluation ID for grouping records');
             
             $table->timestamps();
         });

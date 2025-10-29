@@ -6,6 +6,7 @@ use App\Models\Evaluation;
 use App\Models\Professional;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class EvaluationsController extends Controller
 {
@@ -23,7 +24,7 @@ class EvaluationsController extends Controller
         });
 
         // Group evaluations by the evaluated professional
-        $groupedEvaluations = $evaluations->groupBy('evaluated_professional_id');
+        $groupedEvaluations = $evaluations->groupBy('evaluation_uuid');
 
         return view("components.contents.professional.evaluations.professionalEvaluationsList")
             ->with([
@@ -52,7 +53,10 @@ class EvaluationsController extends Controller
             'avaluat' => 'required|exists:professionals,id',
             'evaluador' => 'required|exists:professionals,id',
             'questions.*' => 'required|integer|min:0|max:3',
+            'evaluation_uuid' => 'nullable|uuid',
         ]);
+
+        $uuid_pre_generated = Str::uuid()->toString();
 
         foreach ($request->questions as $quiz_id => $answer_value) {
             Evaluation::create([
@@ -60,6 +64,7 @@ class EvaluationsController extends Controller
                 'evaluator_professional_id' => $request->input('evaluador'),
                 'question_id' => $quiz_id,
                 'answer' => $answer_value,
+                'evaluation_uuid' => $uuid_pre_generated,
             ]);
         }
 
@@ -96,18 +101,14 @@ class EvaluationsController extends Controller
      */
     public function destroy(Request $request)
     {
-         $request->validate([
-            'evaluated_id' => 'required|integer',
-            'evaluator_id' => 'required|integer',
+        $request->validate([
+            'evaluation_uuid' => 'required|uuid',
         ]);
 
-        $evaluatedId = $request->input('evaluated_id');
-        $evaluatorId = $request->input('evaluator_id');
+        $uuid = $request->input('evaluation_uuid');
 
         // Borrar todas las evaluaciones de ese par evaluador/avaluat
-        Evaluation::where('evaluated_professional_id', $evaluatedId)
-                  ->where('evaluator_professional_id', $evaluatorId)
-                  ->delete();
+        Evaluation::where('evaluation_uuid', $uuid)->delete();
 
         return redirect()->route('professional_evaluations_list')
                          ->with('success', 'Avaluació eliminada correctament.');
@@ -124,10 +125,15 @@ class EvaluationsController extends Controller
      */
     public function downloadCSV()
     {
-        $evaluations = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional'])->get();
+        $evaluations = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional'])
+            ->get()
+            ->sortBy([
+                fn($a, $b) => strcmp(optional($a->evaluatedProfessional)->surname1, optional($b->evaluatedProfessional)->surname1),
+                fn($a, $b) => strcmp(optional($a->evaluatedProfessional)->surname2, optional($b->evaluatedProfessional)->surname2),
+        ]);
 
         // Agrupar por evaluado para evitar filas repetidas
-        $grouped = $evaluations->groupBy(fn($item) => $item->evaluatedProfessional?->id);
+        $grouped = $evaluations->groupBy(fn($item) => $item->evaluation_uuid);
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = "avaluacions_{$timestamp}.csv";
@@ -150,7 +156,7 @@ class EvaluationsController extends Controller
                 optional($first->evaluatorProfessional)->name . ' ' .
                 optional($first->evaluatorProfessional)->surname1 . ' ' .
                 optional($first->evaluatorProfessional)->surname2,
-                $first->created_at->toDateString(),
+                $first->created_at->format('d/m/Y H:i:s'),
             ]);
         }
 

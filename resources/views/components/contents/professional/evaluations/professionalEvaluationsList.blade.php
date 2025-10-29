@@ -46,11 +46,11 @@
                     </td>
 
                     <td class="px-4 py-2">
-                        {{ $group->first()->created_at->toDateString() }}
+                        {{ $group->first()->created_at->toDateTimeString() }}
                     </td>
 
                     <td class="px-4 py-2 text-right">
-                         <x-partials.modal 
+                        <x-partials.modal 
                             id="deleteEvaluation{{ $evaluatedId }}" 
                             msj="Estàs segur que vols eliminar aquesta avalució?" 
                             btnText="Eliminar" 
@@ -60,11 +60,11 @@
                             <form action="{{ route('professional_evaluations_delete') }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="evaluated_id" value="{{ $group->first()->evaluated_professional_id }}">
-                                <input type="hidden" name="evaluator_id" value="{{ $group->first()->evaluator_professional_id }}">
+                                <input type="hidden" name="evaluation_uuid" value="{{ $group->first()->evaluation_uuid }}">
                                 <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
                             </form>
                         </x-partials.modal>
+                        
                         <a href="" class="btn btn-xs btn-info">Veure</a>
                     </td>
                 </tr>

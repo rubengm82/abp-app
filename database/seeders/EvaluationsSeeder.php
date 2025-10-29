@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class EvaluationsSeeder extends Seeder
 {
@@ -18,6 +19,8 @@ class EvaluationsSeeder extends Seeder
         // Test evaluation data
         $evaluations = [];
 
+        $uuid_pre_generated = Str::uuid()->toString();
+
         // Evaluation 1 - Professional 1 evaluating Professional 2
         for ($question = 1; $question <= 20; $question++) {
             $evaluations[] = [
@@ -25,6 +28,7 @@ class EvaluationsSeeder extends Seeder
                 'evaluated_professional_id' => 4,
                 'question_id' => $question,
                 'answer' => rand(0, 3),
+                'evaluation_uuid' => $uuid_pre_generated,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

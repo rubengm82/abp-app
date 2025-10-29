@@ -14,6 +14,7 @@ class Evaluation extends Model
         'evaluated_professional_id',
         'question_id',
         'answer',
+        'evaluation_uuid',
     ];
 
 
