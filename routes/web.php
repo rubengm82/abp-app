@@ -2,18 +2,11 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CenterController;
-use App\Http\Controllers\CenterNoteController;
-use App\Http\Controllers\CenterDocumentController;
 use App\Http\Controllers\ProfessionalController;
-use App\Http\Controllers\ProfessionalNoteController;
-use App\Http\Controllers\ProfessionalDocumentController;
 use App\Http\Controllers\ProjectCommissionController;
-use App\Http\Controllers\ProjectCommissionNoteController;
-use App\Http\Controllers\ProjectCommissionDocumentController;
 use App\Http\Controllers\MaterialAssignmentController;
-use App\Http\Controllers\MaterialAssignmentNoteController;
-use App\Http\Controllers\MaterialAssignmentDocumentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EvaluationsController;
 use Illuminate\Support\Facades\Route;
 
 /* ------------------------ LOGIN ------------------------ */
@@ -75,10 +68,12 @@ Route::middleware('auth')->post('/professional/documents/{professional}', [Profe
 Route::middleware('auth')->delete('/professional/documents/{document}', [ProfessionalController::class, 'professional_document_delete'])->name('professional_document_delete');
 Route::middleware('auth')->get('/professional/documents/download/{document}', [ProfessionalController::class, 'professional_document_download'])->name('professional_document_download');
 
-/* Professional Evaluation  ENRUTAMIENTO TEMPORAL HARDCODEADO*/
-Route::middleware('auth')->get('/professional/evaluation', function () {
-    return view('components.contents.professional.professionalEvaluation');
-})->name('professional_evaluation');
+/* Professional| EVALUATIONS */
+Route::middleware('auth')->get('/professionals/evaluations/list', [EvaluationsController::class, "index"])->name("professional_evaluations_list");
+Route::middleware('auth')->get('/professionals/evaluations/quiz/form', [EvaluationsController::class, "create"])->name("professional_evaluations_quiz_form");
+Route::middleware('auth')->post('/professionals/evaluations/quiz/add', [EvaluationsController::class, "store"])->name("professional_evaluations_add");
+Route::middleware('auth')->get('/professionals/evaluations/downloadCSV/', [EvaluationsController::class, 'downloadCSV'])->name('professional_evaluations.downloadCSV');
+Route::middleware('auth')->delete('/professionals/evaluations/delete', [EvaluationsController::class, 'destroy'])->name('professional_evaluations_delete');
 
 /* ------------------------ PROJECT COMMISSIONS ------------------------ */
 Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");

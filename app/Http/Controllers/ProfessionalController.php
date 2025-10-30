@@ -81,8 +81,18 @@ class ProfessionalController extends Controller
      */
     public function show(string $id)
     {
-        $professional = Professional::with([])->findOrFail($id);
-        return view('components.contents.professional.professionalShow')->with('professional', $professional);
+        $professional = Professional::findOrFail($id);
+
+        $shirtSize = MaterialAssignment::getLatestShirtSize($professional->id);
+        $pantsSize = MaterialAssignment::getLatestPantsSize($professional->id);
+        $shoeSize = MaterialAssignment::getLatestShoeSize($professional->id);
+
+        return view('components.contents.professional.professionalShow')->with([
+            'professional' => $professional,
+            'shirtSize' => $shirtSize,
+            'pantsSize' => $pantsSize,
+            'shoeSize' => $shoeSize,
+        ]);
     }
 
     /**
