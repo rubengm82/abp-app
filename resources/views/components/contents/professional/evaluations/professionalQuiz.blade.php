@@ -31,18 +31,25 @@
                         <label for="avaluat" class="block font-semibold mb-2 text-primary">(*) Professional a Avaluar:</label>
                         <select id="avaluat" name="avaluat" class="select select-bordered w-full" required>
                             <option value="">Selecciona un professional</option>
-                            <option value="6">Carles Molina González</option>
-                            <option value="5">Anna Torres Vargas</option>
+                            @foreach($professionals as $professional)
+                                <option value="{{ $professional->id }}">
+                                    {{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     
                     <!-- Evaluador -->
                     <div>
-                        <label for="evaluador" class="block font-medium mb-2">(*) Professional Avaluador: <i>(Directiu o Administració)</i></label>
+                        <label for="evaluador" class="block font-medium mb-2">(*) Professional Avaluador:</label>
                         <select id="evaluador" name="evaluador" class="select select-bordered w-full" required>
                             <option value="">Selecciona un professional</option>
-                            <option value="2">Joan García Martínez</option>
-                            <option value="3">Maria López Fernández</option>
+                            @foreach($professionals as $professional)
+                                <option value="{{ $professional->id }}">
+                                    {{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}
+                                </option>
+                            @endforeach
+                        </select>
                         </select>
                     </div>
                     
@@ -74,12 +81,13 @@
                                     {{-- Radio Buttons --}}
                                     @for ($i = 0; $i < 4; $i++)
                                         <td class="text-center">
-                                            <input type="radio" 
+                                            <input 
+                                                type="radio" 
                                                 name="questions[{{ $question->id }}]" 
                                                 value="{{ $i }}" 
-                                                class="radio radio-primary radio-xs" 
-                                                {{ $i === 0 ? 'checked' : '' }} {{-- DEFAULT OPTION --}}
-                                                required 
+                                                class="radio radio-primary radio-xs"
+                                                {{ old("questions.{$question->id}") === (string) $i ? 'checked' : '' }}
+                                                required
                                             />
                                         </td>
                                     @endfor

@@ -50,21 +50,6 @@
                     </td>
 
                     <td class="px-4 py-2 text-right">
-                        <x-partials.modal 
-                            id="deleteEvaluation{{ $evaluatedId }}" 
-                            msj="Estàs segur que vols eliminar aquesta avalució?" 
-                            btnText="Eliminar" 
-                            class="btn-xs btn-error" 
-                            width="60">
-                            
-                            <form action="{{ route('professional_evaluations_delete') }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="evaluation_uuid" value="{{ $group->first()->evaluation_uuid }}">
-                                <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
-                            </form>
-                        </x-partials.modal>
-                        
                         <a href="{{ route('professional_evaluation_quiz_show', [$group->first()->evaluated_professional_id, $group->first()->evaluator_professional_id, $group->first()->evaluation_uuid]) }}" class="btn btn-xs btn-info">Veure</a>
                     </td>
                 </tr>

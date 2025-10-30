@@ -26,6 +26,7 @@
                     {{ $professionalEvaluated->first()->name }}
                     {{ $professionalEvaluated->first()->surname1 }}
                     {{ $professionalEvaluated->first()->surname2 }}
+                    {{ $professionalEvaluated->first()->evaluation_uuid }}
                 </span>
             </h2>
             <p class="card-title text-base">
@@ -42,6 +43,20 @@
                    class="btn btn-sm btn-warning">
                    Descarregar Avaluació
                 </a>
+                <x-partials.modal 
+                    id="deleteEvaluation{{ $professionalEvaluated->first()->id }}" 
+                    msj="Estàs segur que vols eliminar aquesta avalució?" 
+                    btnText="Eliminar" 
+                    class="btn-sm btn-error" 
+                    width="60">
+                    
+                    <form action="{{ route('professional_evaluations_delete') }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="evaluation_uuid" value="{{ $answers->first()->evaluation_uuid }}">
+                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                    </form>
+                </x-partials.modal>
             </div>
         </div>
     </div>

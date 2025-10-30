@@ -41,8 +41,11 @@ class EvaluationsController extends Controller
     public function create()
     {
         $questions = Quiz::all();
+        $professionals = Professional::where('status', 1)->get();
+
         return view("components.contents.professional.evaluations.professionalQuiz",[
             'questions' => $questions,
+            'professionals' => $professionals,
         ]);
     }
 
@@ -58,6 +61,14 @@ class EvaluationsController extends Controller
             'evaluation_uuid' => 'nullable|uuid',
         ]);
 
+        // Check that you are not evaluating yourself
+        if ($request->input('avaluat') == $request->input('evaluador')) {
+            return redirect()->back()
+                ->withInput()
+                ->with(['error' => 'No es pot avaluar a un mateix.']);
+        }
+
+        
         $uuid_pre_generated = Str::uuid()->toString();
 
         foreach ($request->questions as $quiz_id => $answer_value) {
