@@ -7,6 +7,8 @@ use App\Models\Professional;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Mockery\Loader\EvalLoader;
+use PhpParser\Node\Expr\Eval_;
 
 class EvaluationsController extends Controller
 {
@@ -75,9 +77,19 @@ class EvaluationsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Evaluation $evaluations)
+    public function show(String $professionalEvaluated_id, String $uuid)
     {
-        return view("components.contents.professional.evaluations.professionalQuizShow");
+        $evaluation = Evaluation::where('evaluation_uuid', $uuid)->get();
+        $professionalEvaluated = Professional::where('id', $professionalEvaluated_id)->get();
+        
+        // dd($evaluation);
+        // dd($professionalEvaluated);
+
+        return view("components.contents.professional.evaluations.professionalQuizShow")
+            ->with([
+                'evaluation' => $evaluation,
+                'professionalEvaluated' => $professionalEvaluated,
+            ]);
     }
 
     /**

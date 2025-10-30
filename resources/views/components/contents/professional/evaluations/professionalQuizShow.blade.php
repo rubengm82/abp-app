@@ -20,7 +20,13 @@
     <!-- Evaluator | Evaluated -> Card -->  
     <div class="card bg-base-100 text-base-content shadow-xl mb-6">
         <div class="card-body">
-            <h2 class="card-title text-lg mb-4">Selecciona els professionals</h2>
+            <h2 class="card-title text-lg mb-4">
+                Professional evaluat:
+                {{ $professionalEvaluated->first()->name }}
+                {{ $professionalEvaluated->first()->surname1 }}
+                {{ $professionalEvaluated->first()->surname2 }}
+            </h2>
+            <h2>{{ $evaluation }}</h2>
         </div>
     </div>
 
