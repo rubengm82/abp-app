@@ -269,7 +269,7 @@ class ProjectCommissionController extends Controller
         $unassignedProfessionals = $allProfessionals->whereNotIn('id', $assignedProfessionalIds);
         $assignedProfessionals = $allProfessionals->whereIn('id', $assignedProfessionalIds);
         
-        return view('components.contents.projectcommission.assignProfessionals', [
+        return view('components.contents.projectcommission.projectCommissionAssignProfessionals', [
             'projectCommission' => $projectCommission,
             'unassignedProfessionals' => $unassignedProfessionals,
             'assignedProfessionals' => $assignedProfessionals

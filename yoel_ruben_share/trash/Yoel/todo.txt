@@ -1,8 +1,14 @@
 # Sprint 3 Inicio - TODO LIST
 
 Todo:
-* Añadir bloque de "Projectes asignats" en el show de profesionales (resources/views/components/contents/professional/professionalShow.blade.php)
-* Añadir bloque de "Cursos asignats" en el show 
+* Añadir drag manual
+** Maquetación básica del drag
+** Lógica básica del drag
+*** Que se puedan mover los <li>
+*** Asegurarse de que los value/data-id cambien en consecuencia
+*** Que el botón del formulario envíe la backend
+** Confirmar que en el backend se recibe una lista de IDs
+
 Apuntes: 
 
 * Required de Cursos
@@ -32,5 +38,9 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 
 To commit:
-* Añadido bloques de asignaciones en el show de Profesionales
+* Renombrados archivos de asignación de profesionales
+* Dragueable de asignación funcionando en Cursos
+* Dragueable de asignación funcionando en Proyectos
+
+
 

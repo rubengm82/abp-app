@@ -9,6 +9,7 @@ use App\Models\NotesComponent;
 use App\Models\DocumentComponent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\mainlog;
 
 class CourseController extends Controller
 {
@@ -257,7 +258,7 @@ class CourseController extends Controller
         $unassignedProfessionals = $allProfessionals->whereNotIn('id', $assignedProfessionalIds);
         $assignedProfessionals = $allProfessionals->whereIn('id', $assignedProfessionalIds);
         
-        return view('components.contents.courses.assignProfessionals', [
+        return view('components.contents.courses.courseAssignProfessionals', [
             'course' => $course,
             'unassignedProfessionals' => $unassignedProfessionals,
             'assignedProfessionals' => $assignedProfessionals
@@ -269,6 +270,9 @@ class CourseController extends Controller
      */
     public function updateProfessionalAssignments(Request $request, Course $course)
     {
+        mainlog::log("Empieza el método updateProfessionalAssignments en Course");
+        mainlog::log("Request: ". json_encode($request->professional_ids));
+
         // Validate the request
         $request->validate([
             'professional_ids' => 'nullable|array',
