@@ -26,7 +26,7 @@
                 <tr class="bg-base-300 text-base-content font-semibold">
                     <th class="px-4 py-2 text-left">Avaluat</th>
                     <th class="px-4 py-2 text-left">Avaluador</th>
-                    <th class="px-4 py-2 text-left">Data de Creació</th>
+                    <th class="px-4 py-2 text-left">Data de l'Avaluació</th>
                     <th class="px-4 py-2 text-right">Acció</th>
                 </tr>
             </thead>
@@ -65,7 +65,7 @@
                             </form>
                         </x-partials.modal>
                         
-                        <a href="{{ route('professional_evaluation_quiz_show', [$group->first()->evaluated_professional_id, $group->first()->evaluation_uuid]) }}" class="btn btn-xs btn-info">Veure</a>
+                        <a href="{{ route('professional_evaluation_quiz_show', [$group->first()->evaluated_professional_id, $group->first()->evaluator_professional_id, $group->first()->evaluation_uuid]) }}" class="btn btn-xs btn-info">Veure</a>
                     </td>
                 </tr>
                 @endforeach

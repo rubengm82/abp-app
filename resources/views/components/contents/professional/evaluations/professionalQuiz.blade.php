@@ -13,7 +13,7 @@
 <div class="w-full mx-auto bg-base-100 text-base-content p-6 rounded shadow">
     <!-- Page Title -->
     <div class="flex justify-center items-center mb-6">
-        <h1 class="text-2xl font-bold text-center">Qüestionari valoració del/la professional</h1>
+        <h1 class="text-2xl font-bold text-center">Qüestionari de la valoració del/la professional</h1>
     </div>
     
     <!-- Evaluation Form -->
@@ -79,11 +79,13 @@
                                                 value="{{ $i }}" 
                                                 class="radio radio-primary radio-xs" 
                                                 {{ $i === 0 ? 'checked' : '' }} {{-- DEFAULT OPTION --}}
-                                                required>
+                                                required 
+                                            />
                                         </td>
                                     @endfor
                                 </tr>
                             @endforeach
+                        </tbody>
                         <tbody >
                             <tr class="bg-primary text-black font-semibold">
                                 <th class="w-1/2 text-lg">Pregunta</th>

@@ -31,5 +31,8 @@ class Evaluation extends Model
     {
         return $this->belongsTo(Professional::class, 'evaluated_professional_id');
     }
+    public function question() {
+        return $this->belongsTo(Quiz::class, 'question_id');
+    }
 
 }

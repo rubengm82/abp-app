@@ -77,18 +77,22 @@ class EvaluationsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(String $professionalEvaluated_id, String $uuid)
+    public function show(String $professionalEvaluated_id, String $professionalEvaluator_id, String $uuid)
     {
-        $evaluation = Evaluation::where('evaluation_uuid', $uuid)->get();
+        $answers = Evaluation::where('evaluation_uuid', $uuid)->get();
         $professionalEvaluated = Professional::where('id', $professionalEvaluated_id)->get();
+        $professionalEvaluator = Professional::where('id', $professionalEvaluator_id)->get();
+        $questions = Quiz::all();
         
         // dd($evaluation);
         // dd($professionalEvaluated);
 
         return view("components.contents.professional.evaluations.professionalQuizShow")
             ->with([
-                'evaluation' => $evaluation,
+                'answers' => $answers,
+                'questions' => $questions,
                 'professionalEvaluated' => $professionalEvaluated,
+                'professionalEvaluator' => $professionalEvaluator,
             ]);
     }
 
@@ -169,6 +173,68 @@ class EvaluationsController extends Controller
                 optional($first->evaluatorProfessional)->surname1 . ' ' .
                 optional($first->evaluatorProfessional)->surname2,
                 $first->created_at->format('d/m/Y H:i:s'),
+            ]);
+        }
+
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+
+    /**
+     * Download CSV for only one professional evaluated in a single quiz
+     */
+    public function downloadCSV_professional_evaluated(string $evaluation_uuid)
+    {
+        $answers = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional', 'question'])
+            ->where('evaluation_uuid', $evaluation_uuid)
+            ->get();
+
+        if ($answers->isEmpty()) {
+            return redirect()->back()->with('error', 'No s’ha trobat aquesta avaluació.');
+        }
+
+        $first = $answers->first(); // Tomamos info del evaluado/evaluador
+
+        // FILE NAME
+        $evaluatedName = Str::slug(
+            trim(
+                optional($first->evaluatedProfessional)->name . ' ' .
+                optional($first->evaluatedProfessional)->surname1 . ' ' .
+                optional($first->evaluatedProfessional)->surname2
+            ),
+            '_'
+        );
+        $evaluationDate = $first->created_at->format('d-m-Y_H-i-s');
+        $filename = "avaluacio_{$evaluatedName}_{$evaluationDate}.csv";
+        // END FILE NAME
+
+        $handle = fopen($filename, 'w+');
+
+        // Encabezados generales
+        fputcsv($handle, ["Professional Avaluat:", optional($first->evaluatedProfessional)->name . ' ' . optional($first->evaluatedProfessional)->surname1 . ' ' . optional($first->evaluatedProfessional)->surname2]);
+        fputcsv($handle, ["Professional Avaluador:", optional($first->evaluatorProfessional)->name . ' ' . optional($first->evaluatorProfessional)->surname1 . ' ' . optional($first->evaluatorProfessional)->surname2]);
+        fputcsv($handle, ["Data de l'avaluació:", $first->created_at->format('d/m/Y H:i:s')]);
+
+        // Línea vacía para separar del listado de preguntas
+        fputcsv($handle, []);
+
+        // Cabecera de las preguntas
+        fputcsv($handle, ['Pregunta', 'Resposta']);
+
+        // Mapa de respuestas
+        $answerTextMap = [
+            0 => 'Gens d\'acord',
+            1 => 'Poc d\'acord',
+            2 => 'Bastant d\'acord',
+            3 => 'Molt d\'acord',
+        ];
+
+        // Preguntas y respuestas
+        foreach ($answers as $answer) {
+            fputcsv($handle, [
+                $answer->question->question ?? 'Pregunta sense nom',
+                $answerTextMap[$answer->answer] ?? $answer->answer,
             ]);
         }
 
