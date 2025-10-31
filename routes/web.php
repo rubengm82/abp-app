@@ -112,7 +112,7 @@ Route::middleware('auth')->get('/course/downloadCSV-professionals/{course}', [Co
 /* ------------------------ MATERIAL ASSIGNMENTS ------------------------ */
 Route::middleware('auth')->get('/materialassignments/list', [MaterialAssignmentController::class, 'index'])->name('materialassignments_list');
 Route::middleware('auth')->get('/materialassignment/form', [MaterialAssignmentController::class, 'create'])->name('materialassignment_form');
-Route::middleware('auth')->post('/materialassignment/store', [MaterialAssignmentController::class, 'store'])->name('materialassignment_store');
+Route::middleware('auth')->post('/materialassignment/add', [MaterialAssignmentController::class, 'store'])->name('materialassignment_add');
 Route::middleware('auth')->get('/materialassignment/show/{materialAssignment}', [MaterialAssignmentController::class, 'show'])->name('materialassignment_show');
 Route::middleware('auth')->get('/materialassignment/edit/{materialAssignment}', [MaterialAssignmentController::class, 'edit'])->name('materialassignment_edit');
 Route::middleware('auth')->put('/materialassignment/update/{materialAssignment}', [MaterialAssignmentController::class, 'update'])->name('materialassignment_update');

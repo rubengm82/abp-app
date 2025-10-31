@@ -37,5 +37,6 @@
     <script src="{{ asset('js/components/partials/themeswitch.js') }}"></script>
     <script src="{{ asset('js/components/partials/modal.js') }}"></script>
     <script src="{{ asset('js/components/partials/menu-sidebar.js') }}"></script>
+    <script src="{{ asset('js/components/partials/forms_one_click.js') }}"></script>
 </body>
 </html>

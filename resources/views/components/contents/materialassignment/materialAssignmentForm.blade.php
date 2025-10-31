@@ -25,7 +25,7 @@
         </div>
     @endif
     
-    <form action="{{ route('materialassignment_store') }}" method="POST" class="space-y-6">
+    <form action="{{ route('materialassignment_add') }}" method="POST" class="space-y-6">
         @csrf
         
         <!-- Informació de l'Assignació -->
