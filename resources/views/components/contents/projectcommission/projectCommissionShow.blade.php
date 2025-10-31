@@ -159,7 +159,7 @@
                         <div class="p-3 bg-base-200 rounded-lg">
                             <div>
                                 <a href="{{ route('professional_show', $assignment->professional->id) }}" 
-                                   class="font-semibold text-black hover:text-gray-700 transition-all duration-200">
+                                   class="font-semibold link link-hover">
                                     {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }} {{ $assignment->professional->surname2 }}
                                 </a>
                             </div>

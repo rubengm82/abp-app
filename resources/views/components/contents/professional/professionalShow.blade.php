@@ -186,7 +186,7 @@
                         <div class="p-3 bg-base-200 rounded-lg">
                             <div>
                                 <a href="{{ route('projectcommission_show', $project->id) }}" 
-                                   class="font-semibold text-black hover:text-gray-700 transition-all duration-200">
+                                   class="font-semibold link link-hover">
                                     {{ $project->name }}
                                 </a>
                             </div>
@@ -213,7 +213,7 @@
                         <div class="p-3 bg-base-200 rounded-lg">
                             <div>
                                 <a href="{{ route('course_show', $course->id) }}" 
-                                   class="font-semibold text-black hover:text-gray-700 transition-all duration-200">
+                                   class="font-semibold link link-hover">
                                     {{ $course->training_name }}
                                 </a>
                             </div>
