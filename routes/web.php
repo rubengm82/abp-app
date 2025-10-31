@@ -102,10 +102,12 @@ Route::middleware('auth')->get('/projectcommission/documents/download/{document}
 /* Project Commission Professional Assignments */
 Route::middleware('auth')->get('/projectcommission/assign-professionals/{projectCommission}', [ProjectCommissionController::class, 'assignProfessionals'])->name('projectcommission_assign_professionals');
 Route::middleware('auth')->post('/projectcommission/update-professional-assignments/{projectCommission}', [ProjectCommissionController::class, 'updateProfessionalAssignments'])->name('projectcommission_update_professional_assignments');
+Route::middleware('auth')->get('/projectcommission/downloadCSV-professionals/{projectCommission}', [ProjectCommissionController::class, 'downloadCSVProfessionals'])->name('projectcommission_downloadCSV_professionals');
 
 /* Course Professional Assignments */
 Route::middleware('auth')->get('/course/assign-professionals/{course}', [CourseController::class, 'assignProfessionals'])->name('course_assign_professionals');
 Route::middleware('auth')->post('/course/update-professional-assignments/{course}', [CourseController::class, 'updateProfessionalAssignments'])->name('course_update_professional_assignments');
+Route::middleware('auth')->get('/course/downloadCSV-professionals/{course}', [CourseController::class, 'downloadCSVProfessionals'])->name('course_downloadCSV_professionals');
 
 /* ------------------------ MATERIAL ASSIGNMENTS ------------------------ */
 Route::middleware('auth')->get('/materialassignments/list', [MaterialAssignmentController::class, 'index'])->name('materialassignments_list');

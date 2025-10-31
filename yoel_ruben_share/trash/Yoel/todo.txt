@@ -1,13 +1,9 @@
 # Sprint 3 Inicio - TODO LIST
 
 Todo:
-* Añadir drag manual
-** Maquetación básica del drag
-** Lógica básica del drag
-*** Que se puedan mover los <li>
-*** Asegurarse de que los value/data-id cambien en consecuencia
-*** Que el botón del formulario envíe la backend
-** Confirmar que en el backend se recibe una lista de IDs
+* De la misma manera que se descarga la lista de centros desde resources/views/components/contents/center/centersList.blade.php
+** Añadir en el bloque de "Profesionals apuntats al curs" en resources/views/components/contents/courses/courseShow.blade.php un botón para descargar el listado, con nombre y apellidos, el nombre del archivo debe de tener el nombre del Curso y la fecha.
+** Añadir en el bloque de "Equip del Projecte" en resources/views/components/contents/projectcommission/projectCommissionShow.blade.php un botón para descargar el listado, con nombre y apellidos, el nombre del archivo debe de tener el nombre del Proyecto/Comisión y la fecha.
 
 Apuntes: 
 
@@ -16,19 +12,6 @@ Apuntes:
 * Ver profesionales asignados en un curso
 * Ver los cursos a los que está asignado un profesional
 
-* Añadir listado de Cursos en Profesional Show      [Yoel]
-* Añadir listado de Proyectos en Profesional Show   [Yoel]  
-
-* Añadir listado de Profesionales en Cursos Show    [Rubén]
-* Añadir listado de Profesionales en Proyectos Show [Yoel]  [Done]
-
-* Maquetación y figma
-** Lista dragueable de asignación (both)            [Yoel]  (Done Proyectos)
-* Lista dragueable, rellenar por db (Proy)        [Yoel]  (Done Proyectos)
-
-* Mover Trash
-
-* Hablar sobre el script de IDs hidden
 
 To know:
 * En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo yoel_ruben_share/trash/Yoel/master_checklist.txt como instrucciones básicas
@@ -38,9 +21,7 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 
 To commit:
-* Renombrados archivos de asignación de profesionales
-* Dragueable de asignación funcionando en Cursos
-* Dragueable de asignación funcionando en Proyectos
+* Exportación a excel de profesionales asignados a Cursos y Proyectos
 
 
 

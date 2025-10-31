@@ -149,6 +149,37 @@ class CourseController extends Controller
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 
+    /**
+     * Download CSV of professionals assigned to a course
+     */
+    public function downloadCSVProfessionals(Course $course)
+    {
+        $assignments = $course->assignments()->with('professional')->get();
+
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        // Sanitize course name for filename
+        $courseName = str_replace(' ', '_', $course->training_name);
+        $filename = "professionals_{$courseName}_{$timestamp}.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['Nom', 'Cognom1', 'Cognom2']);
+
+        foreach ($assignments as $assignment) {
+            if ($assignment->professional) {
+                fputcsv($handle, [
+                    $assignment->professional->name,
+                    $assignment->professional->surname1,
+                    $assignment->professional->surname2,
+                ]);
+            }
+        }
+
+        // Close Pointer File
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+
     //// DOCUMENTS ////
     // Upload Document to server
     public function course_document_add(Request $request, Course $course)

@@ -160,6 +160,37 @@ class ProjectCommissionController extends Controller
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 
+    /**
+     * Download CSV of professionals assigned to a project commission
+     */
+    public function downloadCSVProfessionals(ProjectCommission $projectCommission)
+    {
+        $assignments = $projectCommission->assignments()->with('professional')->get();
+
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        // Sanitize project commission name for filename
+        $projectName = str_replace(' ', '_', $projectCommission->name);
+        $filename = "professionals_{$projectName}_{$timestamp}.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['Nom', 'Cognom1', 'Cognom2']);
+
+        foreach ($assignments as $assignment) {
+            if ($assignment->professional) {
+                fputcsv($handle, [
+                    $assignment->professional->name,
+                    $assignment->professional->surname1,
+                    $assignment->professional->surname2,
+                ]);
+            }
+        }
+
+        // Close Pointer File
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+
     //// DOCUMENTS ////
     // Upload Document to server
     public function projectcommission_document_add(Request $request, ProjectCommission $projectCommission)

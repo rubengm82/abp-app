@@ -134,9 +134,14 @@
         <div class="card-body">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="card-title text-xl">Equip del Projecte</h2>
-                <a href="{{ route('projectcommission_assign_professionals', $projectCommission) }}" class="btn btn-sm btn-primary">
-                    Assignar professionals
-                </a>
+                <div class="flex gap-2">
+                    @if($projectCommission->assignments->count() > 0)
+                        <a href="{{ route('projectcommission_downloadCSV_professionals', $projectCommission) }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+                    @endif
+                    <a href="{{ route('projectcommission_assign_professionals', $projectCommission) }}" class="btn btn-sm btn-primary">
+                        Assignar professionals
+                    </a>
+                </div>
             </div>
             
             @if($projectCommission->assignments->count() > 0)
