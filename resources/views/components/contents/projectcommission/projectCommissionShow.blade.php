@@ -73,6 +73,15 @@
                             @endif
                         </p>
                     </div>
+
+                    <div>
+                        <label class="font-semibold">Estat:</label>
+                        <p>
+                            <span class="badge badge-dash {{ $projectCommission->status === 'Actiu' ? 'badge-success' : 'badge-error' }}">
+                                {{ $projectCommission->status }}
+                            </span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -82,7 +91,7 @@
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Descripció</h2>
                 <div>
-                    <p class="text-lg break-words whitespace-pre-wrap">{{ $projectCommission->description ?: 'No hi ha descripció disponible' }}</p>
+                    <p class="text-lg break-all whitespace-pre-wrap">{{ $projectCommission->description ?: 'No hi ha descripció disponible' }}</p>
                 </div>
             </div>
         </div>
@@ -136,7 +145,7 @@
                 <h2 class="card-title text-xl">Equip del Projecte</h2>
                 <div class="flex gap-2">
                     @if($projectCommission->assignments->count() > 0)
-                        <a href="{{ route('projectcommission_downloadCSV_professionals', $projectCommission) }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+                        <a href="{{ route('projectcommission_downloadCSV_professionals', $projectCommission) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
                     @endif
                     <a href="{{ route('projectcommission_assign_professionals', $projectCommission) }}" class="btn btn-sm btn-primary">
                         Assignar professionals

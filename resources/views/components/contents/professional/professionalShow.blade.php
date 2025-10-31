@@ -60,7 +60,7 @@
                     <div>
                         <label class="font-semibold">Estat laboral:</label>
                         <p class="text-lg">
-                            <span class="badge {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
+                            <span class="badge badge-dash {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
                                 {{ $professional->employment_status ?: 'No especificat' }}
                             </span>
                         </p>
@@ -96,7 +96,7 @@
     <div class="card bg-base-100 text-base-content shadow-xl mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Currículum Vitae</h2>
-            <p class="text-lg break-words whitespace-pre-wrap">{{ $professional->cvitae ?: 'No hi ha currículum disponible' }}</p>
+            <p class="text-lg break-all whitespace-pre-wrap">{{ $professional->cvitae ?: 'No hi ha currículum disponible' }}</p>
         </div>
     </div>
 

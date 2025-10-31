@@ -8,11 +8,11 @@
     ]"
     :current="'Llistat Desactivats'"
     />
-<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de centres desactivats</h1>
+<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de centres desactivats</h1>
 
 @if($centers->where('status', 0)->count() > 0)
 <div class="flex justify-end gap-4 mb-4">
-    <a href="{{ route('centers.downloadCSV', ['status' => 0]) }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('centers.downloadCSV', ['status' => 0]) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
 </div>
 @endif
 

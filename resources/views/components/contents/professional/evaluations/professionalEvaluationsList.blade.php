@@ -14,7 +14,7 @@
 
 @if($groupedEvaluations->count() > 0)
 <div class="flex justify-end gap-4">
-    <a href="{{ route('professional_evaluations.downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('professional_evaluations.downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
     <a href="{{ route('professional_evaluations_quiz_form') }}" class="btn btn-sm btn-primary">Afegir Evaluació</a>
 </div>
 @endif

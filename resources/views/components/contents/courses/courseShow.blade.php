@@ -132,7 +132,7 @@
                 <h2 class="card-title text-xl">Profesionals apuntats al curs</h2>
                 <div class="flex gap-2">
                     @if($course->assignments->count() > 0)
-                        <a href="{{ route('course_downloadCSV_professionals', $course) }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+                        <a href="{{ route('course_downloadCSV_professionals', $course) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
                     @endif
                     <a href="{{ route('course_assign_professionals', $course) }}" class="btn btn-sm btn-primary">
                         Assignar professionals

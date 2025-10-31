@@ -43,7 +43,7 @@
                         <li>
                             <a href="{{ route('professionals_list') }}">
                                 <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
-                                List
+                                Llistar
                             </a>
                         </li>
                     </ul>
@@ -53,7 +53,7 @@
                         <li>
                             <a href="{{ route('professional_form') }}">
                                 <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
-                                Add
+                                Afegir
                             </a>
                         </li>
                     </ul>
@@ -72,7 +72,7 @@
                                     <li>
                                         <a href="{{ route('professional_evaluations_list') }}">
                                             <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
-                                            List
+                                            Llistar
                                         </a>
                                     </li>
                                 </ul>
@@ -82,7 +82,7 @@
                                     <li>
                                         <a href="{{ route('professional_evaluations_quiz_form') }}">
                                             <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
-                                            Add
+                                            Afegir
                                         </a>
                                     </li>
                                 </ul>

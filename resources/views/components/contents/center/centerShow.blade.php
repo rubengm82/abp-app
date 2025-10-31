@@ -42,7 +42,7 @@
                     <div>
                         <label class="font-semibold">Estat:</label>
                         <p>
-                            <span class="badge {{ $center->status == 1 ? 'badge-success' : 'badge-error' }}">
+                            <span class="badge badge-dash {{ $center->status == 1 ? 'badge-success' : 'badge-error' }}">
                                 {{ $center->status == 1 ? 'Actiu' : 'Inactiu' }}
                             </span>
                         </p>

@@ -8,11 +8,11 @@
     ]"
     :current="'Llistat Desactivats'"
     />
-<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de professionals desactivats</h1>
+<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de professionals desactivats</h1>
 
 @if($professionals->where('status', 0)->count() > 0)
 <div class="flex justify-end gap-4 mb-4">
-    <a href="{{ route('professionals.downloadCSV', 0) }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('professionals.downloadCSV', 0) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
 </div>
 @endif
 
@@ -61,7 +61,7 @@
                             <td class="px-4 py-2">{{ $professional->phone }}</td>
                             <td class="px-4 py-2">{{ $professional->email }}</td>
                             <td class="px-4 py-2">
-                                <span class="badge {{ $professional->employment_status === 'Actiu' ? 'badge badge-outline badge-success' : 'badge badge-outline badge-warning' }}">
+                                <span class="badge badge-dash {{ $professional->employment_status === 'No Contractat' ? 'badge-success' : 'badge-warning' }}">
                                     {{ $professional->employment_status }}
                                 </span>
                             </td>

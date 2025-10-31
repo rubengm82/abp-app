@@ -8,11 +8,11 @@
     ]"
     :current="'Llistat'"
     />
-<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de projectes i comissions</h1>
+<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de projectes i comissions</h1>
 
 @if($projectCommissions->where('status', 'Actiu')->count() > 0)
 <div class="flex justify-end gap-4 mb-4">
-    <a href="{{ route('projectcommissions.downloadCSV', ['status' => 'Actiu']) }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('projectcommissions.downloadCSV', ['status' => 'Actiu']) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
     <a href="{{ route('projectcommission_form') }}" class="btn btn-sm btn-primary">Afegir Projecte/Comissió</a>
 </div>
 @endif
@@ -38,7 +38,7 @@
                             <td class="px-4 py-2">{{ $projectCommission->id }}</td>
                             <td class="px-4 py-2 font-medium">{{ $projectCommission->name }}</td>
                             <td class="px-4 py-2">
-                                <span class="badge {{ $projectCommission->status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
+                                <span class="badge badge-dash {{ $projectCommission->status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
                                     {{ $projectCommission->status }}
                                 </span>
                             </td>

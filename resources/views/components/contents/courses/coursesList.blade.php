@@ -9,11 +9,11 @@
     :current="'Llistat'"
 />
 
-<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de cursos</h1>
+<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de cursos</h1>
 
 @if($courses->count() > 0)
 <div class="flex justify-end gap-4">
-    <a href="{{ route('courses_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('courses_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
     <a href="{{ route('course_form') }}" class="btn btn-sm btn-primary">Afegir Curs</a>
 </div>
 @endif

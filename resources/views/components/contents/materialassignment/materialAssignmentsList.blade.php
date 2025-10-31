@@ -8,11 +8,11 @@
     ]"
     :current="'Llistat'"
     />
-<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista d'Assignacions de Material</h1>
+<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat d'Assignacions de Material</h1>
 
 @if($materialAssignments->count() > 0)
 <div class="flex justify-end gap-4 mb-4">
-    <a href="{{ route('materialassignment_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('materialassignment_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
     <a href="{{ route('materialassignment_form') }}" class="btn btn-sm btn-primary">Afegir Assignació</a>
 </div>
 @endif
@@ -45,21 +45,21 @@
                         </td>
                         <td class="px-4 py-2 text-center">
                             @if($assignment->shirt_size)
-                                <span class="badge badge-outline badge-info">{{ $assignment->shirt_size }}</span>
+                                <span class="badge badge-dash badge-info">{{ $assignment->shirt_size }}</span>
                             @else
                                 <span class="text-base-content/50">-</span>
                             @endif
                         </td>
                         <td class="px-4 py-2 text-center">
                             @if($assignment->pants_size)
-                                <span class="badge badge-outline badge-info">{{ $assignment->pants_size }}</span>
+                                <span class="badge badge-dash badge-info">{{ $assignment->pants_size }}</span>
                             @else
                                 <span class="text-base-content/50">-</span>
                             @endif
                         </td>
                         <td class="px-4 py-2 text-center">
                             @if($assignment->shoe_size)
-                                <span class="badge badge-outline badge-info">{{ $assignment->shoe_size }}</span>
+                                <span class="badge badge-dash badge-info">{{ $assignment->shoe_size }}</span>
                             @else
                                 <span class="text-base-content/50">-</span>
                             @endif

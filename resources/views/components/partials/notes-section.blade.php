@@ -55,7 +55,7 @@
                                 @endif
                             </div>
                         </div>
-                        <p class="text-base-content break-words whitespace-pre-wrap">{{ $item->notes ?? $item->text ?? '' }}</p>
+                        <p class="text-base-content break-all whitespace-pre-wrap">{{ $item->notes ?? $item->text ?? '' }}</p>
                     </div>
                 @endforeach
             </div>

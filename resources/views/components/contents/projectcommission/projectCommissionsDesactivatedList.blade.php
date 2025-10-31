@@ -8,11 +8,11 @@
     ]"
     :current="'Llistat Desactivats'"
     />
-<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llista de projectes i comissions desactivats</h1>
+<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de projectes i comissions desactivats</h1>
 
 @if($projectCommissions->where('status', 'Inactiu')->count() > 0)
 <div class="flex justify-end gap-4 mb-4">
-    <a href="{{ route('projectcommissions.downloadCSV', ['status' => 'Inactiu']) }}" class="btn btn-sm btn-warning">Descarregar Llista</a>
+    <a href="{{ route('projectcommissions.downloadCSV', ['status' => 'Inactiu']) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
 </div>
 @endif
 
@@ -36,7 +36,11 @@
                         <tr class="hover:bg-base-200 transition-colors">
                             <td class="px-4 py-2">{{ $projectCommission->id }}</td>
                             <td class="px-4 py-2 font-medium">{{ $projectCommission->name }}</td>
-                            <td class="px-4 py-2">{{ $projectCommission->status }}</td>
+                            <td class="px-4 py-2">
+                                <span class="badge badge-dash {{ $projectCommission->status === 'Inactiu' ? 'badge-error' : 'badge-sucess' }}">
+                                    {{ $projectCommission->status }}
+                                </span>
+                            </td>
                             <td class="px-4 py-2">
                                 @if($projectCommission->responsibleProfessional)
                                     <a href="{{ route('professional_show', $projectCommission->responsibleProfessional->id) }}" 

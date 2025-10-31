@@ -169,7 +169,7 @@ class ProfessionalController extends Controller
     public function activateStatus(Request $request, String $professional_id)
     {
         $professional = Professional::findOrFail($professional_id);
-        $professional->update(['status' => 1]);
+        $professional->update(['status' => 1, 'employment_status' => 'Actiu']);
         return redirect()->route('professionals_desactivated_list')->with('success', 'Professional activat correctament!');
     }
 
@@ -179,7 +179,7 @@ class ProfessionalController extends Controller
     public function desactivateStatus(Request $request, String $professional_id)
     {
         $professional = Professional::findOrFail($professional_id);
-        $professional->update(['status' => 0]);
+        $professional->update(['status' => 0, 'employment_status' => 'No Contractat']);
         return redirect()->route('professionals_list')->with('success', 'Professional desactivat correctament!');
     }
 
