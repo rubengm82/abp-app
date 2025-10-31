@@ -96,9 +96,9 @@
                 <h2 class="card-title text-xl mb-4">Detalls de l'Assignació</h2>
                 <div class="space-y-4">
                     <div class="form-control">
-                        <label class="label"><span class="label-text">Assignat per</span></label>
+                        <label class="label"><span class="label-text">Assignat per </span></label>
                         <select name="assigned_by_professional_id" class="select select-bordered w-full">
-                            <option value="">Selecciona qui assigna</option>
+                            <option value="">Selecciona qui assigna --> (Si no se selecciona, s'assigna l'usuari de la sessió actual)</option>
                             <!-- Temporal: usar usuario logueado si aplica -->
                             @foreach($professionals as $professional)
                                 <option value="{{ $professional->id }}" {{ old('assigned_by_professional_id') == $professional->id ? 'selected' : '' }}>
