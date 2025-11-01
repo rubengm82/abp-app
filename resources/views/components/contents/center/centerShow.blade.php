@@ -16,11 +16,28 @@
                 <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
             @if($center->status == 1)
-                <x-partials.modal id="desactivateCenter{{ $center->id }}" msj="Estàs segur que vols desactivar aquest centre?" btnText="Desactivar" class="btn-sm btn-error">
-                    <a href="{{ route('center_desactivate', $center) }}" class="btn btn-sm btn-error">Acceptar</a>
+                <x-partials.modal 
+                    id="desactivateCenter{{ $center->id }}" 
+                    msj="Estàs segur que vols desactivar aquest centre?" 
+                    btnText="Desactivar" 
+                    class="btn-sm btn-error"
+                >
+                    <form action="{{ route('center_desactivate', $center) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-sm btn-error">
+                            Acceptar
+                        </button>
+                    </form>
                 </x-partials.modal>
             @else
-                <a href="{{ route('center_activate', $center) }}" class="btn btn-sm btn-success">Activar</a>
+                <form action="{{ route('center_activate', $center) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="btn btn-xs btn-success">
+                        Activar
+                    </button>
+                </form>
             @endif
         </div>
     </div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\MaterialAssignmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EvaluationsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /* ------------------------ LOGIN ------------------------ */
 Route::middleware('guest')->group(function () {
@@ -16,7 +17,16 @@ Route::middleware('guest')->group(function () {
 });
 
 /* ------------------------ LOGOUT ------------------------ */
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/logout', function () {
+    if (Auth::check()) {
+        // If the user is logged in, simply redirect to home without logging out
+        return redirect()->route('home');
+    }
+    // If the user is not logged in, redirect to login
+    return redirect()->route('login');
+});
 
 /* ------------------------ HOME ------------------------ */
 Route::middleware('auth')->get('/home', function () {
@@ -28,8 +38,8 @@ Route::middleware('auth')->get('/center/form', [CenterController::class, "create
 Route::middleware('auth')->post('/center/add', [CenterController::class, "store"])->name("center_add");
 Route::middleware('auth')->get('/centers/list', [CenterController::class, "index"])->name("centers_list");
 Route::middleware('auth')->get('/centers/desactivated/list', [CenterController::class, "index_desactivatedCenters"])->name("centers_desactivated_list");
-Route::middleware('auth')->get('/center/activate/{center}', [CenterController::class, 'activateStatus'])->name('center_activate');
-Route::middleware('auth')->get('/center/desactivate/{center}', [CenterController::class, 'desactivateStatus'])->name('center_desactivate');
+Route::middleware('auth')->patch('/center/activate/{center}', [CenterController::class, 'activateStatus'])->name('center_activate');
+Route::middleware('auth')->patch('/center/desactivate/{center}', [CenterController::class, 'desactivateStatus'])->name('center_desactivate');
 Route::middleware('auth')->post('/center/{center}', [CenterController::class, "update"])->name("center_update");
 Route::middleware('auth')->get('/center/center_edit/{center}', [CenterController::class, 'edit'])->name('center_edit');
 Route::middleware('auth')->get('/center/show/{id}', [CenterController::class, "show"])->name("center_show");
@@ -50,8 +60,8 @@ Route::middleware('auth')->get('/professional/form', [ProfessionalController::cl
 Route::middleware('auth')->post('/professional/add', [ProfessionalController::class, "store"])->name("professional_add");
 Route::middleware('auth')->get('/professionals/list', [ProfessionalController::class, "index"])->name("professionals_list");
 Route::middleware('auth')->get('/professionals/desactivated/list', [ProfessionalController::class, "index_desactivatedProfessionals"])->name("professionals_desactivated_list");
-Route::middleware('auth')->get('/professional/activate/{professional_id}', [ProfessionalController::class, 'activateStatus'])->name('professional_activate');
-Route::middleware('auth')->get('/professional/desactivate/{professional_id}', [ProfessionalController::class, 'desactivateStatus'])->name('professional_desactivate');
+Route::middleware('auth')->patch('/professional/activate/{professional_id}', [ProfessionalController::class, 'activateStatus'])->name('professional_activate');
+Route::middleware('auth')->patch('/professional/desactivate/{professional_id}', [ProfessionalController::class, 'desactivateStatus'])->name('professional_desactivate');
 Route::middleware('auth')->post('/professional/update/{id}', [ProfessionalController::class, "update"])->name("professional_update");
 Route::middleware('auth')->get('/professional/edit/{id}', [ProfessionalController::class, "edit"])->name("professional_edit");
 Route::middleware('auth')->get('/professional/show/{id}', [ProfessionalController::class, "show"])->name("professional_show");
@@ -82,8 +92,8 @@ Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionCont
 Route::middleware('auth')->post('/projectcommission/add', [ProjectCommissionController::class, "store"])->name("projectcommission_add");
 Route::middleware('auth')->get('/projectcommissions/list', [ProjectCommissionController::class, "index"])->name("projectcommissions_list");
 Route::middleware('auth')->get('/projectcommissions/desactivated/list', [ProjectCommissionController::class, "indexDesactivated"])->name("projectcommissions_desactivated_list");
-Route::middleware('auth')->get('/projectcommission/activate/{projectCommission}', [ProjectCommissionController::class, 'activateStatus'])->name('projectcommission_activate');
-Route::middleware('auth')->get('/projectcommission/desactivate/{projectCommission}', [ProjectCommissionController::class, 'desactivateStatus'])->name('projectcommission_desactivate');
+Route::middleware('auth')->patch('/projectcommission/activate/{projectCommission}', [ProjectCommissionController::class, 'activateStatus'])->name('projectcommission_activate');
+Route::middleware('auth')->patch('/projectcommission/desactivate/{projectCommission}', [ProjectCommissionController::class, 'desactivateStatus'])->name('projectcommission_desactivate');
 Route::middleware('auth')->post('/projectcommission/{projectCommission}', [ProjectCommissionController::class, "update"])->name("projectcommission_update");
 Route::middleware('auth')->get('/projectcommission/edit/{projectCommission}', [ProjectCommissionController::class, 'edit'])->name('projectcommission_edit');
 Route::middleware('auth')->get('/projectcommission/show/{projectCommission}', [ProjectCommissionController::class, 'show'])->name('projectcommission_show');

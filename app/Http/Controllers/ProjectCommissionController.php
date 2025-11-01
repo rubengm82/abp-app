@@ -123,7 +123,6 @@ class ProjectCommissionController extends Controller
     public function desactivateStatus(Request $request, ProjectCommission $projectCommission)
     {
         $projectCommission->update(['status' => 'Inactiu']);
-        $projectCommission->status = 'Inactiu';
         $projectCommission->save();
         
         return redirect()->route('projectcommissions_list')->with('success', 'Projecte/Comissió desactivat correctament!');

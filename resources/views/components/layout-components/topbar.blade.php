@@ -61,10 +61,21 @@
 
                 <!-- Logout -->
                 <li>
-                    <a href="{{ route('logout') }}" class="flex items-center justify-start gap-2 w-full text-left">
-                        <x-partials.icon name="arrow-left-start-on-rectangle" class="w-6 h-6 text-base-100 dark:text-base-content"/>
-                        <i class="fa-solid fa-arrow-right"></i> Sortir
-                    </a>
+                    <x-partials.modal 
+                        id="logoutModal" 
+                        msj="Estàs segur que vols sortir?" 
+                        btnText="Tancar Sessió" 
+                        class="btn-sm btn-error"
+                    >
+                        <form action="{{ route('logout') }}" method="POST" class="w-full">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-error w-full flex items-center gap-2">
+                                <x-partials.icon name="arrow-left-start-on-rectangle" class="w-6 h-6 text-base-100 dark:text-base-content"/>
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <span>Sortir</span>
+                            </button>
+                        </form>
+                    </x-partials.modal>
                 </li>
             </ul>
         </div>

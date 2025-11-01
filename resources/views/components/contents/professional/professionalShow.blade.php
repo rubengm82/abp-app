@@ -16,13 +16,28 @@
                 <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
             @if($professional->status == 1)
-                <x-partials.modal id="desactivateProfessional{{ $professional->id }}" msj="Estàs segur que vols desactivar aquest professional?"  btnText="Desactivar" class="btn-sm btn-error">
-                    <a href="{{ route('professional_desactivate', $professional) }}" class="btn btn-sm btn-error">
-                        Acceptar
-                    </a>
+                <x-partials.modal 
+                    id="desactivateProfessional{{ $professional->id }}" 
+                    msj="Estàs segur que vols desactivar aquest professional?"  
+                    btnText="Desactivar" 
+                    class="btn-sm btn-error"
+                >
+                    <form action="{{ route('professional_desactivate', $professional) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-sm btn-error">
+                            Acceptar
+                        </button>
+                    </form>
                 </x-partials.modal>
             @else
-                <a href="{{ route('professional_activate', $professional) }}" class="btn btn-sm btn-success">Activar</a>
+                <form action="{{ route('professional_activate', $professional->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="btn btn-xs btn-success">
+                        Activar
+                    </button>
+                </form>
             @endif
         </div>
     </div>

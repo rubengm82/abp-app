@@ -40,7 +40,13 @@
                             <td class="px-4 py-2">{{ $center->email }}</td>
                             <td class="px-4 py-2 text-right flex justify-end gap-2">
                                 <a href="{{ route('center_show', $center) }}" class="btn btn-xs btn-info">Veure</a>
-                                <a href="{{ route('center_activate', $center) }}" class="btn btn-xs btn-success">Activar</a>
+                                <form action="{{ route('center_activate', $center) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        Activar
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endif

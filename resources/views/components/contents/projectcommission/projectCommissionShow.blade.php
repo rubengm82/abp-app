@@ -20,10 +20,22 @@
                 <x-partials.modal id="desactivateProjectCommission{{ $projectCommission->id }}" 
                     msj="Estàs segur que vols desactivar aquesta comissió?" 
                     btnText="Desactivar" class="btn-sm btn-error">
-                    <a href="{{ route('projectcommission_desactivate', $projectCommission) }}" class="btn btn-sm btn-error">Acceptar</a>
+                    <form action="{{ route('projectcommission_desactivate', $projectCommission) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-sm btn-error">
+                            Acceptar
+                        </button>
+                    </form>
                 </x-partials.modal>
             @else
-                <a href="{{ route('projectcommission_activate', $projectCommission) }}" class="btn btn-sm btn-success">Activar</a>
+                <form action="{{ route('projectcommission_activate', $projectCommission) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="btn btn-xs btn-success">
+                        Activar
+                    </button>
+                </form>
             @endif
         </div>
     </div>

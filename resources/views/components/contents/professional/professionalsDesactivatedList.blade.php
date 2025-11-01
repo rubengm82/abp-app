@@ -67,7 +67,13 @@
                             </td>
                             <td class="px-4 py-2 text-right flex justify-end gap-2">
                                 <a href="{{ route('professional_show', $professional->id) }}" class="btn btn-xs btn-info">Veure</a>
-                                <a href="{{ route('professional_activate', $professional->id) }}" class="btn btn-xs btn-success">Activar</a>
+                                <form action="{{ route('professional_activate', $professional->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-xs btn-success">
+                                        Activar
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endif
