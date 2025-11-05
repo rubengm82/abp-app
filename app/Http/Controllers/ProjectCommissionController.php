@@ -284,12 +284,17 @@ class ProjectCommissionController extends Controller
     public function projectcommission_note_add(Request $request, ProjectCommission $projectCommission)
     {
         $request->validate([
-            'notes' => 'required|string|max:1000'
+            'notes' => 'required|string|max:1000',
+            'restricted' => 'nullable'
         ]);
+
+        // Convert checkbox value: "on" or presence = 1, absence = 0
+        $restricted = $request->has('restricted') && $request->input('restricted') !== null ? 1 : 0;
 
         $projectCommission->notes()->create([
             'notes' => $request->input('notes'),
-            'created_by_professional_id' => Auth::id()
+            'created_by_professional_id' => Auth::id(),
+            'restricted' => $restricted
         ]);
 
         return redirect()->route('projectcommission_show', $projectCommission->id . '#notes-section')
@@ -299,10 +304,17 @@ class ProjectCommissionController extends Controller
     public function projectcommission_note_update(Request $request, NotesComponent $note)
     {
         $request->validate([
-            'notes' => 'required|string|max:1000'
+            'notes' => 'required|string|max:1000',
+            'restricted' => 'nullable'
         ]);
 
-        $note->update(['notes' => $request->input('notes')]);
+        // Convert checkbox value: "on" or presence = 1, absence = 0
+        $restricted = $request->has('restricted') && $request->input('restricted') !== null ? 1 : 0;
+
+        $note->update([
+            'notes' => $request->input('notes'),
+            'restricted' => $restricted
+        ]);
 
         return redirect()->route('projectcommission_show', $note->noteable->id . '#notes-section')
                          ->with('success', 'Nota actualitzada correctament!');

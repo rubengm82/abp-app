@@ -1,16 +1,19 @@
-# Sprint 3 Inicio - TODO LIST
+# Sprint 3 Notas - TODO LIST
 
 Todo:
-* De la misma manera que se descarga la lista de centros desde resources/views/components/contents/center/centersList.blade.php
-** Añadir en el bloque de "Profesionals apuntats al curs" en resources/views/components/contents/courses/courseShow.blade.php un botón para descargar el listado, con nombre y apellidos, el nombre del archivo debe de tener el nombre del Curso y la fecha.
-** Añadir en el bloque de "Equip del Projecte" en resources/views/components/contents/projectcommission/projectCommissionShow.blade.php un botón para descargar el listado, con nombre y apellidos, el nombre del archivo debe de tener el nombre del Proyecto/Comisión y la fecha.
+* Modificar modelo de notas app/Models/NotesComponent.php para añadir el nuevo campo "restricted"
+* Modificar los controladores para que las funciones de creación y edición de notas sean compatibles con el nuevo campo "restricted": entity_note_method en todos los controladores de app/Http/Controllers
+* Modificar el componente resources/views/components/partials/notes-section.blade.php para que incluya:
+** Un checkbox que indica si es restrictivo al crear o editar (necestará ser dinámico) la notas
+** Un if principal, donde compruebe si la nota es restricted
+*** Si no es restricted, se muestra sin problemas
+*** Si es restricted, sólo aparecerá si el rol del usuario es "Directiu"
+*** Si es restricted, el color será naranja en lugar de azul.
+
 
 Apuntes: 
+* Modificar Componente de notas para que tenga modo restricted
 
-* Required de Cursos
-* Asignación de Prof a Cursos
-* Ver profesionales asignados en un curso
-* Ver los cursos a los que está asignado un profesional
 
 
 To know:
@@ -21,7 +24,8 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 
 To commit:
-* Exportación a excel de profesionales asignados a Cursos y Proyectos
-
-
-
+* Añadido Campo Restricted a filleable de notas model
+* Añadido a todos metodos tipo "entity_note_method" el campo restricted y parseado: 0 si no está check
+* Componente notas
+** Añadido checkbox en up y edit (sólo visible para Directiu)
+** Añadido filtrado para la lista de notas, determina si ha de mostrarse o no
