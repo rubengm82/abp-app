@@ -28,7 +28,6 @@
                                     Activar
                                 </button>
                             </form>
-
                         </div>
                     </td>
                 </tr>

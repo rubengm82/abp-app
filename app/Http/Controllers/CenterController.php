@@ -118,8 +118,8 @@ class CenterController extends Controller
         $centers = $query->paginate(10)->appends(['search' => $search]);
 
         return $request->ajax()
-            ? view('components.contents.center.tables.centersListTable', with(['centers' => $centers]))->render()
-            : view("components.contents.center.centersList", with(['centers' => $centers]));
+            ? view('components.contents.center.tables.centersDesactivatedListTable', with(['centers' => $centers]))->render()
+            : view("components.contents.center.centersDesactivatedList", with(['centers' => $centers]));
     }
 
     /**
