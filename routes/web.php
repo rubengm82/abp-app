@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CenterController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\ProjectCommissionController;
+use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\MaterialAssignmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EvaluationsController;
@@ -113,6 +114,25 @@ Route::middleware('auth')->get('/projectcommission/documents/download/{document}
 Route::middleware('auth')->get('/projectcommission/assign-professionals/{projectCommission}', [ProjectCommissionController::class, 'assignProfessionals'])->name('projectcommission_assign_professionals');
 Route::middleware('auth')->post('/projectcommission/update-professional-assignments/{projectCommission}', [ProjectCommissionController::class, 'updateProfessionalAssignments'])->name('projectcommission_update_professional_assignments');
 Route::middleware('auth')->get('/projectcommission/downloadCSV-professionals/{projectCommission}', [ProjectCommissionController::class, 'downloadCSVProfessionals'])->name('projectcommission_downloadCSV_professionals');
+
+/* ------------------------ EXTERNAL CONTACTS ------------------------ */
+Route::middleware('auth')->get('/externalcontact/form', [ExternalContactController::class, "create"])->name("externalcontact_form");
+Route::middleware('auth')->post('/externalcontact/add', [ExternalContactController::class, "store"])->name("externalcontact_add");
+Route::middleware('auth')->get('/externalcontacts/list', [ExternalContactController::class, "index"])->name("externalcontacts_list");
+Route::middleware('auth')->post('/externalcontact/{externalContact}', [ExternalContactController::class, "update"])->name("externalcontact_update");
+Route::middleware('auth')->get('/externalcontact/edit/{externalContact}', [ExternalContactController::class, 'edit'])->name('externalcontact_edit');
+Route::middleware('auth')->get('/externalcontact/show/{externalContact}', [ExternalContactController::class, 'show'])->name('externalcontact_show');
+Route::middleware('auth')->get('/externalcontacts/downloadCSV', [ExternalContactController::class, 'downloadCSV'])->name('externalcontacts.downloadCSV');
+
+/* External Contact Notes */
+Route::middleware('auth')->post('/externalcontact/notes/{externalContact}', [ExternalContactController::class, 'externalcontact_note_add'])->name('externalcontact_note_add');
+Route::middleware('auth')->put('/externalcontact/notes/{note}', [ExternalContactController::class, 'externalcontact_note_update'])->name('externalcontact_note_update');
+Route::middleware('auth')->delete('/externalcontact/notes/{note}', [ExternalContactController::class, 'externalcontact_note_delete'])->name('externalcontact_note_delete');
+
+/* External Contact Documents */
+Route::middleware('auth')->post('/externalcontact/documents/{externalContact}', [ExternalContactController::class, 'externalcontact_document_add'])->name('externalcontact_document_add');
+Route::middleware('auth')->delete('/externalcontact/documents/{document}', [ExternalContactController::class, 'externalcontact_document_delete'])->name('externalcontact_document_delete');
+Route::middleware('auth')->get('/externalcontact/documents/download/{document}', [ExternalContactController::class, 'externalcontact_document_download'])->name('externalcontact_document_download');
 
 /* Course Professional Assignments */
 Route::middleware('auth')->get('/course/assign-professionals/{course}', [CourseController::class, 'assignProfessionals'])->name('course_assign_professionals');

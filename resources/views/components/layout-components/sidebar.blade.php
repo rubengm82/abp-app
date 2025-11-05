@@ -118,6 +118,32 @@
                 </details>
             </li>
 
+            <!-- Submenu External Contacts -->
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="phone" class="w-6 h-6 text-primary" />
+                        Contactes Externs
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('externalcontacts_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('externalcontact_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+
             <!-- Submenu Material-Assignments -->
             <li>
                 <a href="{{ route('materialassignments_list') }}">

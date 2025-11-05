@@ -1,18 +1,31 @@
-# Sprint 3 Notas - TODO LIST
+# Sprint 3 CRUD Contactos Externos - TODO LIST
 
 Todo:
-* Modificar modelo de notas app/Models/NotesComponent.php para añadir el nuevo campo "restricted"
-* Modificar los controladores para que las funciones de creación y edición de notas sean compatibles con el nuevo campo "restricted": entity_note_method en todos los controladores de app/Http/Controllers
-* Modificar el componente resources/views/components/partials/notes-section.blade.php para que incluya:
-** Un checkbox que indica si es restrictivo al crear o editar (necestará ser dinámico) la notas
-** Un if principal, donde compruebe si la nota es restricted
-*** Si no es restricted, se muestra sin problemas
-*** Si es restricted, sólo aparecerá si el rol del usuario es "Directiu"
-*** Si es restricted, el color será naranja en lugar de azul.
+* Revisar migración database/migrations/2025_11_05_200000_external_contacts_table.php, debe de tener los campos:
+** Motiu / Servei
+** Empresa
+** Departament
+** Enlace
+** Responsable
+** Telefon
+** Correu
+** Observacions (texto)
+** Type (Assistencials / Servei General)
+(Recuerda, los campos en inglés)
+(Esta tabla es muy parecida a la de ProjectCommission, seguirémos una línea muy parecida para la implementación)
+* Crear el modelo de la tabla, pareciodo a app/Models/ProjectCommission.php
+* Crear el controlador de la tabla, parecido a app/Models/ProjectCommission.php
+* Crear el list, el form, el edit y el show basándonos en /home/luipy/Repo/abp-app/resources/views/components/contents/projectcommission
+** El list NO debe de tener la barra de búsqueda y por ende, tampoco debe de estar el controlador adaptado a ello, con tener el método index por ahora será suficiente.
+** El único campo restricted en el formulario será el nombre de la empresa, el responsable
+** Esta tabla NO tiene la asignaciones.
+* Añadir al list el botón de exportación a csv.
+
+
 
 
 Apuntes: 
-* Modificar Componente de notas para que tenga modo restricted
+* CRUD Contactos Externos 
 
 
 
@@ -24,8 +37,8 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 
 To commit:
-* Añadido Campo Restricted a filleable de notas model
-* Añadido a todos metodos tipo "entity_note_method" el campo restricted y parseado: 0 si no está check
-* Componente notas
-** Añadido checkbox en up y edit (sólo visible para Directiu)
-** Añadido filtrado para la lista de notas, determina si ha de mostrarse o no
+* Updated migración con todos los campos
+* Creado modelo con morf para notas y documentos
+* Creado Controlador básico
+* Creadas vistas, List, Form, Edit, Show
+* Añadidas rutas
