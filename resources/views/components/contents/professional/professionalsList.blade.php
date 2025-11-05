@@ -9,72 +9,28 @@
     :current="'Llistat'"
     />
 
+    
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de professionals</h1>
+
+
 @if($professionals->where('status', 1)->count() > 0)
-<div class="flex justify-end gap-4">
-    <a href="{{ route('professionals.downloadCSV', 1) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
-    <a href="{{ route('professionals.downloadCSV.materialAssignments') }}" class="btn btn-sm btn-warning">Descarregar Uniformitat</a>
-    <a href="{{ route('professional_form') }}" class="btn btn-sm btn-primary">Afegir Professional</a>
+<div class="flex justify-between items-center">
+    <div>
+        <x-partials.search-bar />
+    </div>
+    <div class="flex gap-2">
+        <a href="{{ route('professionals.downloadCSV', 1) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+        <a href="{{ route('professionals.downloadCSV.materialAssignments') }}" class="btn btn-sm btn-warning">Descarregar Uniformitat</a>
+        <a href="{{ route('professional_form') }}" class="btn btn-sm btn-primary">Afegir Professional</a>
+    </div>
 </div>
 @endif
 
 <div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
     @if($professionals->where('status', 1)->count() > 0)
-        <table class="table w-full table-xs table-hover text-sm">
-            <thead>
-                <tr class="bg-base-300 text-base-content font-semibold">
-                    <th class="px-4 py-2 text-left">ID</th>
-                    <th class="px-4 py-2 text-left">Centre</th>
-                    <th class="px-4 py-2 text-left">Taquilla</th>
-                    <th class="px-4 py-2 text-left">Nom</th>
-                    <th class="px-4 py-2 text-left">Primer cognom</th>
-                    <th class="px-4 py-2 text-left">Segon cognom</th>
-                    <th class="px-4 py-2 text-left">DNI</th>
-                    <th class="px-4 py-2 text-left">Adreça</th>
-                    <th class="px-4 py-2 text-left">Rol</th>
-                    <th class="px-4 py-2 text-left">Telèfon</th>
-                    <th class="px-4 py-2 text-left">Email</th>
-                    <th class="px-4 py-2 text-left">Estat</th>
-                    <th class="px-4 py-2 text-right">Acció</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($professionals as $professional)
-                    @if($professional->status == 1)
-                        <tr class="hover:bg-base-300 transition-colors">
-                            <td class="px-4 py-2">{{ $professional->id }}</td>
-                            <td class="px-4 py-2">
-                                @if($professional->center)
-                                    <a href="{{ route('center_show', $professional->center->id) }}" 
-                                       class="link link-hover link-info">
-                                        {{ $professional->center->name }}
-                                    </a>
-                                @else
-                                    <span class="text-base-content/50">No assignat</span>
-                                @endif
-                            </td>
-                            <td class="px-4 py-2 font-mono">{{ $professional->locker_num }}</td>
-                            <td class="px-4 py-2">{{ $professional->name }}</td>
-                            <td class="px-4 py-2">{{ $professional->surname1 }}</td>
-                            <td class="px-4 py-2">{{ $professional->surname2 }}</td>
-                            <td class="px-4 py-2">{{ $professional->dni }}</td>
-                            <td class="px-4 py-2">{{ $professional->address }}</td>
-                            <td class="px-4 py-2">{{ $professional->role }}</td>
-                            <td class="px-4 py-2">{{ $professional->phone }}</td>
-                            <td class="px-4 py-2">{{ $professional->email }}</td>
-                            <td class="px-4 py-2">
-                                <span class="badge badge-dash {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
-                                    {{ $professional->employment_status }}
-                                </span>
-                            </td>
-                            <td class="px-4 py-2 text-right flex justify-end gap-2">
-                                <a href="{{ route('professional_show', $professional->id) }}" class="btn btn-xs btn-info">Veure</a>
-                            </td>
-                        </tr>
-                    @endif
-                @endforeach
-            </tbody>
-        </table>
+        <div id="tableToSearch-container" data-url="/professionals/list">
+            @include('components.contents.professional.tables.professionalsListTable')
+        </div>
     @else
         <div class="text-center py-12">
             <div class="text-base-content/50 text-lg mb-4">
@@ -88,7 +44,6 @@
         </div>
     @endif
 </div>
-
 
 @include('components.partials.mainToasts')
 @endsection

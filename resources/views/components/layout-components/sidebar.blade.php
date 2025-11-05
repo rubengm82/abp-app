@@ -8,13 +8,13 @@
             <li>
                 <details>
                     <summary>
-                        <x-partials.icon name="building-office" class="w-5 h-5 text-primary" />
+                        <x-partials.icon name="building-office" class="w-7 h-7 text-primary" />
                         Centres
                     </summary>
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('centers_list') }}">
-                                <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                <x-partials.icon name="queue-list" class="w-5 h-5 text-info" />
                                 Llistar
                             </a>
                         </li>
@@ -22,7 +22,7 @@
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('center_form') }}">
-                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-info" />
                                 Afegir
                             </a>
                         </li>
@@ -34,7 +34,7 @@
             <li>
                 <details>
                     <summary>
-                        <x-partials.icon name="user-group" class="w-5 h-5 text-primary" />
+                        <x-partials.icon name="user-group" class="w-7 h-7 text-primary" />
                         Professionals
                     </summary>
 
@@ -42,7 +42,7 @@
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('professionals_list') }}">
-                                <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                <x-partials.icon name="queue-list" class="w-5 h-5 text-info" />
                                 Llistar
                             </a>
                         </li>
@@ -52,7 +52,7 @@
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('professional_form') }}">
-                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-info" />
                                 Afegir
                             </a>
                         </li>
@@ -63,7 +63,7 @@
                         <li>
                             <details>
                                 <summary>
-                                    <x-partials.icon name="clipboard-document-check" class="w-5 h-5 text-primary" />
+                                    <x-partials.icon name="clipboard-document-check" class="w-7 h-7 text-primary" />
                                     Evaluations
                                 </summary>
 
@@ -71,7 +71,7 @@
                                 <ul class="text-xs">
                                     <li>
                                         <a href="{{ route('professional_evaluations_list') }}">
-                                            <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                            <x-partials.icon name="queue-list" class="w-5 h-5 text-info" />
                                             Llistar
                                         </a>
                                     </li>
@@ -81,7 +81,7 @@
                                 <ul class="text-xs">
                                     <li>
                                         <a href="{{ route('professional_evaluations_quiz_form') }}">
-                                            <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                            <x-partials.icon name="plus-circle" class="w-5 h-5 text-info" />
                                             Afegir
                                         </a>
                                     </li>
@@ -96,13 +96,13 @@
             <li>
                 <details>
                     <summary>
-                        <x-partials.icon name="rectangle-group" class="w-5 h-5 text-primary" />
+                        <x-partials.icon name="rectangle-group" class="w-7 h-7 text-primary" />
                         Projectes/Comissions
                     </summary>
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('projectcommissions_list') }}">
-                                <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                <x-partials.icon name="queue-list" class="w-5 h-5 text-info" />
                                 Llistar
                             </a>
                         </li>
@@ -110,7 +110,7 @@
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('projectcommission_form') }}">
-                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-info" />
                                 Afegir
                             </a>
                         </li>
@@ -121,7 +121,7 @@
             <!-- Submenu Material-Assignments -->
             <li>
                 <a href="{{ route('materialassignments_list') }}">
-                    <x-partials.icon name="identification" class="w-5 h-5 text-primary" />
+                    <x-partials.icon name="identification" class="w-7 h-7 text-primary" />
                     Registre de Uniformitat
                 </a>
             </li>
@@ -130,13 +130,13 @@
             <li>
                 <details>
                     <summary>
-                        <x-partials.icon name="academic-cap" class="w-5 h-5 text-primary" />
+                        <x-partials.icon name="academic-cap" class="w-7 h-7 text-primary" />
                         Cursos
                     </summary>
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('courses_list') }}">
-                                <x-partials.icon name="queue-list" class="w-5 h-5 text-secondary" />
+                                <x-partials.icon name="queue-list" class="w-5 h-5 text-info" />
                                 Llistar
                             </a>
                         </li>
@@ -144,7 +144,7 @@
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('course_form') }}">
-                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-secondary" />
+                                <x-partials.icon name="plus-circle" class="w-5 h-5 text-info" />
                                 Afegir
                             </a>
                         </li>
@@ -156,7 +156,7 @@
             <li>
                 <details>
                     <summary>
-                        <x-partials.icon name="folder-open" class="w-5 h-5 text-gray-500" />
+                        <x-partials.icon name="folder-open" class="w-7 h-7 text-gray-500" />
                         Desactivacions
                     </summary>
                     <ul class="text-xs">

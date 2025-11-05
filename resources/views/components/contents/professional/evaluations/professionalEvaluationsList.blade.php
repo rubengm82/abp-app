@@ -50,7 +50,9 @@
                     </td>
 
                     <td class="px-4 py-2 text-right">
-                        <a href="{{ route('professional_evaluation_quiz_show', [$group->first()->evaluated_professional_id, $group->first()->evaluator_professional_id, $group->first()->evaluation_uuid]) }}" class="btn btn-xs btn-info">Veure</a>
+                        <div class="flex justify-end gap-2">
+                            <a href="{{ route('professional_evaluation_quiz_show', [$group->first()->evaluated_professional_id, $group->first()->evaluator_professional_id, $group->first()->evaluation_uuid]) }}" class="btn btn-xs btn-info">Veure</a>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

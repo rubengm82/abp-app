@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Valparadis App')</title>
     <script src="{{ asset('js/components/partials/themeswitch-antiflickering.js') }}"></script>
     
@@ -38,5 +39,6 @@
     <script src="{{ asset('js/components/partials/modal.js') }}"></script>
     <script src="{{ asset('js/components/partials/menu-sidebar.js') }}"></script>
     <script src="{{ asset('js/components/partials/forms_one_click.js') }}"></script>
+    <script src="{{ asset('js/components/partials/search-bar.js') }}"></script>
 </body>
 </html>

@@ -16,10 +16,25 @@ class ProfessionalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $professionals = Professional::with('center')->get();
-        return view("components.contents.professional.professionalsList")->with('professionals', $professionals);
+        $query = Professional::query();
+
+        if ($search = $request->get('search')) {
+          
+            $query
+            ->whereAny(['id', 'name', 'surname1', 'surname2', 'locker_num', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%")
+          
+            ->orWhereHas('center', fn($q) =>
+                $q->where('name', 'like', "%{$search}%")
+            );
+        }
+
+        $professionals = $query->paginate(10)->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.professional.tables.professionalsListTable', with(['professionals' => $professionals]))->render()
+            : view("components.contents.professional.professionalsList", with(['professionals' => $professionals]));
     }
 
     /**

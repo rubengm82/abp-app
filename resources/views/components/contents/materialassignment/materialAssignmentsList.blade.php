@@ -81,8 +81,10 @@
                                 <span class="text-base-content/50"></span>
                             @endif
                         </td>
-                        <td class="px-4 py-2 text-right flex justify-end gap-2">
-                            <a href="{{ route('materialassignment_show', $assignment) }}" class="btn btn-xs btn-info">Veure</a>
+                        <td class="px-4 py-2 text-right">
+                            <div class="flex justify-end gap-2">
+                                <a href="{{ route('materialassignment_show', $assignment) }}" class="btn btn-xs btn-info">Veure</a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

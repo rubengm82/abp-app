@@ -54,8 +54,10 @@
                             </td>
                             <td class="px-4 py-2">{{ $projectCommission->type }}</td>
                             <td class="px-4 py-2">{{ $projectCommission->start_date }}</td>
-                            <td class="px-4 py-2 text-right flex justify-end gap-2">
-                                <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-xs btn-info">Veure</a>
+                            <td class="px-4 py-2 text-right">
+                                <div class="flex justify-end gap-2">
+                                    <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-xs btn-info">Veure</a>
+                                </div>
                             </td>
                         </tr>
                     @endif

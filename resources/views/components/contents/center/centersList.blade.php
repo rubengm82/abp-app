@@ -39,8 +39,10 @@
                             <td class="px-4 py-2">{{ $center->address }}</td>
                             <td class="px-4 py-2">{{ $center->phone }}</td>
                             <td class="px-4 py-2">{{ $center->email }}</td>
-                            <td class="px-4 py-2 text-right flex justify-end gap-2">
-                                <a href="{{ route('center_show', $center) }}" class="btn btn-xs btn-info">Veure</a>
+                            <td class="px-4 py-2 text-right">
+                                <div class="flex justify-end gap-2">
+                                    <a href="{{ route('center_show', $center) }}" class="btn btn-xs btn-info">Veure</a>
+                                </div>
                             </td>
                         </tr>
                     @endif

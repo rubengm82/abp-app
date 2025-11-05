@@ -41,8 +41,10 @@
                         <td class="px-4 py-2">{{ Str::limit($course->forcem_code, 15) }}</td>
                         <td class="px-4 py-2">{{ $course->attendance_type ?? 'No especificada' }}</td>
                         <td class="px-4 py-2">{{ $course->start_date ? \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') : 'No especificada' }}</td>
-                        <td class="px-4 py-2 text-right flex justify-end gap-2">
-                            <a href="{{ route('course_show', $course) }}" class="btn btn-xs btn-info">Veure</a>
+                        <td class="px-4 py-2 text-right">
+                            <div class="flex justify-end gap-2">
+                                <a href="{{ route('course_show', $course) }}" class="btn btn-xs btn-info">Veure</a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
