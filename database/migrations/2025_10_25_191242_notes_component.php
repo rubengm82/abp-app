@@ -14,17 +14,18 @@ return new class extends Migration
         Schema::create('notes_component', function (Blueprint $table) {
             $table->id();
             $table->text('notes')->nullable();
-
+            
             // Polymorphic relation:
             $table->morphs('noteable'); // creates noteable_id and noteable_type
-
+            
             // Foreign key to professionals
             $table->foreignId('created_by_professional_id')
-                ->nullable()
-                ->constrained('professionals')
-                ->nullOnDelete()
-                ->comment('Professional that created the note');
-
+            ->nullable()
+            ->constrained('professionals')
+            ->nullOnDelete()
+            ->comment('Professional that created the note');
+            
+            $table->integer('restricted')->nullable()->comment('Restricted note flag by role');
             $table->timestamps();
         });
     }
