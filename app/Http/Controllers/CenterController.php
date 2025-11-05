@@ -18,10 +18,20 @@ class CenterController extends Controller
     public function index(Request $request)
     {
         mainlog::log("Iniciando index en CenterController");
-        $centers = Center::all();
+        $query = Center::query();
 
-        return view("components.contents.center.centersList")
-            ->with('centers', $centers);
+        if ($search = $request->get('search')) {
+          
+            $query
+            ->whereAny(['id', 'name', 'address', 'phone', 'email'], 'like', "%{$search}%");
+
+        };
+
+        $centers = $query->paginate(10)->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.center.tables.centersListTable', with(['centers' => $centers]))->render()
+            : view("components.contents.center.centersList", with(['centers' => $centers]));
     }
 
     /**
@@ -94,10 +104,22 @@ class CenterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index_desactivatedCenters()
+    public function index_desactivatedCenters(Request $request)
     {
-        $centers = Center::all();
-        return view("components.contents.center.centersDesactivatedList")->with('centers', $centers);
+        $query = Center::query();
+
+        if ($search = $request->get('search')) {
+          
+            $query
+            ->whereAny(['id', 'name', 'address', 'phone', 'email'], 'like', "%{$search}%");
+
+        };
+
+        $centers = $query->paginate(10)->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.center.tables.centersListTable', with(['centers' => $centers]))->render()
+            : view("components.contents.center.centersList", with(['centers' => $centers]));
     }
 
     /**

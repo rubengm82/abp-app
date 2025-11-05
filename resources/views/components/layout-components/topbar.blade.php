@@ -25,7 +25,7 @@
                 
                 <!-- Version APP -->
                 <li class="text-gray-400 pointer-events-none pr-2">
-                    <span class=" w-full block text-right cursor-default">Sprint 3 | Versió 0.3.0</span>
+                    <span class=" w-full block text-right cursor-default">Sprint 4 | Versió 0.4.0</span>
                 </li>
 
                 <!-- Separator -->

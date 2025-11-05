@@ -11,65 +11,21 @@
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de projectes i comissions desactivats</h1>
 
 @if($projectCommissions->where('status', 'Inactiu')->count() > 0)
-<div class="flex justify-end gap-4 mb-4">
-    <a href="{{ route('projectcommissions.downloadCSV', ['status' => 'Inactiu']) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+<div class="flex justify-between items-center">
+    <div>
+        <x-partials.search-bar />
+    </div>
+    <div class="flex gap-4">
+        <a href="{{ route('projectcommissions.downloadCSV', ['status' => 'Inactiu']) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+    </div>
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 p-6 rounded-lg shadow-lg overflow-x-auto">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
     @if($projectCommissions->where('status', 'Inactiu')->count() > 0)
-        <table class="table w-full table-xs table-zebra table-hover text-sm">
-            <thead>
-                <tr class="bg-base-300 text-base-content font-semibold">
-                    <th class="px-4 py-2 text-left">ID</th>
-                    <th class="px-4 py-2 text-left">Nom/Títol</th>
-                    <th class="px-4 py-2 text-left">Estat</th>
-                    <th class="px-4 py-2 text-left">Professional responsable</th>
-                    <th class="px-4 py-2 text-left">Tipus</th>
-                    <th class="px-4 py-2 text-left">Data d'inici</th>
-                    <th class="px-4 py-2 text-right">Accions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($projectCommissions as $projectCommission)
-                    @if ($projectCommission->status == 'Inactiu')
-                        <tr class="hover:bg-base-200 transition-colors">
-                            <td class="px-4 py-2">{{ $projectCommission->id }}</td>
-                            <td class="px-4 py-2 font-medium">{{ $projectCommission->name }}</td>
-                            <td class="px-4 py-2">
-                                <span class="badge badge-dash {{ $projectCommission->status === 'Inactiu' ? 'badge-error' : 'badge-sucess' }}">
-                                    {{ $projectCommission->status }}
-                                </span>
-                            </td>
-                            <td class="px-4 py-2">
-                                @if($projectCommission->responsibleProfessional)
-                                    <a href="{{ route('professional_show', $projectCommission->responsibleProfessional->id) }}" 
-                                       class="link link-hover link-info">
-                                        {{ $projectCommission->responsibleProfessional->name }} {{ $projectCommission->responsibleProfessional->surname1 }}
-                                    </a>
-                                @else
-                                    <span class="text-base-content/50">No assignat</span>
-                                @endif
-                            </td>
-                            <td class="px-4 py-2">{{ $projectCommission->type }}</td>
-                            <td class="px-4 py-2">{{ $projectCommission->start_date }}</td>
-                            <td class="px-4 py-2 text-right">
-                                <div class="flex justify-end gap-2">
-                                    <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-xs btn-info">Veure</a>
-                                    <form action="{{ route('projectcommission_activate', $projectCommission) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-xs btn-success">
-                                            Activar
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @endif
-                @endforeach
-            </tbody>
-        </table>
+        <div id="tableToSearch-container" data-url="/projectcommissions/desactivated/list">
+            @include('components.contents.projectcommission.tables.projectCommissionsDesactivatedListTable')
+        </div>
     @else
         <div class="text-center py-12">
             <div class="text-base-content/50 text-lg mb-4">

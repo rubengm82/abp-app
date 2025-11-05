@@ -11,85 +11,22 @@
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat d'Assignacions de Material</h1>
 
 @if($materialAssignments->count() > 0)
-<div class="flex justify-end gap-4 mb-4">
-    <a href="{{ route('materialassignment_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
-    <a href="{{ route('materialassignment_form') }}" class="btn btn-sm btn-primary">Afegir Assignació</a>
+<div class="flex justify-between items-center">
+    <div>
+        <x-partials.search-bar />
+    </div>
+    <div class="flex gap-4">
+        <a href="{{ route('materialassignment_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+        <a href="{{ route('materialassignment_form') }}" class="btn btn-sm btn-primary">Afegir Assignació</a>
+    </div>
 </div>
 @endif
 
 <div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
     @if($materialAssignments->count() > 0)
-        <table class="table w-full table-xs table-hover text-sm">
-            <thead>
-                <tr class="bg-base-300 text-base-content font-semibold">
-                    <th class="px-4 py-2 text-left">ID</th>
-                    <th class="px-4 py-2 text-left">Professional</th>
-                    <th class="px-4 py-2 text-center">Samarreta</th>
-                    <th class="px-4 py-2 text-center">Pantaló</th>
-                    <th class="px-4 py-2 text-center">Sabata</th>
-                    <th class="px-4 py-2 text-left">Data Assignació</th>
-                    <th class="px-4 py-2 text-left">Assignat per</th>
-                    <th class="px-4 py-2 text-left">Observacions</th>
-                    <th class="px-4 py-2 text-right">Accions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($materialAssignments as $assignment)
-                    <tr class="hover:bg-base-300 transition-colors">
-                        <td class="px-4 py-2">{{ $assignment->id }}</td>
-                        <td class="px-4 py-2 font-medium">
-                            <a href="{{ route('professional_show', $assignment->professional->id) }}" 
-                               class="link link-hover link-info">
-                                {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }}
-                            </a>
-                        </td>
-                        <td class="px-4 py-2 text-center">
-                            @if($assignment->shirt_size)
-                                <span class="badge badge-dash badge-info">{{ $assignment->shirt_size }}</span>
-                            @else
-                                <span class="text-base-content/50">-</span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-2 text-center">
-                            @if($assignment->pants_size)
-                                <span class="badge badge-dash badge-info">{{ $assignment->pants_size }}</span>
-                            @else
-                                <span class="text-base-content/50">-</span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-2 text-center">
-                            @if($assignment->shoe_size)
-                                <span class="badge badge-dash badge-info">{{ $assignment->shoe_size }}</span>
-                            @else
-                                <span class="text-base-content/50">-</span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-2">{{ $assignment->assignment_date->format('d/m/Y') }}</td>
-                        <td class="px-4 py-2">
-                            @if($assignment->assignedBy)
-                                {{ $assignment->assignedBy->name }} {{ $assignment->assignedBy->surname1 }}
-                            @else
-                                <span class="text-base-content/50">No especificat</span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-2">
-                            @if($assignment->observations)
-                                <span class="text-sm" title="{{ $assignment->observations }}">
-                                    {{ Str::limit($assignment->observations, 30) }}
-                                </span>
-                            @else
-                                <span class="text-base-content/50"></span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-2 text-right">
-                            <div class="flex justify-end gap-2">
-                                <a href="{{ route('materialassignment_show', $assignment) }}" class="btn btn-xs btn-info">Veure</a>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div id="tableToSearch-container" data-url="/materialassignments/list">
+            @include('components.contents.materialassignment.tables.materialAssignmentsListTable')
+        </div>
     @else
         <div class="text-center py-12">
             <div class="text-base-content/50 text-lg mb-4">

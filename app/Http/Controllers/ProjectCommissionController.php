@@ -17,19 +17,53 @@ class ProjectCommissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projectCommissions = ProjectCommission::with('responsibleProfessional')->get(); //Es para mostrar el nombre del profesional responsable
-        return view("components.contents.projectcommission.projectCommissionsList")->with('projectCommissions', $projectCommissions);
+        $query = ProjectCommission::with('responsibleProfessional');
+
+        if ($search = $request->get('search')) {
+            $query
+                ->whereAny(['id', 'name', 'start_date', 'status', 'type'], 'like', "%{$search}%") // Fields from ProjectCommission
+                ->orWhereHas('responsibleProfessional', fn($q) =>
+                    $q->whereAny(['name', 'surname1', 'surname2'], 'like', "%{$search}%")
+                );
+        }
+
+        $projectCommissions = $query->paginate(10)->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.projectcommission.tables.projectCommissionsListTable', [
+                'projectCommissions' => $projectCommissions
+            ])->render()
+            : view('components.contents.projectcommission.projectCommissionsList', [
+                'projectCommissions' => $projectCommissions
+            ]);
     }
    
     /**
      * Display a listing of the resource.
      */
-    public function indexDesactivated()
+    public function indexDesactivated(Request $request)
     {
-        $projectCommissions = ProjectCommission::all();
-        return view("components.contents.projectcommission.projectCommissionsDesactivatedList")->with('projectCommissions', $projectCommissions);
+        $query = ProjectCommission::with('responsibleProfessional');
+
+        if ($search = $request->get('search')) {
+            $query
+                ->whereAny(['id', 'name', 'start_date', 'status', 'type'], 'like', "%{$search}%") // Fields from ProjectCommission
+                ->orWhereHas('responsibleProfessional', fn($q) =>
+                    $q->whereAny(['name', 'surname1', 'surname2'], 'like', "%{$search}%")
+                );
+        }
+
+        $projectCommissions = $query->paginate(10)->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.projectcommission.tables.projectCommissionsDesactivatedListTable', [
+                'projectCommissions' => $projectCommissions
+            ])->render()
+            : view('components.contents.projectcommission.projectCommissionsDesactivatedList', [
+                'projectCommissions' => $projectCommissions
+            ]);
     }
 
     /**

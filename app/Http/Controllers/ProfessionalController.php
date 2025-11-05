@@ -23,7 +23,7 @@ class ProfessionalController extends Controller
         if ($search = $request->get('search')) {
           
             $query
-            ->whereAny(['id', 'name', 'surname1', 'surname2', 'locker_num', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%")
+            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%")
           
             ->orWhereHas('center', fn($q) =>
                 $q->where('name', 'like', "%{$search}%")
@@ -201,10 +201,25 @@ class ProfessionalController extends Controller
     /**
      * Display a listing of the desactivated professionals
      */
-    public function index_desactivatedProfessionals()
+    public function index_desactivatedProfessionals(Request $request)
     {
-        $professionals = Professional::with('center')->get();
-        return view("components.contents.professional.professionalsDesactivatedList")->with('professionals', $professionals);
+        $query = Professional::query();
+
+        if ($search = $request->get('search')) {
+          
+            $query
+            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%")
+          
+            ->orWhereHas('center', fn($q) =>
+                $q->where('name', 'like', "%{$search}%")
+            );
+        }
+
+        $professionals = $query->paginate(10)->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.professional.tables.professionalsDesactivatedListTable', with(['professionals' => $professionals]))->render()
+            : view("components.contents.professional.professionalsDesactivatedList", with(['professionals' => $professionals]));
     }
 
     /**

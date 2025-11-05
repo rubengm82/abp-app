@@ -11,51 +11,21 @@
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de centres desactivats</h1>
 
 @if($centers->where('status', 0)->count() > 0)
-<div class="flex justify-end gap-4 mb-4">
-    <a href="{{ route('centers.downloadCSV', ['status' => 0]) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+<div class="flex justify-between items-center">
+    <div>
+        <x-partials.search-bar />
+    </div>
+    <div class="flex gap-4">
+        <a href="{{ route('centers.downloadCSV', ['status' => 0]) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+    </div>
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 p-6 rounded-lg shadow-lg overflow-x-auto">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
     @if($centers->where('status', 0)->count() > 0)
-        <table class="table w-full table-xs table-zebra table-hover text-sm">
-            <thead>
-                <tr class="bg-base-300 text-base-content font-semibold">
-                    <th class="px-4 py-2 text-left">ID</th>
-                    <th class="px-4 py-2 text-left">Nom</th>
-                    <th class="px-4 py-2 text-left">Adreça</th>
-                    <th class="px-4 py-2 text-left">Telèfon</th>
-                    <th class="px-4 py-2 text-left">Email</th>
-                    <th class="px-4 py-2 text-right">Accions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($centers as $center)
-                    @if ($center->status == 0)
-                        <tr class="hover:bg-base-200 transition-colors">
-                            <td class="px-4 py-2">{{ $center->id }}</td>
-                            <td class="px-4 py-2 font-medium">{{ $center->name }}</td>
-                            <td class="px-4 py-2">{{ $center->address }}</td>
-                            <td class="px-4 py-2">{{ $center->phone }}</td>
-                            <td class="px-4 py-2">{{ $center->email }}</td>
-                            <td class="px-4 py-2 text-right">
-                                <div class="flex justify-end gap-2">
-                                    <a href="{{ route('center_show', $center) }}" class="btn btn-xs btn-info">Veure</a>
-                                    <form action="{{ route('center_activate', $center) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-xs btn-success">
-                                            Activar
-                                        </button>
-                                    </form>
-
-                                </div>
-                            </td>
-                        </tr>
-                    @endif
-                @endforeach
-            </tbody>
-        </table>
+        <div id="tableToSearch-container" data-url="/centers/desactivated/list">
+            @include('components.contents.center.tables.centersDesactivatedListTable')
+        </div>
     @else
         <div class="text-center py-12">
             <div class="text-base-content/50 text-lg mb-4">

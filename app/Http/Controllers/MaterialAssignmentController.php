@@ -16,14 +16,27 @@ class MaterialAssignmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $materialAssignments = MaterialAssignment::with(['professional', 'assignedBy'])
-            ->orderBy('created_at', 'desc')
-            ->get();
-        
-        return view('components.contents.materialassignment.materialAssignmentsList')
-            ->with('materialAssignments', $materialAssignments);
+        $query = MaterialAssignment::with(['professional', 'assignedBy'])->orderBy('created_at', 'desc');
+
+        if ($search = $request->get('search')) {
+
+            $query
+                ->whereAny(['id', 'shirt_size', 'pants_size', 'shoe_size', 'assignment_date', 'observations'], 'like', "%{$search}%")
+                ->orWhereHas('professional', fn($q) =>
+                    $q->whereAny(['name', 'surname1'], 'like', "%{$search}%")
+                )
+                ->orWhereHas('assignedBy', fn($q) =>
+                    $q->whereAny(['name', 'surname1'], 'like', "%{$search}%")
+                );
+        }
+
+        $materialAssignments = $query->paginate(10)->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.materialassignment.tables.materialAssignmentsListTable', with(['materialAssignments' => $materialAssignments]))->render()
+            : view('components.contents.materialassignment.materialAssignmentsList', with(['materialAssignments' => $materialAssignments]));
     }
 
     /**

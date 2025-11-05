@@ -16,12 +16,23 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::all();
+         // Base query
+        $query = Course::query();
 
-        return view("components.contents.courses.coursesList")
-            ->with('courses', $courses);
+        // Apply search filter if a search term is provided
+            if ($search = $request->get('search')) {
+                $query->whereAny(['training_center', 'training_name', 'forcem_code', 'attendance_type', 'start_date'], 'like', "%{$search}%"); // Adjust fields to match your table
+            }
+
+            // Paginate results and keep search term in query string
+            $courses = $query->paginate(10)->appends(['search' => $search]);
+
+            // Return partial view if AJAX, otherwise full view
+            return $request->ajax()
+                ? view('components.contents.courses.tables.coursesListTable', with(['courses' => $courses]))->render()
+                : view('components.contents.courses.coursesList', with(['courses' => $courses]));
     }
 
     /**
