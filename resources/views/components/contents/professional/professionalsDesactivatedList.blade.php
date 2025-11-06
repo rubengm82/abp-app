@@ -10,7 +10,7 @@
     />
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de professionals desactivats</h1>
 
-@if($professionals->where('status', 0)->count() > 0)
+@if($professionals->count() > 0)
 <div class="flex justify-between items-center">
     <div>
         <x-partials.search-bar />
@@ -22,7 +22,7 @@
 @endif
 
 <div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
-    @if($professionals->where('status', 0)->count() > 0)
+    @if($professionals->count() > 0)
         <div id="tableToSearch-container" data-url="/professionals/desactivated/list">
             @include('components.contents.professional.tables.professionalsDesactivatedListTable')
         </div>

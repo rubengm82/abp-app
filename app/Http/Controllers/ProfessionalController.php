@@ -18,7 +18,7 @@ class ProfessionalController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Professional::query();
+        $query = Professional::query()->where('status', 1);
 
         if ($search = $request->get('search')) {
           
@@ -203,7 +203,7 @@ class ProfessionalController extends Controller
      */
     public function index_desactivatedProfessionals(Request $request)
     {
-        $query = Professional::query();
+        $query = Professional::query()->where('status', 0);
 
         if ($search = $request->get('search')) {
           

@@ -18,7 +18,7 @@ class CenterController extends Controller
     public function index(Request $request)
     {
         mainlog::log("Iniciando index en CenterController");
-        $query = Center::query();
+        $query = Center::query()->where('status', 1);
 
         if ($search = $request->get('search')) {
           
@@ -106,7 +106,7 @@ class CenterController extends Controller
      */
     public function index_desactivatedCenters(Request $request)
     {
-        $query = Center::query();
+        $query = Center::query()->where('status', 0);
 
         if ($search = $request->get('search')) {
           

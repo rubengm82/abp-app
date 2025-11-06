@@ -19,7 +19,7 @@ class ProjectCommissionController extends Controller
      */
     public function index(Request $request)
     {
-        $query = ProjectCommission::with('responsibleProfessional');
+        $query = ProjectCommission::with('responsibleProfessional')->where('status', 'Actiu');
 
         if ($search = $request->get('search')) {
             $query
@@ -45,7 +45,7 @@ class ProjectCommissionController extends Controller
      */
     public function indexDesactivated(Request $request)
     {
-        $query = ProjectCommission::with('responsibleProfessional');
+        $query = ProjectCommission::with('responsibleProfessional')->where('status', 'Inactiu');
 
         if ($search = $request->get('search')) {
             $query
