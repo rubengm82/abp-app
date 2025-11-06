@@ -20,8 +20,9 @@
         {{-- List Notes --}}
         @if($items->count())
             <div class="space-y-4">
-                @foreach($items->sortByDesc('created_at') as $item)
-                    <div class="bg-base-200 p-4 rounded-lg border-l-4 border-blue-500">
+                @foreach($items as $item)
+                    @continue(!empty($item->restricted) && (Auth::user()->role ?? null) !== 'Directiu')
+                    <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ !empty($item->restricted) ? 'border-orange-500' : 'border-blue-500' }}">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-sm text-gray-600">
                                 <strong>
@@ -34,7 +35,8 @@
                                 {{-- Editar --}}
                                 <button type="button" class="btn btn-xs btn-info"
                                     data-edit-url="{{ route($editRoute, $item) }}"
-                                    data-edit-note='@json($item->notes ?? $item->text ?? "")'>
+                                    data-edit-note='@json($item->notes ?? $item->text ?? "")'
+                                    data-edit-restricted='@json(!empty($item->restricted))'>
                                     Editar
                                 </button>
 
@@ -76,6 +78,14 @@
                 <label class="label"><span class="label-text">Nota:</span></label>
                 <textarea name="notes" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
+            @if((Auth::user()->role ?? null) === 'Directiu')
+            <div class="form-control mb-4">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Restringida:</span>
+                    <input type="checkbox" name="restricted" class="checkbox checkbox-primary" />
+                </label>
+            </div>
+            @endif
             <div class="modal-action">
                 <button type="button" class="btn btn-sm" data-close-modal="addNoteModal">Cancel·lar</button>
                 <button type="submit" class="btn btn-sm btn-info" data-loading-text="Afegint...">Afegir</button>
@@ -96,6 +106,14 @@
                 <label class="label"><span class="label-text">Nota:</span></label>
                 <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full" rows="4" required></textarea>
             </div>
+            @if((Auth::user()->role ?? null) === 'Directiu')
+            <div class="form-control mb-4">
+                <label class="label cursor-pointer">
+                    <span class="label-text">Restringida:</span>
+                    <input type="checkbox" name="restricted" id="editNoteRestricted" class="checkbox checkbox-primary" />
+                </label>
+            </div>
+            @endif
             <div class="modal-action">
                 <button type="button" class="btn btn-sm" data-close-modal="editNoteModal">Cancel·lar</button>
                 <button type="submit" class="btn btn-sm btn-info" data-loading-text="Desant...">Desar</button>

@@ -1,7 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-semibold">
-            <th class="px-4 py-2 text-left">ID</th>
             <th class="px-4 py-2 text-left">Professional</th>
             <th class="px-4 py-2 text-center">Samarreta</th>
             <th class="px-4 py-2 text-center">Pantaló</th>
@@ -15,7 +14,6 @@
     <tbody>
         @foreach ($materialAssignments as $assignment)
             <tr class="hover:bg-base-300 transition-colors">
-                <td class="px-4 py-2">{{ $assignment->id }}</td>
                 <td class="px-4 py-2 font-medium">
                     <a href="{{ route('professional_show', $assignment->professional->id) }}" 
                         class="link link-hover link-info">

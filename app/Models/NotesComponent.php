@@ -11,6 +11,7 @@ class NotesComponent extends Model
     protected $fillable = [
         'notes',
         'created_by_professional_id',
+        'restricted',
     ];
 
     protected $casts = [

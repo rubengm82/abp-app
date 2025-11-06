@@ -41,20 +41,31 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const url = btn.dataset.editUrl;
             let note = btn.dataset.editNote;
+            let restricted = btn.dataset.editRestricted;
 
             try { 
-                note = JSON.parse(note); 
+                note = JSON.parse(note);
+                // JSON.parse is needed for restricted because @json() in Blade outputs a JSON-encoded string
+                if (restricted !== undefined && restricted !== null) {
+                    restricted = JSON.parse(restricted);
+                }
             } catch(e) {
                 console.error('Error parsing the note:', e, 'Received value:', note);
             }
 
             const editForm = document.getElementById('editNoteForm');
             const editText = document.getElementById('editNoteText');
+            const editRestricted = document.getElementById('editNoteRestricted');
             const modal = document.getElementById('editNoteModal');
 
             const canOpen = editForm && editText && modal;
             if (canOpen) {
                 editText.value = note;
+                // Only set checkbox if it exists (user is Directiu) and restricted value is available
+                if (editRestricted && restricted !== undefined && restricted !== null) {
+                    // Handle both boolean and integer values (true/1 = checked, false/0 = unchecked)
+                    editRestricted.checked = restricted === true || restricted === 1 || restricted === '1';
+                }
                 editForm.action = url;
                 modal.showModal();
             }

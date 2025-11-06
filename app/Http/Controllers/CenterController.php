@@ -233,12 +233,17 @@ class CenterController extends Controller
     public function center_note_add(Request $request, Center $center)
     {
         $request->validate([
-            'notes' => 'required|string|max:1000'
+            'notes' => 'required|string|max:1000',
+            'restricted' => 'nullable'
         ]);
+
+        // Convert checkbox value: "on" or presence = 1, absence = 0
+        $restricted = $request->has('restricted') && $request->input('restricted') !== null ? 1 : 0;
 
         $center->notes()->create([
             'notes' => $request->input('notes'),
-            'created_by_professional_id' => Auth::id()
+            'created_by_professional_id' => Auth::id(),
+            'restricted' => $restricted
         ]);
 
         return redirect()->route('center_show', $center->id . '#notes-section')
@@ -248,10 +253,17 @@ class CenterController extends Controller
     public function center_note_update(Request $request, NotesComponent $note)
     {
         $request->validate([
-            'notes' => 'required|string|max:1000'
+            'notes' => 'required|string|max:1000',
+            'restricted' => 'nullable'
         ]);
 
-        $note->update(['notes' => $request->input('notes')]);
+        // Convert checkbox value: "on" or presence = 1, absence = 0
+        $restricted = $request->has('restricted') && $request->input('restricted') !== null ? 1 : 0;
+
+        $note->update([
+            'notes' => $request->input('notes'),
+            'restricted' => $restricted
+        ]);
 
         return redirect()->route('center_show', $note->noteable->id . '#notes-section')
                          ->with('success', 'Nota actualitzada correctament!');

@@ -1,16 +1,14 @@
-# Sprint 3 Inicio - TODO LIST
+# Sprint 3 CRUD Contactos Externos - TODO LIST
 
 Todo:
-* De la misma manera que se descarga la lista de centros desde resources/views/components/contents/center/centersList.blade.php
-** Añadir en el bloque de "Profesionals apuntats al curs" en resources/views/components/contents/courses/courseShow.blade.php un botón para descargar el listado, con nombre y apellidos, el nombre del archivo debe de tener el nombre del Curso y la fecha.
-** Añadir en el bloque de "Equip del Projecte" en resources/views/components/contents/projectcommission/projectCommissionShow.blade.php un botón para descargar el listado, con nombre y apellidos, el nombre del archivo debe de tener el nombre del Proyecto/Comisión y la fecha.
+* 
+
+
+
 
 Apuntes: 
+* CRUD Contactos Externos 
 
-* Required de Cursos
-* Asignación de Prof a Cursos
-* Ver profesionales asignados en un curso
-* Ver los cursos a los que está asignado un profesional
 
 
 To know:
@@ -20,8 +18,7 @@ To know:
 * Todos los los comentarios deben de estar en inglés, todos los strings que aparecen en el html, en Catalán
 * Todos los botones de la web deben de respetar el mismo tamaño.
 
-To commit:
-* Exportación a excel de profesionales asignados a Cursos y Proyectos
-
-
-
+To commit: Notas Con Restricted
+* Notas con Checkbox Restricted, sólo visible si Directiu
+* Eliminados IDs en listas inecesarios
+* Añadido seeder para ExternalContacts

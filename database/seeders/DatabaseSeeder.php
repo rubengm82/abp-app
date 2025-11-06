@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ProjectCommissionAssignmentSeeder::class,
             CourseSeeder::class,
             CourseAssignmentSeeder::class,
+            ExternalContactSeeder::class,
         ]);
     }
 }

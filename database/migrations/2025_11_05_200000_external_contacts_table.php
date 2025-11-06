@@ -20,12 +20,14 @@ return new class extends Migration
             
             // Company information
             $table->string('company', 255)->nullable()->comment('Company name');
+            $table->string('department', 255)->nullable()->comment('Department');
             
             // Contact person information
             $table->string('name', 255)->nullable()->comment('Contact name');
             $table->string('surname', 255)->nullable()->comment('Contact surname');
             
             // Contact details
+            $table->string('link', 500)->nullable()->comment('Link/Enlace');
             $table->string('phone', 20)->nullable()->comment('Contact phone');
             $table->string('email', 255)->nullable()->comment('Contact email');
             
