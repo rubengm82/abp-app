@@ -7,32 +7,68 @@ use App\Models\Professional;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Mockery\Loader\EvalLoader;
-use PhpParser\Node\Expr\Eval_;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class EvaluationsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch all evaluations with their related professionals
-        $evaluations = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional'])->get();
+        $query = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional']);
 
-        // Sort by the surnames of the evaluated professional
-        $evaluations = $evaluations->sortBy(function ($evaluation) {
-            return $evaluation->evaluatedProfessional->surname1 . ' ' . $evaluation->evaluatedProfessional->surname2;
-        });
+        if ($search = $request->get('search')) {
+            $query
+                ->whereHas('evaluatedProfessional', function ($q) use ($search) {
+                    $q->where(function ($q2) use ($search) {
+                        $q2->where('name', 'like', "%{$search}%")
+                            ->orWhere('surname1', 'like', "%{$search}%")
+                            ->orWhere('surname2', 'like', "%{$search}%");
+                    });
+                })
+                ->orWhereHas('evaluatorProfessional', function ($q) use ($search) {
+                    $q->where(function ($q2) use ($search) {
+                        $q2->where('name', 'like', "%{$search}%")
+                            ->orWhere('surname1', 'like', "%{$search}%")
+                            ->orWhere('surname2', 'like', "%{$search}%");
+                    });
+                });
+        }
 
-        // Group evaluations by the evaluated professional
+        $evaluations = $query->get();
+
         $groupedEvaluations = $evaluations->groupBy('evaluation_uuid');
 
-        return view("components.contents.professional.evaluations.professionalEvaluationsList")
-            ->with([
-                'evaluations' => $evaluations,
-                'groupedEvaluations' => $groupedEvaluations,
-            ]);
+        $sortedGroups = $groupedEvaluations->sortBy(function ($group) {
+            $evaluated = $group->first()->evaluatedProfessional;
+            return $evaluated ? ($evaluated->surname1 . ' ' . $evaluated->surname2) : '';
+        });
+
+        $page = $request->get('page', 1);
+        $perPage = 10; // número de evaluaciones completas por página
+
+        $pagedGroups = $sortedGroups->forPage($page, $perPage);
+
+        $pagination = new LengthAwarePaginator(
+            $pagedGroups,
+            $sortedGroups->count(),
+            $perPage,
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        if ($request->ajax()) {
+            return view('components.contents.professional.evaluations.tables.professionalEvaluationsListTable', [
+                'groupedEvaluations' => $pagedGroups,
+                'evaluations' => $pagination,
+            ])->render();
+        }
+
+        return view('components.contents.professional.evaluations.professionalEvaluationsList', [
+            'groupedEvaluations' => $pagedGroups,
+            'evaluations' => $pagination,
+        ]);
     }
 
     /**
