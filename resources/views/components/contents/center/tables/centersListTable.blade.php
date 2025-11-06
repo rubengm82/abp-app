@@ -1,7 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-semibold">
-            <th class="px-4 py-2 text-left">ID</th>
             <th class="px-4 py-2 text-left">Nom</th>
             <th class="px-4 py-2 text-left">Adreça</th>
             <th class="px-4 py-2 text-left">Telèfon</th>
@@ -13,7 +12,6 @@
         @foreach($centers as $center)
             @if($center->status == 1)
                 <tr class="hover:bg-base-300 transition-colors">
-                    <td class="px-4 py-2">{{ $center->id }}</td>
                     <td class="px-4 py-2 font-medium">{{ $center->name }}</td>
                     <td class="px-4 py-2">{{ $center->address }}</td>
                     <td class="px-4 py-2">{{ $center->phone }}</td>

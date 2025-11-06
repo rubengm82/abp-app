@@ -14,15 +14,27 @@ class ExternalContactController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index(Request $request)
+    // {
+    //     $externalContacts = ExternalContact::paginate(10);
+
+    //     return view('components.contents.externalcontact.externalContactsList', [
+    //         'externalContacts' => $externalContacts
+    //     ]);
+    // }
     public function index(Request $request)
     {
-        $externalContacts = ExternalContact::paginate(10);
+        $query = ExternalContact::query();
 
-        return view('components.contents.externalcontact.externalContactsList', [
-            'externalContacts' => $externalContacts
-        ]);
+        if ($search = $request->get('search')) {
+            $query->whereAny(['id', 'external_contact_type', 'company', 'department', 'name', 'surname', 'phone', 'email'], 'like', "%{$search}%");
+        }
+        $externalContacts = $query->paginate(10)->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.externalcontact.tables.externalContactsListTable', with(['externalContacts' => $externalContacts]))->render()
+            : view('components.contents.externalcontact.externalContactsList', with(['externalContacts' => $externalContacts]));
     }
-
     /**
      * Show the form for creating a new resource.
      */

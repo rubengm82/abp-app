@@ -1,7 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-semibold">
-            <th class="px-4 py-2 text-left">ID</th>
             <th class="px-4 py-2 text-left">Tipus</th>
             <th class="px-4 py-2 text-left">Empresa</th>
             <th class="px-4 py-2 text-left">Departament</th>
@@ -14,7 +13,6 @@
     <tbody>
         @foreach ($externalContacts as $externalContact)
             <tr class="hover:bg-base-300 transition-colors">
-                <td class="px-4 py-2">{{ $externalContact->id }}</td>
                 <td class="px-4 py-2">{{ $externalContact->external_contact_type ?? '-' }}</td>
                 <td class="px-4 py-2 font-medium">{{ $externalContact->company ?? '-' }}</td>
                 <td class="px-4 py-2">{{ $externalContact->department ?? '-' }}</td>
@@ -37,7 +35,9 @@
     </tbody>
 </table>
 
-<div class="mt-4">
-    {{ $externalContacts->links() }}
+<div class="pagination">
+    <div class="mt-6 flex justify-center">
+       {{ $externalContacts->links('pagination::daisyui-pagination') }}
+   </div>
 </div>
 
