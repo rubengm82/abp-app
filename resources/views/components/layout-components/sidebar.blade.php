@@ -2,7 +2,7 @@
 
     <!-- Navigation menu -->
     <nav class="flex-1 overflow-auto">
-        <ul class="menu bg-base-200 w-full text-xs text-base-100 dark:text-base-content">
+        <ul class="menu bg-base-200 w-full text-xs text-base-content">
 
             <!-- Submenu Centers -->
             <li>
