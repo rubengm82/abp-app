@@ -7,12 +7,6 @@
     'createdByField' => null,
 ])
 
-@php
-    // Check if user is Directiu to control restricted notes visibility and checkbox access
-    $userRole = Auth::user()->role ?? null;
-    $isDirectiu = $userRole === 'Directiu';
-@endphp
-
 <div class="card bg-base-100 text-base-content shadow-xl mt-6">
     <div class="card-body">
         {{-- Title and Add Button --}}
@@ -24,25 +18,11 @@
         </div>
 
         {{-- List Notes --}}
-        @php
-            // Filter notes: restricted notes are only visible to Directiu users
-            $filteredItems = $items->filter(function($item) use ($isDirectiu) {
-                // If note is restricted, only show if user is Directiu
-                if ($item->restricted) {
-                    return $isDirectiu;
-                }
-                // If note is not restricted, show to everyone
-                return true;
-            });
-        @endphp
-        @if($filteredItems->count())
+        @if($items->count())
             <div class="space-y-4">
-                @foreach($filteredItems->sortByDesc('created_at') as $item)
-                    @php
-                        $isRestricted = !empty($item->restricted);
-                        $borderColor = $isRestricted ? 'border-orange-500' : 'border-blue-500';
-                    @endphp
-                    <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ $borderColor }}">
+                @foreach($items as $item)
+                    @continue(!empty($item->restricted) && (Auth::user()->role ?? null) !== 'Directiu')
+                    <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ !empty($item->restricted) ? 'border-orange-500' : 'border-blue-500' }}">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-sm text-gray-600">
                                 <strong>
@@ -56,7 +36,7 @@
                                 <button type="button" class="btn btn-xs btn-info"
                                     data-edit-url="{{ route($editRoute, $item) }}"
                                     data-edit-note='@json($item->notes ?? $item->text ?? "")'
-                                    data-edit-restricted='@json($isRestricted)'>
+                                    data-edit-restricted='@json(!empty($item->restricted))'>
                                     Editar
                                 </button>
 
@@ -98,7 +78,7 @@
                 <label class="label"><span class="label-text">Nota:</span></label>
                 <textarea name="notes" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
-            @if($isDirectiu)
+            @if((Auth::user()->role ?? null) === 'Directiu')
             <div class="form-control mb-4">
                 <label class="label cursor-pointer">
                     <span class="label-text">Restringida:</span>
@@ -126,7 +106,7 @@
                 <label class="label"><span class="label-text">Nota:</span></label>
                 <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full" rows="4" required></textarea>
             </div>
-            @if($isDirectiu)
+            @if((Auth::user()->role ?? null) === 'Directiu')
             <div class="form-control mb-4">
                 <label class="label cursor-pointer">
                     <span class="label-text">Restringida:</span>
