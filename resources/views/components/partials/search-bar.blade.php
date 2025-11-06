@@ -4,3 +4,5 @@
         <input type="search" id="search" placeholder="Cercar..." />
     </label>
 </div>
+
+<script src="{{ asset('js/components/partials/search-bar.js') }}"></script>
