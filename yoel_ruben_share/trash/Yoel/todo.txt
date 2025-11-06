@@ -1,25 +1,7 @@
 # Sprint 3 CRUD Contactos Externos - TODO LIST
 
 Todo:
-* Revisar migración database/migrations/2025_11_05_200000_external_contacts_table.php, debe de tener los campos:
-** Motiu / Servei
-** Empresa
-** Departament
-** Enlace
-** Responsable
-** Telefon
-** Correu
-** Observacions (texto)
-** Type (Assistencials / Servei General)
-(Recuerda, los campos en inglés)
-(Esta tabla es muy parecida a la de ProjectCommission, seguirémos una línea muy parecida para la implementación)
-* Crear el modelo de la tabla, pareciodo a app/Models/ProjectCommission.php
-* Crear el controlador de la tabla, parecido a app/Models/ProjectCommission.php
-* Crear el list, el form, el edit y el show basándonos en /home/luipy/Repo/abp-app/resources/views/components/contents/projectcommission
-** El list NO debe de tener la barra de búsqueda y por ende, tampoco debe de estar el controlador adaptado a ello, con tener el método index por ahora será suficiente.
-** El único campo restricted en el formulario será el nombre de la empresa, el responsable
-** Esta tabla NO tiene la asignaciones.
-* Añadir al list el botón de exportación a csv.
+* 
 
 
 
@@ -36,9 +18,7 @@ To know:
 * Todos los los comentarios deben de estar en inglés, todos los strings que aparecen en el html, en Catalán
 * Todos los botones de la web deben de respetar el mismo tamaño.
 
-To commit:
-* Updated migración con todos los campos
-* Creado modelo con morf para notas y documentos
-* Creado Controlador básico
-* Creadas vistas, List, Form, Edit, Show
-* Añadidas rutas
+To commit: Notas Con Restricted
+* Notas con Checkbox Restricted, sólo visible si Directiu
+* Eliminados IDs en listas inecesarios
+* Añadido seeder para ExternalContacts
