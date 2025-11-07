@@ -8,6 +8,7 @@ use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\MaterialAssignmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EvaluationsController;
+use App\Http\Controllers\MaintenanceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -178,3 +179,6 @@ Route::middleware('auth')->delete('/courses/notes/{note}', [CourseController::cl
 Route::middleware('auth')->post('/courses/documents/{course}', [CourseController::class, 'course_document_add'])->name('course_document_add');
 Route::middleware('auth')->delete('/courses/documents/{document}', [CourseController::class, 'course_document_delete'])->name('course_document_delete');
 Route::middleware('auth')->get('/courses/documents/download/{document}', [CourseController::class, 'course_document_download'])->name('course_document_download');
+
+/* ------------------------ MAINTENANCES ------------------------ */
+Route::middleware('auth')->get('/maintenances/list', [MaintenanceController::class, 'index'])->name('maintenances_list');

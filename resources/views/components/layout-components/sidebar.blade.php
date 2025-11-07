@@ -178,6 +178,32 @@
                 </details>
             </li>
 
+            <!-- Submenu Maintenances -->
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="wrench" class="w-6 h-6 text-primary" />
+                        Manteniments
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('maintenances_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+
             <!-- Submenu Desactivations -->
             <li>
                 <details>
