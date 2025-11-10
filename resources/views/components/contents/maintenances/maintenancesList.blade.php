@@ -11,24 +11,20 @@
 
 <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de Manteniments</h1>
 
-@php
-    $courses = collect([1, 2, 3]);
-@endphp
-
-@if($courses->count() > 0)
+@if($maintenances->count() > 0)
 <div class="flex justify-between items-center">
     <div>
         <x-partials.search-bar />
     </div>
     <div class="flex gap-4">
-        {{-- <a href="{{ route('courses_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+        {{-- <a href="{{ route('maintenances_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
         <a href="{{ route('course_form') }}" class="btn btn-sm btn-primary">Afegir Curs</a> --}}
     </div>
 </div>
 @endif
 
 <div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
-    @if($courses->count() > 0)
+    @if($maintenances->count() > 0)
         <div id="tableToSearch-container" data-url="/maintenances/list">
             @include('components.contents.maintenances.tables.maintenancesListTable')
         </div>

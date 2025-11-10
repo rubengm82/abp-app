@@ -18,13 +18,12 @@ return new class extends Migration
 
             
             // *** Company that performs this maintenance will be a FK to the own schedule; for now, it is fictional *** TEMPORAL
-            $table->string('who_does_maintenance', 100)->index()->comment('Person/Company who performs this maintenance');
-            
-            
-            $table->text('description')->nullable()->comment('Maintenance description');
+            $table->string('responsible_maintenance', 100)->index()->comment('Person/Company who performs this maintenance');
             
             // Maintenance Center FK
             $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('cascade');
+            
+            $table->text('description')->nullable()->comment('Maintenance description');
             
             // Maintenance information
             $table->date('opening_date_maintenance')->comment('Maintenance opening date');

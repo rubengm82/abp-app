@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\DocumentComponent;
+use App\Models\NotesComponent;
+use App\Models\Professional;
+use Illuminate\Support\Facades\Storage;
+
 
 class MaintenanceController extends Controller
 {
@@ -12,7 +18,8 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        return view("components.contents.maintenances.maintenancesList");
+        $maintenances = Maintenance::all();
+        return view("components.contents.maintenances.maintenancesList", compact('maintenances'));
     }
 
     /**
@@ -36,7 +43,7 @@ class MaintenanceController extends Controller
      */
     public function show(Maintenance $maintenance)
     {
-        //
+        return view("components.contents.maintenances.maintenancesShow", compact('maintenance'));
     }
 
     /**
@@ -62,4 +69,108 @@ class MaintenanceController extends Controller
     {
         //
     }
+
+    //// DOCUMENTS ////
+    // Upload Document to server
+    public function maintenance_document_add(Request $request, Professional $professional)
+    {
+        $request->validate([
+            'file' => 'required|file|max:10240', 
+        ]);
+
+        $file = $request->file('file');
+
+        // File name: original_name + fecha
+        $timestamp = now()->format('Ymd_His');
+        $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $extension = $file->getClientOriginalExtension();
+        $fileName = $originalName . '_' . $timestamp . '.' . $extension;
+
+        $filePath = $file->storeAs('documents/maintenances', $fileName, 'public');
+
+        $professional->documents()->create([
+            'file_name' => $fileName,
+            'original_name' => $file->getClientOriginalName(),
+            'file_path' => $filePath,
+            'file_size' => $file->getSize(),
+            'mime_type' => $file->getMimeType(),
+            'uploaded_by_professional_id' => Auth::user()->id,
+        ]);
+
+        return back()->with('success', 'Document pujat correctament!');
+    }
+
+
+    // Download Document to server
+    public function maintenance_document_download(DocumentComponent $document)
+    {
+        $path = storage_path('app/public/' . $document->file_path);
+
+        if (file_exists($path)) {
+            return response()->download($path, $document->original_name);
+        }
+
+        return back()->with('error', 'El document no existeix.');
+    }
+
+    // Delete Document to server
+    public function maintenance_document_delete(DocumentComponent $document)
+    {
+        if (Storage::disk('public')->exists($document->file_path)) {
+            Storage::disk('public')->delete($document->file_path);
+        }
+
+        $document->delete();
+
+        return back()->with('success', 'Document eliminat correctament!');
+    }
+    
+
+    //// NOTES ////
+    public function maintenance_note_add(Request $request, Professional $maintenance)
+    {
+        $request->validate([
+            'notes' => 'required|string|max:1000',
+            'restricted' => 'nullable'
+        ]);
+
+        // Convert checkbox value: "on" or presence = 1, absence = 0
+        $restricted = $request->has('restricted') && $request->input('restricted') !== null ? 1 : 0;
+
+        $maintenance->notes()->create([
+            'notes' => $request->input('notes'),
+            'created_by_professional_id' => Auth::id(),
+            'restricted' => $restricted
+        ]);
+        return redirect()->route('maintenance_show', $maintenance->id . '#notes-section')
+                         ->with('success', 'Nota afegida correctament!');
+    }
+
+    public function maintenance_note_update(Request $request, NotesComponent $note)
+    {
+        $request->validate([
+            'notes' => 'required|string|max:1000',
+            'restricted' => 'nullable'
+        ]);
+
+        // Convert checkbox value: "on" or presence = 1, absence = 0
+        $restricted = $request->has('restricted') && $request->input('restricted') !== null ? 1 : 0;
+
+        $note->update([
+            'notes' => $request->input('notes'),
+            'restricted' => $restricted
+        ]);
+
+        return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
+                         ->with('success', 'Nota actualitzada correctament!');
+    }
+
+    public function maintenance_note_delete(NotesComponent $note)
+    {
+        $note->delete();
+
+        return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
+                         ->with('success', 'Nota eliminada correctament!');
+    }
+
 }

@@ -1,30 +1,28 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-semibold">
-            <th class="px-4 py-2 text-left">Nom del curs</th>
-            <th class="px-4 py-2 text-left">Centre de Formació</th>
-            <th class="px-4 py-2 text-left">Codi FORCEM</th>
-            <th class="px-4 py-2 text-left">Modalitat</th>
+            <th class="px-4 py-2 text-left">Nom del Manteniment</th>
+            <th class="px-4 py-2 text-left">Resposable del Manteniment</th>
+            <th class="px-4 py-2 text-left">Centre</th>
+            <th class="px-4 py-2 text-left">Descripció</th>
             <th class="px-4 py-2 text-left">Data d'inici</th>
             <th class="px-4 py-2 text-right">Acció</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($courses as $course)
+        @foreach($maintenances as $maintenance)
             <tr class="hover:bg-base-300 transition-colors">
-                {{-- <td class="px-4 py-2 font-medium">{{ Str::limit($course->training_name, 30) }}</td> --}}
-                {{-- <td class="px-4 py-2">{{ Str::limit($course->training_center, 25) }}</td>
-                <td class="px-4 py-2">{{ Str::limit($course->forcem_code, 15) }}</td>
-                <td class="px-4 py-2">{{ $course->attendance_type ?? 'No especificada' }}</td>
-                <td class="px-4 py-2">{{ $course->start_date ? \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') : 'No especificada' }}</td> --}}
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
+                <td class="px-4 py-2">{{ Str::limit($maintenance->name_maintenance, 60) }}</td>
+                <td class="px-4 py-2">{{ Str::limit($maintenance->responsible_maintenance, 60) }}</td>
+                <td class="px-4 py-2">{{ Str::limit($maintenance->center->name, 30) }}</td>
+                <td class="px-4 py-2">
+                    <div title="{{ $maintenance->description }}">
+                        {{ Str::limit($maintenance->description, 60) }}</td>
+                    </div>
+                <td class="px-4 py-2">{{ $maintenance->opening_date_maintenance ? \Carbon\Carbon::parse($maintenance->opening_date_maintenance)->format('d/m/Y') : 'No especificada' }}</td>
                 <td class="px-4 py-2 text-right">
                     <div class="flex justify-end gap-2">
-                        {{-- <a href="{{ route('course_show', $course) }}" class="btn btn-xs btn-info">Veure</a> --}}
+                        <a href="{{ route('maintenance_show', $maintenance) }}" class="btn btn-xs btn-info">Veure</a>
                     </div>
                 </td>
             </tr>
