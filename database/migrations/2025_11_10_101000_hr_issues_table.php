@@ -15,16 +15,17 @@ return new class extends Migration
             $table->id();
             
             // Issue information
-            $table->date('date')->comment('Issue date');
+            $table->date('opening_date')->comment('Opening date');
+            $table->date('closing_date')->nullable()->comment('Closing date');
             
             // Professional references
             $table->foreignId('affected_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Affected professional');
             $table->foreignId('registering_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Professional who registered');
+            $table->foreignId('referred_to_professional_id')->nullable()->constrained('professionals')->onDelete('set null')->comment('Professional referred to');
             
             // Issue details
-            $table->string('referred_to', 255)->nullable()->comment('Referred to (free text)');
-            $table->string('documents', 500)->nullable()->comment('Related documents');
-            $table->date('end_date')->nullable()->comment('Issue resolution date');
+            $table->text('description')->comment('Issue description');
+            $table->enum('status', ['Obert', 'Tancat'])->default('Obert')->comment('Issue status');
             
             $table->timestamps();
         });

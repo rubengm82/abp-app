@@ -92,6 +92,34 @@
                 </details>
             </li>
 
+            <!-- Submenu HR Issues (Directiu only) -->
+            @if((Auth::user()->role ?? null) === 'Directiu')
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="exclamation-triangle" class="w-6 h-6 text-primary" />
+                        Incidències RRHH
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('hr_issues_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('hr_issue_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            @endif
+
             <!-- Submenu Project/Commissions -->
             <li>
                 <details>

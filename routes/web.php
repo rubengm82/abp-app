@@ -8,6 +8,7 @@ use App\Http\Controllers\ExternalContactController;
 use App\Http\Controllers\MaterialAssignmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EvaluationsController;
+use App\Http\Controllers\HrIssueController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,7 @@ Route::middleware('auth')->get('/centers/desactivated/list', [CenterController::
 Route::middleware('auth')->patch('/center/activate/{center}', [CenterController::class, 'activateStatus'])->name('center_activate');
 Route::middleware('auth')->patch('/center/desactivate/{center}', [CenterController::class, 'desactivateStatus'])->name('center_desactivate');
 Route::middleware('auth')->post('/center/{center}', [CenterController::class, "update"])->name("center_update");
-Route::middleware('auth')->get('/center/center_edit/{center}', [CenterController::class, 'edit'])->name('center_edit');
+Route::middleware('auth')->get('/center/edit/{center}', [CenterController::class, 'edit'])->name('center_edit');
 Route::middleware('auth')->get('/center/show/{id}', [CenterController::class, "show"])->name("center_show");
 Route::middleware('auth')->get('/centers/downloadCSV/{status}', [CenterController::class, 'downloadCSV'])->name('centers.downloadCSV');
 
@@ -87,6 +88,25 @@ Route::middleware('auth')->post('/professionals/evaluations/quiz/add', [Evaluati
 Route::middleware('auth')->get('/professionals/evaluations/downloadCSV/', [EvaluationsController::class, 'downloadCSV'])->name('professional_evaluations.downloadCSV');
 Route::middleware('auth')->get('/professionals/evaluations/quiz/downloadCSV/{evaluation_uuid}', [EvaluationsController::class, 'downloadCSV_professional_evaluated'])->name('professional_evaluation_quiz_downloadCSV');
 Route::middleware('auth')->delete('/professionals/evaluations/delete', [EvaluationsController::class, 'destroy'])->name('professional_evaluations_delete');
+
+/* ------------------------ HR ISSUES ------------------------ */
+Route::middleware('auth')->get('/hr_issues/list', [HrIssueController::class, "index"])->name("hr_issues_list");
+Route::middleware('auth')->get('/hr_issue/form', [HrIssueController::class, "create"])->name("hr_issue_form");
+Route::middleware('auth')->post('/hr_issue/add', [HrIssueController::class, "store"])->name("hr_issue_add");
+Route::middleware('auth')->get('/hr_issue/show/{id}', [HrIssueController::class, "show"])->name("hr_issue_show");
+Route::middleware('auth')->get('/hr_issue/edit/{id}', [HrIssueController::class, "edit"])->name("hr_issue_edit");
+Route::middleware('auth')->put('/hr_issue/update/{id}', [HrIssueController::class, "update"])->name("hr_issue_update");
+Route::middleware('auth')->delete('/hr_issue/delete/{id}', [HrIssueController::class, "destroy"])->name("hr_issue_delete");
+
+/* HR Issue Notes */
+Route::middleware('auth')->post('/hr_issue/notes/{hrIssue}', [HrIssueController::class, 'hr_issue_note_add'])->name('hr_issue_note_add');
+Route::middleware('auth')->put('/hr_issue/notes/{note}', [HrIssueController::class, 'hr_issue_note_update'])->name('hr_issue_note_update');
+Route::middleware('auth')->delete('/hr_issue/notes/{note}', [HrIssueController::class, 'hr_issue_note_delete'])->name('hr_issue_note_delete');
+
+/* HR Issue Documents */
+Route::middleware('auth')->post('/hr_issue/documents/{hrIssue}', [HrIssueController::class, 'hr_issue_document_add'])->name('hr_issue_document_add');
+Route::middleware('auth')->delete('/hr_issue/documents/{document}', [HrIssueController::class, 'hr_issue_document_delete'])->name('hr_issue_document_delete');
+Route::middleware('auth')->get('/hr_issue/documents/download/{document}', [HrIssueController::class, 'hr_issue_document_download'])->name('hr_issue_document_download');
 
 /* ------------------------ PROJECT COMMISSIONS ------------------------ */
 Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
@@ -135,9 +155,9 @@ Route::middleware('auth')->delete('/externalcontact/documents/{document}', [Exte
 Route::middleware('auth')->get('/externalcontact/documents/download/{document}', [ExternalContactController::class, 'externalcontact_document_download'])->name('externalcontact_document_download');
 
 /* Course Professional Assignments */
-Route::middleware('auth')->get('/course/assign-professionals/{course}', [CourseController::class, 'assignProfessionals'])->name('course_assign_professionals');
-Route::middleware('auth')->post('/course/update-professional-assignments/{course}', [CourseController::class, 'updateProfessionalAssignments'])->name('course_update_professional_assignments');
-Route::middleware('auth')->get('/course/downloadCSV-professionals/{course}', [CourseController::class, 'downloadCSVProfessionals'])->name('course_downloadCSV_professionals');
+Route::middleware('auth')->get('/course/assign_professionals/{course}', [CourseController::class, 'assignProfessionals'])->name('course_assign_professionals');
+Route::middleware('auth')->post('/course/update_professional_assignments/{course}', [CourseController::class, 'updateProfessionalAssignments'])->name('course_update_professional_assignments');
+Route::middleware('auth')->get('/course/downloadCSV_professionals/{course}', [CourseController::class, 'downloadCSVProfessionals'])->name('course_downloadCSV_professionals');
 
 /* ------------------------ MATERIAL ASSIGNMENTS ------------------------ */
 Route::middleware('auth')->get('/materialassignments/list', [MaterialAssignmentController::class, 'index'])->name('materialassignments_list');

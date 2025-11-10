@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CenterSeeder::class,
             ProfessionalSeeder::class,
+            HrIssueSeeder::class,
             ProjectCommissionSeeder::class,
             MaterialAssignmentSeeder::class,
             QuizSeeder::class,

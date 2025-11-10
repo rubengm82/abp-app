@@ -1,14 +1,31 @@
-# Sprint 3 CRUD Contactos Externos - TODO LIST
+# Sprint 4 CRUD RRHH - TODO LIST
 
 Todo:
-* 
-
-
-
+* Prepararse para hacer un nuevo CRUD de RRHH
+* Revisar la migración database/migrations/2025_11_10_101000_hr_issues_table.php, debe de tener los siguientes campos:
+** Fecha apertura
+** Fecha de cierre (opcional)
+** Profesional quien lo registra (fk)
+** Profesional al que afecta (fk)
+** Profesional al que es derivado (fk) (opcional)
+** Descripción
+** Estado (enum: Abierto, Cerrado)
+* Revisar/Crear el modelo
+* Crear el controlador
+(Coger de referencia resources/views/components/contents/professional/.)
+* Crear el listado
+* Crear el show
+* Crear el form
+* Crear el form de edición
+* Añadir al sidebar
+* Este apartado ha de ser visible únicamente por el rol Directiu, explícame dónde debería de estar esta comprobación, yo supongo que en web.php
+* Crear las rutas pertinentes en web.php
 
 Apuntes: 
-* CRUD Contactos Externos 
-
+* CRUD RRHH
+data obertura, professional a qui afecta, descripció, professional
+que ho registra, a qui es derivat, docs adjunts
+* Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
 
 To know:
@@ -17,8 +34,10 @@ To know:
 * No se pueden crear más migraciones, ni de tipo add, delete o modificación, pero sí para tablas totalmente nuevas. En caso de necesitar modificar una tabla, se ha de modificar el archivo ya creado y testear de inmediato con fresh o incluso borrando el caché.
 * Todos los los comentarios deben de estar en inglés, todos los strings que aparecen en el html, en Catalán
 * Todos los botones de la web deben de respetar el mismo tamaño.
+* Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: Notas Con Restricted
-* Notas con Checkbox Restricted, sólo visible si Directiu
-* Eliminados IDs en listas inecesarios
-* Añadido seeder para ExternalContacts
+To commit: Crud RRHH
+* Añadida migracion de RRHH
+* Creado modelo y controlador
+* Creado listado, show y formularios
+* Añadido bloque de documentos y notas
