@@ -50,7 +50,7 @@
                 <h2 class="card-title text-xl mb-4">Informació bàsica</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">Títol:</label>
+                        <label class="font-semibold">Nom del Manteniment:</label>
                         <p>{{ $maintenance->name_maintenance }}</p>
                     </div>
                     <div>
@@ -79,7 +79,7 @@
                         <p>{{ $maintenance->description ?: 'No especificada' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Responsable:</label>
+                        <label class="font-semibold">Resposable del Manteniment:</label>
                         <p>{{ $maintenance->responsible_maintenance ?: 'No assignat' }}</p>
                     </div>
                 </div>
@@ -101,24 +101,24 @@
     </div>
 
     <!-- Documents -->
-    {{-- <x-partials.documents-section
+    <x-partials.documents-section
         :items="$maintenance->documents"
-        title="Documents del manteniment"
+        title="Documents"
         uploadAction="{{ route('maintenance_document_add', $maintenance) }}"
         downloadRoute="maintenance_document_download"
         deleteRoute="maintenance_document_delete"
         uploadedByField="uploadedByProfessional"
-    /> --}}
+    />
 
     <!-- Notes -->
-    {{-- <x-partials.notes-section
+    <x-partials.notes-section
         :items="$maintenance->notes"
-        title="Notes del manteniment"
+        title="Notes"
         addAction="{{ route('maintenance_note_add', $maintenance) }}"
         deleteRoute="maintenance_note_delete"
         :editRoute="'maintenance_note_update'"
         createdByField="createdByProfessional"
-    /> --}}
+    />
 
     @include('components.partials.mainToasts')
 </div>

@@ -190,6 +190,6 @@ Route::middleware('auth')->put('/maintenances/notes/{note}', [MaintenanceControl
 Route::middleware('auth')->delete('/maintenances/notes/{note}', [MaintenanceController::class, 'maintenance_note_delete'])->name('maintenance_note_delete');
 
 /* Maintenance Assignment Documents */
-Route::middleware('auth')->post('/maintenances/documents/{maintenances}', [MaintenanceController::class, 'maintenance_document_add'])->name('maintenance_document_add');
+Route::middleware('auth')->post('/maintenances/documents/{maintenance}', [MaintenanceController::class, 'maintenance_document_add'])->name('maintenance_document_add');
 Route::middleware('auth')->delete('/maintenances/documents/{document}', [MaintenanceController::class, 'maintenance_document_delete'])->name('maintenance_document_delete');
 Route::middleware('auth')->get('/maintenances/documents/download/{document}', [MaintenanceController::class, 'maintenance_document_download'])->name('maintenance_document_download');

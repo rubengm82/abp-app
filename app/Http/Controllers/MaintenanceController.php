@@ -72,7 +72,7 @@ class MaintenanceController extends Controller
 
     //// DOCUMENTS ////
     // Upload Document to server
-    public function maintenance_document_add(Request $request, Professional $professional)
+    public function maintenance_document_add(Request $request, Maintenance $maintenance)
     {
         $request->validate([
             'file' => 'required|file|max:10240', 
@@ -88,7 +88,7 @@ class MaintenanceController extends Controller
 
         $filePath = $file->storeAs('documents/maintenances', $fileName, 'public');
 
-        $professional->documents()->create([
+        $maintenance->documents()->create([
             'file_name' => $fileName,
             'original_name' => $file->getClientOriginalName(),
             'file_path' => $filePath,
@@ -127,7 +127,7 @@ class MaintenanceController extends Controller
     
 
     //// NOTES ////
-    public function maintenance_note_add(Request $request, Professional $maintenance)
+    public function maintenance_note_add(Request $request, Maintenance $maintenance)
     {
         $request->validate([
             'notes' => 'required|string|max:1000',
@@ -161,7 +161,7 @@ class MaintenanceController extends Controller
             'restricted' => $restricted
         ]);
 
-        return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
+        return redirect()->route('maintenance_show', $note->noteable->id . '#notes-section')
                          ->with('success', 'Nota actualitzada correctament!');
     }
 
@@ -169,7 +169,7 @@ class MaintenanceController extends Controller
     {
         $note->delete();
 
-        return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
+        return redirect()->route('maintenance_show', $note->noteable->id . '#notes-section')
                          ->with('success', 'Nota eliminada correctament!');
     }
 
