@@ -13,7 +13,7 @@ class ProfessionalSeeder extends Seeder
         $professionals = [
             [
                 'center_id' => 1,
-                'role' => 'Administració',
+                'role' => 'Directiu',
                 'name' => 'Root',
                 'surname1' => 'Toor',
                 'surname2' => 'Toor',

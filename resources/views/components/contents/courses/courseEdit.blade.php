@@ -111,6 +111,7 @@
                     </label>
                     <input type="number" name="total_hours" id="id_total_hours" placeholder="Ex: 30" 
                            class="input input-bordered w-full" 
+                           min="0"
                            value="{{ old('total_hours', $course->total_hours ?? '') }}">
                 </div>
             </div>

@@ -40,9 +40,13 @@ class EvaluationsController extends Controller
 
         $groupedEvaluations = $evaluations->groupBy('evaluation_uuid');
 
-        $sortedGroups = $groupedEvaluations->sortBy(function ($group) {
-            $evaluated = $group->first()->evaluatedProfessional;
-            return $evaluated ? ($evaluated->surname1 . ' ' . $evaluated->surname2) : '';
+        // $sortedGroups = $groupedEvaluations->sortBy(function ($group) {
+        //     $evaluated = $group->first()->evaluatedProfessional;
+        //     return $evaluated ? ($evaluated->surname1 . ' ' . $evaluated->surname2) : '';
+        // });
+
+        $sortedGroups = $groupedEvaluations->sortByDesc(function ($group) {
+            return $group->first()->created_at;  // ← Aquí le decimos explícitamente que use created_at
         });
 
         $page = $request->get('page', 1);

@@ -1,31 +1,11 @@
-# Sprint 4 CRUD RRHH - TODO LIST
+# Sprint 4 Fixs - TODO LIST
 
 Todo:
-* Prepararse para hacer un nuevo CRUD de RRHH
-* Revisar la migración database/migrations/2025_11_10_101000_hr_issues_table.php, debe de tener los siguientes campos:
-** Fecha apertura
-** Fecha de cierre (opcional)
-** Profesional quien lo registra (fk)
-** Profesional al que afecta (fk)
-** Profesional al que es derivado (fk) (opcional)
-** Descripción
-** Estado (enum: Abierto, Cerrado)
-* Revisar/Crear el modelo
-* Crear el controlador
-(Coger de referencia resources/views/components/contents/professional/.)
-* Crear el listado
-* Crear el show
-* Crear el form
-* Crear el form de edición
-* Añadir al sidebar
-* Este apartado ha de ser visible únicamente por el rol Directiu, explícame dónde debería de estar esta comprobación, yo supongo que en web.php
-* Crear las rutas pertinentes en web.php
+* 
 
 Apuntes: 
-* CRUD RRHH
-data obertura, professional a qui afecta, descripció, professional
-que ho registra, a qui es derivat, docs adjunts
-* Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
+* Horas negativas
+* Order by desc
 
 
 To know:
@@ -36,8 +16,7 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: Crud RRHH
-* Añadida migracion de RRHH
-* Creado modelo y controlador
-* Creado listado, show y formularios
-* Añadido bloque de documentos y notas
+To commit: Fixs
+* Cambiado rol del usuario admin:admin
+* min=0 en formualrio de edición de cursos
+* Order by fecha desc en lista de evaluaciones
