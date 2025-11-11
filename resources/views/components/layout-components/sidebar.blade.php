@@ -64,7 +64,7 @@
                             <details>
                                 <summary>
                                     <x-partials.icon name="clipboard-document-check" class="w-6 h-6 text-primary" />
-                                    Evaluations
+                                    Avaluacions
                                 </summary>
 
                                 <!-- List Evaluations -->
