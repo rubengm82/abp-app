@@ -37,3 +37,18 @@
 - **Casos de uso** correspondientes a este sprint (parte del Anexo 8).  
 - Documentación relacionada con la planificación, control y seguimiento del desarrollo del proyecto.  
 - Maquetación de las partes implicadas en este sprint basándose en el diseño de Figma.
+
+### Sprint 3 (11/11/2025)
+- Diseño en **Figma** de las partes implicadas en este sprint.  
+- Maquetación de las partes implicadas basándose en el diseño de Figma.  
+- Inclusión de **iconos en formato SVG**.
+- Alta, modificación y desactivación de cursos.  
+- **Asignación de profesionales a cursos**.  
+- Funcionalidad de **Drag and Drop** para asignar profesionales a cursos de forma visual.  
+- Exportación a **Excel** de cursos y profesionales asignados.
+- **Asignación de profesionales a proyectos** de la entidad.  
+- Gestión de **seguimiento de profesionales** (alta, modificación, baja).  
+- Gestión de **evaluación de profesionales**.
+- Creación de **diagramas de clases** (parte del Anexo 8).  
+- Documentación de **casos de uso** correspondientes a este sprint (parte del Anexo 8).  
+- Documentación del **control y seguimiento de las tareas** desarrolladas durante este sprint.
