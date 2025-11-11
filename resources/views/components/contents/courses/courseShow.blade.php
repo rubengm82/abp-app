@@ -142,16 +142,20 @@
             
             @if($course->assignments->count() > 0)
                 <div class="space-y-3">
-                    @foreach($course->assignments as $assignment)
-                        <div class="p-3 bg-base-200 rounded-lg">
-                            <div>
-                                <a href="{{ route('professional_show', $assignment->professional->id) }}" 
-                                   class="font-semibold link link-hover">
-                                    {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }} {{ $assignment->professional->surname2 }}
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
+                   @foreach($course->assignments as $assignment)
+                    <div class="p-3 bg-base-200 rounded-lg flex items-center justify-between">
+                        
+                        <a href="{{ route('professional_show', $assignment->professional->id) }}" 
+                        class="font-semibold link link-hover">
+                            {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }} {{ $assignment->professional->surname2 }}
+                        </a>
+
+                        <span class="badge badge-dash {{ $assignment->certificate === 'Entregat' ? 'badge-success' : 'badge-warning' }}">
+                            {{ $assignment->certificate ?? 'Pendent' }}
+                        </span>
+                    </div>
+                @endforeach
+
                 </div>
             @else
                 <div class="text-center py-8 text-base-content/50">

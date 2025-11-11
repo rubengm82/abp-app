@@ -170,26 +170,6 @@
         </div>
     </div>
 
-    <!-- Documents -->
-    <x-partials.documents-section
-        :items="$professional->documents"
-        title="Documents"            
-        uploadAction="{{ route('professional_document_add', $professional) }}"
-        downloadRoute="professional_document_download"
-        deleteRoute="professional_document_delete"
-        uploadedByField="uploadedByProfessional"
-    />
-
-    <!-- Notes -->
-    <x-partials.notes-section
-    :items="$professional->notes"
-    title="Notes"
-    addAction="{{ route('professional_note_add', $professional) }}"
-    deleteRoute="professional_note_delete"
-    :editRoute="'professional_note_update'"
-    createdByField="createdByProfessional"
-    />
-
     <!-- Projects Assigned -->
     <div class="card bg-base-100 shadow-xl mt-6">
         <div class="card-body">
@@ -225,27 +205,64 @@
             @if($professional->assignedCourses->count() > 0)
                 <div class="space-y-3">
                     @foreach($professional->assignedCourses as $course)
-                        <div class="p-3 bg-base-200 rounded-lg">
+                        <div class="p-3 bg-base-200 rounded-lg flex items-center justify-between">
                             <div>
-                                <a href="{{ route('course_show', $course->id) }}" 
-                                   class="font-semibold link link-hover">
+                                <a href="{{ route('course_show', $course->id) }}" class="font-semibold link link-hover">
                                     {{ $course->training_name }}
                                 </a>
                             </div>
+
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-dash {{ $course->pivot->certificate === 'Entregat' ? 'badge-success' : 'badge-warning' }}">
+                                    {{ $course->pivot->certificate ?? 'Pendent' }}
+                                </span>
+
+                                <!-- Button open modal -->
+                                <x-partials.modal
+                                    id="certificateModal{{ $course->pivot->id }}"
+                                    msj="Canviar l'estat del certificat a {{ $course->pivot->certificate === 'Entregat' ? 'Pendent' : 'Entregat' }}?"
+                                    btnText="Canviar"
+                                    class="btn btn-xs btn-primary"
+                                >
+                                    <form method="POST" action="{{ route('course_assignment_update_certificate', $course->pivot->id) }}">
+                                        @csrf
+                                        @method('PATCH')
+                                        
+                                        <input type="hidden" name="certificate" value="{{ $course->pivot->certificate === 'Entregat' ? 'Pendent' : 'Entregat' }}">
+
+                                        <button type="submit" class="btn btn-sm btn-info">Acceptar</button>
+                                    </form>
+                                </x-partials.modal>
+                            </div>
                         </div>
-                    @endforeach
+                        @endforeach
                 </div>
             @else
-                <div class="text-center py-8 text-base-content/50">
-                    <i class="fas fa-book text-4xl mb-4"></i>
-                    <p class="text-lg">No hi ha cursos asignats</p>
-                </div>
+                <p class="text-gray-500">No hi ha cursos asignats.</p>
             @endif
+            
         </div>
     </div>
 
-    
+    <!-- Documents -->
+    <x-partials.documents-section
+        :items="$professional->documents"
+        title="Documents"            
+        uploadAction="{{ route('professional_document_add', $professional) }}"
+        downloadRoute="professional_document_download"
+        deleteRoute="professional_document_delete"
+        uploadedByField="uploadedByProfessional"
+    />
 
+    <!-- Notes -->
+    <x-partials.notes-section
+    :items="$professional->notes"
+    title="Notes"
+    addAction="{{ route('professional_note_add', $professional) }}"
+    deleteRoute="professional_note_delete"
+    :editRoute="'professional_note_update'"
+    createdByField="createdByProfessional"
+    />
 
 @include('components.partials.mainToasts')
 @endsection

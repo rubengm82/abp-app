@@ -79,7 +79,8 @@ class Professional extends Authenticatable
     public function assignedCourses()
     {
         return $this->belongsToMany(Course::class, 'course_assignments')
-                    ->withTimestamps();
+                    ->withTimestamps()
+                    ->withPivot('id', 'certificate');
     }
 
     /**

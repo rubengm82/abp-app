@@ -9,6 +9,7 @@ use App\Http\Controllers\MaterialAssignmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EvaluationsController;
 use App\Http\Controllers\HrIssueController;
+use App\Http\Controllers\CourseAssignmentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -188,6 +189,7 @@ Route::middleware('auth')->post('/courses/add', [CourseController::class, "store
 Route::middleware('auth')->get('/courses/edit/{course}', [CourseController::class, 'edit'])->name('course_edit');
 Route::middleware('auth')->put('/courses/update/{course}', [CourseController::class, 'update'])->name('course_update');
 Route::middleware('auth')->get('/courses/downloadCSV', [CourseController::class, 'downloadCSV'])->name('courses_downloadCSV');
+Route::middleware('auth')->patch('/course_assignment/certificate/{id}', [CourseAssignmentController::class, 'updateCertificate'])->name('course_assignment_update_certificate');
 
 /* Material Assignment Notes */
 Route::middleware('auth')->post('/courses/notes/{course}', [CourseController::class, 'course_note_add'])->name('course_note_add');
