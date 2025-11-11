@@ -183,6 +183,7 @@ Route::middleware('auth')->get('/courses/documents/download/{document}', [Course
 /* ------------------------ MAINTENANCES ------------------------ */
 Route::middleware('auth')->get('/maintenances/list', [MaintenanceController::class, 'index'])->name('maintenances_list');
 Route::middleware('auth')->get('/maintenances/show/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance_show');
+Route::middleware('auth')->get('/maintenances/downloadCSV', [MaintenanceController::class, 'downloadCSV'])->name('maintenances_downloadCSV');
 
 /* Maintenance Assignment Notes */
 Route::middleware('auth')->post('/maintenances/notes/{maintenance}', [MaintenanceController::class, 'maintenance_note_add'])->name('maintenance_note_add');

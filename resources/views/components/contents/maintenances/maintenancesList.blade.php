@@ -17,8 +17,8 @@
         <x-partials.search-bar />
     </div>
     <div class="flex gap-4">
-        {{-- <a href="{{ route('maintenances_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
-        <a href="{{ route('course_form') }}" class="btn btn-sm btn-primary">Afegir Curs</a> --}}
+        <a href="{{ route('maintenances_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+        {{-- <a href="{{ route('course_form') }}" class="btn btn-sm btn-primary">Afegir Manteniment</a> --}}
     </div>
 </div>
 @endif

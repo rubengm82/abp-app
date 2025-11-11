@@ -173,4 +173,33 @@ class MaintenanceController extends Controller
                          ->with('success', 'Nota eliminada correctament!');
     }
 
+    /**
+     * Download CSV from resource in storage
+     */
+    public function downloadCSV()
+    {
+        $maintenances = Maintenance::all();
+
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = "manteniments_{$timestamp}.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['Nom del Manteniment', 'Resposable del Manteniment', 'Centre', 'Descripció', 'Data d\'inici']);
+
+        foreach ($maintenances as $maintenances) {
+            fputcsv($handle, [
+                $maintenances->name_maintenance,
+                $maintenances->responsible_maintenance,
+                $maintenances->center->name,
+                $maintenances->description,
+                $maintenances->opening_date_maintenance,
+            ]);
+        }
+
+        // Close Pointer File
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+
 }
