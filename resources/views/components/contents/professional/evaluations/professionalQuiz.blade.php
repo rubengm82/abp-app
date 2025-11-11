@@ -10,26 +10,26 @@
     :current="'Qüestionari valoració'"
 />
 
-<div class="w-full mx-auto bg-base-100 text-base-content p-6 rounded shadow">
+<div class="w-full mx-auto bg-base-100 text-base-content p-6 rounded shadow text-sm">
     <!-- Page Title -->
     <div class="flex justify-center items-center mb-6">
         <h1 class="text-2xl font-bold text-center">Qüestionari de la valoració del/la professional</h1>
     </div>
     
     <!-- Evaluation Form -->
-    <form action="{{ route('professional_evaluations_add') }}" method="post" class="space-y-6">
+    <form action="{{ route('professional_evaluations_add') }}" method="post" class="space-y-6 text-sm">
         @csrf
         
         <!-- Evaluator | Evaluated -> Card -->  
-        <div class="card bg-base-100 text-base-content shadow-xl mb-6">
+        <div class="card bg-base-100 text-base-content shadow-xl mb-6 text-sm">
             <div class="card-body">
-                <h2 class="card-title text-lg mb-4">Selecciona els professionals</h2>
+                <h2 class="card-title text-lg mb-2">Selecciona els professionals</h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Avaluat -->
                     <div>
-                        <label for="avaluat" class="block font-semibold mb-2 text-primary">(*) Professional a Avaluar:</label>
-                        <select id="avaluat" name="avaluat" class="select select-bordered w-full" required>
+                        <label for="avaluat" class="block font-semibold mb-1 text-primary">(*) Professional a Avaluar:</label>
+                        <select id="avaluat" name="avaluat" class="select select-bordered w-full text-sm" required>
                             <option value="">Selecciona un professional</option>
                             @foreach($professionals as $professional)
                                 <option value="{{ $professional->id }}">
@@ -41,8 +41,8 @@
                     
                     <!-- Evaluador -->
                     <div>
-                        <label for="evaluador" class="block font-medium mb-2">(*) Professional Avaluador:</label>
-                        <select id="evaluador" name="evaluador" class="select select-bordered w-full" required>
+                        <label for="evaluador" class="block font-medium mb-1">(*) Professional Avaluador:</label>
+                        <select id="evaluador" name="evaluador" class="select select-bordered w-full text-sm" required>
                             <option value="">Selecciona un professional</option>
                             @foreach($professionals as $professional)
                                 <option value="{{ $professional->id }}">
@@ -50,37 +50,31 @@
                                 </option>
                             @endforeach
                         </select>
-                        </select>
                     </div>
-                    
                 </div>
             </div>
         </div>
 
-
-        <div class="card bg-base-100 text-base-content shadow-xl">
+        <!-- Questions Table -->
+        <div class="card bg-base-100 text-base-content shadow-xl text-sm">
             <div class="card-body">
-                 
                 <div class="overflow-x-auto">
-                    <table class="table table-hover w-full text-sm">
-                        <thead >
-                            <tr class="bg-primary text-black font-semibold">
-                                <th class="w-1/2 text-lg">Pregunta</th>
-                                <th class="text-center text-lg">Gens d'acord</th>
-                                <th class="text-center text-lg">Poc d'acord</th>
-                                <th class="text-center text-lg">Bastant d'acord</th>
-                                <th class="text-center text-lg">Molt d'acord</th>
+                    <table class="table w-full text-sm rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-primary text-white font-semibold text-sm rounded-t-lg">
+                                <th class="w-1/2 px-3 py-2">Pregunta</th>
+                                <th class="text-center px-3 py-2">Gens d'acord</th>
+                                <th class="text-center px-3 py-2">Poc d'acord</th>
+                                <th class="text-center px-3 py-2">Bastant d'acord</th>
+                                <th class="text-center px-3 py-2">Molt d'acord</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($questions as $index => $question)
+                            @foreach ($questions as $question)
                                 <tr class="hover:bg-base-300">
-                                    {{-- The Question --}}
-                                    <td class="font-medium">{{ $question->question }}</td>
-                                    
-                                    {{-- Radio Buttons --}}
+                                    <td class="font-medium text-xs px-3 py-2">{{ $question->question }}</td>
                                     @for ($i = 0; $i < 4; $i++)
-                                        <td class="text-center">
+                                        <td class="text-center px-3 py-2">
                                             <input 
                                                 type="radio" 
                                                 name="questions[{{ $question->id }}]" 
@@ -94,29 +88,19 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tbody >
-                            <tr class="bg-primary text-black font-semibold">
-                                <th class="w-1/2 text-lg">Pregunta</th>
-                                <th class="text-center text-lg">Gens d'acord</th>
-                                <th class="text-center text-lg">Poc d'acord</th>
-                                <th class="text-center text-lg">Bastant d'acord</th>
-                                <th class="text-center text-lg">Molt d'acord</th>
-                            </tr>
-                        </tbody>
                     </table>
                 </div>
 
                 <!-- Submit Button -->
-                <div class="flex justify-end gap-4 mt-8">
+                <div class="flex justify-end gap-4 mt-4">
                     <a href="{{ route('professional_evaluations_list') }}" class="btn btn-outline">Cancel·lar</a>
-                    <button type="submit" class="btn btn-info ">
+                    <button type="submit" class="btn btn-info">
                         Crear Avaluació
                     </button>
                 </div>
             </div>
         </div>
     </form>
-
 </div>
 
 @include('components.partials.mainToasts')
