@@ -40,17 +40,19 @@ class EvaluationsController extends Controller
 
         $groupedEvaluations = $evaluations->groupBy('evaluation_uuid');
 
-        // $sortedGroups = $groupedEvaluations->sortBy(function ($group) {
-        //     $evaluated = $group->first()->evaluatedProfessional;
-        //     return $evaluated ? ($evaluated->surname1 . ' ' . $evaluated->surname2) : '';
-        // });
+        $questions = Quiz::all();
 
-        $sortedGroups = $groupedEvaluations->sortByDesc(function ($group) {
-            return $group->first()->created_at;  // ← Aquí le decimos explícitamente que use created_at
+        $groupedEvaluations = $groupedEvaluations->map(function ($group) use ($questions) {
+            return (object)[
+                'group' => $group, // evaluaciones originales
+                'averagePercentage' => $this->calculateAveragePercentage($questions, $group),
+            ];
         });
 
+        $sortedGroups = $groupedEvaluations->sortByDesc(fn($item) => $item->group->first()->created_at);
+
         $page = $request->get('page', 1);
-        $perPage = 10; // número de evaluaciones completas por página
+        $perPage = 10;
 
         $pagedGroups = $sortedGroups->forPage($page, $perPage);
 
@@ -74,6 +76,7 @@ class EvaluationsController extends Controller
             'evaluations' => $pagination,
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -134,6 +137,9 @@ class EvaluationsController extends Controller
         $professionalEvaluated = Professional::where('id', $professionalEvaluated_id)->get();
         $professionalEvaluator = Professional::where('id', $professionalEvaluator_id)->get();
         $questions = Quiz::all();
+
+        $averagePercentage = $this->calculateAveragePercentage($questions, $answers);
+
         
         // dd($evaluation);
         // dd($professionalEvaluated);
@@ -144,6 +150,7 @@ class EvaluationsController extends Controller
                 'questions' => $questions,
                 'professionalEvaluated' => $professionalEvaluated,
                 'professionalEvaluator' => $professionalEvaluator,
+                'averagePercentage' => $averagePercentage,
             ]);
     }
 
@@ -192,14 +199,11 @@ class EvaluationsController extends Controller
      */
     public function downloadCSV()
     {
+        $questions = Quiz::all();
         $evaluations = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional'])
             ->get()
-            ->sortBy([
-                fn($a, $b) => strcmp(optional($a->evaluatedProfessional)->surname1, optional($b->evaluatedProfessional)->surname1),
-                fn($a, $b) => strcmp(optional($a->evaluatedProfessional)->surname2, optional($b->evaluatedProfessional)->surname2),
-        ]);
+            ->sortByDesc('created_at');
 
-        // Agrupar por evaluado para evitar filas repetidas
         $grouped = $evaluations->groupBy(fn($item) => $item->evaluation_uuid);
 
         $timestamp = now()->format('Y-m-d_H-i-s');
@@ -207,15 +211,18 @@ class EvaluationsController extends Controller
 
         $handle = fopen($filename, 'w+');
 
-        // Cabecera
         fputcsv($handle, [
             'Avaluat',
             'Avaluador',
             'Data de Creació',
+            'Percentatge mitjà'
         ]);
 
         foreach ($grouped as $evaluatedId => $group) {
-            $first = $group->first(); // tomamos la primera evaluación de cada evaluado
+            $first = $group->first();
+
+            $averagePercentage = $this->calculateAveragePercentage($questions, $group);
+
             fputcsv($handle, [
                 optional($first->evaluatedProfessional)->name . ' ' .
                 optional($first->evaluatedProfessional)->surname1 . ' ' .
@@ -224,6 +231,7 @@ class EvaluationsController extends Controller
                 optional($first->evaluatorProfessional)->surname1 . ' ' .
                 optional($first->evaluatorProfessional)->surname2,
                 $first->created_at->format('d/m/Y H:i:s'),
+                $averagePercentage . '%'
             ]);
         }
 
@@ -246,6 +254,10 @@ class EvaluationsController extends Controller
         }
 
         $first = $answers->first(); // Tomamos info del evaluado/evaluador
+        $questions = Quiz::all(); // Todas las preguntas, para calcular porcentaje
+
+        // Calcular promedio de porcentaje
+        $averagePercentage = $this->calculateAveragePercentage($questions, $answers);
 
         // FILE NAME
         $evaluatedName = Str::slug(
@@ -266,6 +278,7 @@ class EvaluationsController extends Controller
         fputcsv($handle, ["Professional Avaluat:", optional($first->evaluatedProfessional)->name . ' ' . optional($first->evaluatedProfessional)->surname1 . ' ' . optional($first->evaluatedProfessional)->surname2]);
         fputcsv($handle, ["Professional Avaluador:", optional($first->evaluatorProfessional)->name . ' ' . optional($first->evaluatorProfessional)->surname1 . ' ' . optional($first->evaluatorProfessional)->surname2]);
         fputcsv($handle, ["Data de l'avaluació:", $first->created_at->format('d/m/Y H:i:s')]);
+        fputcsv($handle, ["Percentatge mitjà:", $averagePercentage . '%']); // <- Nueva línea
 
         // Línea vacía para separar del listado de preguntas
         fputcsv($handle, []);
@@ -292,6 +305,41 @@ class EvaluationsController extends Controller
         fclose($handle);
 
         return response()->download($filename)->deleteFileAfterSend(true);
+    }
+    
+    // Calculate average percentage from answers
+    protected function calculateAveragePercentage($questions, $answers)
+    {
+        $averagePercentage = 0;
+
+        $totalQuestions = $questions->count();
+        if ($totalQuestions > 0) {
+            $sumPercentage = 0;
+
+            foreach ($questions as $question) {
+                $answer = $answers->firstWhere('question_id', $question->id);
+                if ($answer) {
+                    switch ($answer->answer) {
+                        case 0:
+                            $sumPercentage += 25;
+                            break;
+                        case 1:
+                            $sumPercentage += 50;
+                            break;
+                        case 2:
+                            $sumPercentage += 75;
+                            break;
+                        case 3:
+                            $sumPercentage += 100;
+                            break;
+                    }
+                }
+            }
+
+            $averagePercentage = round($sumPercentage / $totalQuestions, 2);
+        }
+
+        return $averagePercentage;
     }
 
 }

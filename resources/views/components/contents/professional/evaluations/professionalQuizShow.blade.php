@@ -99,6 +99,11 @@
                 </table>
             </div>
 
+            <div class="mt-4 p-4 bg-base-200 rounded shadow text-center">
+                <span class="font-semibold">Percentatge mitjà de l'avaluació:</span>
+                <span class="text-primary text-lg">{{ $averagePercentage }}%</span>
+            </div>
+
             <div class="flex justify-end gap-4 mt-4">
                 <a href="{{ route('professional_evaluations_list') }}" class="btn btn-outline text-sm">Tornar</a>
             </div>
