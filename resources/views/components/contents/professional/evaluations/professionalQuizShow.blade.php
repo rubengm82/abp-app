@@ -101,7 +101,26 @@
 
             <div class="mt-4 p-4 bg-base-200 rounded shadow text-center">
                 <span class="font-semibold">Percentatge mitjà de l'avaluació:</span>
-                <span class="text-primary text-lg">{{ $averagePercentage }}%</span>
+                <div class="flex items-center justify-center mt-2">
+                    <span class="text-primary text-lg">
+                        @if (($averagePercentage ?? 0) <= 25)
+                            <div> Gens d'acord</div>
+                        @elseif (($averagePercentage ?? 0) <= 50)
+                            <div> Poc d'acord</div>
+                        @elseif (($averagePercentage ?? 0) <= 75)
+                            <div> Bastant d'acord</div>
+                        @else
+                            <div> Molt d'acord</div>
+                        @endif
+                    </span>
+                    <span class="text-primary text-lg">
+                        <small>
+                            &nbsp;
+                            ({{ $averagePercentage ?? 0 }}%)
+                        </small>
+                    </span>
+                </div>
+
             </div>
 
             <div class="flex justify-end gap-4 mt-4">

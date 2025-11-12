@@ -72,7 +72,22 @@
                         <tbody>
                             @foreach ($questions as $question)
                                 <tr class="hover:bg-base-300">
-                                    <td class="font-medium text-xs px-3 py-2">{{ $question->question }}</td>
+                                    <td class="font-medium text-xs px-3 py-2">
+                                        {{ $question->question }}
+
+                                        <div class="text-xs text-gray-500 mt-1">
+                                            Mitjana: <span class="font-semibold">{{ $questionAverages[$question->id] ?? 0 }}%</span> —
+                                            @if (($questionAverages[$question->id] ?? 0) <= 25)
+                                                Gens d'acord
+                                            @elseif (($questionAverages[$question->id] ?? 0) <= 50)
+                                                Poc d'acord
+                                            @elseif (($questionAverages[$question->id] ?? 0) <= 75)
+                                                Bastant d'acord
+                                            @else
+                                                Molt d'acord
+                                            @endif
+                                        </div>
+                                    </td>
                                     @for ($i = 0; $i < 4; $i++)
                                         <td class="text-center px-3 py-2">
                                             <input 

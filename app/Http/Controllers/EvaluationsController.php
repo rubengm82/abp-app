@@ -44,7 +44,7 @@ class EvaluationsController extends Controller
 
         $groupedEvaluations = $groupedEvaluations->map(function ($group) use ($questions) {
             return (object)[
-                'group' => $group, // evaluaciones originales
+                'group' => $group,
                 'averagePercentage' => $this->calculateAveragePercentage($questions, $group),
             ];
         });
@@ -86,9 +86,38 @@ class EvaluationsController extends Controller
         $questions = Quiz::all();
         $professionals = Professional::where('status', 1)->get();
 
-        return view("components.contents.professional.evaluations.professionalQuiz",[
+        // Calcular la media de respuestas por cada pregunta
+        $evaluations = Evaluation::all();
+
+        $questionAverages = [];
+
+        // Avg per question
+        foreach ($questions as $question) {
+            $answers = $evaluations->where('question_id', $question->id);
+            if ($answers->count() > 0) {
+                $avg = round(
+                $answers->avg(function ($evaluation) {
+                    return match ($evaluation->answer) {
+                        0 => 25,
+                        1 => 50,
+                        2 => 75,
+                        3 => 100,
+                        default => 0
+                    };
+                }),
+                2
+            );
+            } else {
+                $avg = 0;
+            }
+
+            $questionAverages[$question->id] = $avg;
+        }
+
+        return view("components.contents.professional.evaluations.professionalQuiz", [
             'questions' => $questions,
             'professionals' => $professionals,
+            'questionAverages' => $questionAverages,
         ]);
     }
 
@@ -139,10 +168,6 @@ class EvaluationsController extends Controller
         $questions = Quiz::all();
 
         $averagePercentage = $this->calculateAveragePercentage($questions, $answers);
-
-        
-        // dd($evaluation);
-        // dd($professionalEvaluated);
 
         return view("components.contents.professional.evaluations.professionalQuizShow")
             ->with([
@@ -215,13 +240,24 @@ class EvaluationsController extends Controller
             'Avaluat',
             'Avaluador',
             'Data de Creació',
-            'Percentatge mitjà'
+            'Resposta mitjana'
         ]);
 
         foreach ($grouped as $evaluatedId => $group) {
             $first = $group->first();
 
             $averagePercentage = $this->calculateAveragePercentage($questions, $group);
+
+            // Convertir porcentaje a texto
+            if ($averagePercentage <= 25) {
+                $averageText = "Gens d'acord";
+            } elseif ($averagePercentage <= 50) {
+                $averageText = "Poc d'acord";
+            } elseif ($averagePercentage <= 75) {
+                $averageText = "Bastant d'acord";
+            } else {
+                $averageText = "Molt d'acord";
+            }
 
             fputcsv($handle, [
                 optional($first->evaluatedProfessional)->name . ' ' .
@@ -231,7 +267,7 @@ class EvaluationsController extends Controller
                 optional($first->evaluatorProfessional)->surname1 . ' ' .
                 optional($first->evaluatorProfessional)->surname2,
                 $first->created_at->format('d/m/Y H:i:s'),
-                $averagePercentage . '%'
+                $averageText
             ]);
         }
 
@@ -253,11 +289,20 @@ class EvaluationsController extends Controller
             return redirect()->back()->with('error', 'No s’ha trobat aquesta avaluació.');
         }
 
-        $first = $answers->first(); // Tomamos info del evaluado/evaluador
-        $questions = Quiz::all(); // Todas las preguntas, para calcular porcentaje
+        $first = $answers->first();
+        $questions = Quiz::all();
 
-        // Calcular promedio de porcentaje
         $averagePercentage = $this->calculateAveragePercentage($questions, $answers);
+
+        if ($averagePercentage <= 25) {
+            $averageText = "Gens d'acord";
+        } elseif ($averagePercentage <= 50) {
+            $averageText = "Poc d'acord";
+        } elseif ($averagePercentage <= 75) {
+            $averageText = "Bastant d'acord";
+        } else {
+            $averageText = "Molt d'acord";
+        }
 
         // FILE NAME
         $evaluatedName = Str::slug(
@@ -270,23 +315,19 @@ class EvaluationsController extends Controller
         );
         $evaluationDate = $first->created_at->format('d-m-Y_H-i-s');
         $filename = "avaluacio_{$evaluatedName}_{$evaluationDate}.csv";
-        // END FILE NAME
 
         $handle = fopen($filename, 'w+');
 
-        // Encabezados generales
         fputcsv($handle, ["Professional Avaluat:", optional($first->evaluatedProfessional)->name . ' ' . optional($first->evaluatedProfessional)->surname1 . ' ' . optional($first->evaluatedProfessional)->surname2]);
         fputcsv($handle, ["Professional Avaluador:", optional($first->evaluatorProfessional)->name . ' ' . optional($first->evaluatorProfessional)->surname1 . ' ' . optional($first->evaluatorProfessional)->surname2]);
         fputcsv($handle, ["Data de l'avaluació:", $first->created_at->format('d/m/Y H:i:s')]);
-        fputcsv($handle, ["Percentatge mitjà:", $averagePercentage . '%']); // <- Nueva línea
+        
+        fputcsv($handle, ["Resposta mitjana:", $averageText]);
 
-        // Línea vacía para separar del listado de preguntas
         fputcsv($handle, []);
 
-        // Cabecera de las preguntas
         fputcsv($handle, ['Pregunta', 'Resposta']);
 
-        // Mapa de respuestas
         $answerTextMap = [
             0 => 'Gens d\'acord',
             1 => 'Poc d\'acord',
@@ -294,7 +335,6 @@ class EvaluationsController extends Controller
             3 => 'Molt d\'acord',
         ];
 
-        // Preguntas y respuestas
         foreach ($answers as $answer) {
             fputcsv($handle, [
                 $answer->question->question ?? 'Pregunta sense nom',
@@ -340,6 +380,42 @@ class EvaluationsController extends Controller
         }
 
         return $averagePercentage;
+    }
+
+    // Ca
+    protected function calculateAverageByQuestion()
+    {
+        $questions = Quiz::all();
+        $evaluations = Evaluation::all();
+
+        $averagesByQuestion = [];
+
+        foreach ($questions as $question) {
+            $answers = $evaluations->where('question_id', $question->id);
+
+            $sum = 0;
+            $count = $answers->count();
+
+            if ($count > 0) {
+                foreach ($answers as $evaluation) {
+                    if ($evaluation->answer == 0) $sum += 25;
+                    elseif ($evaluation->answer == 1) $sum += 50;
+                    elseif ($evaluation->answer == 2) $sum += 75;
+                    elseif ($evaluation->answer == 3) $sum += 100;
+                }
+
+                $average = round($sum / $count, 2);
+            } else {
+                $average = 0;
+            }
+
+            $averagesByQuestion[] = [
+                'question' => $question->question,
+                'average' => $average,
+            ];
+        }
+
+        return $averagesByQuestion;
     }
 
 }

@@ -4,7 +4,7 @@
             <th class="px-4 py-2 text-left">Avaluat</th>
             <th class="px-4 py-2 text-left">Avaluador</th>
             <th class="px-4 py-2 text-left">Data de l'Avaluació</th>
-            <th class="px-4 py-2 text-right">Percentatge Mitjà</th>
+            <th class="px-4 py-2 text-right">Resposta Mitjana</th>
             <th class="px-4 py-2 text-right">Acció</th>
         </tr>
     </thead>
@@ -27,8 +27,16 @@
                     {{ $group->group->first()->created_at->toDateTimeString() }}
                 </td>
 
-                <td class="px-4 py-2 text-right font-semibold text-base-content">
-                    {{ $group->averagePercentage ?? 0 }}%
+               <td class="px-4 py-2 text-right font-semibold text-base-content">
+                    @if (($group->averagePercentage ?? 0) <= 25)
+                        Gens d'acord
+                    @elseif (($group->averagePercentage ?? 0) <= 50)
+                        Poc d'acord
+                    @elseif (($group->averagePercentage ?? 0) <= 75)
+                        Bastant d'acord
+                    @else
+                        Molt d'acord
+                    @endif
                 </td>
 
                 <td class="px-4 py-2 text-right">
