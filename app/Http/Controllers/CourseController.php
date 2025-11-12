@@ -168,12 +168,15 @@ class CourseController extends Controller
         $assignments = $course->assignments()->with('professional')->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
-        // Sanitize course name for filename
         $courseName = str_replace(' ', '_', $course->training_name);
         $filename = "professionals_{$courseName}_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['Nom', 'Cognom1', 'Cognom2']);
+
+        // Línea de título del curso
+        fputcsv($handle, ["Nom del curs:", $course->training_name]);
+        fputcsv($handle, []); // Línea vacía
+        fputcsv($handle, ['Nom', 'Cognom1', 'Cognom2', 'Estat del certificat']); // Encabezado de profesionales
 
         foreach ($assignments as $assignment) {
             if ($assignment->professional) {
@@ -181,11 +184,11 @@ class CourseController extends Controller
                     $assignment->professional->name,
                     $assignment->professional->surname1,
                     $assignment->professional->surname2,
+                    $assignment->certificate ?? 'Pendent',
                 ]);
             }
         }
 
-        // Close Pointer File
         fclose($handle);
 
         return response()->download($filename)->deleteFileAfterSend(true);
