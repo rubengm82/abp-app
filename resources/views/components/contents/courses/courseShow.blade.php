@@ -150,9 +150,28 @@
                             {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }} {{ $assignment->professional->surname2 }}
                         </a>
 
-                        <span class="badge badge-dash {{ $assignment->certificate === 'Entregat' ? 'badge-success' : 'badge-warning' }}">
-                            {{ $assignment->certificate ?? 'Pendent' }}
-                        </span>
+                        <div class="flex items-center gap-2">
+                            <span class="badge badge-dash {{ $assignment->certificate === 'Entregat' ? 'badge-success' : 'badge-warning' }}">
+                                {{ $assignment->certificate ?? 'Pendent' }}
+                            </span>
+
+                            <!-- Button open modal -->
+                            <x-partials.modal
+                                id="certificateModal{{ $assignment->id }}"
+                                msj="Canviar l'estat del certificat a {{ $assignment->certificate === 'Entregat' ? 'Pendent' : 'Entregat' }}?"
+                                btnText="Canviar"
+                                class="btn btn-xs btn-info"
+                            >
+                                <form method="POST" action="{{ route('course_assignment_update_certificate', $assignment->id) }}">
+                                    @csrf
+                                    @method('PATCH')
+                                    
+                                    <input type="hidden" name="certificate" value="{{ $assignment->certificate === 'Entregat' ? 'Pendent' : 'Entregat' }}">
+
+                                    <button type="submit" class="btn btn-sm btn-info">Acceptar</button>
+                                </form>
+                            </x-partials.modal>
+                        </div>
                     </div>
                 @endforeach
 

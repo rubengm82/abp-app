@@ -216,23 +216,6 @@
                                 <span class="badge badge-dash {{ $course->pivot->certificate === 'Entregat' ? 'badge-success' : 'badge-warning' }}">
                                     {{ $course->pivot->certificate ?? 'Pendent' }}
                                 </span>
-
-                                <!-- Button open modal -->
-                                <x-partials.modal
-                                    id="certificateModal{{ $course->pivot->id }}"
-                                    msj="Canviar l'estat del certificat a {{ $course->pivot->certificate === 'Entregat' ? 'Pendent' : 'Entregat' }}?"
-                                    btnText="Canviar"
-                                    class="btn btn-xs btn-primary"
-                                >
-                                    <form method="POST" action="{{ route('course_assignment_update_certificate', $course->pivot->id) }}">
-                                        @csrf
-                                        @method('PATCH')
-                                        
-                                        <input type="hidden" name="certificate" value="{{ $course->pivot->certificate === 'Entregat' ? 'Pendent' : 'Entregat' }}">
-
-                                        <button type="submit" class="btn btn-sm btn-info">Acceptar</button>
-                                    </form>
-                                </x-partials.modal>
                             </div>
                         </div>
                         @endforeach
