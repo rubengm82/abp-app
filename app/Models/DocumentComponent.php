@@ -14,7 +14,8 @@ class DocumentComponent extends Model
         'file_path',
         'file_size',
         'mime_type',
-        'uploaded_by_professional_id'
+        'uploaded_by_professional_id',
+        'document_type'
     ];
 
     protected $casts = [

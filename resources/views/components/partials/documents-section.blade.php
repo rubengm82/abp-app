@@ -65,6 +65,16 @@
         <form action="{{ $uploadAction }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="file" name="file" class="file-input file-input-bordered w-full mt-4" required>
+            <!-- Document type -->
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text">Tipus de document (opcional)</span>
+                </label>
+                <select name="document_type" class="select select-bordered w-full">
+                    <option value="">-- Selecciona un tipus --</option>
+                    <option value="Miscel·lani">Miscel·lani</option>
+                </select>
+            </div>
             <div class="modal-action">
                 <button type="button" class="btn btn-sm" data-close-modal="addDocumentModal">Cancel·lar</button>
                 <button type="submit" class="btn btn-sm btn-info" data-loading-text="Pujant...">Pujar</button>

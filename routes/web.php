@@ -11,6 +11,7 @@ use App\Http\Controllers\EvaluationsController;
 use App\Http\Controllers\HrIssueController;
 use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\GeneralServiceController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -214,3 +215,7 @@ Route::middleware('auth')->delete('/general_service/notes/{note}', [GeneralServi
 Route::middleware('auth')->post('/general_service/documents/{generalService}', [GeneralServiceController::class, 'general_service_document_add'])->name('general_service_document_add');
 Route::middleware('auth')->delete('/general_service/documents/{document}', [GeneralServiceController::class, 'general_service_document_delete'])->name('general_service_document_delete');
 Route::middleware('auth')->get('/general_service/documents/download/{document}', [GeneralServiceController::class, 'general_service_document_download'])->name('general_service_document_download');
+
+/* ------------------------ GLOBAL DOCUMENTS ------------------------ */
+Route::middleware('auth')->get('/documents/list', [DocumentController::class, 'index'])->name('global_documents_list');
+Route::middleware('auth')->get('/documents/download/{document}', [DocumentController::class, 'download'])->name('global_document_download');

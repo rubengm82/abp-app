@@ -298,7 +298,8 @@ class ProfessionalController extends Controller
     public function professional_document_add(Request $request, Professional $professional)
     {
         $request->validate([
-            'file' => 'required|file|max:10240', 
+            'file' => 'required|file|max:10240',
+            'document_type' => 'nullable|in:Miscel·lani',
         ]);
 
         $file = $request->file('file');
@@ -318,6 +319,7 @@ class ProfessionalController extends Controller
             'file_size' => $file->getSize(),
             'mime_type' => $file->getMimeType(),
             'uploaded_by_professional_id' => Auth::user()->id,
+            'document_type' => $request->input('document_type'),
         ]);
 
         return back()->with('success', 'Document pujat correctament!');

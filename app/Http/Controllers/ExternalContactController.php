@@ -153,7 +153,8 @@ class ExternalContactController extends Controller
     public function externalcontact_document_add(Request $request, ExternalContact $externalContact)
     {
         $request->validate([
-            'file' => 'required|file|max:10240', 
+            'file' => 'required|file|max:10240',
+            'document_type' => 'nullable|in:Miscel·lani',
         ]);
 
         $file = $request->file('file');
@@ -173,6 +174,7 @@ class ExternalContactController extends Controller
             'file_size' => $file->getSize(),
             'mime_type' => $file->getMimeType(),
             'uploaded_by_professional_id' => Auth::user()->id,
+            'document_type' => $request->input('document_type'),
         ]);
 
         return back()->with('success', 'Document pujat correctament!');

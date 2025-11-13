@@ -238,6 +238,14 @@
                 </details>
             </li>
 
+            <!-- Submenu Global Documents -->
+            <li>
+                <a href="{{ route('global_documents_list') }}">
+                    <x-partials.icon name="document-text" class="w-6 h-6 text-primary" />
+                    Documents Globals
+                </a>
+            </li>
+
             <!-- Submenu Desactivations -->
             <li>
                 <details>
