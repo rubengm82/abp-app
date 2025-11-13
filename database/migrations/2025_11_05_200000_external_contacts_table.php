@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('external_contacts', function (Blueprint $table) {
             $table->id();
             
+            // Relation to centers
+            $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('set null')->comment('Center');
+            
             // Contact type and reason
             $table->string('external_contact_type', 100)->nullable()->comment('External contact type');
             $table->string('service_reason', 255)->nullable()->comment('Service reason');

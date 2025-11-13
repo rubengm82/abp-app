@@ -4,13 +4,19 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\ExternalContact;
+use App\Models\Center;
 
 class ExternalContactSeeder extends Seeder
 {
     public function run(): void
     {
+        // Get available centers
+        $centers = Center::where('status', 1)->get();
+        $centerIds = $centers->pluck('id')->toArray();
+        
         $externalContacts = [
             [
+                'center_id' => !empty($centerIds) ? $centerIds[0] : null,
                 'external_contact_type' => 'Servei Social',
                 'service_reason' => 'Atenció a famílies en situació de risc',
                 'company' => 'Serveis Socials de Barcelona',
@@ -23,6 +29,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Contacte principal per a derivacions de casos familiars. Disponible de dilluns a divendres de 9h a 14h.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[1] ?? $centerIds[0]) : null,
                 'external_contact_type' => 'Salut Mental',
                 'service_reason' => 'Avaluació i seguiment psicològic',
                 'company' => 'Centre de Salut Mental Infantil i Juvenil',
@@ -35,6 +42,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Especialista en trastorns de conducta en adolescents. Cita prèvia necessària.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[0] ?? null) : null,
                 'external_contact_type' => 'Justícia',
                 'service_reason' => 'Seguiment de mesures judicials',
                 'company' => 'Jutjat de Menors',
@@ -47,6 +55,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Responsable del seguiment de mesures en medi obert. Informes mensuals requerits.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[1] ?? $centerIds[0]) : null,
                 'external_contact_type' => 'Educació',
                 'service_reason' => 'Coordinació amb centres educatius',
                 'company' => 'Institut d\'Educació Secundària Joan Boscà',
@@ -59,6 +68,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Orientador del centre. Coordinació per a seguiment acadèmic dels joves.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[0] ?? null) : null,
                 'external_contact_type' => 'Formació i Ocupació',
                 'service_reason' => 'Inserció laboral i formació professional',
                 'company' => 'Servei d\'Ocupació de Catalunya',
@@ -71,6 +81,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Tècnica d\'inserció laboral. Ofereix programes de formació i pràctiques empresarials.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[1] ?? $centerIds[0]) : null,
                 'external_contact_type' => 'Salut',
                 'service_reason' => 'Atenció sanitària i seguiment mèdic',
                 'company' => 'Centre d\'Atenció Primària',
@@ -83,6 +94,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Metge de referència per a joves del centre. Consultes amb cita prèvia.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[0] ?? null) : null,
                 'external_contact_type' => 'Servei Social',
                 'service_reason' => 'Recursos d\'allotjament i habitatge',
                 'company' => 'Fundació Habitatge Social',
@@ -95,6 +107,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Gestió de pisos tutelats i recursos d\'allotjament per a joves emancipats.',
             ],
             [
+                'center_id' => null,
                 'external_contact_type' => 'Associació',
                 'service_reason' => 'Activitats de lleure i participació',
                 'company' => 'Associació de Joves del Barri',
@@ -107,6 +120,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Organitza activitats de lleure i esport per a joves. Col·laboració en projectes comunitaris.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[1] ?? $centerIds[0]) : null,
                 'external_contact_type' => 'Justícia',
                 'service_reason' => 'Mediació familiar',
                 'company' => 'Servei de Mediació Familiar',
@@ -119,6 +133,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Mediadora familiar. Intervé en conflictes familiars i processos de separació.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[0] ?? null) : null,
                 'external_contact_type' => 'Formació i Ocupació',
                 'service_reason' => 'Formació professional i qualificació',
                 'company' => 'Centre de Formació Professional',
@@ -131,6 +146,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Coordinador de programes de formació professional. Ofertes de cursos i qualificació.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[1] ?? $centerIds[0]) : null,
                 'external_contact_type' => 'Salut Mental',
                 'service_reason' => 'Atenció en addiccions',
                 'company' => 'Centre d\'Atenció i Seguiment a les Drogodependències',
@@ -143,6 +159,7 @@ class ExternalContactSeeder extends Seeder
                 'observations' => 'Tècnica en addiccions. Suport per a joves amb problemes de consum de substàncies.',
             ],
             [
+                'center_id' => !empty($centerIds) ? ($centerIds[0] ?? null) : null,
                 'external_contact_type' => 'Educació',
                 'service_reason' => 'Suport educatiu especialitzat',
                 'company' => 'Equip d\'Assessorament Psicopedagògic',

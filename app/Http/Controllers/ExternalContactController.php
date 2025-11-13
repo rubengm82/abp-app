@@ -24,7 +24,7 @@ class ExternalContactController extends Controller
     // }
     public function index(Request $request)
     {
-        $query = ExternalContact::query();
+        $query = ExternalContact::with('center');
 
         if ($search = $request->get('search')) {
             $query->whereAny(['id', 'external_contact_type', 'company', 'department', 'name', 'surname', 'phone', 'email'], 'like', "%{$search}%");
@@ -49,6 +49,7 @@ class ExternalContactController extends Controller
     public function store(Request $request)
     {
         ExternalContact::create([
+            'center_id' => $request->input('center_id'),
             'external_contact_type' => $request->input('external_contact_type'),
             'service_reason' => $request->input('service_reason'),
             'company' => $request->input('company'),
@@ -70,6 +71,7 @@ class ExternalContactController extends Controller
     public function show(ExternalContact $externalContact)
     {
         $externalContact->load([
+            'center',
             'notes.createdByProfessional',
             'documents.uploadedByProfessional'
         ]);
@@ -95,6 +97,7 @@ class ExternalContactController extends Controller
     public function update(Request $request, ExternalContact $externalContact)
     {
         $externalContact->update([
+            'center_id' => $request->input('center_id'),
             'external_contact_type' => $request->input('external_contact_type'),
             'service_reason' => $request->input('service_reason'),
             'company' => $request->input('company'),
