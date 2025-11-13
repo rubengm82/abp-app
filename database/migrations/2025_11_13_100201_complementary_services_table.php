@@ -14,17 +14,16 @@ return new class extends Migration
         Schema::create('complementary_services', function (Blueprint $table) {
             $table->id();
             
+            // Center
+            $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('cascade');
+
             // Service information
-            $table->string('service_type', 100)->nullable()->comment('Service type');
-            $table->string('service_responsible', 255)->nullable()->comment('Service responsible (free text)');
+            $table->string('service_type', 255)->nullable()->comment('Service type');
+            $table->string('service_responsible', 255)->nullable()->comment('Service responsible');
             
             // Service dates Redundant
             $table->date('start_date')->nullable()->comment('Service start date');
-            $table->date('end_date')->nullable()->comment('Service end date');
-            
-            // Documents
-            $table->string('documents', 500)->nullable()->comment('Related documents');
-            
+           
             $table->timestamps();
         });
     }
