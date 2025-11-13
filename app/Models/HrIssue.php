@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class HrIssue extends Model
@@ -13,6 +14,7 @@ class HrIssue extends Model
      * Fields that can be mass assigned
      */
     protected $fillable = [
+        'center_id',
         'opening_date',
         'closing_date',
         'affected_professional_id',
@@ -29,6 +31,14 @@ class HrIssue extends Model
         'opening_date' => 'date',
         'closing_date' => 'date',
     ];
+
+    /**
+     * Relationship with center
+     */
+    public function center(): BelongsTo
+    {
+        return $this->belongsTo(Center::class);
+    }
 
     /**
      * Relationship with the affected professional

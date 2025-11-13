@@ -37,6 +37,18 @@
                 <h2 class="card-title text-xl mb-4">Informació de la incidència</h2>
                 <div class="space-y-3">
                     <div>
+                        <label class="font-semibold">Centre:</label>
+                        <p class="text-lg">
+                            @if($hrIssue->center)
+                                <a href="{{ route('center_show', $hrIssue->center->id) }}" class="text-primary font-semibold hover:text-orange-600 transition-all duration-200">
+                                    {{ $hrIssue->center->name }}
+                                </a>
+                            @else
+                                <span class="text-gray-400">No assignat</span>
+                            @endif
+                        </p>
+                    </div>
+                    <div>
                         <label class="font-semibold">Data d'obertura:</label>
                         <p class="text-lg">{{ $hrIssue->opening_date->format('d/m/Y') }}</p>
                     </div>
@@ -47,7 +59,7 @@
                     <div>
                         <label class="font-semibold">Estat:</label>
                         <p class="text-lg">
-                            <span class="badge badge-dash {{ $hrIssue->status === 'Cerrado' ? 'badge-success' : 'badge-warning' }}">
+                            <span class="badge badge-dash {{ $hrIssue->status === 'Tancat' ? 'badge-success' : 'badge-warning' }}">
                                 {{ $hrIssue->status }}
                             </span>
                         </p>

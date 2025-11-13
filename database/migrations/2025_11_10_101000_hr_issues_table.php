@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('hr_issues', function (Blueprint $table) {
             $table->id();
             
+            // Relation to centers
+            $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('set null')->comment('Center');
+            
             // Issue information
             $table->date('opening_date')->comment('Opening date');
             $table->date('closing_date')->nullable()->comment('Closing date');

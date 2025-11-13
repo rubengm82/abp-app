@@ -17,8 +17,12 @@ class HrIssueController extends Controller
      */
     public function index(Request $request)
     {
+        // Only Directiu role can access HR Issues
+        if (Auth::user()->role !== 'Directiu') {
+            abort(403, 'No tens permís per accedir a aquesta secció.');
+        }
 
-        $query = HrIssue::query()->with(['affectedProfessional', 'registeringProfessional', 'referredToProfessional']);
+        $query = HrIssue::query()->with(['center', 'affectedProfessional', 'registeringProfessional', 'referredToProfessional']);
 
         if ($search = $request->get('search')) {
             $query->where(function($q) use ($search) {
@@ -60,13 +64,14 @@ class HrIssueController extends Controller
     {
 
         $validated = $request->validate([
+            'center_id' => 'nullable|exists:centers,id',
             'opening_date' => 'required|date',
             'closing_date' => 'nullable|date|after_or_equal:opening_date',
             'affected_professional_id' => 'required|exists:professionals,id',
             'registering_professional_id' => 'required|exists:professionals,id',
             'referred_to_professional_id' => 'nullable|exists:professionals,id',
             'description' => 'required|string|max:5000',
-            'status' => 'required|in:Abierto,Cerrado',
+            'status' => 'required|in:Obert,Tancat',
         ]);
 
         HrIssue::create($validated);
@@ -80,7 +85,7 @@ class HrIssueController extends Controller
     public function show(string $id)
     {
 
-        $hrIssue = HrIssue::with(['affectedProfessional', 'registeringProfessional', 'referredToProfessional', 'documents', 'notes'])
+        $hrIssue = HrIssue::with(['center', 'affectedProfessional', 'registeringProfessional', 'referredToProfessional', 'documents', 'notes'])
             ->findOrFail($id);
 
         return view('components.contents.hrIssue.hrIssueShow')->with([
@@ -107,13 +112,14 @@ class HrIssueController extends Controller
         $hrIssue = HrIssue::findOrFail($id);
 
         $validated = $request->validate([
+            'center_id' => 'nullable|exists:centers,id',
             'opening_date' => 'required|date',
             'closing_date' => 'nullable|date|after_or_equal:opening_date',
             'affected_professional_id' => 'required|exists:professionals,id',
             'registering_professional_id' => 'required|exists:professionals,id',
             'referred_to_professional_id' => 'nullable|exists:professionals,id',
             'description' => 'required|string|max:5000',
-            'status' => 'required|in:Abierto,Cerrado',
+            'status' => 'required|in:Obert,Tancat',
         ]);
 
         $hrIssue->update($validated);

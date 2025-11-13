@@ -37,6 +37,20 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
                         <label class="label">
+                            <span class="label-text">Centre</span>
+                        </label>
+                        <select name="center_id" id="id_center_id" class="select select-bordered w-full">
+                            <option value="">Selecciona un centre</option>
+                            @foreach(\App\Models\Center::where('status', 1)->get() as $center)
+                                <option value="{{ $center->id }}" {{ old('center_id') == $center->id ? 'selected' : '' }}>
+                                    {{ $center->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label">
                             <span class="label-text">Data d'obertura *</span>
                         </label>
                         <input type="date" name="opening_date" id="id_opening_date" class="input input-bordered w-full" value="{{ old('opening_date', date('Y-m-d')) }}" required>
@@ -49,13 +63,13 @@
                         <input type="date" name="closing_date" id="id_closing_date" class="input input-bordered w-full" value="{{ old('closing_date') }}">
                     </div>
                     
-                    <div class="form-control md:col-span-2">
+                    <div class="form-control">
                         <label class="label">
                             <span class="label-text">Estat *</span>
                         </label>
                         <select name="status" id="id_status" class="select select-bordered w-full" required>
-                            <option value="Abierto" {{ old('status') == 'Abierto' ? 'selected' : '' }}>Abierto</option>
-                            <option value="Cerrado" {{ old('status') == 'Cerrado' ? 'selected' : '' }}>Cerrado</option>
+                            <option value="Obert" {{ old('status') == 'Obert' ? 'selected' : '' }}>Obert</option>
+                            <option value="Tancat" {{ old('status') == 'Tancat' ? 'selected' : '' }}>Tancat</option>
                         </select>
                     </div>
                 </div>

@@ -22,6 +22,9 @@ class HrIssueSeeder extends Seeder
             return;
         }
 
+        // Get available centers
+        $centerIds = DB::table('centers')->where('status', 1)->pluck('id')->toArray();
+
         // Sample issue descriptions
         $descriptions = [
             'Problema de comunicació amb l\'equip de treball',
@@ -50,9 +53,9 @@ class HrIssueSeeder extends Seeder
             $openingDate = Carbon::now()->subDays(rand(0, 180)); // Random date within last 6 months
             $status = $statuses[array_rand($statuses)];
             
-            // If status is 'Cerrado', add a closing date
+            // If status is 'Tancat', add a closing date
             $closingDate = null;
-            if ($status === 'Cerrado') {
+            if ($status === 'Tancat') {
                 $closingDate = $openingDate->copy()->addDays(rand(1, 60)); // Closed within 1-60 days
             }
             
@@ -70,6 +73,7 @@ class HrIssueSeeder extends Seeder
             }
             
             $hrIssues[] = [
+                'center_id' => !empty($centerIds) ? ($centerIds[array_rand($centerIds)]) : null,
                 'opening_date' => $openingDate->format('Y-m-d'),
                 'closing_date' => $closingDate ? $closingDate->format('Y-m-d') : null,
                 'affected_professional_id' => $affectedId,
