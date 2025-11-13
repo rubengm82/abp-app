@@ -32,7 +32,7 @@
                     <ul id="unassigned-manual"
                     ondragover="event.preventDefault();"
                     ondrop="handleDrop(event, this);"
-                    class="bg-base-200 rounded-lg shadow-md p-4 space-y-3 min-h-[400px]">
+                    class="bg-base-200 rounded-lg shadow-md p-4 space-y-3 h-[500px] overflow-y-auto">
                         @foreach($unassignedProfessionals as $professional)
                             <li draggable="true"
                                 id="professional-{{ $professional->id }}"
@@ -48,7 +48,7 @@
                 <!-- Assigned List -->
                 <div class="w-1/2">
                     <h4 class="text-lg font-semibold mb-3">Assignats</h4>
-                    <ul id="assigned-manual" class="bg-base-200 rounded-lg shadow-md p-4 space-y-3 min-h-[400px]"
+                    <ul id="assigned-manual" class="bg-base-200 rounded-lg shadow-md p-4 space-y-3 h-[500px] overflow-y-auto"
                         ondragover="event.preventDefault();"
                         ondrop="handleDrop(event, this);">
                         @foreach($assignedProfessionals as $professional)
