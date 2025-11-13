@@ -10,36 +10,20 @@
 />
 
 <div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold">{{ $maintenance->title }}</h1>
+    <div class="flex justify-end items-center mb-6">
+        {{-- <h1 class="text-3xl font-bold">{{ $maintenance->name_maintenance }}</h1> --}}
         <div class="flex gap-2">
-            {{-- @if($maintenance->status == 1)
-                <a href="{{ route('maintenance_edit', $maintenance) }}" class="btn btn-sm btn-info">Editar</a>
-            @endif --}}
-            {{-- @if($maintenance->status == 1)
-                <x-partials.modal 
-                    id="desactivateMaintenance{{ $maintenance->id }}" 
-                    msj="Estàs segur que vols desactivar aquest manteniment?" 
-                    btnText="Desactivar" 
-                    class="btn-sm btn-error"
-                >
-                    <form action="{{ route('maintenance_desactivate', $maintenance) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-sm btn-error">
-                            Acceptar
-                        </button>
-                    </form>
-                </x-partials.modal>
-            @else
-                <form action="{{ route('maintenance_activate', $maintenance) }}" method="POST" style="display:inline;">
+            <a href="{{ route('maintenance_edit', $maintenance) }}" class="btn btn-sm btn-info">Editar</a>
+            <x-partials.modal id="deleteCourse{{ $maintenance->id }}" 
+                msj="Estàs segur que vols eliminar aquest manteniment?" 
+                btnText="Eliminar" class="btn-sm btn-error">
+
+                <form action="{{ route('maintenance_delete', $maintenance) }}" method="POST">
                     @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-xs btn-success">
-                        Activar
-                    </button>
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
                 </form>
-            @endif --}}
+            </x-partials.modal>
         </div>
     </div>
 

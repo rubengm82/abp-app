@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DocumentComponent;
 use App\Models\NotesComponent;
-use App\Models\Professional;
+use App\Models\Center;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -27,7 +27,8 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
-        //
+        $centers = Center::where('status', 1)->get();
+        return view("components.contents.maintenances.maintenanceForm", compact('centers'));
     }
 
     /**
@@ -35,7 +36,8 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Maintenance::create($request->all());
+        return redirect()->route('maintenances_list')->with('success', 'Manteniment creat correctament!');
     }
 
     /**
@@ -51,7 +53,8 @@ class MaintenanceController extends Controller
      */
     public function edit(Maintenance $maintenance)
     {
-        //
+        $centers = Center::where('status', 1)->get();
+        return view("components.contents.maintenances.maintenanceEdit", compact('maintenance', 'centers'));
     }
 
     /**
@@ -59,7 +62,8 @@ class MaintenanceController extends Controller
      */
     public function update(Request $request, Maintenance $maintenance)
     {
-        //
+        $maintenance->update($request->all());
+        return redirect()->route('maintenances_list')->with('success', 'Manteniment actualitzat correctament!');
     }
 
     /**
@@ -67,7 +71,8 @@ class MaintenanceController extends Controller
      */
     public function destroy(Maintenance $maintenance)
     {
-        //
+        $maintenance->delete();
+        return redirect()->route('maintenances_list')->with('success', 'Manteniment eliminat correctament!');
     }
 
     //// DOCUMENTS ////

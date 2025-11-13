@@ -195,7 +195,7 @@
                     </ul>
                     <ul class="text-xs">
                         <li>
-                            <a href="">
+                            <a href="{{  route('maintenance_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
                                 Afegir
                             </a>
