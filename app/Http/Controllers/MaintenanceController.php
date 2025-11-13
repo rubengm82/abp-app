@@ -16,10 +16,26 @@ class MaintenanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $maintenances = Maintenance::all();
-        return view("components.contents.maintenances.maintenancesList", compact('maintenances'));
+        $query = $maintenances = Maintenance::query();
+
+        if ($search = $request->get('search')) {
+          
+            $query
+            ->whereAny(['name_maintenance', 'responsible_maintenance', 'description', 'opening_date_maintenance'], 'like', "%{$search}%")
+          
+            ->orWhereHas('center', fn($q) =>
+                $q->where('name', 'like', "%{$search}%")
+            );
+        }
+
+        $maintenances = $query->paginate(10)->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.maintenances.tables.maintenancesListTable', compact('maintenances'))->render()
+            : view('components.contents.maintenances.maintenancesList', compact('maintenances'))->render();
+       
     }
 
     /**
