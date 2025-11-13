@@ -35,4 +35,12 @@ class Evaluation extends Model
         return $this->belongsTo(Quiz::class, 'question_id');
     }
 
+    /**
+     * Relationship with evaluation observation by UUID
+     */
+    public function observation()
+    {
+        return $this->hasOne(EvaluationObservation::class, 'evaluation_uuid', 'evaluation_uuid');
+    }
+
 }

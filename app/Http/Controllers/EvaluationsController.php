@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evaluation;
+use App\Models\EvaluationObservation;
 use App\Models\Professional;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
@@ -131,6 +132,7 @@ class EvaluationsController extends Controller
             'evaluador' => 'required|exists:professionals,id',
             'questions.*' => 'required|integer|min:0|max:3',
             'evaluation_uuid' => 'nullable|uuid',
+            'observation' => 'nullable|string|max:5000',
         ]);
 
         // Check that you are not evaluating yourself
@@ -153,6 +155,14 @@ class EvaluationsController extends Controller
             ]);
         }
 
+        // Create or update observation if provided
+        if ($request->has('observation') && !empty($request->input('observation'))) {
+            EvaluationObservation::updateOrCreate(
+                ['evaluation_uuid' => $uuid_pre_generated],
+                ['observation' => $request->input('observation')]
+            );
+        }
+
         return redirect()->route('professional_evaluations_list')
             ->with('success', 'Evaluació afegida correctament!');
     }
@@ -167,6 +177,9 @@ class EvaluationsController extends Controller
         $professionalEvaluator = Professional::where('id', $professionalEvaluator_id)->get();
         $questions = Quiz::all();
 
+        // Get observation for this evaluation UUID
+        $observation = EvaluationObservation::where('evaluation_uuid', $uuid)->first();
+
         $averagePercentage = $this->calculateAveragePercentage($questions, $answers);
 
         return view("components.contents.professional.evaluations.professionalQuizShow")
@@ -176,6 +189,7 @@ class EvaluationsController extends Controller
                 'professionalEvaluated' => $professionalEvaluated,
                 'professionalEvaluator' => $professionalEvaluator,
                 'averagePercentage' => $averagePercentage,
+                'observation' => $observation,
             ]);
     }
 
@@ -206,8 +220,11 @@ class EvaluationsController extends Controller
 
         $uuid = $request->input('evaluation_uuid');
 
-        // Borrar todas las evaluaciones de ese par evaluador/avaluat
+        // Delete all evaluations of that evaluator/evaluated pair
         Evaluation::where('evaluation_uuid', $uuid)->delete();
+
+        // Delete observation if exists
+        EvaluationObservation::where('evaluation_uuid', $uuid)->delete();
 
         return redirect()->route('professional_evaluations_list')
                          ->with('success', 'Avaluació eliminada correctament.');

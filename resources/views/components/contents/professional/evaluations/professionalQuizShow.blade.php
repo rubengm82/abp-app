@@ -122,11 +122,24 @@
                 </div>
 
             </div>
+        </div>
+    </div>
 
-            <div class="flex justify-end gap-4 mt-4">
-                <a href="{{ route('professional_evaluations_list') }}" class="btn btn-outline text-sm">Tornar</a>
+    <!-- Observation -->
+    @if($observation && $observation->observation)
+    <div class="card bg-base-100 text-base-content shadow-xl text-sm mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-lg mb-2">Observació</h2>
+            <div class="p-4 bg-base-200 rounded">
+                <p class="text-sm whitespace-pre-wrap">{{ $observation->observation }}</p>
             </div>
         </div>
+    </div>
+    @endif
+
+    <!-- Back Button -->
+    <div class="flex justify-end gap-4 mt-4">
+        <a href="{{ route('professional_evaluations_list') }}" class="btn btn-outline text-sm">Tornar</a>
     </div>
 
 </div>

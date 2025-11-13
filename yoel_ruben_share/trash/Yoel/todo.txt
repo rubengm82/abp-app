@@ -1,10 +1,17 @@
-# Sprint 4 Reparar CRUD HHRR - TODO LIST
+# Sprint 4 Añadir observación en evaluación - TODO LIST
 
 Todo: 
-* Añadir Centro a la migración de "database/migrations/2025_11_10_101000_hr_issues_table.php"
-* Corregir, Seeder, modelo y Controller
-* Añadir el campo en Show, Form, Edit, Lists
-* Añadir en el sidebar protección para el listado, sólo rol "Directiu" debe de poder ver.
+* Añadir migración nueva, hija de "database/migrations/2025_09_27_100500_evaluations_table.php" para almacenar un comentario:
+La nueva migración debe de tener una fk hacia las evaluacioens de la migración mencionada, como esta migración madre tiene registros en grupos (quizá 20 registros comparten el mismo uuid) deberá hacer referencia a ese uuid.
+Una vez hecha la migración con el campo "observation" y el fk:
+* Hacer el modelo
+* El seeder (revisando el seeder de evaluaciones por consistencia)
+* Hacer el controlador o utilizar el de la madre.
+Necesidasdes:
+* En "resources/views/components/contents/professional/evaluations/professionalQuiz.blade.php" debe de aparecer aparte de lo que ya hay, un div con un textarea para la "Observación", será un campo libre
+* Este se almacenará en la tabla nueva con las mencionadas referencias
+* Luego en resources/views/components/contents/professional/evaluations/professionalQuizShow.blade.php debe de aparecer el texto del comentari, habrá que hacerle una petición o asignaselo en el modelo directamente gracias a la relación por uuid.
+
 
 To know:
 * En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo yoel_ruben_share/trash/Yoel/master_checklist.txt como instrucciones básicas

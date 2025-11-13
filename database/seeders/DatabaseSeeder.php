@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             MaterialAssignmentSeeder::class,
             QuizSeeder::class,
             EvaluationsSeeder::class,
+            EvaluationObservationSeeder::class,
             ProjectCommissionAssignmentSeeder::class,
             CourseSeeder::class,
             CourseAssignmentSeeder::class,

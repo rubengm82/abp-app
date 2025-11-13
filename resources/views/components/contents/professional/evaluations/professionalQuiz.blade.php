@@ -105,15 +105,28 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
 
-                <!-- Submit Button -->
-                <div class="flex justify-end gap-4 mt-4">
-                    <a href="{{ route('professional_evaluations_list') }}" class="btn btn-outline">Cancel·lar</a>
-                    <button type="submit" class="btn btn-info">
-                        Crear Avaluació
-                    </button>
+        <!-- Observation -->
+        <div class="card bg-base-100 text-base-content shadow-xl text-sm">
+            <div class="card-body">
+                <h2 class="card-title text-lg mb-2">Observació</h2>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Observació (opcional)</span>
+                    </label>
+                    <textarea name="observation" id="id_observation" rows="4" placeholder="Afegeix una observació o comentari sobre l'avaluació..." class="textarea textarea-bordered w-full">{{ old('observation') }}</textarea>
                 </div>
             </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end gap-4 mt-4">
+            <a href="{{ route('professional_evaluations_list') }}" class="btn btn-outline">Cancel·lar</a>
+            <button type="submit" class="btn btn-info">
+                Crear Avaluació
+            </button>
         </div>
     </form>
 </div>
