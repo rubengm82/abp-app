@@ -32,7 +32,7 @@
     @else
         <div class="text-center py-12">
             <h3 class="text-xl font-semibold text-base-content mb-2">Encara no hi ha avaluacions registrades</h3>
-            <p class="text-base-content/70 mb-4">Comença afegint la primera avaluació a la base de dades.</p>
+            <a href="{{ route('professional_evaluations_quiz_form') }}" class="btn btn-primary">Afegir Primera Avaluació</a>
         </div>
     @endif
 </div>

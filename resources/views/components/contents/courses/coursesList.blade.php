@@ -31,8 +31,7 @@
     @else
         <div class="text-center py-12">
             <h3 class="text-xl font-semibold text-base-content mb-2">Encara no hi ha cursos registrats</h3>
-            <p class="text-base-content/70 mb-4">Comença afegint el primer curs a la base de dades.</p>
-            {{-- <a href="{{ route('course_form') }}" class="btn btn-primary">Afegir Primer Curs</a> --}}
+            <a href="{{ route('course_form') }}" class="btn btn-primary">Afegir Primer Curs</a>
         </div>
     @endif
 </div>

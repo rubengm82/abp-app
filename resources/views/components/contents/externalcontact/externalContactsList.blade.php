@@ -30,7 +30,6 @@
     @else
         <div class="text-center py-12">
             <h3 class="text-xl font-semibold text-base-content mb-2">Encara no hi ha contactes externs registrats</h3>
-            <p class="text-base-content/70 mb-4">Comença afegint el primer contacte extern a la base de dades.</p>
             <a href="{{ route('externalcontact_form') }}" class="btn btn-primary">Afegir Primer Contacte Extern</a>
         </div>
     @endif
