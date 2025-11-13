@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             CourseAssignmentSeeder::class,
             ExternalContactSeeder::class,
+            GeneralServiceSeeder::class,
         ]);
     }
 }

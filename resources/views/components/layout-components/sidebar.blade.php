@@ -120,6 +120,38 @@
             </li>
             @endif
 
+            <!-- Submenu General Services (Directiu and Administratiu only) -->
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració']))
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="wrench-screwdriver" class="w-6 h-6 text-primary" />
+                        Serveis Generals
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('general_service_show', 1) }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Cuina
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('general_service_show', 2) }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Neteja
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('general_service_show', 3) }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Bugadería
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            @endif
+
             <!-- Submenu Project/Commissions -->
             <li>
                 <details>

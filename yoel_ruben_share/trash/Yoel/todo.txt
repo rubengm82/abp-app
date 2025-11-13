@@ -1,11 +1,32 @@
-# Sprint 4 Fixs - TODO LIST
+# Sprint 4 Mutiple - TODO LIST
 
-Todo:
-* 
-
-Apuntes: 
-* Horas negativas
-* Order by desc
+Todo: Crud Servicios Generales
+* Tres apartados:
+** Cuina
+** Neteja
+** Bugadería
+* Revisar 2025_11_13_100100_general_services_table.php, debe de contener los campos:
+With fields:
+* Manager and contact (Currently only one free field ("Responsible"), which we intend to change to FK)
+* Type of the service (free text field)
+* Create the respective seeder, this table only will have 3 registros for now
+** 1 Cuina
+** 1 Neteja
+** 1 Bugadería
+* Create the respective model
+* Create the respective Controller
+This CRUD will NOT have a list; it will go directly to the "show" from the sidebar. Only rol "Directiu" and "Administratiu" could see
+The show will be and have (It will be one file prepared to receive information of the three types of services.):
+* Always respecting the shows in the rest of the application, such as "resources/views/components/contents/professional/professionalShow.blade.php"
+* Serice type as name e.g. in the blade: 
+<pre><code class="php">
+Servei de $service->type
+</code></pre>
+* Name of the responsible person/manager
+* Their contact information [Currently empty until we decide how to do it]
+* Space for staff schedule board [Currently empty until we decide how to do it]
+* Document Block
+* Note Block
 
 
 To know:
@@ -16,7 +37,4 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: Fixs
-* Cambiado rol del usuario admin:admin
-* min=0 en formualrio de edición de cursos
-* Order by fecha desc en lista de evaluaciones
+To commit: 

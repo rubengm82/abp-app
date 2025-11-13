@@ -10,6 +10,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EvaluationsController;
 use App\Http\Controllers\HrIssueController;
 use App\Http\Controllers\CourseAssignmentController;
+use App\Http\Controllers\GeneralServiceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -200,3 +201,16 @@ Route::middleware('auth')->delete('/courses/notes/{note}', [CourseController::cl
 Route::middleware('auth')->post('/courses/documents/{course}', [CourseController::class, 'course_document_add'])->name('course_document_add');
 Route::middleware('auth')->delete('/courses/documents/{document}', [CourseController::class, 'course_document_delete'])->name('course_document_delete');
 Route::middleware('auth')->get('/courses/documents/download/{document}', [CourseController::class, 'course_document_download'])->name('course_document_download');
+
+/* ------------------------ GENERAL SERVICES ------------------------ */
+Route::middleware('auth')->get('/general_service/show/{id}', [GeneralServiceController::class, 'show'])->name('general_service_show');
+
+/* General Service Notes */
+Route::middleware('auth')->post('/general_service/notes/{generalService}', [GeneralServiceController::class, 'general_service_note_add'])->name('general_service_note_add');
+Route::middleware('auth')->put('/general_service/notes/{note}', [GeneralServiceController::class, 'general_service_note_update'])->name('general_service_note_update');
+Route::middleware('auth')->delete('/general_service/notes/{note}', [GeneralServiceController::class, 'general_service_note_delete'])->name('general_service_note_delete');
+
+/* General Service Documents */
+Route::middleware('auth')->post('/general_service/documents/{generalService}', [GeneralServiceController::class, 'general_service_document_add'])->name('general_service_document_add');
+Route::middleware('auth')->delete('/general_service/documents/{document}', [GeneralServiceController::class, 'general_service_document_delete'])->name('general_service_document_delete');
+Route::middleware('auth')->get('/general_service/documents/download/{document}', [GeneralServiceController::class, 'general_service_document_download'])->name('general_service_document_download');
