@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Schema;
 class ProfessionalSeeder extends Seeder
 {
     public function run(): void
-    {
+    {        
         $professionals = [
             [
                 'center_id' => 1,
-                'role' => 'Directiu',
+                'role' => 'Administració',
                 'name' => 'Root',
                 'surname1' => 'Toor',
                 'surname2' => 'Toor',
@@ -369,6 +369,42 @@ class ProfessionalSeeder extends Seeder
                 'password' => 'password123',
                 'locker_num' => 'T020',
                 'key_code' => 'KEY019',
+                'status' => 1,
+            ],
+            [
+                'center_id' => 1,
+                'role' => 'Directiu',
+                'name' => 'Directiu',
+                'surname1' => 'User',
+                'surname2' => '',
+                'dni' => 'U1234567W',
+                'phone' => '+34 600 000 001',
+                'email' => 'directiu@canserra.cat',
+                'address' => 'Carrer Directiu, 1, Barcelona',
+                'employment_status' => 'Actiu',
+                'cvitae' => 'Usuari directiu',
+                'user' => 'directiu',
+                'password' => 'directiu', // automatic hash
+                'locker_num' => 'T021',
+                'key_code' => 'KEY020',
+                'status' => 1,
+            ],
+            [
+                'center_id' => 1,
+                'role' => 'Tècnic',
+                'name' => 'Tecnic',
+                'surname1' => 'User',
+                'surname2' => '',
+                'dni' => 'V2345678X',
+                'phone' => '+34 600 000 002',
+                'email' => 'tecnic@canserra.cat',
+                'address' => 'Carrer Tecnic, 1, Barcelona',
+                'employment_status' => 'Actiu',
+                'cvitae' => 'Usuari tècnic',
+                'user' => 'tecnic',
+                'password' => 'tecnic', // automatic hash
+                'locker_num' => 'T022',
+                'key_code' => 'KEY021',
                 'status' => 1,
             ],
         ];
