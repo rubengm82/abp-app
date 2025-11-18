@@ -12,6 +12,7 @@ use App\Http\Controllers\HrIssueController;
 use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\GeneralServiceController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\MaintenanceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -219,3 +220,22 @@ Route::middleware('auth')->get('/general_service/documents/download/{document}',
 /* ------------------------ GLOBAL DOCUMENTS ------------------------ */
 Route::middleware('auth')->get('/documents/list', [DocumentController::class, 'index'])->name('global_documents_list');
 Route::middleware('auth')->get('/documents/download/{document}', [DocumentController::class, 'download'])->name('global_document_download');
+/* ------------------------ MAINTENANCES ------------------------ */
+Route::middleware('auth')->get('/maintenances/list', [MaintenanceController::class, 'index'])->name('maintenances_list');
+Route::middleware('auth')->get('/maintenance/show/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance_show');
+Route::middleware('auth')->get('/maintenance/form/', [MaintenanceController::class, 'create'])->name('maintenance_form');
+Route::middleware('auth')->get('/maintenance/edit/{maintenance}', [MaintenanceController::class, 'edit'])->name('maintenance_edit');
+Route::middleware('auth')->post('/maintenance/add', [MaintenanceController::class, "store"])->name("maintenance_add");
+Route::middleware('auth')->put('/maintenance/{maintenance}', [MaintenanceController::class, "update"])->name("maintenance_update");
+Route::middleware('auth')->delete('/maintenance/{maintenance}', [MaintenanceController::class, 'destroy'])->name('maintenance_delete');
+Route::middleware('auth')->get('/maintenances/downloadCSV', [MaintenanceController::class, 'downloadCSV'])->name('maintenances_downloadCSV');
+
+/* Maintenance Assignment Notes */
+Route::middleware('auth')->post('/maintenances/notes/{maintenance}', [MaintenanceController::class, 'maintenance_note_add'])->name('maintenance_note_add');
+Route::middleware('auth')->put('/maintenances/notes/{note}', [MaintenanceController::class, 'maintenance_note_update'])->name('maintenance_note_update');
+Route::middleware('auth')->delete('/maintenances/notes/{note}', [MaintenanceController::class, 'maintenance_note_delete'])->name('maintenance_note_delete');
+
+/* Maintenance Assignment Documents */
+Route::middleware('auth')->post('/maintenances/documents/{maintenance}', [MaintenanceController::class, 'maintenance_document_add'])->name('maintenance_document_add');
+Route::middleware('auth')->delete('/maintenances/documents/{document}', [MaintenanceController::class, 'maintenance_document_delete'])->name('maintenance_document_delete');
+Route::middleware('auth')->get('/maintenances/documents/download/{document}', [MaintenanceController::class, 'maintenance_document_download'])->name('maintenance_document_download');

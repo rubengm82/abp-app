@@ -30,7 +30,6 @@
     @else
         <div class="text-center py-12">
             <h3 class="text-xl font-semibold text-base-content mb-2">Encara no hi ha centres registrats</h3>
-            <p class="text-base-content/70 mb-4">Comença afegint el primer centre a la base de dades.</p>
             <a href="{{ route('center_form') }}" class="btn btn-primary">Afegir Primer Centre</a>
         </div>
     @endif
