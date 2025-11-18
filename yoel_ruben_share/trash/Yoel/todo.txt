@@ -15,4 +15,7 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: 
+To commit: Fix:
+* Cambiar iconos Servicios Generales; >
+* Eliminar Registro Contacto
+* Miscel·lani > Altres

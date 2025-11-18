@@ -131,19 +131,19 @@
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('general_service_show', 1) }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                <x-partials.icon name="chevron-right" class="w-4 h-4 text-info" />
                                 Cuina
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('general_service_show', 2) }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                <x-partials.icon name="chevron-right" class="w-4 h-4 text-info" />
                                 Neteja
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('general_service_show', 3) }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                <x-partials.icon name="chevron-right" class="w-4 h-4 text-info" />
                                 Bugadería
                             </a>
                         </li>
