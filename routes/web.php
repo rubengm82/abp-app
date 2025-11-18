@@ -13,6 +13,7 @@ use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\GeneralServiceController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\GlobalDocumentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -146,6 +147,7 @@ Route::middleware('auth')->get('/externalcontacts/list', [ExternalContactControl
 Route::middleware('auth')->post('/externalcontact/{externalContact}', [ExternalContactController::class, "update"])->name("externalcontact_update");
 Route::middleware('auth')->get('/externalcontact/edit/{externalContact}', [ExternalContactController::class, 'edit'])->name('externalcontact_edit');
 Route::middleware('auth')->get('/externalcontact/show/{externalContact}', [ExternalContactController::class, 'show'])->name('externalcontact_show');
+Route::middleware('auth')->delete('/externalcontact/delete/{externalContact}', [ExternalContactController::class, 'destroy'])->name('externalcontact_delete');
 Route::middleware('auth')->get('/externalcontacts/downloadCSV', [ExternalContactController::class, 'downloadCSV'])->name('externalcontacts.downloadCSV');
 
 /* External Contact Notes */
@@ -218,8 +220,8 @@ Route::middleware('auth')->delete('/general_service/documents/{document}', [Gene
 Route::middleware('auth')->get('/general_service/documents/download/{document}', [GeneralServiceController::class, 'general_service_document_download'])->name('general_service_document_download');
 
 /* ------------------------ GLOBAL DOCUMENTS ------------------------ */
-Route::middleware('auth')->get('/documents/list', [DocumentController::class, 'index'])->name('global_documents_list');
-Route::middleware('auth')->get('/documents/download/{document}', [DocumentController::class, 'download'])->name('global_document_download');
+Route::middleware('auth')->get('/documents/list', [GlobalDocumentController::class, 'index'])->name('global_documents_list');
+Route::middleware('auth')->get('/documents/download/{document}', [GlobalDocumentController::class, 'download'])->name('global_document_download');
 
 /* ------------------------ MAINTENANCES ------------------------ */
 Route::middleware('auth')->get('/maintenances/list', [MaintenanceController::class, 'index'])->name('maintenances_list');
@@ -240,3 +242,5 @@ Route::middleware('auth')->delete('/maintenances/notes/{note}', [MaintenanceCont
 Route::middleware('auth')->post('/maintenances/documents/{maintenance}', [MaintenanceController::class, 'maintenance_document_add'])->name('maintenance_document_add');
 Route::middleware('auth')->delete('/maintenances/documents/{document}', [MaintenanceController::class, 'maintenance_document_delete'])->name('maintenance_document_delete');
 Route::middleware('auth')->get('/maintenances/documents/download/{document}', [MaintenanceController::class, 'maintenance_document_download'])->name('maintenance_document_download');
+Route::middleware('auth')->get('/documents/list', [GlobalDocumentController::class, 'index'])->name('global_documents_list');
+Route::middleware('auth')->get('/documents/download/{document}', [GlobalDocumentController::class, 'download'])->name('global_document_download');

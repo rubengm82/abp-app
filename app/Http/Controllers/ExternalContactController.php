@@ -114,6 +114,16 @@ class ExternalContactController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(ExternalContact $externalContact)
+    {
+        $externalContact->delete();
+
+        return redirect()->route('externalcontacts_list')->with('success', 'Contacte extern eliminat correctament!');
+    }
+
+    /**
      * Download CSV from resource in storage
      */
     public function downloadCSV()
@@ -154,7 +164,7 @@ class ExternalContactController extends Controller
     {
         $request->validate([
             'file' => 'required|file|max:10240',
-            'document_type' => 'nullable|in:Miscel·lani',
+            'document_type' => 'nullable|in:Altres',
         ]);
 
         $file = $request->file('file');

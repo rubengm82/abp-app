@@ -14,6 +14,18 @@
         <h1 class="text-3xl font-bold text-base-content">{{ $externalContact->company ?? 'Contacte Extern #' . $externalContact->id }}</h1>
         <div class="flex gap-2">
             <a href="{{ route('externalcontact_edit', $externalContact) }}" class="btn btn-sm btn-info">Editar</a>
+            <x-partials.modal 
+                id="deleteExternalContact{{ $externalContact->id }}" 
+                msj="Estàs segur que vols eliminar aquest contacte extern?" 
+                btnText="Eliminar" 
+                class="btn-sm btn-error"
+            >
+                <form action="{{ route('externalcontact_delete', $externalContact) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                </form>
+            </x-partials.modal>
         </div>
     </div>
 

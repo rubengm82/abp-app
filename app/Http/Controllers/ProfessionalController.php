@@ -299,7 +299,7 @@ class ProfessionalController extends Controller
     {
         $request->validate([
             'file' => 'required|file|max:10240',
-            'document_type' => 'nullable|in:Miscel·lani',
+            'document_type' => 'nullable|in:Altres',
         ]);
 
         $file = $request->file('file');

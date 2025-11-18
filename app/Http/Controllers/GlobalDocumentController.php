@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DocumentComponent;
 use Illuminate\Http\Request;
 
-class DocumentController extends Controller
+class GlobalDocumentController extends Controller
 {
     /**
      * Display a listing of all documents globally

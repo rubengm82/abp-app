@@ -72,7 +72,7 @@
                 </label>
                 <select name="document_type" class="select select-bordered w-full">
                     <option value="">-- Selecciona un tipus --</option>
-                    <option value="Miscel·lani">Miscel·lani</option>
+                    <option value="Altres">Altres</option>
                 </select>
             </div>
             <div class="modal-action">

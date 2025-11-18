@@ -31,7 +31,7 @@ return new class extends Migration
                   ->comment('Professional that uploaded the document');
 
             // Document type (enum)
-            $table->enum('document_type', ['Miscel·lani'])->nullable()->comment('Type of document');
+            $table->enum('document_type', ['Altres'])->nullable()->comment('Type of document');
 
             $table->timestamps(); // created_at and updated_at
         });
