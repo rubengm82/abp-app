@@ -30,6 +30,120 @@
                 </details>
             </li>
 
+            <!-- Submenu External Contacts -->
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="phone" class="w-6 h-6 text-primary" />
+                        Contactes Externs
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('externalcontacts_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('externalcontact_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+
+            <!-- Submenu Courses -->
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="academic-cap" class="w-6 h-6 text-primary" />
+                        Cursos
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('courses_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('course_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+
+            <!-- Submenu Global Documents -->
+            <li>
+                <a href="{{ route('global_documents_list') }}">
+                    <x-partials.icon name="document-text" class="w-6 h-6 text-primary" />
+                    Documents Globals
+                </a>
+            </li>
+
+            <!-- Submenu HR Issues (Directiu only) -->
+            @if((Auth::user()->role ?? null) === 'Directiu')
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="exclamation-triangle" class="w-6 h-6 text-primary" />
+                        Incidències RRHH
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('hr_issues_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('hr_issue_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            @endif
+            
+            <!-- Submenu Maintenances -->
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="wrench" class="w-6 h-6 text-primary" />
+                        Manteniments
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('maintenances_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{  route('maintenance_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+
             <!-- Submenu Professionals -->
             <li>
                 <details>
@@ -92,66 +206,6 @@
                 </details>
             </li>
 
-            <!-- Submenu HR Issues (Directiu only) -->
-            @if((Auth::user()->role ?? null) === 'Directiu')
-            <li>
-                <details>
-                    <summary>
-                        <x-partials.icon name="exclamation-triangle" class="w-6 h-6 text-primary" />
-                        Incidències RRHH
-                    </summary>
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{ route('hr_issues_list') }}">
-                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
-                                Llistar
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{ route('hr_issue_form') }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
-                                Afegir
-                            </a>
-                        </li>
-                    </ul>
-                </details>
-            </li>
-            @endif
-
-            <!-- Submenu General Services (Directiu and Administratiu only) -->
-            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració']))
-            <li>
-                <details>
-                    <summary>
-                        <x-partials.icon name="wrench-screwdriver" class="w-6 h-6 text-primary" />
-                        Serveis Generals
-                    </summary>
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{ route('general_service_show', 1) }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
-                                Cuina
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('general_service_show', 2) }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
-                                Neteja
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('general_service_show', 3) }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
-                                Bugadería
-                            </a>
-                        </li>
-                    </ul>
-                </details>
-            </li>
-            @endif
-
             <!-- Submenu Project/Commissions -->
             <li>
                 <details>
@@ -178,32 +232,6 @@
                 </details>
             </li>
 
-            <!-- Submenu External Contacts -->
-            <li>
-                <details>
-                    <summary>
-                        <x-partials.icon name="phone" class="w-6 h-6 text-primary" />
-                        Contactes Externs
-                    </summary>
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{ route('externalcontacts_list') }}">
-                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
-                                Llistar
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{ route('externalcontact_form') }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
-                                Afegir
-                            </a>
-                        </li>
-                    </ul>
-                </details>
-            </li>
-
             <!-- Submenu Material-Assignments -->
             <li>
                 <a href="{{ route('materialassignments_list') }}">
@@ -212,63 +240,37 @@
                 </a>
             </li>
 
-            <!-- Submenu Courses -->
+            <!-- Submenu General Services (Directiu and Administratiu only) -->
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració']))
             <li>
                 <details>
                     <summary>
-                        <x-partials.icon name="academic-cap" class="w-6 h-6 text-primary" />
-                        Cursos
+                        <x-partials.icon name="wrench-screwdriver" class="w-6 h-6 text-primary" />
+                        Serveis Generals
                     </summary>
                     <ul class="text-xs">
                         <li>
-                            <a href="{{ route('courses_list') }}">
-                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
-                                Llistar
+                            <a href="{{ route('general_service_show', 1) }}">
+                                <x-partials.icon name="minus" class="w-4 h-4 text-info" />
+                                Cuina
                             </a>
                         </li>
-                    </ul>
-                    <ul class="text-xs">
                         <li>
-                            <a href="{{ route('course_form') }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
-                                Afegir
+                            <a href="{{ route('general_service_show', 2) }}">
+                                <x-partials.icon name="minus" class="w-4 h-4 text-info" />
+                                Neteja
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('general_service_show', 3) }}">
+                                <x-partials.icon name="minus" class="w-4 h-4 text-info" />
+                                Bugadería
                             </a>
                         </li>
                     </ul>
                 </details>
             </li>
-
-            <!-- Submenu Global Documents -->
-            <li>
-                <a href="{{ route('global_documents_list') }}">
-                    <x-partials.icon name="document-text" class="w-6 h-6 text-primary" />
-                    Documents Globals
-                </a>
-            <!-- Submenu Maintenances -->
-            <li>
-                <details>
-                    <summary>
-                        <x-partials.icon name="wrench" class="w-6 h-6 text-primary" />
-                        Manteniments
-                    </summary>
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{ route('maintenances_list') }}">
-                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
-                                Llistar
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{  route('maintenance_form') }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
-                                Afegir
-                            </a>
-                        </li>
-                    </ul>
-                </details>
-            </li>
+            @endif
 
             <!-- Submenu Desactivations -->
             <li>
@@ -299,9 +301,9 @@
                     </ul>
                 </details>
             </li>
+
         </ul>
     </nav>
-
 
     <!-- Company logo below -->
     <div class="p-4">

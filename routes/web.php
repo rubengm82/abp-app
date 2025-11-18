@@ -220,6 +220,7 @@ Route::middleware('auth')->get('/general_service/documents/download/{document}',
 /* ------------------------ GLOBAL DOCUMENTS ------------------------ */
 Route::middleware('auth')->get('/documents/list', [DocumentController::class, 'index'])->name('global_documents_list');
 Route::middleware('auth')->get('/documents/download/{document}', [DocumentController::class, 'download'])->name('global_document_download');
+
 /* ------------------------ MAINTENANCES ------------------------ */
 Route::middleware('auth')->get('/maintenances/list', [MaintenanceController::class, 'index'])->name('maintenances_list');
 Route::middleware('auth')->get('/maintenance/show/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance_show');
