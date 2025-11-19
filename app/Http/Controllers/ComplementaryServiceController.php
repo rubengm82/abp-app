@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Center;
 use App\Models\ComplementaryService;
 use App\Models\DocumentComponent;
 use App\Models\NotesComponent;
@@ -25,7 +26,9 @@ class ComplementaryServiceController extends Controller
      */
     public function create()
     {
-        //
+        $centers = Center::all();
+
+        return view('components.contents.complementaryservices.complementaryServiceForm', compact('centers'));
     }
 
     /**
@@ -33,7 +36,21 @@ class ComplementaryServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'service_type' => 'required|string|max:255',
+            'service_responsible' => 'required|string',
+            'start_date' => 'required',
+            'center_id' => 'required|exists:centers,id'
+        ]);
+
+        ComplementaryService::create([
+            'service_type' => $request->input('service_type'),
+            'service_responsible' => $request->input('service_responsible'),
+            'start_date' => $request->input('start_date'),
+            'center_id' => $request->input('center_id'),
+        ]);
+
+        return redirect()->route('complementaryservices_list')->with('success', 'Servei Complenmentari creat correctament.');
     }
 
     /**
@@ -49,7 +66,9 @@ class ComplementaryServiceController extends Controller
      */
     public function edit(ComplementaryService $complementaryService)
     {
-        //
+        $centers = Center::all();
+
+        return view('components.contents.complementaryservices.complementaryServiceEdit', compact('complementaryService','centers'));
     }
 
     /**
@@ -57,7 +76,8 @@ class ComplementaryServiceController extends Controller
      */
     public function update(Request $request, ComplementaryService $complementaryService)
     {
-        //
+        $complementaryService->update($request->all());
+        return redirect()->route('complementaryservices_list')->with('success', 'Servei Complenmentari actualitzat correctament!');
     }
 
     /**
