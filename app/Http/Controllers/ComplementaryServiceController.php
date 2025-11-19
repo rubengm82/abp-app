@@ -17,7 +17,7 @@ class ComplementaryServiceController extends Controller
      */
     public function index()
     {
-        $complementaryServices = ComplementaryService::all();
+        $complementaryServices = ComplementaryService::orderBy('start_date', 'desc')->get();
         return view('components.contents.complementaryservices.complementaryServicesList', compact('complementaryServices'));
     }
 
@@ -198,15 +198,16 @@ class ComplementaryServiceController extends Controller
      */
     public function downloadCSV()
     {
-        $services = ComplementaryService::with('center')->get(); // Cargamos también el centro
+        $services = ComplementaryService::with('center')
+        ->orderBy('start_date', 'desc')
+        ->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
-        $filename = "serveis_complementaris_{$timestamp}.csv";
+        $filepath = sys_get_temp_dir() . "/serveis_complementaris_{$timestamp}.csv";
 
-        $handle = fopen($filename, 'w+');
+        $handle = fopen($filepath, 'w+');
 
-        // Cabecera del CSV
-        fputcsv($handle, ['Tipus de Servei', 'Centre','Responsable', 'Data d\'inici']);
+        fputcsv($handle, ['Tipus de Servei', 'Centre', 'Responsable', 'Data d\'inici']);
 
         foreach ($services as $service) {
             fputcsv($handle, [
@@ -219,7 +220,7 @@ class ComplementaryServiceController extends Controller
 
         fclose($handle);
 
-        return response()->download($filename)->deleteFileAfterSend(true);
+        return response()->download($filepath)->deleteFileAfterSend(true);
     }
 
 }
