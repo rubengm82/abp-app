@@ -253,7 +253,7 @@ Route::middleware('auth')->delete('/complementaryservices/{complementaryService}
 Route::middleware('auth')->get('/complementaryservices/form/', [ComplementaryServiceController::class, 'create'])->name('complementaryservice_form');
 Route::middleware('auth')->post('/complementaryservices/add', [ComplementaryServiceController::class, "store"])->name("complementaryservice_add");
 Route::middleware('auth')->put('/complementaryservices/{complementaryService}', [ComplementaryServiceController::class, "update"])->name("complementaryservice_update");
-
+Route::middleware('auth')->get('/complementaryservices/downloadCSV', [ComplementaryServiceController::class, 'downloadCSV'])->name('omplementaryservice_downloadCSV');
 
 /* Complementary Services Notes */
 Route::middleware('auth')->post('/complementaryservices/notes/{complementaryService}', [ComplementaryServiceController::class, 'complementaryservice_note_add'])->name('complementaryservices_note_add');

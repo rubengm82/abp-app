@@ -17,9 +17,9 @@
         <x-partials.search-bar />
     </div>
     <div class="flex gap-4">
-        {{-- <a href="{{ route('complementary-services.downloadCSV') }}" class="btn btn-sm btn-warning">
+        <a href="{{ route('omplementaryservice_downloadCSV') }}" class="btn btn-sm btn-warning">
             Descarregar Llistat
-        </a> --}}
+        </a>
 
         <a href="{{ route('complementaryservice_form') }}" class="btn btn-sm btn-primary">
             Afegir Servei

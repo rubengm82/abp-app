@@ -6,7 +6,7 @@
     :items="[
         'Serveis Complementaris' => route('complementaryservices_list'),
     ]"
-    :current="isset($complementaryservice) ? 'Editar Servei' : 'Afegir Servei'"
+    :current="'Afegir Servei Complementari'"
 />
 
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
