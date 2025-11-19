@@ -17,14 +17,13 @@
         <x-partials.search-bar />
     </div>
     <div class="flex gap-4">
-        {{-- Si haces CSV en el futuro, ajusta la ruta --}}
         {{-- <a href="{{ route('complementary-services.downloadCSV') }}" class="btn btn-sm btn-warning">
             Descarregar Llistat
-        </a>
-
-        <a href="{{ route('complementary-services.create') }}" class="btn btn-sm btn-primary">
-            Afegir Servei
         </a> --}}
+
+        <a href="{{ route('complementaryservice_form') }}" class="btn btn-sm btn-primary">
+            Afegir Servei
+        </a> 
     </div>
 </div>
 @endif
