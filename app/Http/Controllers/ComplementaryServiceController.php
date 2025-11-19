@@ -15,10 +15,28 @@ class ComplementaryServiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $complementaryServices = ComplementaryService::orderBy('start_date', 'desc')->get();
-        return view('components.contents.complementaryservices.complementaryServicesList', compact('complementaryServices'));
+        $query = ComplementaryService::query()->with('center');
+
+        if ($search = $request->get('search')) {
+            $query->where(function($q) use ($search) {
+                $q->where('service_type', 'like', "%{$search}%")
+                ->orWhere('service_responsible', 'like', "%{$search}%")
+                ->orWhere('start_date', 'like', "%{$search}%");
+            })
+            ->orWhereHas('center', fn($q) => 
+                $q->where('name', 'like', "%{$search}%")
+            );
+        }
+
+        $complementaryServices = $query->orderBy('start_date', 'desc')
+                                    ->paginate(10)
+                                    ->appends(['search' => $search]);
+
+        return $request->ajax()
+            ? view('components.contents.complementaryservices.tables.complementaryServicesListTable', compact('complementaryServices'))->render()
+            : view('components.contents.complementaryservices.complementaryServicesList', compact('complementaryServices'));
     }
 
     /**
