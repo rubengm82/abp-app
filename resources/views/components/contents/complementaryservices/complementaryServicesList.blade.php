@@ -38,9 +38,9 @@
             <h3 class="text-xl font-semibold text-base-content mb-2">
                 Encara no hi ha serveis complementaris registrats
             </h3>
-            {{-- <a href="{{ route('complementary-services.create') }}" class="btn btn-primary">
+            <a href="{{ route('complementaryservice_form') }}" class="btn btn-primary">
                 Afegir Primer Servei
-            </a> --}}
+            </a>
         </div>
     @endif
 </div>
