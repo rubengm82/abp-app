@@ -193,4 +193,33 @@ class ComplementaryServiceController extends Controller
                          ->with('success', 'Nota eliminada correctament!');
     }
 
+    /**
+     * Download CSV
+     */
+    public function downloadCSV()
+    {
+        $services = ComplementaryService::with('center')->get(); // Cargamos también el centro
+
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = "serveis_complementaris_{$timestamp}.csv";
+
+        $handle = fopen($filename, 'w+');
+
+        // Cabecera del CSV
+        fputcsv($handle, ['Tipus de Servei', 'Centre','Responsable', 'Data d\'inici']);
+
+        foreach ($services as $service) {
+            fputcsv($handle, [
+                $service->service_type ?? 'No especificat',
+                $service->center ? $service->center->name : 'No assignat',
+                $service->service_responsible ?? 'No especificat',
+                $service->start_date ? \Carbon\Carbon::parse($service->start_date)->format('d/m/Y') : 'No especificada',
+            ]);
+        }
+
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+
 }
