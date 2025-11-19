@@ -240,6 +240,32 @@
                 </a>
             </li>
 
+            <!-- Submenu Complementary Services (Directiu and Administratiu only) -->
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració']))
+            <li>
+                <details>
+                    <summary>
+                        <x-partials.icon name="wrench-screwdriver" class="w-6 h-6 text-primary" />
+                        Serveis Complementaris
+                    </summary>
+                    <ul class="text-xs">
+                        <li>
+                            <a href="{{ route('complementaryservices_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            @endif
+
             <!-- Submenu General Services (Directiu and Administratiu only) -->
             @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració']))
             <li>

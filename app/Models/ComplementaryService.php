@@ -15,4 +15,18 @@ class ComplementaryService extends Model
         'service_responsible',
         'start_date',
     ];
+
+    public function center()
+    {
+        return $this->belongsTo(Center::class);
+    }
+
+    public function notes() { 
+        return $this->morphMany(NotesComponent::class, 'noteable')->orderBy('created_at', 'desc'); 
+    }
+
+    public function documents() { 
+        return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc'); 
+    }
+    
 }

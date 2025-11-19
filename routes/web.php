@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CenterController;
+use App\Http\Controllers\ComplementaryServiceController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\ProjectCommissionController;
 use App\Http\Controllers\ExternalContactController;
@@ -11,7 +12,6 @@ use App\Http\Controllers\EvaluationsController;
 use App\Http\Controllers\HrIssueController;
 use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\GeneralServiceController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\GlobalDocumentController;
 use Illuminate\Support\Facades\Route;
@@ -244,3 +244,19 @@ Route::middleware('auth')->delete('/maintenances/documents/{document}', [Mainten
 Route::middleware('auth')->get('/maintenances/documents/download/{document}', [MaintenanceController::class, 'maintenance_document_download'])->name('maintenance_document_download');
 Route::middleware('auth')->get('/documents/list', [GlobalDocumentController::class, 'index'])->name('global_documents_list');
 Route::middleware('auth')->get('/documents/download/{document}', [GlobalDocumentController::class, 'download'])->name('global_document_download');
+
+/* ------------------------ COMPLEMENTARY SERVICES ------------------------ */
+Route::middleware('auth')->get('/complementaryservices/list', [ComplementaryServiceController::class, 'index'])->name('complementaryservices_list');
+Route::middleware('auth')->get('/complementaryservices/show/{complementaryService}', [ComplementaryServiceController::class, 'show'])->name('complementaryservice_show');
+Route::middleware('auth')->get('/complementaryservices/edit/{complementaryService}', [ComplementaryServiceController::class, 'edit'])->name('complementaryservice_edit');
+Route::middleware('auth')->delete('/complementaryservices/{complementaryService}', [ComplementaryServiceController::class, 'destroy'])->name('complementaryservice_delete');
+
+/* Complementary Services Notes */
+Route::middleware('auth')->post('/complementaryservices/notes/{complementaryService}', [ComplementaryServiceController::class, 'complementaryservice_note_add'])->name('complementaryservices_note_add');
+Route::middleware('auth')->put('/complementaryservices/notes/{note}', [ComplementaryServiceController::class, 'complementaryservice_note_update'])->name('complementaryservices_note_update');
+Route::middleware('auth')->delete('/complementaryservices/notes/{note}', [ComplementaryServiceController::class, 'complementaryservice_note_delete'])->name('complementaryservices_note_delete');
+
+/* Complementary Services Documents */
+Route::middleware('auth')->post('/complementaryservices/documents/{complementaryService}', [ComplementaryServiceController::class, 'complementaryservice_document_add'])->name('complementaryservices_document_add');
+Route::middleware('auth')->delete('/complementaryservices/documents/{document}', [ComplementaryServiceController::class, 'complementaryservice_document_delete'])->name('complementaryservices_document_delete');
+Route::middleware('auth')->get('/complementaryservices/documents/download/{document}', [ComplementaryServiceController::class, 'complementaryservice_document_download'])->name('complementaryservices_document_download');
