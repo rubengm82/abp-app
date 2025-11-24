@@ -13,6 +13,7 @@ class GeneralService extends Model
         'center_id',
         'service_type',
         'responsible',
+        'responsible_info',
         'planning',
     ];
 
