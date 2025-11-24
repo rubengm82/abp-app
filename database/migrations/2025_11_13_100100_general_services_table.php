@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('general_services', function (Blueprint $table) {
             $table->id();
+
+            // Relation to centers
+            $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('cascade');
             
             // Service information
             $table->string('service_type', 100)->comment('Service type');

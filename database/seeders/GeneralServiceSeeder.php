@@ -15,19 +15,43 @@ class GeneralServiceSeeder extends Seeder
     {
         $services = [
             [
+                'center_id' => 1,
                 'service_type' => 'Cuina',
                 'responsible' => "Pedro Sanchez",
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
+                'center_id' => 1,
                 'service_type' => 'Neteja',
                 'responsible' => "Mariano García",
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'service_type' => 'Bugadería',
+                'center_id' => 1,
+                'service_type' => 'Bugaderia',
+                'responsible' => "El Ruibius",
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'center_id' => 2,
+                'service_type' => 'Cuina',
+                'responsible' => "Pedro Sanchez",
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'center_id' => 2,
+                'service_type' => 'Neteja',
+                'responsible' => "Mariano García",
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'center_id' => 2,
+                'service_type' => 'Bugaderia',
                 'responsible' => "El Ruibius",
                 'created_at' => now(),
                 'updated_at' => now(),
