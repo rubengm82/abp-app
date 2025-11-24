@@ -14,16 +14,14 @@ class GeneralServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    // public function show(string $id)
+    public function show(string $service_type)
     {
-        $generalService = GeneralService::findOrFail($id);
-        return view('components.contents.generalservice.generalServiceShow')->with('service', $generalService);
-
-        // $generalService = GeneralService::where('center_id', Auth::user()->center_id)
-        //                      ->where('id', $id)
-        //                      ->firstOrFail();
-        // return view('components.contents.generalservice.generalServiceShow')
-        //    ->with('service', $generalService);
+        $generalService = GeneralService::where('center_id', Auth::user()->center_id)
+                             ->where('service_type', $service_type)
+                             ->firstOrFail();
+        return view('components.contents.generalservice.generalServiceShow')
+           ->with('service', $generalService);
     }
 
     //// DOCUMENTS ////

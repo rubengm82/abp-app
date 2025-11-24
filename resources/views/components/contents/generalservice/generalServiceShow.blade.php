@@ -62,14 +62,18 @@
     </div>
 
     <!-- Documents -->
-    {{-- <x-partials.documents-section
-        :items="$service->documents"
-        title="Documents"            
+    <x-partials.documents-section
+        :items="$service->documents->filter(function($document) {
+            $userProf = Auth::user();
+            $docProf = $document->uploadedByProfessional;
+            return $userProf->center_id == $docProf->center_id;
+        })"
+        title="Documents"
         uploadAction="{{ route('general_service_document_add', $service) }}"
         downloadRoute="general_service_document_download"
         deleteRoute="general_service_document_delete"
         uploadedByField="uploadedByProfessional"
-    /> --}}
+    />
 
     <!-- Notes -->
     <x-partials.notes-section
