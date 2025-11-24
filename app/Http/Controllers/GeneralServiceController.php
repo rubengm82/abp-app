@@ -16,8 +16,14 @@ class GeneralServiceController extends Controller
      */
     public function show(string $id)
     {
-        $generalService = GeneralService::with(['notes', 'documents'])->findOrFail($id);
+        $generalService = GeneralService::findOrFail($id);
         return view('components.contents.generalservice.generalServiceShow')->with('service', $generalService);
+
+        // $generalService = GeneralService::where('center_id', Auth::user()->center_id)
+        //                      ->where('id', $id)
+        //                      ->firstOrFail();
+        // return view('components.contents.generalservice.generalServiceShow')
+        //    ->with('service', $generalService);
     }
 
     //// DOCUMENTS ////

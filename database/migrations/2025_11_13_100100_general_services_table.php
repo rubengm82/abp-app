@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('service_type', 100)->comment('Service type');
             
             // Manager and contact information
-            $table->string('responsible', 255)->nullable()->comment('Responsible person (free text field)');
+            $table->string('responsible', 255)->nullable()->comment('Responsible');
+            $table->text('responsible_info')->nullable()->comment('Responsible Contact Info');
             
             // Planning
             $table->text('planning')->nullable()->comment('Planning');
