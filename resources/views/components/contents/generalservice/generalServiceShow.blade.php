@@ -42,7 +42,20 @@
     <div class="card bg-base-100 text-base-content shadow-xl mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Quadre d'horaris del personal</h2>
-            <p class="text-gray-400">AÑADIR</p>
+
+            <div class="flex flex-wrap">
+                <div class="w-full flex">
+                    <button class="btn btn-sm btn-primary w-auto ml-auto" data-open-modal="addNoteModal">
+                        Editar Horari
+                    </button>
+                </div>
+
+                <div class="w-full">
+                    <div class="overflow-x-auto mt-3">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et odit, enim aperiam omnis provident laborum, distinctio nihil corrupti similique eaque id vel. Alias, eveniet quibusdam magni sapiente necessitatibus minus culpa?
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
