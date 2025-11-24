@@ -23,6 +23,9 @@ return new class extends Migration
             // Manager and contact information
             $table->string('responsible', 255)->nullable()->comment('Responsible person (free text field)');
             
+            // Planning
+            $table->text('planning')->nullable()->comment('Planning');
+            
             $table->timestamps();
         });
     }

@@ -58,7 +58,8 @@ class Center extends Model
             foreach ($serviciosBase as $tipo) {
                 $centro->generalServices()->create([
                     'service_type' => $tipo,
-                    'responsible'  => null, // editable más adelante
+                    'responsible'  => null,
+                    'planning'  => null,
                 ]);
             }
         });
