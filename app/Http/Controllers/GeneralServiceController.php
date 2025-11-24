@@ -106,7 +106,7 @@ class GeneralServiceController extends Controller
             'restricted' => $restricted
         ]);
 
-        return redirect()->route('general_service_show', $generalService->id . '#notes-section')
+        return redirect()->route('general_service_show', $generalService->service_type . '#notes-section')
                          ->with('success', 'Nota afegida correctament!');
     }
 
@@ -128,7 +128,7 @@ class GeneralServiceController extends Controller
             'restricted' => $restricted
         ]);
 
-        return redirect()->route('general_service_show', $note->noteable->id . '#notes-section')
+        return redirect()->route('general_service_show', $note->noteable->service_type . '#notes-section')
                          ->with('success', 'Nota actualitzada correctament!');
     }
 
@@ -139,7 +139,7 @@ class GeneralServiceController extends Controller
     {
         $note->delete();
 
-        return redirect()->route('general_service_show', $note->noteable->id . '#notes-section')
+        return redirect()->route('general_service_show', $note->noteable->service_type . '#notes-section')
                          ->with('success', 'Nota eliminada correctament!');
     }
 }
