@@ -19,7 +19,9 @@ class ProjectCommissionController extends Controller
      */
     public function index(Request $request)
     {
-        $query = ProjectCommission::with('responsibleProfessional')->where('status', 'Actiu');
+        $query = ProjectCommission::with('responsibleProfessional')
+            ->where('status', 'Actiu')
+            ->where('center_id', Auth::user()->center->id);
 
         if ($search = $request->get('search')) {
             $query
@@ -45,7 +47,9 @@ class ProjectCommissionController extends Controller
      */
     public function indexDesactivated(Request $request)
     {
-        $query = ProjectCommission::with('responsibleProfessional')->where('status', 'Inactiu');
+        $query = ProjectCommission::with('responsibleProfessional')
+            ->where('status', 'Inactiu')
+            ->where('center_id', Auth::user()->center->id);
 
         if ($search = $request->get('search')) {
             $query
@@ -83,6 +87,7 @@ class ProjectCommissionController extends Controller
         $status_active = 'Actiu';
 
         ProjectCommission::create([
+            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
             'name' => $request->input('name'),
             'type' => $request->input('type'),
             'start_date' => $request->input('start_date'),

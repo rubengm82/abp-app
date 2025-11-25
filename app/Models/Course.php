@@ -10,6 +10,7 @@ class Course extends Model
     protected $table = 'courses';
 
     protected $fillable = [
+        'center_id',
         'training_center',
         'forcem_code',
         'total_hours',
@@ -23,6 +24,14 @@ class Course extends Model
         'start_date',
         'end_date',
     ];
+
+    /**
+     * Relationship with center
+     */
+    public function center()
+    {
+        return $this->belongsTo(Center::class);
+    }
 
     /**
      * Relationship with notes of the center

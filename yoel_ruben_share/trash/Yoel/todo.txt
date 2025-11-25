@@ -1,7 +1,9 @@
 # Sprint 4 Document Evolution - TODO LIST
 
 Todo: 
-*
+* Añadir a la migración de Cursos y projectcommission el campo del centro, igual que en las demás migraciones como professional
+* Añadir al controlador de Cursos y projectcommission que, de la misma manera que en los demás controles, se añada el id del centro automáticamente con el Auth
+* No hace falta editar el show ya que no hgay que mostrarlo
 
 Apuntes:
 * Esconder "Centros"

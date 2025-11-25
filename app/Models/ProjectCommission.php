@@ -11,6 +11,7 @@ class ProjectCommission extends Model
     protected $table = 'project_commissions';
     
     protected $fillable = [
+        'center_id',
         'name',
         'start_date',
         'estimated_end_date',
@@ -19,6 +20,14 @@ class ProjectCommission extends Model
         'type',
         'status'
     ];
+
+    /**
+     * Relationship with center
+     */
+    public function center()
+    {
+        return $this->belongsTo(Center::class);
+    }
 
     /**
      * Relación con el profesional responsable para mostrar el nombre del profesional responsable

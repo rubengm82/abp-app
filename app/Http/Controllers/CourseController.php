@@ -19,7 +19,8 @@ class CourseController extends Controller
     public function index(Request $request)
     {
          // Base query
-        $query = Course::query();
+        $query = Course::query()
+            ->where('center_id', Auth::user()->center->id);
 
         // Apply search filter if a search term is provided
             if ($search = $request->get('search')) {
@@ -49,6 +50,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         Course::create([
+            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
             'training_center'     => $request->input('training_center'),
             'training_name'     => $request->input('training_name'),
             'forcem_code'       => $request->input('forcem_code'),

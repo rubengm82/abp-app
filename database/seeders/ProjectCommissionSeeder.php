@@ -15,6 +15,7 @@ class ProjectCommissionSeeder extends Seeder
     {
         $projectCommissions = [
             [
+                'center_id' => 1,
                 'name' => 'Projecte Integració Social',
                 'start_date' => '2025-01-01',
                 'estimated_end_date' => '2025-12-31',
@@ -26,6 +27,7 @@ class ProjectCommissionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'center_id' => 1,
                 'name' => 'Comissió Qualitat',
                 'start_date' => '2025-02-01',
                 'estimated_end_date' => '2025-11-30',
@@ -37,6 +39,7 @@ class ProjectCommissionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'center_id' => 1,
                 'name' => 'Projecte Formació Professional',
                 'start_date' => '2025-03-01',
                 'estimated_end_date' => '2025-10-31',
@@ -48,6 +51,7 @@ class ProjectCommissionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'center_id' => 1,
                 'name' => 'Comissió Seguretat',
                 'start_date' => '2025-01-15',
                 'estimated_end_date' => '2025-12-15',
@@ -59,6 +63,7 @@ class ProjectCommissionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'center_id' => 2,
                 'name' => 'Projecte Medi Ambient',
                 'start_date' => '2025-04-01',
                 'estimated_end_date' => '2025-09-30',

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+
+            // Relation to centers
+            $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('cascade');
+
             $table->String('training_center', 255)->comment('Training center name')->nullable();
             $table->String('forcem_code', 50)->comment('FORCEM code')->nullable();
             $table->integer('total_hours')->comment('Total course hours')->nullable();

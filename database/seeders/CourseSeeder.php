@@ -19,6 +19,7 @@ class CourseSeeder extends Seeder
             [
                 'training_center' => 'Casa Vapor Gran',
                 'forcem_code' => 'CVG001',
+                'center_id' => 1,
                 'total_hours' => 40,
                 'type' => 'Cures i suport',
                 'attendance_type' => 'Presencial',
@@ -33,6 +34,7 @@ class CourseSeeder extends Seeder
             [
                 'training_center' => 'Casa Marquès',
                 'forcem_code' => 'CM002',
+                'center_id' => 1,
                 'total_hours' => 35,
                 'type' => 'Salut mental',
                 'attendance_type' => 'Mixto',
@@ -47,6 +49,7 @@ class CourseSeeder extends Seeder
             [
                 'training_center' => 'Centre Ocupacional Vallparadís',
                 'forcem_code' => 'COV003',
+                'center_id' => 1,
                 'total_hours' => 30,
                 'type' => 'Formació professional',
                 'attendance_type' => 'Presencial',
@@ -61,6 +64,7 @@ class CourseSeeder extends Seeder
             [
                 'training_center' => 'Residència La Muntanya',
                 'forcem_code' => 'RLM004',
+                'center_id' => 1,
                 'total_hours' => 25,
                 'type' => 'Cures personals',
                 'attendance_type' => 'Online',
@@ -75,6 +79,7 @@ class CourseSeeder extends Seeder
             [
                 'training_center' => 'Centre de Rehabilitació Vallparadís',
                 'forcem_code' => 'CRV005',
+                'center_id' => 1,
                 'total_hours' => 28,
                 'type' => 'Salut i benestar',
                 'attendance_type' => 'Mixto',
@@ -89,6 +94,7 @@ class CourseSeeder extends Seeder
             [
                 'training_center' => 'Centre Sociosanitari Terrassa',
                 'forcem_code' => 'CST006',
+                'center_id' => 1,
                 'total_hours' => 32,
                 'type' => 'Atenció social',
                 'attendance_type' => 'Presencial',
@@ -103,6 +109,7 @@ class CourseSeeder extends Seeder
             [
                 'training_center' => 'Escola d’Habilitats Vallparadís',
                 'forcem_code' => 'EHV007',
+                'center_id' => 1,
                 'total_hours' => 36,
                 'type' => 'Formació ocupacional',
                 'attendance_type' => 'Online',
@@ -117,6 +124,7 @@ class CourseSeeder extends Seeder
             [
                 'training_center' => 'Centre Terapèutic Vallparadís',
                 'forcem_code' => 'CTV008',
+                'center_id' => 2,
                 'total_hours' => 40,
                 'type' => 'Salut mental',
                 'attendance_type' => 'Mixto',

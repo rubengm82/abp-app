@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('project_commissions', function (Blueprint $table) {
             $table->id();
+
+            // Relation to centers
+            $table->foreignId('center_id')->nullable()->constrained('centers')->onDelete('cascade');
+
             $table->String('name', 255)->comment('Project/Commission name');
             $table->date('start_date')->comment('Start date')->nullable();
             $table->date('estimated_end_date')->comment('Estimated end date')->nullable();
