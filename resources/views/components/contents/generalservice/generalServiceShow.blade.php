@@ -63,11 +63,7 @@
 
     <!-- Documents -->
     <x-partials.documents-section
-        :items="$service->documents->filter(function($document) {
-            $userProf = Auth::user();
-            $docProf = $document->uploadedByProfessional;
-            return $userProf->center_id == $docProf->center_id;
-        })"
+        :items="$service->documents"
         title="Documents"
         uploadAction="{{ route('general_service_document_add', $service) }}"
         downloadRoute="general_service_document_download"
@@ -77,11 +73,7 @@
 
     <!-- Notes -->
     <x-partials.notes-section
-        :items="$service->notes->filter(function($note) {
-            $userProf = Auth::user();
-            $noteProf = $note->createdByProfessional;
-            return $userProf->center_id == $noteProf->center_id;
-        })"
+        :items="$service->notes"
         title="Notes"
         addAction="{{ route('general_service_note_add', $service) }}"
         deleteRoute="general_service_note_delete"
