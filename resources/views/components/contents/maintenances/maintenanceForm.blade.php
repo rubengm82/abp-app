@@ -85,18 +85,32 @@
         <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Data</h2>
-                <div class="form-control w-full md:w-1/2">
-                    <label class="label">
-                        <span class="label-text">Data d'obertura *</span>
-                    </label>
-                    <input 
-                        type="date" 
-                        name="opening_date_maintenance" 
-                        id="id_opening_date_maintenance" 
-                        class="input input-bordered w-full" 
-                        value="{{ old('opening_date_maintenance') }}" 
-                        required
-                    >
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="form-control w-full md:w-1/2">
+                        <label class="label">
+                            <span class="label-text">Data d'obertura *</span>
+                        </label>
+                        <input 
+                            type="date" 
+                            name="opening_date_maintenance" 
+                            id="id_opening_date_maintenance" 
+                            class="input input-bordered w-full" 
+                            value="{{ old('opening_date_maintenance') }}" 
+                            required
+                        >
+                    </div>
+                    <div class="form-control w-full md:w-1/2">
+                        <label class="label">
+                            <span class="label-text">Data fi</span>
+                        </label>
+                        <input 
+                            type="date" 
+                            name="ending_date_maintenance" 
+                            id="id_ending_date_maintenance" 
+                            class="input input-bordered w-full" 
+                            value="{{ old('ending_date_maintenance') }}" 
+                        >
+                    </div>
                 </div>
             </div>
         </div>

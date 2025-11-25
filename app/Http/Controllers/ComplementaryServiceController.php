@@ -55,12 +55,14 @@ class ComplementaryServiceController extends Controller
             'service_type' => 'required|string|max:255',
             'service_responsible' => 'required|string',
             'start_date' => 'required',
+            'end_date' => 'date',
         ]);
 
         ComplementaryService::create([
             'service_type' => $request->input('service_type'),
             'service_responsible' => $request->input('service_responsible'),
             'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
             'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
         ]);
 
@@ -92,12 +94,14 @@ class ComplementaryServiceController extends Controller
             'service_type' => 'required|string|max:255',
             'service_responsible' => 'required|string',
             'start_date' => 'required',
+            'end_date' => 'date',
         ]);
 
         $complementaryService->update([
             'service_type' => $validated['service_type'],
             'service_responsible' => $validated['service_responsible'],
             'start_date' => $validated['start_date'],
+            'end_date' => $validated['end_date'],
             // center_id is not modified, it remains the existing one
         ]);
 
