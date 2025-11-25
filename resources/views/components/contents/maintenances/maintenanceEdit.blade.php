@@ -88,7 +88,7 @@
                 <h2 class="card-title text-xl mb-4">Data</h2>
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="form-control w-full md:w-1/2">
-                        <label class="label">
+                        <label class="label" for="id_opening_date_maintenance">
                             <span class="label-text">Data d'obertura *</span>
                         </label>
                         <input 
@@ -101,15 +101,15 @@
                         >
                     </div>
                     <div class="form-control w-full md:w-1/2">
-                        <label class="label">
+                        <label class="label" for="id_ending_date_maintenance">
                             <span class="label-text">Data fi</span>
                         </label>
-                        <input 
-                            type="date" 
-                            name="opening_date_maintenance" 
-                            id="id_opening_date_maintenance" 
-                            class="input input-bordered w-full" 
-                            value="{{ old('ending_date_maintenance', \Carbon\Carbon::parse($maintenance->ending_date_maintenance)->format('Y-m-d')) }}"
+                        <input
+                            type="date"
+                            name="ending_date_maintenance"
+                            id="id_ending_date_maintenance"
+                            class="input input-bordered w-full"
+                            value="{{ old('ending_date_maintenance', $maintenance->ending_date_maintenance ? \Carbon\Carbon::parse($maintenance->ending_date_maintenance)->format('Y-m-d') : '') }}"
                         >
                     </div>
                 </div>

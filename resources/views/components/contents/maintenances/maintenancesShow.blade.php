@@ -68,6 +68,10 @@
                     <label class="font-semibold">Data d'inici</label>
                     <p>{{ $maintenance->opening_date_maintenance ? \Carbon\Carbon::parse($maintenance->opening_date_maintenance)->format('d/m/Y') : 'No especificada' }}</p>
                 </div>
+                <div>
+                    <label class="font-semibold">Data fi</label>
+                    <p>{{ $maintenance->ending_date_maintenance ? \Carbon\Carbon::parse($maintenance->ending_date_maintenance)->format('d/m/Y') : 'No especificada' }}</p>
+                </div>
             </div>
         </div>
     </div>
