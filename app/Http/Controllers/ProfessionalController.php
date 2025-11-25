@@ -19,16 +19,14 @@ class ProfessionalController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Professional::query()->where('status', 1);
+        $query = Professional::query()
+            ->where('status', 1)
+            ->where('center_id', Auth::user()->center->id);
 
         if ($search = $request->get('search')) {
           
             $query
-            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%")
-          
-            ->orWhereHas('center', fn($q) =>
-                $q->where('name', 'like', "%{$search}%")
-            );
+            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
         }
 
         $professionals = $query->paginate(10)->appends(['search' => $search]);
@@ -207,13 +205,8 @@ class ProfessionalController extends Controller
         $query = Professional::query()->where('status', 0);
 
         if ($search = $request->get('search')) {
-          
             $query
-            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%")
-          
-            ->orWhereHas('center', fn($q) =>
-                $q->where('name', 'like', "%{$search}%")
-            );
+            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
         }
 
         $professionals = $query->paginate(10)->appends(['search' => $search]);

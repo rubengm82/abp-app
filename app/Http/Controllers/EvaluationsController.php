@@ -9,6 +9,7 @@ use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluationsController extends Controller
 {
@@ -17,7 +18,7 @@ class EvaluationsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional']);
+        $query = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional'])->where('evaluated_professional_id', Auth::user()->id);
 
         if ($search = $request->get('search')) {
             $query
