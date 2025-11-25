@@ -38,20 +38,6 @@
                 <div class="space-y-4">
                     <div class="form-control">
                         <label class="label">
-                            <span class="label-text">Centre</span>
-                        </label>
-                        <select name="center_id" id="id_center_id" class="select select-bordered w-full">
-                            <option value="">Selecciona un centre</option>
-                            @foreach(\App\Models\Center::where('status', 1)->get() as $center)
-                                <option value="{{ $center->id }}" {{ old('center_id', $externalContact->center_id) == $center->id ? 'selected' : '' }}>
-                                    {{ $center->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label">
                             <span class="label-text">Tipus *</span>
                         </label>
                         <select name="external_contact_type" id="id_external_contact_type" class="select select-bordered w-full" required>

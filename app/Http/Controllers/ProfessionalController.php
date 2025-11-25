@@ -50,7 +50,6 @@ class ProfessionalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'center_id' => 'required|exists:centers,id',
             'name' => 'required|string|max:255',
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
@@ -69,7 +68,7 @@ class ProfessionalController extends Controller
 
         // Create professional
         $professional = Professional::create([
-            'center_id' => $validated['center_id'],
+            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
             'role' => $validated['role'] ?? null,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
@@ -126,7 +125,6 @@ class ProfessionalController extends Controller
         $professional = Professional::findOrFail($id);
 
         $validated = $request->validate([
-            'center_id' => 'required|exists:centers,id',
             'name' => 'required|string|max:255',
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
@@ -144,7 +142,7 @@ class ProfessionalController extends Controller
         ]);
 
         $updateData = [
-            'center_id' => $validated['center_id'],
+            // center_id is not modified, it remains the existing one
             'role' => $validated['role'] ?? $professional->role,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],

@@ -30,7 +30,7 @@
         @csrf
         @method('PUT') <!-- Método PUT para actualizar -->
 
-        <!-- Informació de manteniment -->
+        <!-- Maintenance Information -->
         <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació del Manteniment</h2>
@@ -82,35 +82,7 @@
             </div>
         </div>
 
-        <!-- Selecció del Centre -->
-        <div class="card shadow-xl">
-            <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Centre d'Assignació</h2>
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">Centre *</span>
-                    </label>
-                    <select 
-                        name="center_id" 
-                        id="id_center_id" 
-                        class="select select-bordered w-full" 
-                        required
-                    >
-                        <option value="">Selecciona un centre</option>
-                        @foreach($centers as $center)
-                            <option 
-                                value="{{ $center->id }}" 
-                                {{ old('center_id', $maintenance->center_id) == $center->id ? 'selected' : '' }}
-                            >
-                                {{ $center->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- Data d'obertura -->
+        <!-- Opening Date -->
         <div class="card shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Data</h2>

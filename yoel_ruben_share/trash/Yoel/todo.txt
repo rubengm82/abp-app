@@ -6,14 +6,14 @@ Todo:
 Apuntes:
 * Esconder "Centros"
 * Quiatar columna de "Centro" en todas las listas:
-** Profesionales
-** Contactos Externos
-** RRHH
-** Mantenimiento
+** Profesionales [X]
+** Contactos Externos [X]
+** RRHH [X]
+** Mantenimiento [X]
 ** Revisar Avaluation
 ** Revisar Proyectos
-** Servicios Complementarios
-** Los Desactivados
+** Servicios Complementarios [X]
+** Los Desactivados [X]
 * Añadir campo Centros a Cursos
 * Arreglar lista Documentos Globales, asegurar por Centro
 * Reordenar SideBar

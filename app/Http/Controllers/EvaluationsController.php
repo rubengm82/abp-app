@@ -18,7 +18,7 @@ class EvaluationsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional'])->where('evaluated_professional_id', Auth::user()->id);
+        $query = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional']);
 
         if ($search = $request->get('search')) {
             $query

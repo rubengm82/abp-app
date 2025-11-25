@@ -2,7 +2,6 @@
     <thead>
         <tr class="bg-base-300 text-base-content font-semibold">
             <th class="px-4 py-2 text-left">Tipus de Servei</th>
-            <th class="px-4 py-2 text-left">Centre</th>
             <th class="px-4 py-2 text-left">Responsable</th>
             <th class="px-4 py-2 text-left">Data d'Inici</th>
             <th class="px-4 py-2 text-right">Acció</th>
@@ -15,10 +14,6 @@
 
                 <td class="px-4 py-2">
                     {{ Str::limit($service->service_type, 50) ?? 'No especificat' }}
-                </td>
-
-                <td class="px-4 py-2">
-                    {{ Str::limit($service->center->name, 20) }}
                 </td>
 
                 <td class="px-4 py-2">

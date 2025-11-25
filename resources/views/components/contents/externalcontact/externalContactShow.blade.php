@@ -36,18 +36,6 @@
                 <h2 class="card-title text-xl mb-4">Informació bàsica</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold text-gray-600">Centre:</label>
-                        <p class="text-lg">
-                            @if($externalContact->center)
-                                <a href="{{ route('center_show', $externalContact->center->id) }}" class="text-primary font-semibold hover:text-orange-600 transition-all duration-200">
-                                    {{ $externalContact->center->name }}
-                                </a>
-                            @else
-                                <span class="text-gray-400">No assignat</span>
-                            @endif
-                        </p>
-                    </div>
-                    <div>
                         <label class="font-semibold text-gray-600">Tipus:</label>
                         <p class="text-lg">{{ $externalContact->external_contact_type ?: 'No especificat' }}</p>
                     </div>

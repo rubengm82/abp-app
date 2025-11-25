@@ -37,18 +37,6 @@
                         <label class="font-semibold">Nom del Manteniment:</label>
                         <p>{{ $maintenance->name_maintenance }}</p>
                     </div>
-                    <div>
-                        <label class="font-semibold">Centre:</label>
-                        <p>
-                            @if($maintenance->center)
-                                <a href="{{ route('center_show', $maintenance->center) }}" class="link link-primary">
-                                    {{ $maintenance->center->name }}
-                                </a>
-                            @else
-                                No assignat
-                            @endif
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>

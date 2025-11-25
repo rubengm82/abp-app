@@ -49,7 +49,7 @@ class ExternalContactController extends Controller
     public function store(Request $request)
     {
         ExternalContact::create([
-            'center_id' => $request->input('center_id'),
+            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
             'external_contact_type' => $request->input('external_contact_type'),
             'service_reason' => $request->input('service_reason'),
             'company' => $request->input('company'),
@@ -97,7 +97,7 @@ class ExternalContactController extends Controller
     public function update(Request $request, ExternalContact $externalContact)
     {
         $externalContact->update([
-            'center_id' => $request->input('center_id'),
+            // center_id is not modified, it remains the existing one
             'external_contact_type' => $request->input('external_contact_type'),
             'service_reason' => $request->input('service_reason'),
             'company' => $request->input('company'),

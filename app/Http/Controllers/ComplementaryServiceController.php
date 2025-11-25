@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Center;
 use App\Models\ComplementaryService;
 use App\Models\DocumentComponent;
 use App\Models\NotesComponent;
@@ -44,9 +43,7 @@ class ComplementaryServiceController extends Controller
      */
     public function create()
     {
-        $centers = Center::all();
-
-        return view('components.contents.complementaryservices.complementaryServiceForm', compact('centers'));
+        return view('components.contents.complementaryservices.complementaryServiceForm');
     }
 
     /**
@@ -58,14 +55,13 @@ class ComplementaryServiceController extends Controller
             'service_type' => 'required|string|max:255',
             'service_responsible' => 'required|string',
             'start_date' => 'required',
-            'center_id' => 'required|exists:centers,id'
         ]);
 
         ComplementaryService::create([
             'service_type' => $request->input('service_type'),
             'service_responsible' => $request->input('service_responsible'),
             'start_date' => $request->input('start_date'),
-            'center_id' => $request->input('center_id'),
+            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
         ]);
 
         return redirect()->route('complementaryservices_list')->with('success', 'Servei Complenmentari creat correctament.');
@@ -84,9 +80,7 @@ class ComplementaryServiceController extends Controller
      */
     public function edit(ComplementaryService $complementaryService)
     {
-        $centers = Center::all();
-
-        return view('components.contents.complementaryservices.complementaryServiceEdit', compact('complementaryService','centers'));
+        return view('components.contents.complementaryservices.complementaryServiceEdit', compact('complementaryService'));
     }
 
     /**
@@ -94,7 +88,19 @@ class ComplementaryServiceController extends Controller
      */
     public function update(Request $request, ComplementaryService $complementaryService)
     {
-        $complementaryService->update($request->all());
+        $validated = $request->validate([
+            'service_type' => 'required|string|max:255',
+            'service_responsible' => 'required|string',
+            'start_date' => 'required',
+        ]);
+
+        $complementaryService->update([
+            'service_type' => $validated['service_type'],
+            'service_responsible' => $validated['service_responsible'],
+            'start_date' => $validated['start_date'],
+            // center_id is not modified, it remains the existing one
+        ]);
+
         return redirect()->route('complementaryservices_list')->with('success', 'Servei Complenmentari actualitzat correctament!');
     }
 

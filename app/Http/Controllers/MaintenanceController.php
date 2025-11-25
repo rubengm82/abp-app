@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DocumentComponent;
 use App\Models\NotesComponent;
-use App\Models\Center;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -43,8 +42,7 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
-        $centers = Center::where('status', 1)->get();
-        return view("components.contents.maintenances.maintenanceForm", compact('centers'));
+        return view("components.contents.maintenances.maintenanceForm");
     }
 
     /**
@@ -52,7 +50,21 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
-        Maintenance::create($request->all());
+        $validated = $request->validate([
+            'name_maintenance' => 'required|string|max:255',
+            'responsible_maintenance' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'opening_date_maintenance' => 'required|date',
+        ]);
+
+        Maintenance::create([
+            'name_maintenance' => $validated['name_maintenance'],
+            'responsible_maintenance' => $validated['responsible_maintenance'],
+            'description' => $validated['description'] ?? null,
+            'opening_date_maintenance' => $validated['opening_date_maintenance'],
+            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
+        ]);
+
         return redirect()->route('maintenances_list')->with('success', 'Manteniment creat correctament!');
     }
 
@@ -69,8 +81,7 @@ class MaintenanceController extends Controller
      */
     public function edit(Maintenance $maintenance)
     {
-        $centers = Center::where('status', 1)->get();
-        return view("components.contents.maintenances.maintenanceEdit", compact('maintenance', 'centers'));
+        return view("components.contents.maintenances.maintenanceEdit", compact('maintenance'));
     }
 
     /**
@@ -78,7 +89,21 @@ class MaintenanceController extends Controller
      */
     public function update(Request $request, Maintenance $maintenance)
     {
-        $maintenance->update($request->all());
+        $validated = $request->validate([
+            'name_maintenance' => 'required|string|max:255',
+            'responsible_maintenance' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'opening_date_maintenance' => 'required|date',
+        ]);
+
+        $maintenance->update([
+            'name_maintenance' => $validated['name_maintenance'],
+            'responsible_maintenance' => $validated['responsible_maintenance'],
+            'description' => $validated['description'] ?? $maintenance->description,
+            'opening_date_maintenance' => $validated['opening_date_maintenance'],
+            // center_id is not modified, it remains the existing one
+        ]);
+
         return redirect()->route('maintenances_list')->with('success', 'Manteniment actualitzat correctament!');
     }
 
