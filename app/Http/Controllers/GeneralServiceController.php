@@ -24,6 +24,25 @@ class GeneralServiceController extends Controller
            ->with('service', $generalService);
     }
 
+    public function edit(GeneralService $service)
+    {
+       return view('components.contents.generalservice.generalServiceEdit')
+            ->with('service', $service);
+    }
+
+    public function update(Request $request, GeneralService $service)
+    {
+        $request->validate([
+            'responsible' => 'nullable|string|max:255',
+            'responsible_info' => 'nullable|string',
+            'planning' => 'nullable|string',
+        ]);
+
+        $service->update($request->only(['responsible', 'responsible_info', 'planning']));
+
+        return redirect()->route('general_service_show', $service->service_type)->with('success', 'Servei actualitzat correctament!');
+    }
+
     //// DOCUMENTS ////
     /**
      * Upload Document to server

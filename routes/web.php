@@ -208,6 +208,8 @@ Route::middleware('auth')->get('/courses/documents/download/{document}', [Course
 
 /* ------------------------ GENERAL SERVICES ------------------------ */
 Route::middleware('auth')->get('/general_service/show/{service_type}', [GeneralServiceController::class, 'show'])->name('general_service_show');
+Route::middleware('auth')->get('/general_service/edit/{service}', [GeneralServiceController::class, 'edit'])->name('general_service_edit');
+Route::middleware('auth')->put('/general_service/update/{service}', [GeneralServiceController::class, 'update'])->name('general_service_update');
 
 /* General Service Notes */
 Route::middleware('auth')->post('/general_service/notes/{generalService}', [GeneralServiceController::class, 'general_service_note_add'])->name('general_service_note_add');

@@ -11,6 +11,9 @@
 <div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold">Servei de {{ $service->service_type }}</h1>
+        <div class="flex gap-2">
+            <a href="{{ route('general_service_edit', $service) }}" class="btn btn-sm btn-info">Editar</a>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -46,12 +49,6 @@
             <h2 class="card-title text-xl mb-4">Quadre d'horaris del personal</h2>
 
             <div class="flex flex-wrap">
-                <div class="w-full flex">
-                    <button class="btn btn-sm btn-primary w-auto ml-auto" data-open-modal="addNoteModal">
-                        Editar Horari
-                    </button>
-                </div>
-
                 <div class="w-full">
                     <pre class="whitespace-pre-line font-sans">
                         {{ $service->planning ?: 'No assignat' }}
