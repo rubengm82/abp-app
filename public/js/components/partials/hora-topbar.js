@@ -1,20 +1,36 @@
-function updateTime() {
-    const now = new Date();
-    // Format date and time with leading zeros
-    const day = String(now.getDate()).padStart(2, '0');
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const year = now.getFullYear();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
+class TopBarClock {
+    constructor(elementId = 'current-time', updateInterval = 1000) {
+        this.element = document.getElementById(elementId);
+        this.updateInterval = updateInterval;
 
-    const timeElement = document.getElementById('current-time');
-    if (timeElement) {
-        timeElement.textContent = `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+        if (!this.element) {
+            console.warn(`Elemento con id="${elementId}" no encontrado.`);
+            return;
+        }
+
+        this.updateTime();
+
+        setInterval(() => this.updateTime(), this.updateInterval);
+    }
+
+    // padStart se usa para poner ceros delante de la hora
+    formatTime(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+    }
+
+    updateTime() {
+        const now = new Date();
+        this.element.textContent = this.formatTime(now);
     }
 }
 
-// Update every second
-setInterval(updateTime, 1000);
-// Call once on load
-updateTime();
+document.addEventListener('DOMContentLoaded', () => {
+    new TopBarClock('current-time');
+});
