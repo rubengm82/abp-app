@@ -14,10 +14,14 @@ class GeneralServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    // public function show(string $id)
+    public function show(string $service_type)
     {
-        $generalService = GeneralService::with(['notes', 'documents'])->findOrFail($id);
-        return view('components.contents.generalservice.generalServiceShow')->with('service', $generalService);
+        $generalService = GeneralService::where('center_id', Auth::user()->center_id)
+                             ->where('service_type', $service_type)
+                             ->firstOrFail();
+        return view('components.contents.generalservice.generalServiceShow')
+           ->with('service', $generalService);
     }
 
     //// DOCUMENTS ////
@@ -102,7 +106,7 @@ class GeneralServiceController extends Controller
             'restricted' => $restricted
         ]);
 
-        return redirect()->route('general_service_show', $generalService->id . '#notes-section')
+        return redirect()->route('general_service_show', $generalService->service_type . '#notes-section')
                          ->with('success', 'Nota afegida correctament!');
     }
 
@@ -124,7 +128,7 @@ class GeneralServiceController extends Controller
             'restricted' => $restricted
         ]);
 
-        return redirect()->route('general_service_show', $note->noteable->id . '#notes-section')
+        return redirect()->route('general_service_show', $note->noteable->service_type . '#notes-section')
                          ->with('success', 'Nota actualitzada correctament!');
     }
 
@@ -135,7 +139,7 @@ class GeneralServiceController extends Controller
     {
         $note->delete();
 
-        return redirect()->route('general_service_show', $note->noteable->id . '#notes-section')
+        return redirect()->route('general_service_show', $note->noteable->service_type . '#notes-section')
                          ->with('success', 'Nota eliminada correctament!');
     }
 }

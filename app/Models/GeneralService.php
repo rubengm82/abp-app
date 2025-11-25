@@ -10,8 +10,11 @@ class GeneralService extends Model
     protected $table = 'general_services';
     
     protected $fillable = [
+        'center_id',
         'service_type',
         'responsible',
+        'responsible_info',
+        'planning',
     ];
 
     /**
@@ -29,5 +32,14 @@ class GeneralService extends Model
     {
         return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc');
     }
+
+     /**
+     * Relationship with center
+     */
+    public function centro()
+    {
+        return $this->belongsTo(Center::class);
+    }
+
 }
 

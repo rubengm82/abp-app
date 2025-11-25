@@ -207,7 +207,7 @@ Route::middleware('auth')->delete('/courses/documents/{document}', [CourseContro
 Route::middleware('auth')->get('/courses/documents/download/{document}', [CourseController::class, 'course_document_download'])->name('course_document_download');
 
 /* ------------------------ GENERAL SERVICES ------------------------ */
-Route::middleware('auth')->get('/general_service/show/{id}', [GeneralServiceController::class, 'show'])->name('general_service_show');
+Route::middleware('auth')->get('/general_service/show/{service_type}', [GeneralServiceController::class, 'show'])->name('general_service_show');
 
 /* General Service Notes */
 Route::middleware('auth')->post('/general_service/notes/{generalService}', [GeneralServiceController::class, 'general_service_note_add'])->name('general_service_note_add');

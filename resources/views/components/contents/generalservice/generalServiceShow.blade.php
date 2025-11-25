@@ -32,7 +32,9 @@
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació de contacte</h2>
                 <div class="space-y-3">
-                    <p class="text-gray-400">AÑADIR</p>
+                    <pre class="whitespace-pre-line font-sans">
+                        {{ $service->responsible_info }}
+                    </pre>
                 </div>
             </div>
         </div>
@@ -42,35 +44,27 @@
     <div class="card bg-base-100 text-base-content shadow-xl mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Quadre d'horaris del personal</h2>
-            <p class="text-gray-400">AÑADIR</p>
-        </div>
-    </div>
 
-    <!-- Additional information
-    <div class="card bg-base-100 text-base-content shadow-xl mt-6">
-        <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Informació addicional</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label class="font-semibold">ID:</label>
-                    <p class="text-lg">{{ $service->id }}</p>
+            <div class="flex flex-wrap">
+                <div class="w-full flex">
+                    <button class="btn btn-sm btn-primary w-auto ml-auto" data-open-modal="addNoteModal">
+                        Editar Horari
+                    </button>
                 </div>
-                <div>
-                    <label class="font-semibold">Tipus de servei:</label>
-                    <p class="text-lg">{{ $service->service_type }}</p>
-                </div>
-                <div>
-                    <label class="font-semibold">Data de creació:</label>
-                    <p class="text-lg">{{ $service->created_at ? $service->created_at->format('d/m/Y H:i') : 'No especificada' }}</p>
+
+                <div class="w-full">
+                    <pre class="whitespace-pre-line font-sans">
+                        {{ $service->planning ?: 'No assignat' }}
+                    </pre>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- Documents -->
     <x-partials.documents-section
         :items="$service->documents"
-        title="Documents"            
+        title="Documents"
         uploadAction="{{ route('general_service_document_add', $service) }}"
         downloadRoute="general_service_document_download"
         deleteRoute="general_service_document_delete"
@@ -89,4 +83,3 @@
 
 @include('components.partials.mainToasts')
 @endsection
-

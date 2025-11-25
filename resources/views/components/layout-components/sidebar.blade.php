@@ -276,19 +276,19 @@
                     </summary>
                     <ul class="text-xs">
                         <li>
-                            <a href="{{ route('general_service_show', 1) }}">
+                            <a href="{{ route('general_service_show', ['service_type' => 'Cuina']) }}">
                                 <x-partials.icon name="minus" class="w-4 h-4 text-info" />
                                 Cuina
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('general_service_show', 2) }}">
+                            <a href="{{ route('general_service_show', ['service_type' => 'Neteja']) }}">
                                 <x-partials.icon name="minus" class="w-4 h-4 text-info" />
                                 Neteja
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('general_service_show', 3) }}">
+                            <a href="{{ route('general_service_show', ['service_type' => 'Bugaderia']) }}">
                                 <x-partials.icon name="minus" class="w-4 h-4 text-info" />
                                 Bugadería
                             </a>
