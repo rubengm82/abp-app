@@ -55,6 +55,7 @@ class MaintenanceController extends Controller
             'responsible_maintenance' => 'required|string|max:255',
             'description' => 'nullable|string',
             'opening_date_maintenance' => 'required|date',
+            'ending_date_maintenance' => 'nullable',
         ]);
 
         Maintenance::create([
@@ -62,6 +63,7 @@ class MaintenanceController extends Controller
             'responsible_maintenance' => $validated['responsible_maintenance'],
             'description' => $validated['description'] ?? null,
             'opening_date_maintenance' => $validated['opening_date_maintenance'],
+            'ending_date_maintenance' => $validated['ending_date_maintenance'],
             'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
         ]);
 
@@ -94,6 +96,7 @@ class MaintenanceController extends Controller
             'responsible_maintenance' => 'required|string|max:255',
             'description' => 'nullable|string',
             'opening_date_maintenance' => 'required|date',
+            'ending_date_maintenance' => 'nullable',
         ]);
 
         $maintenance->update([
@@ -101,6 +104,7 @@ class MaintenanceController extends Controller
             'responsible_maintenance' => $validated['responsible_maintenance'],
             'description' => $validated['description'] ?? $maintenance->description,
             'opening_date_maintenance' => $validated['opening_date_maintenance'],
+            'ending_date_maintenance' => $validated['ending_date_maintenance'],
             // center_id is not modified, it remains the existing one
         ]);
 

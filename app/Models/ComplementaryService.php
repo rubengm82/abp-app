@@ -14,6 +14,7 @@ class ComplementaryService extends Model
         'service_type',
         'service_responsible',
         'start_date',
+        'end_date',
     ];
 
     public function center()

@@ -27,7 +27,7 @@ return new class extends Migration
             
             // Maintenance information
             $table->date('opening_date_maintenance')->comment('Maintenance opening date');
-            $table->date('ending_date_maintenance')->nullabble()->comment('Maintenance opening date');
+            $table->date('ending_date_maintenance')->nullable()->comment('Maintenance opening date');
             // $table->date('end_date')->nullable()->comment('Maintenance end date');
             
             $table->timestamps();
