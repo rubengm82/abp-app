@@ -4,6 +4,7 @@
             <th class="px-4 py-2 text-left">Tipus de Servei</th>
             <th class="px-4 py-2 text-left">Responsable</th>
             <th class="px-4 py-2 text-left">Data d'Inici</th>
+            <th class="px-4 py-2 text-left">Data fi</th>
             <th class="px-4 py-2 text-right">Acció</th>
         </tr>
     </thead>
@@ -23,6 +24,12 @@
                 <td class="px-4 py-2">
                     {{ $service->start_date 
                         ? \Carbon\Carbon::parse($service->start_date)->format('d/m/Y') 
+                        : 'No especificada' }}
+                </td>
+                
+                <td class="px-4 py-2">
+                    {{ $service->start_date 
+                        ? \Carbon\Carbon::parse($service->end_date)->format('d/m/Y') 
                         : 'No especificada' }}
                 </td>
 

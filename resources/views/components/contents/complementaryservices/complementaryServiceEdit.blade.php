@@ -67,17 +67,34 @@
                     </div>
 
                     <div class="form-control md:col-span-2">
-                        <label class="label">
-                            <span class="label-text">Data d'inici *</span>
-                        </label>
-                        <input 
-                            type="date"
-                            name="start_date"
-                            id="id_start_date"
-                            class="input input-bordered w-full"
-                            value="{{ old('start_date', $complementaryService->start_date ? \Carbon\Carbon::parse($complementaryService->start_date)->format('Y-m-d') : '') }}"
-                            required
-                        >
+                        <div class="flex flex-col gap-3">
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Data d'inici *</span>
+                                </label>
+                                <input 
+                                    type="date"
+                                    name="start_date"
+                                    id="id_start_date"
+                                    class="input input-bordered w-full"
+                                    value="{{ old('start_date', $complementaryService->start_date ? \Carbon\Carbon::parse($complementaryService->start_date)->format('Y-m-d') : '') }}"
+                                    required
+                                >
+                            </div>
+
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Data d'inici *</span>
+                                </label>
+                                <input 
+                                    type="date"
+                                    name="end_date"
+                                    id="id_end_date"
+                                    class="input input-bordered w-full"
+                                    value="{{ old('end_date', $complementaryService->end_date ? \Carbon\Carbon::parse($complementaryService->end_date)->format('Y-m-d') : '') }}"
+                                >
+                            </div>
+                        </div>
                     </div>
 
                 </div>

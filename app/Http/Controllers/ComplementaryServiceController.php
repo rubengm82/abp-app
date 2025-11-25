@@ -55,7 +55,7 @@ class ComplementaryServiceController extends Controller
             'service_type' => 'required|string|max:255',
             'service_responsible' => 'required|string',
             'start_date' => 'required',
-            'end_date' => 'date',
+            'end_date' => 'nullable',
         ]);
 
         ComplementaryService::create([
@@ -94,7 +94,7 @@ class ComplementaryServiceController extends Controller
             'service_type' => 'required|string|max:255',
             'service_responsible' => 'required|string',
             'start_date' => 'required',
-            'end_date' => 'date',
+            'end_date' => 'nullable',
         ]);
 
         $complementaryService->update([

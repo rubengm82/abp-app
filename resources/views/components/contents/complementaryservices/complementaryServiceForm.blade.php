@@ -75,17 +75,33 @@
                     </div>
 
                     <div class="form-control md:col-span-2">
-                        <label class="label">
-                            <span class="label-text">Data d'inici *</span>
-                        </label>
-                        <input 
-                            type="date"
-                            name="start_date"
-                            id="id_start_date"
-                            class="input input-bordered w-full"
-                            value="{{ old('start_date', isset($complementaryservice->start_date) ? $complementaryservice->start_date->format('Y-m-d') : '') }}"
-                            required
-                        >
+                        <div class="flex flex-col gap-3">
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Data d'inici *</span>
+                                </label>
+                                <input 
+                                    type="date"
+                                    name="start_date"
+                                    id="id_start_date"
+                                    class="input input-bordered w-full"
+                                    value="{{ old('start_date', isset($complementaryservice->start_date) ? $complementaryservice->start_date->format('Y-m-d') : '') }}"
+                                    required
+                                >
+                            </div>
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Data fi</span>
+                                </label>
+                                <input 
+                                    type="date"
+                                    name="end_date"
+                                    id="id_end_date"
+                                    class="input input-bordered w-full"
+                                    value="{{ old('end_date', isset($complementaryservice->end_date) ? $complementaryservice->end_date->format('Y-m-d') : '') }}"
+                                >
+                            </div>
+                        </div>
                     </div>
 
                 </div>
