@@ -93,12 +93,14 @@ class MaintenanceSeeder extends Seeder
 
         // Crear registros con center_id y fechas aleatorias
         foreach ($maintenances as $maintenance) {
+            $opening_date = Carbon::now()->subDays(rand(0, 7));
             Maintenance::create([
                 'name_maintenance' => $maintenance['name_maintenance'],
                 'responsible_maintenance' => $maintenance['responsible_maintenance'],
                 'description' => $maintenance['description'],
                 'center_id' => rand(1, 10) <= 8 ? 1 : 2, // 80% centro 1, 20% centro 2
-                'opening_date_maintenance' => Carbon::now()->subDays(rand(0, 7))->toDateString(),
+                'opening_date_maintenance' => $opening_date->toDateString(),
+                'ending_date_maintenance' => $opening_date->copy()->addDays(rand(1, 30))->toDateString(),
             ]);
         }
     }

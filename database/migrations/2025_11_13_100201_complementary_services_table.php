@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('service_responsible', 255)->nullable()->comment('Service responsible');
             
             // Service dates Redundant
-            $table->date('start_date')->nullable()->comment('Service start date');
+            $table->date('start_date')->comment('Service start date');
+            $table->date('end_date')->nullable()->comment('Service start date');
            
             $table->timestamps();
         });
