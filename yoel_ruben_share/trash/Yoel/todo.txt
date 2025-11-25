@@ -1,11 +1,22 @@
 # Sprint 4 Document Evolution - TODO LIST
 
 Todo: 
-* Añadir a migración database/migrations/2025_10_25_112717_documents_component_table.php un campo llamado "document_type" tipo enum (por ahora pon solo "miscelaneo") y que sea nulleable
-* Modificar el modelo y el controlador
-* Añade un nuevo listado "Documentos Globales", que liste todos los documentos de la tabla, añadele el buscador que tienen el resto de listados. 
-* La tabla tendrá el centro  , el nombre,el tipo el nombre de la persona que lo ha subido y la fecha. Por supuesto se podrá descargar desde aquí clicando en el nombre del archivo.
-* Coloca esta nueva lista en sidebar
+*
+
+Apuntes:
+* Esconder "Centros"
+* Quiatar columna de "Centro" en todas las listas:
+** Profesionales [X]
+** Contactos Externos [X]
+** RRHH [X]
+** Mantenimiento [X]
+** Revisar Avaluation
+** Revisar Proyectos
+** Servicios Complementarios [X]
+** Los Desactivados [X]
+* Añadir campo Centros a Cursos
+* Arreglar lista Documentos Globales, asegurar por Centro
+* Reordenar SideBar
 
 To know:
 * En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo yoel_ruben_share/trash/Yoel/master_checklist.txt como instrucciones básicas
@@ -15,7 +26,6 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: Fix:
-* Cambiar iconos Servicios Generales; >
-* Eliminar Registro Contacto
-* Miscel·lani > Altres
+To commit: 
+* 
+*

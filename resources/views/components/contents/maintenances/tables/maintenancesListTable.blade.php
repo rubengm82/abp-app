@@ -3,7 +3,6 @@
         <tr class="bg-base-300 text-base-content font-semibold">
             <th class="px-4 py-2 text-left">Nom del Manteniment</th>
             <th class="px-4 py-2 text-left">Resposable del Manteniment</th>
-            <th class="px-4 py-2 text-left">Centre</th>
             <th class="px-4 py-2 text-left">Descripció</th>
             <th class="px-4 py-2 text-left">Data d'inici</th>
             <th class="px-4 py-2 text-right">Acció</th>
@@ -14,7 +13,6 @@
             <tr class="hover:bg-base-300 transition-colors">
                 <td class="px-4 py-2">{{ Str::limit($maintenance->name_maintenance, 60) }}</td>
                 <td class="px-4 py-2">{{ Str::limit($maintenance->responsible_maintenance, 60) }}</td>
-                <td class="px-4 py-2">{{ Str::limit($maintenance->center->name, 30) }}</td>
                 <td class="px-4 py-2">
                     <div title="{{ $maintenance->description }}">
                         {{ Str::limit($maintenance->description, 60) }}</td>

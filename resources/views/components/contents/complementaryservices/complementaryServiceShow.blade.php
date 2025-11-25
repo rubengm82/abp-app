@@ -51,16 +51,11 @@
             </div>
         </div>
 
-        <!-- Centre i Data d'inici -->
+        <!-- Start Date -->
         <div class="card bg-base-100 text-base-content shadow-xl">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació</h2>
                 <div class="space-y-3">
-                    <div>
-                        <label class="font-semibold">Centre:</label>
-                        <p class="text-lg">{{ $complementaryService->center->name ?? 'No assignat' }}</p>
-                    </div>
-                    
                     <div>
                         <label class="font-semibold">Data d'inici:</label>
                         <p class="text-lg">

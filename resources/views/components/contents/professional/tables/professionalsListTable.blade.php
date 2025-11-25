@@ -4,7 +4,6 @@
             <th class="px-4 py-2 text-left">Nom</th>
             <th class="px-4 py-2 text-left">Primer cognom</th>
             <th class="px-4 py-2 text-left">Segon cognom</th>
-            <th class="px-4 py-2 text-left">Centre</th>
             <th class="px-4 py-2 text-left">Taquilla</th>
             <th class="px-4 py-2 text-left">DNI</th>
             <th class="px-4 py-2 text-left">Adreça</th>
@@ -22,16 +21,6 @@
                     <td class="px-4 py-2">{{ $professional->name }}</td>
                     <td class="px-4 py-2">{{ $professional->surname1 }}</td>
                     <td class="px-4 py-2">{{ $professional->surname2 }}</td>
-                    <td class="px-4 py-2">
-                        @if($professional->center)
-                            <a href="{{ route('center_show', $professional->center->id) }}" 
-                                class="link link-hover link-info">
-                                {{ $professional->center->name }}
-                            </a>
-                        @else
-                            <span class="text-base-content/50">No assignat</span>
-                        @endif
-                    </td>
                     <td class="px-4 py-2 font-mono">{{ $professional->locker_num }}</td>
                     <td class="px-4 py-2">{{ $professional->dni }}</td>
                     <td class="px-4 py-2">{{ $professional->address }}</td>

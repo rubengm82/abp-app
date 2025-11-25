@@ -1,7 +1,6 @@
 <table class="table w-full table-xs table-zebra table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-semibold">
-            <th class="px-4 py-2 text-left">Centre</th>
             <th class="px-4 py-2 text-left">Codi</th>
             <th class="px-4 py-2 text-left">Nom</th>
             <th class="px-4 py-2 text-left">Primer cognom</th>
@@ -19,16 +18,6 @@
         @foreach ($professionals as $professional)
             @if ($professional->status == 0)
                 <tr class="hover:bg-base-200 transition-colors">
-                    <td class="px-4 py-2">
-                        @if($professional->center)
-                            <a href="{{ route('center_show', $professional->center->id) }}" 
-                                class="link link-hover link-info">
-                                {{ $professional->center->name }}
-                            </a>
-                        @else
-                            <span class="text-base-content/50">No assignat</span>
-                        @endif
-                    </td>
                     <td class="px-4 py-2">{{ $professional->key_code }}</td>
                     <td class="px-4 py-2">{{ $professional->name }}</td>
                     <td class="px-4 py-2">{{ $professional->surname1 }}</td>

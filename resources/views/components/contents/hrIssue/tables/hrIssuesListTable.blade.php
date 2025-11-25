@@ -1,7 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-semibold">
-            <th class="px-4 py-2 text-left">Centre</th>
             <th class="px-4 py-2 text-left">Professional afectat</th>
             <th class="px-4 py-2 text-left">Registrat per</th>
             <th class="px-4 py-2 text-left">Derivat a</th>
@@ -14,7 +13,6 @@
     <tbody>
         @foreach($hrIssues as $hrIssue)
             <tr class="hover:bg-base-300 transition-colors">
-                <td class="px-4 py-2">{{ $hrIssue->center->name ?? '-' }}</td>
                 <td class="px-4 py-2">
                     @if($hrIssue->affectedProfessional)
                         <p>{{ $hrIssue->affectedProfessional->name }} {{ $hrIssue->affectedProfessional->surname1 }}</p>

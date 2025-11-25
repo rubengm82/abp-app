@@ -9,6 +9,7 @@ use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluationsController extends Controller
 {

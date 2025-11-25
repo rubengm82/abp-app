@@ -84,34 +84,6 @@
             </div>
         </div>
 
-        <!-- Selección del centro -->
-        <div class="card shadow-xl">
-            <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Centre d'Assignació</h2>
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">Centre *</span>
-                    </label>
-                    <select 
-                        name="center_id"
-                        id="id_center_id"
-                        class="select select-bordered w-full"
-                        required
-                    >
-                        <option value="">Selecciona un centre</option>
-                        @foreach($centers as $center)
-                            <option 
-                                value="{{ $center->id }}"
-                                {{ old('center_id', $complementaryService->center_id) == $center->id ? 'selected' : '' }}
-                            >
-                                {{ $center->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
-
         <!-- Botones de acción -->
         <div class="flex justify-end gap-4">
             <a href="{{ route('complementaryservices_list') }}" class="btn btn-outline">Cancelar</a>

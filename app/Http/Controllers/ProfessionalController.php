@@ -19,16 +19,14 @@ class ProfessionalController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Professional::query()->where('status', 1);
+        $query = Professional::query()
+            ->where('status', 1)
+            ->where('center_id', Auth::user()->center->id);
 
         if ($search = $request->get('search')) {
           
             $query
-            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%")
-          
-            ->orWhereHas('center', fn($q) =>
-                $q->where('name', 'like', "%{$search}%")
-            );
+            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
         }
 
         $professionals = $query->paginate(10)->appends(['search' => $search]);
@@ -52,7 +50,6 @@ class ProfessionalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'center_id' => 'required|exists:centers,id',
             'name' => 'required|string|max:255',
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
@@ -71,7 +68,7 @@ class ProfessionalController extends Controller
 
         // Create professional
         $professional = Professional::create([
-            'center_id' => $validated['center_id'],
+            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
             'role' => $validated['role'] ?? null,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
@@ -128,7 +125,6 @@ class ProfessionalController extends Controller
         $professional = Professional::findOrFail($id);
 
         $validated = $request->validate([
-            'center_id' => 'required|exists:centers,id',
             'name' => 'required|string|max:255',
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
@@ -146,7 +142,7 @@ class ProfessionalController extends Controller
         ]);
 
         $updateData = [
-            'center_id' => $validated['center_id'],
+            // center_id is not modified, it remains the existing one
             'role' => $validated['role'] ?? $professional->role,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
@@ -207,13 +203,8 @@ class ProfessionalController extends Controller
         $query = Professional::query()->where('status', 0);
 
         if ($search = $request->get('search')) {
-          
             $query
-            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%")
-          
-            ->orWhereHas('center', fn($q) =>
-                $q->where('name', 'like', "%{$search}%")
-            );
+            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
         }
 
         $professionals = $query->paginate(10)->appends(['search' => $search]);

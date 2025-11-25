@@ -52,4 +52,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Professional::class);
     }
+
+    // Accessor for center through professional relationship
+    public function getCenterAttribute()
+    {
+        return $this->professional ? $this->professional->center : null;
+    }
+
+    // Accessor for center_id through professional relationship
+    public function getCenterIdAttribute()
+    {
+        return $this->professional ? $this->professional->center_id : null;
+    }
 }
