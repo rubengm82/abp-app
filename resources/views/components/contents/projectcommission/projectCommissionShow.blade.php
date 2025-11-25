@@ -10,8 +10,8 @@
     />
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
     <!-- Header: Nombre y acciones -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-base-content">{{ $projectCommission->name }}</h1>
+    <div class="flex justify-end items-center mb-6">
+        {{-- <h1 class="text-3xl font-bold text-base-content">{{ $projectCommission->name }}</h1> --}}
         <div class="flex gap-2">
             @if($projectCommission->status == 'Actiu')
                 <a href="{{ route('projectcommission_edit', $projectCommission) }}" class="btn btn-sm btn-info">Editar</a>
@@ -32,7 +32,7 @@
                 <form action="{{ route('projectcommission_activate', $projectCommission) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('PATCH')
-                    <button type="submit" class="btn btn-xs btn-success">
+                    <button type="submit" class="btn btn-sm btn-success">
                         Activar
                     </button>
                 </form>
@@ -47,6 +47,10 @@
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació bàsica</h2>
                 <div class="space-y-3">
+                    <div>
+                        <label class="font-semibold text-gray-600">Nom:</label>
+                        <p class="text-lg">{{ $projectCommission->name }}</p>
+                    </div>
                     <div>
                         <label class="font-semibold text-gray-600">Tipus:</label>
                         <p class="text-lg">{{ $projectCommission->type }}</p>

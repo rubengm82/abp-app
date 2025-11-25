@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             CourseAssignmentSeeder::class,
             ExternalContactSeeder::class,
             GeneralServiceSeeder::class,
+            ComplementaryServiceSeeder::class,
+            MaintenanceSeeder::class
         ]);
     }
 }

@@ -10,8 +10,8 @@
     />
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
     <!-- Header: Name and actions -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-base-content">{{ $externalContact->company ?? 'Contacte Extern #' . $externalContact->id }}</h1>
+    <div class="flex justify-end items-center mb-6">
+        {{-- <h1 class="text-3xl font-bold text-base-content">{{ $externalContact->company ?? 'Contacte Extern #' . $externalContact->id }}</h1> --}}
         <div class="flex gap-2">
             <a href="{{ route('externalcontact_edit', $externalContact) }}" class="btn btn-sm btn-info">Editar</a>
             <x-partials.modal 

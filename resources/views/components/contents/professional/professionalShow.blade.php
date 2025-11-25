@@ -9,8 +9,8 @@
     :current="'Detalls'"
     />
 <div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1>
+    <div class="flex justify-end items-center mb-6">
+        {{-- <h1 class="text-3xl font-bold">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1> --}}
         <div class="flex gap-2">
             @if($professional->status == 1)
                 <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
@@ -34,7 +34,7 @@
                 <form action="{{ route('professional_activate', $professional->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('PATCH')
-                    <button type="submit" class="btn btn-xs btn-success">
+                    <button type="submit" class="btn btn-sm btn-success">
                         Activar
                     </button>
                 </form>
