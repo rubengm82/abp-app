@@ -75,8 +75,8 @@
                     </div>
 
                     <div class="form-control md:col-span-2">
-                        <div class="flex flex-col gap-3">
-                            <div>
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="w-full">
                                 <label class="label">
                                     <span class="label-text">Data d'inici *</span>
                                 </label>
@@ -85,11 +85,11 @@
                                     name="start_date"
                                     id="id_start_date"
                                     class="input input-bordered w-full"
-                                    value="{{ old('start_date', isset($complementaryservice->start_date) ? $complementaryservice->start_date->format('Y-m-d') : '') }}"
+                                    value="{{ old('start_date') }}"
                                     required
                                 >
                             </div>
-                            <div>
+                            <div class="w-full">
                                 <label class="label">
                                     <span class="label-text">Data fi</span>
                                 </label>
@@ -98,7 +98,7 @@
                                     name="end_date"
                                     id="id_end_date"
                                     class="input input-bordered w-full"
-                                    value="{{ old('end_date', isset($complementaryservice->end_date) ? $complementaryservice->end_date->format('Y-m-d') : '') }}"
+                                    value="{{ old('end_date') }}"
                                 >
                             </div>
                         </div>

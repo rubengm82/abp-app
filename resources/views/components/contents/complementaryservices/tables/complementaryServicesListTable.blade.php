@@ -28,7 +28,7 @@
                 </td>
                 
                 <td class="px-4 py-2">
-                    {{ $service->start_date 
+                    {{ $service->end_date 
                         ? \Carbon\Carbon::parse($service->end_date)->format('d/m/Y') 
                         : 'No especificada' }}
                 </td>
