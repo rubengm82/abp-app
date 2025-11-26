@@ -18,24 +18,30 @@ class EvaluationsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional']);
+        $query = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional'])
+            ->whereHas('evaluatedProfessional', function ($q) {
+                $q->where('center_id', Auth::user()->center_id);
+            });
 
         if ($search = $request->get('search')) {
-            $query
-                ->whereHas('evaluatedProfessional', function ($q) use ($search) {
-                    $q->where(function ($q2) use ($search) {
-                        $q2->where('name', 'like', "%{$search}%")
-                            ->orWhere('surname1', 'like', "%{$search}%")
-                            ->orWhere('surname2', 'like', "%{$search}%");
+            $query->where(function ($query) use ($search) {
+                $query
+                    ->whereHas('evaluatedProfessional', function ($q) use ($search) {
+                        $q->where('center_id', Auth::user()->center_id)
+                            ->where(function ($q2) use ($search) {
+                                $q2->where('name', 'like', "%{$search}%")
+                                    ->orWhere('surname1', 'like', "%{$search}%")
+                                    ->orWhere('surname2', 'like', "%{$search}%");
+                            });
+                    })
+                    ->orWhereHas('evaluatorProfessional', function ($q) use ($search) {
+                        $q->where(function ($q2) use ($search) {
+                            $q2->where('name', 'like', "%{$search}%")
+                                ->orWhere('surname1', 'like', "%{$search}%")
+                                ->orWhere('surname2', 'like', "%{$search}%");
+                        });
                     });
-                })
-                ->orWhereHas('evaluatorProfessional', function ($q) use ($search) {
-                    $q->where(function ($q2) use ($search) {
-                        $q2->where('name', 'like', "%{$search}%")
-                            ->orWhere('surname1', 'like', "%{$search}%")
-                            ->orWhere('surname2', 'like', "%{$search}%");
-                    });
-                });
+            });
         }
 
         $evaluations = $query->get();

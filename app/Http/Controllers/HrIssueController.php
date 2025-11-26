@@ -17,12 +17,7 @@ class HrIssueController extends Controller
      */
     public function index(Request $request)
     {
-        // Only Directiu role can access HR Issues
-        if (Auth::user()->role !== 'Directiu') {
-            abort(403, 'No tens permís per accedir a aquesta secció.');
-        }
-
-        $query = HrIssue::query()->with(['center', 'affectedProfessional', 'registeringProfessional', 'referredToProfessional']);
+        $query = HrIssue::query()->where('center_id', Auth::user()->center_id);
 
         if ($search = $request->get('search')) {
             $query->where(function($q) use ($search) {
@@ -74,6 +69,9 @@ class HrIssueController extends Controller
             'status' => 'required|in:Obert,Tancat',
         ]);
 
+        // Assign the center_id of the logged in user
+        $validated['center_id'] = Auth::user()->center_id;
+
         HrIssue::create($validated);
 
         return redirect()->route('hr_issues_list')->with('success', 'Tema pendent RRHH creada correctament!');
@@ -121,6 +119,9 @@ class HrIssueController extends Controller
             'description' => 'required|string|max:5000',
             'status' => 'required|in:Obert,Tancat',
         ]);
+
+        // Ensure center_id remains the same (cannot be changed)
+        $validated['center_id'] = $hrIssue->center_id;
 
         $hrIssue->update($validated);
 

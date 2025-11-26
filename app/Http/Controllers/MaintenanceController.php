@@ -17,7 +17,7 @@ class MaintenanceController extends Controller
      */
     public function index(Request $request)
     {
-        $query = $maintenances = Maintenance::query();
+        $query = $maintenances = Maintenance::query()->where('center_id', Auth::user()->center_id);
 
         if ($search = $request->get('search')) {
           
