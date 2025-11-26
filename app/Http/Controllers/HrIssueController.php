@@ -257,5 +257,41 @@ class HrIssueController extends Controller
         return redirect()->route('hr_issue_show', $note->noteable->id . '#notes-section')
                          ->with('success', 'Nota eliminada correctament!');
     }
+
+    /**
+     * Download CSV
+     */
+    public function downloadCSV()
+    {
+        $hrIssues = HrIssue::with(['center', 'affectedProfessional', 'registeringProfessional', 'referredToProfessional'])
+            ->where('center_id', Auth::user()->center->id)
+            ->orderBy('opening_date', 'desc')
+            ->get();
+
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = "temes_rrhh_{$timestamp}.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['Professional Afectat', 'Professional Registrador', 'Professional Referit', 'Descripció', 'Estat', 'Data d\'obertura', 'Data de tancament']);
+
+        foreach ($hrIssues as $hrIssue) {
+            $affectedName = $hrIssue->affectedProfessional ? $hrIssue->affectedProfessional->name . ' ' . $hrIssue->affectedProfessional->surname1 : 'No especificat';
+            $registeringName = $hrIssue->registeringProfessional ? $hrIssue->registeringProfessional->name . ' ' . $hrIssue->registeringProfessional->surname1 : 'No especificat';
+            $referredName = $hrIssue->referredToProfessional ? $hrIssue->referredToProfessional->name . ' ' . $hrIssue->referredToProfessional->surname1 : 'No especificat';
+
+            fputcsv($handle, [
+                $affectedName,
+                $registeringName,
+                $referredName,
+                $hrIssue->description,
+                $hrIssue->status,
+                $hrIssue->opening_date ? \Carbon\Carbon::parse($hrIssue->opening_date)->format('d/m/Y') : 'No especificada',
+                $hrIssue->closing_date ? \Carbon\Carbon::parse($hrIssue->closing_date)->format('d/m/Y') : 'No especificada',
+            ]);
+        }
+
+        fclose($handle);
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
 }
 

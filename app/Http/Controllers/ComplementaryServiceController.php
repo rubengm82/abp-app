@@ -227,6 +227,7 @@ class ComplementaryServiceController extends Controller
     public function downloadCSV()
     {
         $services = ComplementaryService::with('center')
+        ->where('center_id', Auth::user()->center->id)
         ->orderBy('start_date', 'desc')
         ->get();
 

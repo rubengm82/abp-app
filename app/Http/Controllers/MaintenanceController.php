@@ -228,19 +228,18 @@ class MaintenanceController extends Controller
      */
     public function downloadCSV()
     {
-        $maintenances = Maintenance::all();
+        $maintenances = Maintenance::where('center_id', Auth::user()->center->id)->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = "manteniments_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['Nom del Manteniment', 'Resposable del Manteniment', 'Centre', 'Descripció', 'Data d\'inici']);
+        fputcsv($handle, ['Nom del Manteniment', 'Resposable del Manteniment', 'Descripció', 'Data d\'inici']);
 
         foreach ($maintenances as $maintenances) {
             fputcsv($handle, [
                 $maintenances->name_maintenance,
                 $maintenances->responsible_maintenance,
-                $maintenances->center->name,
                 $maintenances->description,
                 $maintenances->opening_date_maintenance,
             ]);

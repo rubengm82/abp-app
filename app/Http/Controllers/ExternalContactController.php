@@ -14,14 +14,6 @@ class ExternalContactController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index(Request $request)
-    // {
-    //     $externalContacts = ExternalContact::paginate(10);
-
-    //     return view('components.contents.externalcontact.externalContactsList', [
-    //         'externalContacts' => $externalContacts
-    //     ]);
-    // }
     public function index(Request $request)
     {
         $query = ExternalContact::with('center');
@@ -128,18 +120,17 @@ class ExternalContactController extends Controller
      */
     public function downloadCSV()
     {
-        $externalContacts = ExternalContact::all();
+        $externalContacts = ExternalContact::where('center_id', Auth::user()->center->id)->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = "contactes_externs_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Tipus', 'Motiu/Servei', 'Empresa', 'Departament', 'Responsable', 'Telèfon', 'Correu', 'Enllaç', 'Observacions']);
+        fputcsv($handle, ['Tipus', 'Motiu/Servei', 'Empresa', 'Departament', 'Responsable', 'Telèfon', 'Correu', 'Enllaç', 'Observacions']);
 
         foreach ($externalContacts as $externalContact) {
             $responsible = trim(($externalContact->name ?? '') . ' ' . ($externalContact->surname ?? ''));
             fputcsv($handle, [
-                $externalContact->id,
                 $externalContact->external_contact_type,
                 $externalContact->service_reason,
                 $externalContact->company,

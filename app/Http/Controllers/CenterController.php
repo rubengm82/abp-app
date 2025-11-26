@@ -135,11 +135,10 @@ class CenterController extends Controller
         $filename = $statusParam == 1 ? "centres_actius_{$timestamp}.csv" : "centres_no_actius_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Nom', 'Adreça', 'Telèfon', 'Email', 'Estat']);
+        fputcsv($handle, ['Nom', 'Adreça', 'Telèfon', 'Email', 'Estat']);
 
         foreach ($centers as $center) {
             fputcsv($handle, [
-                $center->id,
                 $center->name,
                 $center->address,
                 $center->phone,

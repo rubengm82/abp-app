@@ -24,21 +24,21 @@
                     @if($assignment->shirt_size)
                         <span class="badge badge-dash badge-info">{{ $assignment->shirt_size }}</span>
                     @else
-                        <span class="text-base-content/50">-</span>
+                        <span class="text-base-content/50"></span>
                     @endif
                 </td>
                 <td class="px-4 py-2 text-center">
                     @if($assignment->pants_size)
                         <span class="badge badge-dash badge-info">{{ $assignment->pants_size }}</span>
                     @else
-                        <span class="text-base-content/50">-</span>
+                        <span class="text-base-content/50"></span>
                     @endif
                 </td>
                 <td class="px-4 py-2 text-center">
                     @if($assignment->shoe_size)
                         <span class="badge badge-dash badge-info">{{ $assignment->shoe_size }}</span>
                     @else
-                        <span class="text-base-content/50">-</span>
+                        <span class="text-base-content/50"></span>
                     @endif
                 </td>
                 <td class="px-4 py-2">{{ $assignment->assignment_date->format('d/m/Y') }}</td>

@@ -20,7 +20,7 @@
                     @if($externalContact->name || $externalContact->surname)
                         {{ trim(($externalContact->name ?? '') . ' ' . ($externalContact->surname ?? '')) }}
                     @else
-                        <span class="text-base-content/50">-</span>
+                        <span class="text-base-content/50"></span>
                     @endif
                 </td>
                 <td class="px-4 py-2">{{ $externalContact->phone ?? '-' }}</td>

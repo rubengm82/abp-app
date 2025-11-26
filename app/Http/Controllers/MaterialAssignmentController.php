@@ -140,6 +140,7 @@ class MaterialAssignmentController extends Controller
     {
         mainlog::log("Iniciando downloadCSV en MaterialAssignmentController, descargando todas las asignaciones de material");
         $materialAssignments = MaterialAssignment::with(['professional', 'assignedBy'])
+            ->whereHas('professional', fn($q) => $q->where('center_id', Auth::user()->center->id))
             ->orderBy('created_at', 'desc')
             ->get();
         
@@ -147,7 +148,7 @@ class MaterialAssignmentController extends Controller
         $filename = "registre_assignacions_material_{$timestamp}.csv";
         
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Professional', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per', 'Observacions']);
+        fputcsv($handle, ['Professional', 'Samarreta', 'Pantaló', 'Sabata', 'Data Assignació', 'Assignat per', 'Observacions']);
         
         foreach ($materialAssignments as $assignment) {
             $professionalName = $assignment->professional ? 
@@ -156,7 +157,6 @@ class MaterialAssignmentController extends Controller
                 $assignment->assignedBy->name . ' ' . $assignment->assignedBy->surname1 : 'No especificat';
             
             fputcsv($handle, [
-                $assignment->id,
                 $professionalName,
                 $assignment->shirt_size ?: 'No assignat',
                 $assignment->pants_size ?: 'No assignat',

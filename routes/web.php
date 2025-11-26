@@ -102,6 +102,7 @@ Route::middleware('auth')->get('/hr_issue/show/{id}', [HrIssueController::class,
 Route::middleware('auth')->get('/hr_issue/edit/{id}', [HrIssueController::class, "edit"])->name("hr_issue_edit");
 Route::middleware('auth')->put('/hr_issue/update/{id}', [HrIssueController::class, "update"])->name("hr_issue_update");
 Route::middleware('auth')->delete('/hr_issue/delete/{id}', [HrIssueController::class, "destroy"])->name("hr_issue_delete");
+Route::middleware('auth')->get('/hr_issue/downloadCSV/', [HrIssueController::class, 'downloadCSV'])->name('hr_issue.downloadCSV');
 
 /* HR Issue Notes */
 Route::middleware('auth')->post('/hr_issue/notes/{hrIssue}', [HrIssueController::class, 'hr_issue_note_add'])->name('hr_issue_note_add');

@@ -19,6 +19,7 @@
         <x-partials.search-bar />
     </div>
     <div class="flex gap-2">
+        <a href="{{ route('hr_issue.downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
         <a href="{{ route('hr_issue_form') }}" class="btn btn-sm btn-primary">Afegir Tema pendent</a>
     </div>
 </div>

@@ -31,7 +31,7 @@
                     @if($hrIssue->referredToProfessional)
                         <p>{{ $hrIssue->referredToProfessional->name }} {{ $hrIssue->referredToProfessional->surname1 }}</p>
                     @else
-                        <span class="text-base-content/50">-</span>
+                        <span class="text-base-content/50"></span>
                     @endif
                 </td>
                 <td class="px-4 py-2">
