@@ -228,12 +228,15 @@ Route::middleware('auth')->get('/documents/download/{document}', [GlobalDocument
 
 /* ------------------------ MAINTENANCES ------------------------ */
 Route::middleware('auth')->get('/maintenances/list', [MaintenanceController::class, 'index'])->name('maintenances_list');
+Route::middleware('auth')->get('/maintenances/desactivated/list', [MaintenanceController::class, "index"])->defaults('status', 0)->name("maintenances_desactivated_list");
 Route::middleware('auth')->get('/maintenance/show/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenance_show');
 Route::middleware('auth')->get('/maintenance/form/', [MaintenanceController::class, 'create'])->name('maintenance_form');
 Route::middleware('auth')->get('/maintenance/edit/{maintenance}', [MaintenanceController::class, 'edit'])->name('maintenance_edit');
 Route::middleware('auth')->post('/maintenance/add', [MaintenanceController::class, "store"])->name("maintenance_add");
 Route::middleware('auth')->put('/maintenance/{maintenance}', [MaintenanceController::class, "update"])->name("maintenance_update");
 Route::middleware('auth')->delete('/maintenance/{maintenance}', [MaintenanceController::class, 'destroy'])->name('maintenance_delete');
+Route::middleware('auth')->patch('/maintenance/activate/{maintenance}', [MaintenanceController::class, 'activateStatus'])->name('maintenance_activate');
+Route::middleware('auth')->patch('/maintenance/desactivate/{maintenance}', [MaintenanceController::class, 'desactivateStatus'])->name('maintenance_desactivate');
 Route::middleware('auth')->get('/maintenances/downloadCSV', [MaintenanceController::class, 'downloadCSV'])->name('maintenances_downloadCSV');
 
 /* Maintenance Assignment Notes */
@@ -250,12 +253,15 @@ Route::middleware('auth')->get('/documents/download/{document}', [GlobalDocument
 
 /* ------------------------ COMPLEMENTARY SERVICES ------------------------ */
 Route::middleware('auth')->get('/complementaryservices/list', [ComplementaryServiceController::class, 'index'])->name('complementaryservices_list');
+Route::middleware('auth')->get('/complementaryservices/desactivated/list', [ComplementaryServiceController::class, "index"])->defaults('status', 0)->name("complementaryservices_desactivated_list");
 Route::middleware('auth')->get('/complementaryservices/show/{complementaryService}', [ComplementaryServiceController::class, 'show'])->name('complementaryservice_show');
 Route::middleware('auth')->get('/complementaryservices/edit/{complementaryService}', [ComplementaryServiceController::class, 'edit'])->name('complementaryservice_edit');
 Route::middleware('auth')->delete('/complementaryservices/{complementaryService}', [ComplementaryServiceController::class, 'destroy'])->name('complementaryservice_delete');
 Route::middleware('auth')->get('/complementaryservices/form/', [ComplementaryServiceController::class, 'create'])->name('complementaryservice_form');
 Route::middleware('auth')->post('/complementaryservices/add', [ComplementaryServiceController::class, "store"])->name("complementaryservice_add");
 Route::middleware('auth')->put('/complementaryservices/{complementaryService}', [ComplementaryServiceController::class, "update"])->name("complementaryservice_update");
+Route::middleware('auth')->patch('/complementaryservices/activate/{complementaryService}', [ComplementaryServiceController::class, 'activateStatus'])->name('complementaryservice_activate');
+Route::middleware('auth')->patch('/complementaryservices/desactivate/{complementaryService}', [ComplementaryServiceController::class, 'desactivateStatus'])->name('complementaryservice_desactivate');
 Route::middleware('auth')->get('/complementaryservices/downloadCSV', [ComplementaryServiceController::class, 'downloadCSV'])->name('omplementaryservice_downloadCSV');
 
 /* Complementary Services Notes */

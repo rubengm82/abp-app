@@ -14,9 +14,9 @@ class ComplementaryServiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, $status = 1)
     {
-        $query = ComplementaryService::query()->where('center_id', Auth::user()->center_id);
+        $query = ComplementaryService::query()->where('center_id', Auth::user()->center_id)->where('status', $status);
 
         if ($search = $request->get('search')) {
             $query->where(function($q) use ($search) {
@@ -24,7 +24,7 @@ class ComplementaryServiceController extends Controller
                 ->orWhere('service_responsible', 'like', "%{$search}%")
                 ->orWhere('start_date', 'like', "%{$search}%");
             })
-            ->orWhereHas('center', fn($q) => 
+            ->orWhereHas('center', fn($q) =>
                 $q->where('name', 'like', "%{$search}%")
             );
         }
@@ -33,9 +33,11 @@ class ComplementaryServiceController extends Controller
                                     ->paginate(10)
                                     ->appends(['search' => $search]);
 
+        $isDeactivated = ($status == 0);
+
         return $request->ajax()
-            ? view('components.contents.complementaryservices.tables.complementaryServicesListTable', compact('complementaryServices'))->render()
-            : view('components.contents.complementaryservices.complementaryServicesList', compact('complementaryServices'));
+            ? view('components.contents.complementaryservices.tables.complementaryServicesListTable', compact('complementaryServices', 'isDeactivated'))->render()
+            : view('components.contents.complementaryservices.complementaryServicesList', compact('complementaryServices', 'isDeactivated'));
     }
 
     /**
@@ -117,6 +119,25 @@ class ComplementaryServiceController extends Controller
         return redirect()->route('complementaryservices_list')->with('success', 'Servei Complenmentari eliminat correctament.');
     }
 
+    /**
+     * Activate Status the specified resource in storage.
+     */
+    public function activateStatus(Request $request, ComplementaryService $complementaryService)
+    {
+        $complementaryService->update(['status' => 1]);
+
+        return redirect()->route('complementaryservices_desactivated_list')->with('success', 'Servei Complementari activat correctament!');
+    }
+
+    /**
+     * Desactivate Status the specified resource in storage.
+     */
+    public function desactivateStatus(Request $request, ComplementaryService $complementaryService)
+    {
+        $complementaryService->update(['status' => 0]);
+
+        return redirect()->route('complementaryservices_list')->with('success', 'Servei Complementari desactivat correctament!');
+    }
 
     //// DOCUMENTS ////
     // Upload Document to server

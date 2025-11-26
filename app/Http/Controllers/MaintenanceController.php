@@ -15,15 +15,15 @@ class MaintenanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, $status = 1)
     {
-        $query = $maintenances = Maintenance::query()->where('center_id', Auth::user()->center_id);
+        $query = $maintenances = Maintenance::query()->where('center_id', Auth::user()->center_id)->where('status', $status);
 
         if ($search = $request->get('search')) {
-          
+
             $query
             ->whereAny(['name_maintenance', 'responsible_maintenance', 'description', 'opening_date_maintenance'], 'like', "%{$search}%")
-          
+
             ->orWhereHas('center', fn($q) =>
                 $q->where('name', 'like', "%{$search}%")
             );
@@ -31,10 +31,12 @@ class MaintenanceController extends Controller
 
         $maintenances = $query->paginate(10)->appends(['search' => $search]);
 
+        $isDeactivated = ($status == 0);
+
         return $request->ajax()
-            ? view('components.contents.maintenances.tables.maintenancesListTable', compact('maintenances'))->render()
-            : view('components.contents.maintenances.maintenancesList', compact('maintenances'))->render();
-       
+            ? view('components.contents.maintenances.tables.maintenancesListTable', compact('maintenances', 'isDeactivated'))->render()
+            : view('components.contents.maintenances.maintenancesList', compact('maintenances', 'isDeactivated'))->render();
+
     }
 
     /**
@@ -118,6 +120,26 @@ class MaintenanceController extends Controller
     {
         $maintenance->delete();
         return redirect()->route('maintenances_list')->with('success', 'Manteniment eliminat correctament!');
+    }
+
+    /**
+     * Activate Status the specified resource in storage.
+     */
+    public function activateStatus(Request $request, Maintenance $maintenance)
+    {
+        $maintenance->update(['status' => 1]);
+
+        return redirect()->route('maintenances_desactivated_list')->with('success', 'Manteniment activat correctament!');
+    }
+
+    /**
+     * Desactivate Status the specified resource in storage.
+     */
+    public function desactivateStatus(Request $request, Maintenance $maintenance)
+    {
+        $maintenance->update(['status' => 0]);
+
+        return redirect()->route('maintenances_list')->with('success', 'Manteniment desactivat correctament!');
     }
 
     //// DOCUMENTS ////

@@ -101,6 +101,7 @@ class MaintenanceSeeder extends Seeder
                 'center_id' => rand(1, 10) <= 8 ? 1 : 2, // 80% centro 1, 20% centro 2
                 'opening_date_maintenance' => $opening_date->toDateString(),
                 'ending_date_maintenance' => $opening_date->copy()->addDays(rand(1, 30))->toDateString(),
+                'status' => 1,
             ]);
         }
     }

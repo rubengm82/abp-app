@@ -16,6 +16,7 @@ class Maintenance extends Model
         'description',
         'opening_date_maintenance',
         'ending_date_maintenance',
+        'status',
     ];
     
     public function center():BelongsTo

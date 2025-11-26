@@ -24,6 +24,8 @@ return new class extends Migration
             // Service dates Redundant
             $table->date('start_date')->comment('Service start date');
             $table->date('end_date')->nullable()->comment('Service start date');
+
+            $table->integer('status')->nullable();
            
             $table->timestamps();
         });
