@@ -16,7 +16,7 @@ class ComplementaryServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $query = ComplementaryService::query()->with('center');
+        $query = ComplementaryService::query()->where('center_id', Auth::user()->center_id);
 
         if ($search = $request->get('search')) {
             $query->where(function($q) use ($search) {

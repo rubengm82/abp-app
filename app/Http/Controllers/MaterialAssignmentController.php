@@ -18,18 +18,24 @@ class MaterialAssignmentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = MaterialAssignment::with(['professional', 'assignedBy'])->orderBy('created_at', 'desc');
+        $query = MaterialAssignment::with(['professional', 'assignedBy'])
+            ->orderBy('created_at', 'desc')
+            ->whereHas('professional', function ($q) {
+                $q->where('center_id', Auth::user()->center_id);
+            });
 
         if ($search = $request->get('search')) {
-
-            $query
-                ->whereAny(['id', 'shirt_size', 'pants_size', 'shoe_size', 'assignment_date', 'observations'], 'like', "%{$search}%")
-                ->orWhereHas('professional', fn($q) =>
-                    $q->whereAny(['name', 'surname1'], 'like', "%{$search}%")
-                )
-                ->orWhereHas('assignedBy', fn($q) =>
-                    $q->whereAny(['name', 'surname1'], 'like', "%{$search}%")
-                );
+            $query->where(function ($query) use ($search) {
+                $query
+                    ->whereAny(['id', 'shirt_size', 'pants_size', 'shoe_size', 'assignment_date', 'observations'], 'like', "%{$search}%")
+                    ->orWhereHas('professional', function ($q) use ($search) {
+                        $q->where('center_id', Auth::user()->center_id)
+                            ->whereAny(['name', 'surname1'], 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('assignedBy', fn($q) =>
+                        $q->whereAny(['name', 'surname1'], 'like', "%{$search}%")
+                    );
+            });
         }
 
         $materialAssignments = $query->paginate(10)->appends(['search' => $search]);

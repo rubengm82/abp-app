@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DocumentComponent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GlobalDocumentController extends Controller
 {
@@ -12,7 +13,7 @@ class GlobalDocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = DocumentComponent::with(['uploadedByProfessional']);
+        $query = DocumentComponent::with(['uploadedByProfessional'])->where('center_id', Auth::user()->center_id);
 
         // Search functionality
         if ($search = $request->get('search')) {

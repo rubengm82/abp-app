@@ -16,7 +16,7 @@ class ExternalContactController extends Controller
      */
     public function index(Request $request)
     {
-        $query = ExternalContact::with('center');
+        $query = ExternalContact::with('center')->where('center_id', Auth::user()->center_id);
 
         if ($search = $request->get('search')) {
             $query->whereAny(['id', 'external_contact_type', 'company', 'department', 'name', 'surname', 'phone', 'email'], 'like', "%{$search}%");
