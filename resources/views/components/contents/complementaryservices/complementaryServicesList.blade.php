@@ -38,6 +38,9 @@
     @else
         <div class="text-center py-12">
             @if($isDeactivated)
+                <div class="flex justify-center mb-4">
+                    <x-partials.icon name="wrench-screwdriver" class="w-15 h-15 text-primary" />
+                </div>
                 <h3 class="text-xl font-semibold text-base-content mb-2">
                     No hi ha serveis complementaris desactivats
                 </h3>

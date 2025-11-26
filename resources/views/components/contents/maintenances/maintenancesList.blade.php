@@ -33,6 +33,9 @@
     @else
         <div class="text-center py-12">
             @if($isDeactivated)
+                <div class="flex justify-center mb-4">
+                    <x-partials.icon name="wrench" class="w-15 h-15 text-primary" />
+                </div>
                 <h3 class="text-xl font-semibold text-base-content mb-2">No hi ha manteniments desactivats</h3>
                 <p class="text-base-content/70 mb-4">Tots els manteniments estan actualment actius.</p>
             @else
