@@ -15,13 +15,13 @@ class CenterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, $status = 1)
     {
         mainlog::log("Iniciando index en CenterController");
-        $query = Center::query()->where('status', 1);
+        $query = Center::query()->where('status', $status);
 
         if ($search = $request->get('search')) {
-          
+
             $query
             ->whereAny(['id', 'name', 'address', 'phone', 'email'], 'like', "%{$search}%");
 
@@ -29,9 +29,11 @@ class CenterController extends Controller
 
         $centers = $query->paginate(10)->appends(['search' => $search]);
 
+        $isDeactivated = ($status == 0);
+
         return $request->ajax()
-            ? view('components.contents.center.tables.centersListTable', with(['centers' => $centers]))->render()
-            : view("components.contents.center.centersList", with(['centers' => $centers]));
+            ? view('components.contents.center.tables.centersListTable', with(['centers' => $centers, 'isDeactivated' => $isDeactivated]))->render()
+            : view("components.contents.center.centersList", with(['centers' => $centers, 'isDeactivated' => $isDeactivated]));
     }
 
     /**
@@ -101,26 +103,6 @@ class CenterController extends Controller
     /* OWN METHODS */
     /* *********** */
     
-    /**
-     * Display a listing of the resource.
-     */
-    public function index_desactivatedCenters(Request $request)
-    {
-        $query = Center::query()->where('status', 0);
-
-        if ($search = $request->get('search')) {
-          
-            $query
-            ->whereAny(['id', 'name', 'address', 'phone', 'email'], 'like', "%{$search}%");
-
-        };
-
-        $centers = $query->paginate(10)->appends(['search' => $search]);
-
-        return $request->ajax()
-            ? view('components.contents.center.tables.centersDesactivatedListTable', with(['centers' => $centers]))->render()
-            : view("components.contents.center.centersDesactivatedList", with(['centers' => $centers]));
-    }
 
     /**
      * Activate Status the specified resource in storage.

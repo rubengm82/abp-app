@@ -17,10 +17,10 @@ class ProjectCommissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, $status = 'Actiu')
     {
         $query = ProjectCommission::with('responsibleProfessional')
-            ->where('status', 'Actiu')
+            ->where('status', $status)
             ->where('center_id', Auth::user()->center->id);
 
         if ($search = $request->get('search')) {
@@ -32,43 +32,20 @@ class ProjectCommissionController extends Controller
         }
 
         $projectCommissions = $query->paginate(10)->appends(['search' => $search]);
+
+        $isDeactivated = ($status == 'Inactiu');
 
         return $request->ajax()
             ? view('components.contents.projectcommission.tables.projectCommissionsListTable', [
-                'projectCommissions' => $projectCommissions
+                'projectCommissions' => $projectCommissions,
+                'isDeactivated' => $isDeactivated
             ])->render()
             : view('components.contents.projectcommission.projectCommissionsList', [
-                'projectCommissions' => $projectCommissions
+                'projectCommissions' => $projectCommissions,
+                'isDeactivated' => $isDeactivated
             ]);
     }
    
-    /**
-     * Display a listing of the resource.
-     */
-    public function indexDesactivated(Request $request)
-    {
-        $query = ProjectCommission::with('responsibleProfessional')
-            ->where('status', 'Inactiu')
-            ->where('center_id', Auth::user()->center->id);
-
-        if ($search = $request->get('search')) {
-            $query
-                ->whereAny(['id', 'name', 'start_date', 'status', 'type'], 'like', "%{$search}%") // Fields from ProjectCommission
-                ->orWhereHas('responsibleProfessional', fn($q) =>
-                    $q->whereAny(['name', 'surname1', 'surname2'], 'like', "%{$search}%")
-                );
-        }
-
-        $projectCommissions = $query->paginate(10)->appends(['search' => $search]);
-
-        return $request->ajax()
-            ? view('components.contents.projectcommission.tables.projectCommissionsDesactivatedListTable', [
-                'projectCommissions' => $projectCommissions
-            ])->render()
-            : view('components.contents.projectcommission.projectCommissionsDesactivatedList', [
-                'projectCommissions' => $projectCommissions
-            ]);
-    }
 
     /**
      * Show the form for creating a new resource.

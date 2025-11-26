@@ -44,7 +44,7 @@ Route::middleware('auth')->get('/home', function () {
 Route::middleware('auth')->get('/center/form', [CenterController::class, "create"])->name("center_form");
 Route::middleware('auth')->post('/center/add', [CenterController::class, "store"])->name("center_add");
 Route::middleware('auth')->get('/centers/list', [CenterController::class, "index"])->name("centers_list");
-Route::middleware('auth')->get('/centers/desactivated/list', [CenterController::class, "index_desactivatedCenters"])->name("centers_desactivated_list");
+Route::middleware('auth')->get('/centers/desactivated/list', [CenterController::class, "index"])->defaults('status', 0)->name("centers_desactivated_list");
 Route::middleware('auth')->patch('/center/activate/{center}', [CenterController::class, 'activateStatus'])->name('center_activate');
 Route::middleware('auth')->patch('/center/desactivate/{center}', [CenterController::class, 'desactivateStatus'])->name('center_desactivate');
 Route::middleware('auth')->post('/center/{center}', [CenterController::class, "update"])->name("center_update");
@@ -117,7 +117,7 @@ Route::middleware('auth')->get('/hr_issue/documents/download/{document}', [HrIss
 Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
 Route::middleware('auth')->post('/projectcommission/add', [ProjectCommissionController::class, "store"])->name("projectcommission_add");
 Route::middleware('auth')->get('/projectcommissions/list', [ProjectCommissionController::class, "index"])->name("projectcommissions_list");
-Route::middleware('auth')->get('/projectcommissions/desactivated/list', [ProjectCommissionController::class, "indexDesactivated"])->name("projectcommissions_desactivated_list");
+Route::middleware('auth')->get('/projectcommissions/desactivated/list', [ProjectCommissionController::class, "index"])->defaults('status', 'Inactiu')->name("projectcommissions_desactivated_list");
 Route::middleware('auth')->patch('/projectcommission/activate/{projectCommission}', [ProjectCommissionController::class, 'activateStatus'])->name('projectcommission_activate');
 Route::middleware('auth')->patch('/projectcommission/desactivate/{projectCommission}', [ProjectCommissionController::class, 'desactivateStatus'])->name('projectcommission_desactivate');
 Route::middleware('auth')->post('/projectcommission/{projectCommission}', [ProjectCommissionController::class, "update"])->name("projectcommission_update");
