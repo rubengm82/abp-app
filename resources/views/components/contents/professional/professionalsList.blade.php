@@ -6,11 +6,11 @@
     :items="[
         'Professionals' => null,
     ]"
-    :current="'Llistat'"
+    :current="$isDeactivated ? 'Llistat Desactivats' : 'Llistat'"
     />
 
-    
-<h1 class="text-3xl font-bold text-base-content mb-6 text-center">Llistat de professionals</h1>
+
+<h1 class="text-3xl font-bold text-base-content mb-6 text-center">{{ $isDeactivated ? 'Llistat de professionals desactivats' : 'Llistat de professionals' }}</h1>
 
 
 @if($professionals->count() > 0)
@@ -18,17 +18,19 @@
     <div>
         <x-partials.search-bar />
     </div>
-    <div class="flex gap-2">
-        <a href="{{ route('professionals.downloadCSV', 1) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
-        <a href="{{ route('professionals.downloadCSV.materialAssignments') }}" class="btn btn-sm btn-warning">Descarregar Uniformitat</a>
-        <a href="{{ route('professional_form') }}" class="btn btn-sm btn-primary">Afegir Professional</a>
+    <div class="flex gap-{{ $isDeactivated ? 4 : 2 }}">
+        <a href="{{ route('professionals.downloadCSV', $isDeactivated ? 0 : 1) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+        @if(!$isDeactivated)
+            <a href="{{ route('professionals.downloadCSV.materialAssignments') }}" class="btn btn-sm btn-warning">Descarregar Uniformitat</a>
+            <a href="{{ route('professional_form') }}" class="btn btn-sm btn-primary">Afegir Professional</a>
+        @endif
     </div>
 </div>
 @endif
 
 <div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
     @if($professionals->count() > 0)
-        <div id="tableToSearch-container" data-url="/professionals/list">
+        <div id="tableToSearch-container" data-url="{{ $isDeactivated ? '/professionals/desactivated/list' : '/professionals/list' }}">
             @include('components.contents.professional.tables.professionalsListTable')
         </div>
     @else
@@ -38,9 +40,14 @@
                     <x-partials.icon name="user-group" class="w-15 h-15 text-primary" />
                 </div>
             </div>
-            <h3 class="text-xl font-semibold text-base-content mb-2">Encara no hi ha professionals registrats</h3>
-            <p class="text-base-content/70 mb-4">Comença afegint el primer professional a la base de dades.</p>
-            <a href="{{ route('professional_form') }}" class="btn btn-primary">Afegir Primer Professional</a>
+            @if($isDeactivated)
+                <h3 class="text-xl font-semibold text-base-content mb-2">No hi ha professionals desactivats</h3>
+                <p class="text-base-content/70 mb-4">Tots els professionals estan actualment actius.</p>
+            @else
+                <h3 class="text-xl font-semibold text-base-content mb-2">Encara no hi ha professionals registrats</h3>
+                <p class="text-base-content/70 mb-4">Comença afegint el primer professional a la base de dades.</p>
+                <a href="{{ route('professional_form') }}" class="btn btn-primary">Afegir Primer Professional</a>
+            @endif
         </div>
     @endif
 </div>

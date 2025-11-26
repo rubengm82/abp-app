@@ -17,23 +17,25 @@ class ProfessionalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, $status = 1)
     {
         $query = Professional::query()
-            ->where('status', 1)
+            ->where('status', $status)
             ->where('center_id', Auth::user()->center->id);
 
         if ($search = $request->get('search')) {
-          
+
             $query
             ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
         }
 
         $professionals = $query->paginate(10)->appends(['search' => $search]);
 
+        $isDeactivated = ($status == 0);
+
         return $request->ajax()
-            ? view('components.contents.professional.tables.professionalsListTable', with(['professionals' => $professionals]))->render()
-            : view("components.contents.professional.professionalsList", with(['professionals' => $professionals]));
+            ? view('components.contents.professional.tables.professionalsListTable', with(['professionals' => $professionals, 'isDeactivated' => $isDeactivated]))->render()
+            : view("components.contents.professional.professionalsList", with(['professionals' => $professionals, 'isDeactivated' => $isDeactivated]));
     }
 
     /**
@@ -195,24 +197,6 @@ class ProfessionalController extends Controller
         return redirect()->route('professionals_list')->with('success', 'Professional desactivat correctament!');
     }
 
-    /**
-     * Display a listing of the desactivated professionals
-     */
-    public function index_desactivatedProfessionals(Request $request)
-    {
-        $query = Professional::query()->where('status', 0);
-
-        if ($search = $request->get('search')) {
-            $query
-            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
-        }
-
-        $professionals = $query->paginate(10)->appends(['search' => $search]);
-
-        return $request->ajax()
-            ? view('components.contents.professional.tables.professionalsDesactivatedListTable', with(['professionals' => $professionals]))->render()
-            : view("components.contents.professional.professionalsDesactivatedList", with(['professionals' => $professionals]));
-    }
 
     /**
      * Download CSV by status

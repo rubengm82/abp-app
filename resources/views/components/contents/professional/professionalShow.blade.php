@@ -109,16 +109,16 @@
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
-                    <label class="font-semibold">ID:</label>
-                    <p class="text-lg">{{ $professional->id }}</p>
-                </div>
-                <div>
                     <label class="font-semibold">Usuari de login:</label>
                     <p class="text-lg">{{ $professional->user ?: 'No especificat' }}</p>
                 </div>
                 <div>
                     <label class="font-semibold">Taquilla:</label>
                     <p class="text-lg">{{ $professional->locker_num ?: 'No especificat' }}</p>
+                </div>
+                <div>
+                    <label class="font-semibold">Clau Codi:</label>
+                    <p class="text-lg">{{ $professional->key_code ?: 'No especificat' }}</p>
                 </div>
             </div>
         </div>

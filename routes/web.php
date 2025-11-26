@@ -66,7 +66,7 @@ Route::middleware('auth')->get('/center/documents/download/{document}', [CenterC
 Route::middleware('auth')->get('/professional/form', [ProfessionalController::class, "create"])->name("professional_form");
 Route::middleware('auth')->post('/professional/add', [ProfessionalController::class, "store"])->name("professional_add");
 Route::middleware('auth')->get('/professionals/list', [ProfessionalController::class, "index"])->name("professionals_list");
-Route::middleware('auth')->get('/professionals/desactivated/list', [ProfessionalController::class, "index_desactivatedProfessionals"])->name("professionals_desactivated_list");
+Route::middleware('auth')->get('/professionals/desactivated/list', [ProfessionalController::class, "index"])->defaults('status', 0)->name("professionals_desactivated_list");
 Route::middleware('auth')->patch('/professional/activate/{professional_id}', [ProfessionalController::class, 'activateStatus'])->name('professional_activate');
 Route::middleware('auth')->patch('/professional/desactivate/{professional_id}', [ProfessionalController::class, 'desactivateStatus'])->name('professional_desactivate');
 Route::middleware('auth')->post('/professional/update/{id}', [ProfessionalController::class, "update"])->name("professional_update");
