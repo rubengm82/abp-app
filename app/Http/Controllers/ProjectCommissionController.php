@@ -149,7 +149,7 @@ class ProjectCommissionController extends Controller
      */
     public function downloadCSV(string $statusParam)
     {
-        $projectCommissions = ProjectCommission::where('status', $statusParam)->with('responsibleProfessional')->get();
+        $projectCommissions = ProjectCommission::where('status', $statusParam)->where('center_id', Auth::user()->center->id)->with('responsibleProfessional')->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = $statusParam == 'Actiu' ? "projectes_comissions_actius_{$timestamp}.csv" : "projectes_comissions_inactius_{$timestamp}.csv";

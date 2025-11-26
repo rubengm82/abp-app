@@ -203,7 +203,7 @@ class ProfessionalController extends Controller
      */
     public function downloadCSV(int $statusParam)
     {
-        $professionals = Professional::with('center')->where('status', $statusParam)->get();
+        $professionals = Professional::with('center')->where('status', $statusParam)->where('center_id', Auth::user()->center->id)->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = $statusParam == 1 ? "professionals_actius_{$timestamp}.csv" : "professionals_no_actius_{$timestamp}.csv";
@@ -238,7 +238,7 @@ class ProfessionalController extends Controller
      */
     public function downloadCSVMaterialAssignments()
     {
-        $professionals = Professional::where('status', 1)->get();
+        $professionals = Professional::where('status', 1)->where('center_id', Auth::user()->center->id)->get();
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = "professionals_taquilles_{$timestamp}.csv";
         $handle = fopen($filename, 'w+');
