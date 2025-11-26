@@ -428,7 +428,7 @@ class ProfessionalSeeder extends Seeder
             [
                 'center_id' => 1,
                 'role' => 'Administració',
-                'name' => 'Administraci',
+                'name' => 'Administració',
                 'surname1' => 'Administració',
                 'surname2' => 'Administració',
                 'dni' => '93486541M',
