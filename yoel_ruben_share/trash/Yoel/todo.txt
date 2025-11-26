@@ -1,9 +1,8 @@
 # Sprint 4 Document Evolution - TODO LIST
 
 Todo: 
-* Añadir a la migración de Cursos y projectcommission el campo del centro, igual que en las demás migraciones como professional
-* Añadir al controlador de Cursos y projectcommission que, de la misma manera que en los demás controles, se añada el id del centro automáticamente con el Auth
-* No hace falta editar el show ya que no hgay que mostrarlo
+* Arreglar SideBar
+** Quitar Centros, sólo para rol gerente
 
 Apuntes:
 * Esconder "Centros"
@@ -29,5 +28,7 @@ To know:
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
 To commit: 
-* 
-*
+* Ahora el sidebar sólo muestra Centro si roll = Gerent
+* Movido Cursos dentro de Profesionales en el sidebar
+* Modificado 'incidencias' a 'temas pendents'
+* Ahora gerent puede ver todo el sidebar

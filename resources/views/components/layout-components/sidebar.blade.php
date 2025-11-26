@@ -4,7 +4,8 @@
     <nav class="flex-1 overflow-auto">
         <ul class="menu bg-base-200 w-full text-xs text-base-content">
 
-            <!-- Submenu Centers -->
+            <!-- Submenu Centers (gerent only) -->
+            @if((Auth::user()->role ?? null) === 'Gerent')
             <li>
                 <details>
                     <summary>
@@ -29,6 +30,7 @@
                     </ul>
                 </details>
             </li>
+            @endif
 
             <!-- Submenu External Contacts -->
             <li>
@@ -56,47 +58,23 @@
                 </details>
             </li>
 
-            <!-- Submenu Courses -->
-            <li>
-                <details>
-                    <summary>
-                        <x-partials.icon name="academic-cap" class="w-6 h-6 text-primary" />
-                        Cursos
-                    </summary>
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{ route('courses_list') }}">
-                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
-                                Llistar
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="text-xs">
-                        <li>
-                            <a href="{{ route('course_form') }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
-                                Afegir
-                            </a>
-                        </li>
-                    </ul>
-                </details>
-            </li>
-
             <!-- Submenu Global Documents -->
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']))
             <li>
                 <a href="{{ route('global_documents_list') }}">
                     <x-partials.icon name="document-text" class="w-6 h-6 text-primary" />
                     Documents Globals
                 </a>
             </li>
+            @endif
 
-            <!-- Submenu HR Issues (Directiu only) -->
-            @if((Auth::user()->role ?? null) === 'Directiu')
+            <!-- Submenu HR Issues (Directiu and Gerent only) -->
+            @if((Auth::user()->role ?? null) === 'Directiu' || (Auth::user()->role ?? null) === 'Gerent')
             <li>
                 <details>
                     <summary>
                         <x-partials.icon name="exclamation-triangle" class="w-6 h-6 text-primary" />
-                        Incidències RRHH
+                        Temes pendents RRHH
                     </summary>
                     <ul class="text-xs">
                         <li>
@@ -119,6 +97,7 @@
             @endif
             
             <!-- Submenu Maintenances -->
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
             <li>
                 <details>
                     <summary>
@@ -143,7 +122,7 @@
                     </ul>
                 </details>
             </li>
-
+            @endif
             <!-- Submenu Professionals -->
             <li>
                 <details>
@@ -169,6 +148,34 @@
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
                                 Afegir
                             </a>
+                        </li>
+                    </ul>
+
+                    <!-- Submenu Cursos -->
+                    <ul class="text-xs">
+                        <li>
+                            <details>
+                                <summary>
+                                    <x-partials.icon name="academic-cap" class="w-6 h-6 text-primary" />
+                                    Cursos
+                                </summary>
+                                <ul class="text-xs">
+                                    <li>
+                                        <a href="{{ route('courses_list') }}">
+                                            <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                            Llistar
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="text-xs">
+                                    <li>
+                                        <a href="{{ route('course_form') }}">
+                                            <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                            Afegir
+                                        </a>
+                                    </li>
+                                </ul>
+                            </details>
                         </li>
                     </ul>
 
@@ -205,7 +212,6 @@
                     </ul>
                 </details>
             </li>
-
             <!-- Submenu Project/Commissions -->
             <li>
                 <details>
@@ -231,17 +237,16 @@
                     </ul>
                 </details>
             </li>
-
             <!-- Submenu Material-Assignments -->
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
             <li>
                 <a href="{{ route('materialassignments_list') }}">
                     <x-partials.icon name="identification" class="w-6 h-6 text-primary" />
                     Registre de Uniformitat
                 </a>
             </li>
-
-            <!-- Submenu Complementary Services (Directiu and Administratiu only) -->
-            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració']))
+            @endif
+            <!-- Submenu Complementary Services -->
             <li>
                 <details>
                     <summary>
@@ -264,10 +269,9 @@
                     </ul>
                 </details>
             </li>
-            @endif
 
             <!-- Submenu General Services (Directiu and Administratiu only) -->
-            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració']))
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
             <li>
                 <details>
                     <summary>

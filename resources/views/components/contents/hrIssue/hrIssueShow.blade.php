@@ -4,18 +4,18 @@
 
 <x-partials.breadcrumb
     :items="[
-        'Incidències RRHH' => route('hr_issues_list'),
+        'Temes pendents RRHH' => route('hr_issues_list'),
     ]"
     :current="'Detalls'"
     />
 <div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold">Incidència RRHH #{{ $hrIssue->id }}</h1>
+        <h1 class="text-3xl font-bold">Tema pendent RRHH #{{ $hrIssue->id }}</h1>
         <div class="flex gap-2">
             <a href="{{ route('hr_issue_edit', $hrIssue) }}" class="btn btn-sm btn-info">Editar</a>
             <x-partials.modal 
                 id="deleteHrIssue{{ $hrIssue->id }}" 
-                msj="Estàs segur que vols eliminar aquesta incidència?"  
+                msj="Estàs segur que vols eliminar aquest tema pendent?"  
                 btnText="Eliminar" 
                 class="btn-sm btn-error"
             >
@@ -34,7 +34,7 @@
         <!-- Issue Information -->
         <div class="card bg-base-100 text-base-content shadow-xl">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació de la incidència</h2>
+                <h2 class="card-title text-xl mb-4">Informació del tema pendent</h2>
                 <div class="space-y-3">
                     <div>
                         <label class="font-semibold">Data d'obertura:</label>

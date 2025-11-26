@@ -76,7 +76,7 @@ class HrIssueController extends Controller
 
         HrIssue::create($validated);
 
-        return redirect()->route('hr_issues_list')->with('success', 'Incidència RRHH creada correctament!');
+        return redirect()->route('hr_issues_list')->with('success', 'Tema pendent RRHH creada correctament!');
     }
 
     /**
@@ -124,7 +124,7 @@ class HrIssueController extends Controller
 
         $hrIssue->update($validated);
 
-        return redirect()->route('hr_issues_list')->with('success', 'Incidència RRHH actualitzada correctament!');
+        return redirect()->route('hr_issues_list')->with('success', 'Tema pendent RRHH actualitzada correctament!');
     }
 
     /**
@@ -136,7 +136,7 @@ class HrIssueController extends Controller
         $hrIssue = HrIssue::findOrFail($id);
         $hrIssue->delete();
 
-        return redirect()->route('hr_issues_list')->with('success', 'Incidència RRHH eliminada correctament!');
+        return redirect()->route('hr_issues_list')->with('success', 'Tema pendent RRHH eliminada correctament!');
     }
 
     //// DOCUMENTS ////
