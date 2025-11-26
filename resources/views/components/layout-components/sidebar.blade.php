@@ -330,13 +330,13 @@
                         </li>
                         <li>
                             <a href="{{ route('maintenances_desactivated_list') }}">
-                                <x-partials.icon name="rectangle-group" class="w-4 h-4 text-gray-400" />
+                                <x-partials.icon name="wrench" class="w-4 h-4 text-gray-400" />
                                 Mateniments
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('complementaryservices_desactivated_list') }}">
-                                <x-partials.icon name="rectangle-group" class="w-4 h-4 text-gray-400" />
+                                <x-partials.icon name="wrench-screwdriver" class="w-4 h-4 text-gray-400" />
                                 Serveis Complementaris
                             </a>
                         </li>
