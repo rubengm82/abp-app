@@ -71,10 +71,6 @@
                         <p>{{ $center->name }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">ID:</label>
-                        <p>{{ $center->id }}</p>
-                    </div>
-                    <div>
                         <label class="font-semibold">Estat:</label>
                         <p>
                             <span class="badge badge-dash {{ $center->status == 1 ? 'badge-success' : 'badge-error' }}">

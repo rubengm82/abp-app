@@ -110,10 +110,6 @@
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
-                    <label class="font-semibold">ID:</label>
-                    <p class="text-lg">{{ $hrIssue->id }}</p>
-                </div>
-                <div>
                     <label class="font-semibold">Data de creació:</label>
                     <p class="text-lg">{{ $hrIssue->created_at->format('d/m/Y H:i') }}</p>
                 </div>

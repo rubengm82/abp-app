@@ -106,10 +106,6 @@
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                    <label class="font-semibold">ID:</label>
-                    <p class="text-sm">{{ $projectCommission->id }}</p>
-                </div>
-                <div>
                     <label class="font-semibold">Data de creació:</label>
                     <p class="text-sm">{{ $projectCommission->created_at ?: 'No especificada' }}</p>
                 </div>

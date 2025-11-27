@@ -30,10 +30,6 @@
                 <h2 class="card-title text-xl mb-4">Informació de l'Assignació</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">ID:</label>
-                        <p>{{ $materialAssignment->id }}</p>
-                    </div>
-                    <div>
                         <label class="font-semibold">Data d'assignació:</label>
                         <p>{{ $materialAssignment->assignment_date->format('d/m/Y') }}</p>
                     </div>

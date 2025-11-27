@@ -86,10 +86,6 @@
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="font-semibold">ID:</label>
-                    <p class="text-sm">{{ $course->id }}</p>
-                </div>
-                <div>
                     <label class="font-semibold">Data d’inici:</label>
                     <p class="text-sm">
                         {{ $course->start_date ? \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') : 'No especificada' }}
