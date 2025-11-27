@@ -452,12 +452,12 @@ class ProfessionalSeeder extends Seeder
             ],
         ];
 
-        // ⭐ Hash de passwords ANTES de insertar
+        // Hash de passwords ANTES de insertar
         foreach ($professionals as &$p) {
             // $p['password'] = Hash::make($p['password']);
+            $p['password'] = Hash::make($p['password'], ['rounds' => 4]);
         }
 
-        // ⭐ Inserción en bloque (ultrarrápido, sin 25x create())
         DB::table('professionals')->insert($professionals);
     }
 }
