@@ -92,7 +92,7 @@ class EvaluationsController extends Controller
     public function create()
     {
         $questions = Quiz::all();
-        $professionals = Professional::where('status', 1)->get();
+        $professionals = Professional::where('status', 1)->where('center_id', Auth::user()->center_id)->get();
 
         // Calcular la media de respuestas por cada pregunta
         $evaluations = Evaluation::all();
