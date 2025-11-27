@@ -13,29 +13,32 @@ class EvaluationsSeeder extends Seeder
      */
     public function run(): void
     {
-
         DB::table('evaluations')->truncate();
 
-        // Test evaluation data
         $evaluations = [];
 
-        $uuid_pre_generated = Str::uuid()->toString();
+        $evaluators = [2, 3, 4];             // Quienes evalúan
+        $evaluatedProfessionals = [1, 2, 3]; // Evaluados
 
-        // Evaluation 1 - Professional 1 evaluating Professional 2
-        for ($question = 1; $question <= 20; $question++) {
-            $evaluations[] = [
-                'evaluator_professional_id' => 2,
-                'evaluated_professional_id' => 4,
-                'question_id' => $question,
-                'answer' => rand(0, 3),
-                'evaluation_uuid' => $uuid_pre_generated,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+        foreach ($evaluatedProfessionals as $index => $evaluatedId) {
+
+            $uuid_pre_generated = Str::uuid()->toString(); 
+            $evaluator = $evaluators[$index];
+
+            for ($question = 1; $question <= 20; $question++) {
+                $evaluations[] = [
+                    'evaluator_professional_id'   => $evaluator,
+                    'evaluated_professional_id'   => $evaluatedId,
+                    'question_id'                 => $question,
+                    'answer'                      => rand(0, 3),
+                    'evaluation_uuid'             => $uuid_pre_generated,
+                    'created_at'                  => now(),
+                    'updated_at'                  => now(),
+                ];
+            }
         }
 
-        foreach ($evaluations as $evaluation) {
-            DB::table('evaluations')->insert($evaluation);
-        }
+        DB::table('evaluations')->insert($evaluations);
     }
+
 }

@@ -76,7 +76,9 @@
                                         {{ $question->question }}
 
                                         <div class="text-xs text-gray-500 mt-1">
-                                            Mitjana: <span class="font-semibold">{{ $questionAverages[$question->id] ?? 0 }}%</span> —
+                                            <span>Mitjana: </span> 
+                                            {{-- <span class="font-semibold">{{ $questionAverages[$question->id] ?? 0 }}%</span>  --}}
+                                            {{-- <span>—</span> --}}
                                             @if (($questionAverages[$question->id] ?? 0) <= 25)
                                                 Gens d'acord
                                             @elseif (($questionAverages[$question->id] ?? 0) <= 50)
