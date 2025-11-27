@@ -3,13 +3,20 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Professional;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ProfessionalSeeder extends Seeder
 {
     public function run(): void
     {        
+
+        // Desactiva FKs → truncate seguro y rápido
+        Schema::disableForeignKeyConstraints();
+        DB::table('professionals')->truncate();
+        Schema::enableForeignKeyConstraints();
+        
         $professionals = [
             [
                 'center_id' => 1,
@@ -445,17 +452,12 @@ class ProfessionalSeeder extends Seeder
             ],
         ];
 
-        // Delete all records without using truncate to respect FKs
-        Professional::query()->delete();
-
-        // Create professionals using Eloquent to apply the mutator
-        foreach ($professionals as $p) {
-            // If the 'user' column does not exist in 'professionals', remove it
-            if (!Schema::hasColumn('professionals', 'user')) {
-                unset($p['user']);
-            }
-
-            Professional::create($p);
+        // ⭐ Hash de passwords ANTES de insertar
+        foreach ($professionals as &$p) {
+            // $p['password'] = Hash::make($p['password']);
         }
+
+        // ⭐ Inserción en bloque (ultrarrápido, sin 25x create())
+        DB::table('professionals')->insert($professionals);
     }
 }
