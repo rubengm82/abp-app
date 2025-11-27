@@ -13,9 +13,9 @@
     <tbody>
         @foreach ($externalContacts as $externalContact)
             <tr class="hover:bg-base-300 transition-colors">
-                <td class="px-4 py-2">{{ $externalContact->external_contact_type ?? '-' }}</td>
-                <td class="px-4 py-2 font-medium">{{ $externalContact->company ?? '-' }}</td>
-                <td class="px-4 py-2">{{ $externalContact->department ?? '-' }}</td>
+                <td class="px-4 py-2">{{ $externalContact->external_contact_type ?? '' }}</td>
+                <td class="px-4 py-2 font-medium">{{ $externalContact->company ?? '' }}</td>
+                <td class="px-4 py-2">{{ $externalContact->department ?? '' }}</td>
                 <td class="px-4 py-2">
                     @if($externalContact->name || $externalContact->surname)
                         {{ trim(($externalContact->name ?? '') . ' ' . ($externalContact->surname ?? '')) }}
@@ -23,8 +23,8 @@
                         <span class="text-base-content/50"></span>
                     @endif
                 </td>
-                <td class="px-4 py-2">{{ $externalContact->phone ?? '-' }}</td>
-                <td class="px-4 py-2">{{ $externalContact->email ?? '-' }}</td>
+                <td class="px-4 py-2">{{ $externalContact->phone ?? '' }}</td>
+                <td class="px-4 py-2">{{ $externalContact->email ?? '' }}</td>
                 <td class="px-4 py-2 text-right">
                     <div class="flex justify-end gap-2">
                         <a href="{{ route('externalcontact_show', $externalContact) }}" class="btn btn-xs btn-info">Veure</a>

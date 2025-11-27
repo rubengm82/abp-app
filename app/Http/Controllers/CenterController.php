@@ -96,7 +96,10 @@ class CenterController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $center = Center::findOrFail($id);
+        $center->delete();
+        
+        return redirect()->route('centers_list')->with('success', 'Centre eliminat correctament!');
     }
 
     /* *********** */

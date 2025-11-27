@@ -59,13 +59,13 @@
                 <div class="space-y-3">
                     <div>
                         <label class="font-semibold">Tipus de Servei:</label>
-                        <p class="text-lg">{{ $complementaryService->service_type ?? 'No especificat' }}</p>
+                        <p class="text-sm">{{ $complementaryService->service_type ?? 'No especificat' }}</p>
                     </div>
                 </div>
                 <div class="space-y-3">
                     <div>
                         <label class="font-semibold">Nom del responsable:</label>
-                        <p class="text-lg">{{ $complementaryService->service_responsible ?? 'No assignat' }}</p>
+                        <p class="text-sm">{{ $complementaryService->service_responsible ?? 'No assignat' }}</p>
                     </div>
                 </div>
             </div>
@@ -78,13 +78,13 @@
                 <div class="space-y-3">
                     <div>
                         <label class="font-semibold" >Data d'inici:</label>
-                        <p class="text-lg">
+                        <p class="text-sm">
                             {{ $complementaryService->start_date ? \Carbon\Carbon::parse($complementaryService->start_date)->format('d/m/Y') : 'No especificada' }}
                         </p>
                     </div>
                     <div>
                         <label class="font-semibold" >Data fi:</label>
-                        <p class="text-lg">
+                        <p class="text-sm">
                             {{ $complementaryService->end_date ? \Carbon\Carbon::parse($complementaryService->end_date)->format('d/m/Y') : 'No especificada' }}
                         </p>
                     </div>

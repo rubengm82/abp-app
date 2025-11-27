@@ -36,20 +36,20 @@
                 <h2 class="card-title text-xl mb-4">Informació bàsica</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold text-gray-600">Tipus:</label>
-                        <p class="text-lg">{{ $externalContact->external_contact_type ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Tipus:</label>
+                        <p class="text-sm">{{ $externalContact->external_contact_type ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Motiu / Servei:</label>
-                        <p class="text-lg">{{ $externalContact->service_reason ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Motiu / Servei:</label>
+                        <p class="text-sm">{{ $externalContact->service_reason ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Empresa:</label>
-                        <p class="text-lg">{{ $externalContact->company ?: 'No especificada' }}</p>
+                        <label class="font-semibold">Empresa:</label>
+                        <p class="text-sm">{{ $externalContact->company ?: 'No especificada' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Departament:</label>
-                        <p class="text-lg">{{ $externalContact->department ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Departament:</label>
+                        <p class="text-sm">{{ $externalContact->department ?: 'No especificat' }}</p>
                     </div>
                 </div>
             </div>
@@ -61,8 +61,8 @@
                 <h2 class="card-title text-xl mb-4">Informació del responsable</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold text-gray-600">Responsable:</label>
-                        <p class="text-lg">
+                        <label class="font-semibold">Responsable:</label>
+                        <p class="text-sm">
                             @if($externalContact->name || $externalContact->surname)
                                 {{ trim(($externalContact->name ?? '') . ' ' . ($externalContact->surname ?? '')) }}
                             @else
@@ -71,12 +71,12 @@
                         </p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Telèfon:</label>
-                        <p class="text-lg">{{ $externalContact->phone ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Telèfon:</label>
+                        <p class="text-sm">{{ $externalContact->phone ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Correu:</label>
-                        <p class="text-lg">
+                        <label class="font-semibold">Correu:</label>
+                        <p class="text-sm">
                             @if($externalContact->email)
                                 <a href="mailto:{{ $externalContact->email }}" class="text-primary font-semibold hover:text-orange-600 transition-all duration-200">
                                     {{ $externalContact->email }}
@@ -87,8 +87,8 @@
                         </p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Enllaç:</label>
-                        <p class="text-lg">
+                        <label class="font-semibold">Enllaç:</label>
+                        <p class="text-sm">
                             @if($externalContact->link)
                                 <a href="{{ $externalContact->link }}" target="_blank" class="text-primary font-semibold hover:text-orange-600 transition-all duration-200">
                                     {{ $externalContact->link }}
@@ -109,7 +109,7 @@
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Observacions</h2>
             <div>
-                <p class="text-lg break-all whitespace-pre-wrap">{{ $externalContact->observations }}</p>
+                <p class="text-sm break-all whitespace-pre-wrap">{{ $externalContact->observations }}</p>
             </div>
         </div>
     </div>
@@ -121,16 +121,12 @@
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                    <label class="font-semibold text-gray-600">ID:</label>
-                    <p class="text-lg">{{ $externalContact->id }}</p>
+                    <label class="font-semibold">Data de creació:</label>
+                    <p class="text-sm">{{ $externalContact->created_at ?: 'No especificada' }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold text-gray-600">Data de creació:</label>
-                    <p class="text-lg">{{ $externalContact->created_at ?: 'No especificada' }}</p>
-                </div>
-                <div>
-                    <label class="font-semibold text-gray-600">Última actualització:</label>
-                    <p class="text-lg">{{ $externalContact->updated_at ?: 'No especificada' }}</p>
+                    <label class="font-semibold">Última actualització:</label>
+                    <p class="text-sm">{{ $externalContact->updated_at ?: 'No especificada' }}</p>
                 </div>
             </div>
         </div>

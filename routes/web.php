@@ -51,6 +51,7 @@ Route::middleware('auth')->post('/center/{center}', [CenterController::class, "u
 Route::middleware('auth')->get('/center/edit/{center}', [CenterController::class, 'edit'])->name('center_edit');
 Route::middleware('auth')->get('/center/show/{id}', [CenterController::class, "show"])->name("center_show");
 Route::middleware('auth')->get('/centers/downloadCSV/{status}', [CenterController::class, 'downloadCSV'])->name('centers.downloadCSV');
+Route::middleware('auth')->delete('/centers/delete/{center}', [CenterController::class, 'destroy'])->name('center_delete');
 
 /* Center Notes */
 Route::middleware('auth')->post('/center/notes/{center}', [CenterController::class, 'center_note_add'])->name('center_note_add');

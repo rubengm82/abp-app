@@ -36,44 +36,44 @@
                 <h2 class="card-title text-xl mb-4">Informació bàsica</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="font-semibold text-gray-600">Codi FORCEM:</label>
-                        <p class="text-lg">{{ $course->forcem_code ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Codi FORCEM:</label>
+                        <p class="text-sm">{{ $course->forcem_code ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Centre de Formació:</label>
-                        <p class="text-lg">{{ $course->training_center ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Centre de Formació:</label>
+                        <p class="text-sm">{{ $course->training_center ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Nom del curs:</label>
-                        <p class="text-lg">{{ $course->training_name ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Nom del curs:</label>
+                        <p class="text-sm">{{ $course->training_name ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Tipus de curs:</label>
-                        <p class="text-lg">{{ $course->type ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Tipus de curs:</label>
+                        <p class="text-sm">{{ $course->type ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Modalitat:</label>
-                        <p class="text-lg">{{ $course->attendance_type ?: 'No especificada' }}</p>
+                        <label class="font-semibold">Modalitat:</label>
+                        <p class="text-sm">{{ $course->attendance_type ?: 'No especificada' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Hores totals:</label>
-                        <p class="text-lg">{{ $course->total_hours ?: 'No especificades' }}</p>
+                        <label class="font-semibold">Hores totals:</label>
+                        <p class="text-sm">{{ $course->total_hours ?: 'No especificades' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Taller:</label>
-                        <p class="text-lg">{{ $course->workshop ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Taller:</label>
+                        <p class="text-sm">{{ $course->workshop ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Dia de conferència:</label>
-                        <p class="text-lg">{{ $course->conference_day ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Dia de conferència:</label>
+                        <p class="text-sm">{{ $course->conference_day ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Congrés:</label>
-                        <p class="text-lg">{{ $course->congress ?: 'No especificat' }}</p>
+                        <label class="font-semibold">Congrés:</label>
+                        <p class="text-sm">{{ $course->congress ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Assistents:</label>
-                        <p class="text-lg">{{ $course->attendee ?: 'No especificats' }}</p>
+                        <label class="font-semibold">Assistents:</label>
+                        <p class="text-sm">{{ $course->attendee ?: 'No especificats' }}</p>
                     </div>
                 </div>
             </div>
@@ -86,18 +86,18 @@
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="font-semibold text-gray-600">ID:</label>
-                    <p class="text-lg">{{ $course->id }}</p>
+                    <label class="font-semibold">ID:</label>
+                    <p class="text-sm">{{ $course->id }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold text-gray-600">Data d’inici:</label>
-                    <p class="text-lg">
+                    <label class="font-semibold">Data d’inici:</label>
+                    <p class="text-sm">
                         {{ $course->start_date ? \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') : 'No especificada' }}
                     </p>
                 </div>
                 <div>
-                    <label class="font-semibold text-gray-600">Data de finalització:</label>
-                    <p class="text-lg">
+                    <label class="font-semibold">Data de finalització:</label>
+                    <p class="text-sm">
                         {{ $course->end_date ? \Carbon\Carbon::parse($course->end_date)->format('d/m/Y') : 'No especificada' }}
                     </p>
                 </div>
@@ -179,7 +179,7 @@
             @else
                 <div class="text-center py-8 text-base-content/50">
                     <i class="fas fa-users text-4xl mb-4"></i>
-                    <p class="text-lg">No hi ha professionals assignats al curs</p>
+                    <p class="text-sm">No hi ha professionals assignats al curs</p>
                 </div>
             @endif
         </div>

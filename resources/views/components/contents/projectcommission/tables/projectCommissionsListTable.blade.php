@@ -2,7 +2,6 @@
     <thead>
         <tr class="bg-base-300 text-base-content font-semibold">
             <th class="px-4 py-2 text-left">Nom/Títol</th>
-            <th class="px-4 py-2 text-left">Estat</th>
             <th class="px-4 py-2 text-left">Professional responsable</th>
             <th class="px-4 py-2 text-left">Tipus</th>
             <th class="px-4 py-2 text-left">Data d'inici</th>
@@ -13,11 +12,6 @@
         @foreach ($projectCommissions as $projectCommission)
             <tr class="hover:bg-{{ $isDeactivated ? 'base-200' : 'base-300' }} transition-colors">
                 <td class="px-4 py-2 font-medium">{{ $projectCommission->name }}</td>
-                <td class="px-4 py-2">
-                    <span class="badge badge-dash {{ $projectCommission->status === 'Actiu' ? 'badge-success' : ($projectCommission->status === 'Inactiu' ? 'badge-error' : 'badge-warning') }}">
-                        {{ $projectCommission->status }}
-                    </span>
-                </td>
                 <td class="px-4 py-2">
                     @if($projectCommission->responsibleProfessional)
                         <a href="{{ route('professional_show', $projectCommission->responsibleProfessional->id) }}"

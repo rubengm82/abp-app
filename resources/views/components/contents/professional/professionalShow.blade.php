@@ -50,19 +50,19 @@
                 <div class="space-y-3">
                     <div>
                         <label class="font-semibold">Nom complet:</label>
-                        <p class="text-lg">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</p>
+                        <p class="text-sm">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</p>
                     </div>
                     <div>
                         <label class="font-semibold">DNI:</label>
-                        <p class="text-lg">{{ $professional->dni }}</p>
+                        <p class="text-sm">{{ $professional->dni }}</p>
                     </div>
                     <div>
                         <label class="font-semibold">Rol:</label>
-                        <p class="text-lg">{{ $professional->role ?: 'No especificat' }}</p>
+                        <p class="text-sm">{{ $professional->role ?: 'No especificat' }}</p>
                     </div>
                     <div>
                         <label class="font-semibold">Estat laboral:</label>
-                        <p class="text-lg">
+                        <p class="text-sm">
                             <span class="badge badge-dash {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
                                 {{ $professional->employment_status ?: 'No especificat' }}
                             </span>
@@ -79,15 +79,15 @@
                 <div class="space-y-3">
                     <div>
                         <label class="font-semibold">Telèfon:</label>
-                        <p class="text-lg">{{ $professional->phone ?: 'No especificat' }}</p>
+                        <p class="text-sm">{{ $professional->phone ?: 'No especificat' }}</p>
                     </div>
                     <div>
                         <label class="font-semibold">Email:</label>
-                        <p class="text-lg">{{ $professional->email ?: 'No especificat' }}</p>
+                        <p class="text-sm">{{ $professional->email ?: 'No especificat' }}</p>
                     </div>
                     <div>
                         <label class="font-semibold">Adreça:</label>
-                        <p class="text-lg">{{ $professional->address ?: 'No especificada' }}</p>
+                        <p class="text-sm">{{ $professional->address ?: 'No especificada' }}</p>
                     </div>
                     
                 </div>
@@ -99,7 +99,7 @@
     <div class="card bg-base-100 text-base-content shadow-xl mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4">Currículum Vitae</h2>
-            <p class="text-lg break-all whitespace-pre-wrap">{{ $professional->cvitae ?: 'No hi ha currículum disponible' }}</p>
+            <p class="text-sm break-all whitespace-pre-wrap">{{ $professional->cvitae ?: 'No hi ha currículum disponible' }}</p>
         </div>
     </div>
 
@@ -110,15 +110,15 @@
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
                     <label class="font-semibold">Usuari de login:</label>
-                    <p class="text-lg">{{ $professional->user ?: 'No especificat' }}</p>
+                    <p class="text-sm">{{ $professional->user ?: 'No especificat' }}</p>
                 </div>
                 <div>
                     <label class="font-semibold">Taquilla:</label>
-                    <p class="text-lg">{{ $professional->locker_num ?: 'No especificat' }}</p>
+                    <p class="text-sm">{{ $professional->locker_num ?: 'No especificat' }}</p>
                 </div>
                 <div>
                     <label class="font-semibold">Clau Codi:</label>
-                    <p class="text-lg">{{ $professional->key_code ?: 'No especificat' }}</p>
+                    <p class="text-sm">{{ $professional->key_code ?: 'No especificat' }}</p>
                 </div>
             </div>
         </div>
@@ -135,7 +135,7 @@
                     @if($shirtSize)
                         <p class="text-2xl font-bold text-blue-600">{{ $shirtSize }}</p>
                     @else
-                        <p class="text-lg text-gray-400">No assignat</p>
+                        <p class="text-sm text-gray-400">No assignat</p>
                     @endif
                 </div>
                 <div class="text-center">
@@ -143,7 +143,7 @@
                     @if($pantsSize)
                         <p class="text-2xl font-bold text-green-600">{{ $pantsSize }}</p>
                     @else
-                        <p class="text-lg text-gray-400">No assignat</p>
+                        <p class="text-sm text-gray-400">No assignat</p>
                     @endif
                 </div>
                 <div class="text-center">
@@ -151,7 +151,7 @@
                     @if($shoeSize)
                         <p class="text-2xl font-bold text-purple-600">{{ $shoeSize }}</p>
                     @else
-                        <p class="text-lg text-gray-400">No assignat</p>
+                        <p class="text-sm text-gray-400">No assignat</p>
                     @endif
                 </div>
             </div>
@@ -179,7 +179,7 @@
             @else
                 <div class="text-center py-8 text-base-content/50">
                     <i class="fas fa-folder text-4xl mb-4"></i>
-                    <p class="text-lg">No hi ha projectes asignats</p>
+                    <p class="text-sm">No hi ha projectes asignats</p>
                 </div>
             @endif
         </div>

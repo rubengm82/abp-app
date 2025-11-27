@@ -16,20 +16,38 @@
                 <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
             @if($center->status == 1)
-                <x-partials.modal 
-                    id="desactivateCenter{{ $center->id }}" 
-                    msj="Estàs segur que vols desactivar aquest centre?" 
-                    btnText="Desactivar" 
-                    class="btn-sm btn-error"
-                >
-                    <form action="{{ route('center_desactivate', $center) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-sm btn-error">
-                            Acceptar
-                        </button>
-                    </form>
-                </x-partials.modal>
+                <div class="relative">
+                    <x-partials.modal 
+                        id="desactivateCenter{{ $center->id }}" 
+                        msj="Estàs segur que vols desactivar aquest centre?" 
+                        btnText="Desactivar" 
+                        class="btn-sm btn-warning"
+                    >
+                        <form action="{{ route('center_desactivate', $center) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-sm btn-warning">
+                                Acceptar
+                            </button>
+                        </form>
+                    </x-partials.modal>
+                </div>
+                <div class="relative">
+                    <x-partials.modal 
+                        id="deleteCenter{{ $center->id }}" 
+                        msj="Estàs segur que vols eliminar aquest centre?" 
+                        btnText="Eliminar" 
+                        class="btn-sm btn-error"
+                    >
+                        <form action="{{ route('center_delete', $center->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-error">
+                                Acceptar
+                            </button>
+                        </form>
+                    </x-partials.modal>
+                </div>
             @else
                 <form action="{{ route('center_activate', $center) }}" method="POST" style="display:inline;">
                     @csrf

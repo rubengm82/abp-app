@@ -48,24 +48,24 @@
                 <h2 class="card-title text-xl mb-4">Informació bàsica</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold text-gray-600">Nom:</label>
-                        <p class="text-lg">{{ $projectCommission->name }}</p>
+                        <label class="font-semibold">Nom:</label>
+                        <p class="text-sm">{{ $projectCommission->name }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Tipus:</label>
-                        <p class="text-lg">{{ $projectCommission->type }}</p>
+                        <label class="font-semibold">Tipus:</label>
+                        <p class="text-sm">{{ $projectCommission->type }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Data d'inici:</label>
-                        <p class="text-lg">{{ $projectCommission->start_date ?: 'No especificada' }}</p>
+                        <label class="font-semibold">Data d'inici:</label>
+                        <p class="text-sm">{{ $projectCommission->start_date ?: 'No especificada' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Data estimada de finalització:</label>
-                        <p class="text-lg">{{ $projectCommission->estimated_end_date ?: 'No especificada' }}</p>
+                        <label class="font-semibold">Data estimada de finalització:</label>
+                        <p class="text-sm">{{ $projectCommission->estimated_end_date ?: 'No especificada' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold text-gray-600">Professional responsable:</label>
-                        <p class="text-lg">
+                        <label class="font-semibold">Professional responsable:</label>
+                        <p class="text-sm">
                             @if($projectCommission->responsibleProfessional)
                                 <a href="{{ route('professional_show', $projectCommission->responsibleProfessional->id) }}" 
                                    class="text-primary font-semibold hover:text-orange-600 transition-all duration-200">
@@ -94,7 +94,7 @@
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Descripció</h2>
                 <div>
-                    <p class="text-lg break-all whitespace-pre-wrap">{{ $projectCommission->description ?: 'No hi ha descripció disponible' }}</p>
+                    <p class="text-sm break-all whitespace-pre-wrap">{{ $projectCommission->description ?: 'No hi ha descripció disponible' }}</p>
                 </div>
             </div>
         </div>
@@ -106,16 +106,16 @@
             <h2 class="card-title text-xl mb-4">Informació addicional</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                    <label class="font-semibold text-gray-600">ID:</label>
-                    <p class="text-lg">{{ $projectCommission->id }}</p>
+                    <label class="font-semibold">ID:</label>
+                    <p class="text-sm">{{ $projectCommission->id }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold text-gray-600">Data de creació:</label>
-                    <p class="text-lg">{{ $projectCommission->created_at ?: 'No especificada' }}</p>
+                    <label class="font-semibold">Data de creació:</label>
+                    <p class="text-sm">{{ $projectCommission->created_at ?: 'No especificada' }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold text-gray-600">Última actualització:</label>
-                    <p class="text-lg">{{ $projectCommission->updated_at ?: 'No especificada' }}</p>
+                    <label class="font-semibold">Última actualització:</label>
+                    <p class="text-sm">{{ $projectCommission->updated_at ?: 'No especificada' }}</p>
                 </div>
             </div>
         </div>
@@ -172,7 +172,7 @@
             @else
                 <div class="text-center py-8 text-base-content/50">
                     <i class="fas fa-users text-4xl mb-4"></i>
-                    <p class="text-lg">No hi ha professionals assignats al projecte</p>
+                    <p class="text-sm">No hi ha professionals assignats al projecte</p>
                 </div>
             @endif
         </div>

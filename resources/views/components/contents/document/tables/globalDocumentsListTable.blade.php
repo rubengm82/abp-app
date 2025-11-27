@@ -23,7 +23,7 @@
                         
                     @endif
                 </td>
-                <td class="px-4 py-2">{{ $document->created_at ? \Carbon\Carbon::parse($document->created_at)->format('d/m/Y') : '-' }}</td>
+                <td class="px-4 py-2">{{ $document->created_at ? \Carbon\Carbon::parse($document->created_at)->format('d/m/Y') : '' }}</td>
             </tr>
         @endforeach
     </tbody>
