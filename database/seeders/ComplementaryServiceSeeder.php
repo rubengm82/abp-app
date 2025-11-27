@@ -140,9 +140,6 @@ class ComplementaryServiceSeeder extends Seeder
             ],
         ];
 
-        // Insert services
-        foreach ($services as $service) {
-            ComplementaryService::create($service);
-        }
+        DB::table('complementary_services')->insert($services);
     }
 }

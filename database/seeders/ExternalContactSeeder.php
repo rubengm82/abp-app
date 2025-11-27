@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\ExternalContact;
+use Illuminate\Support\Facades\DB;
 use App\Models\Center;
 
 class ExternalContactSeeder extends Seeder
@@ -173,13 +173,11 @@ class ExternalContactSeeder extends Seeder
             ],
         ];
 
-        // Delete all existing records
-        ExternalContact::query()->delete();
+        // Truncate table para reiniciar IDs y limpiar
+        DB::table('external_contacts')->truncate();
 
-        // Create external contacts
-        foreach ($externalContacts as $contact) {
-            ExternalContact::create($contact);
-        }
+        // Insert masivo en una sola consulta
+        DB::table('external_contacts')->insert($externalContacts);
     }
 }
 
