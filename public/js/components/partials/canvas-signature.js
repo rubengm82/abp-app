@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let context = canvas.getContext('2d');
     
     // Border and background
-    context.strokeStyle = "black";
+    context.strokeStyle = "#555";
     context.lineWidth = 2;
     context.strokeRect(1, 1, 199, 199);
 
-    context.fillStyle = "white";
+    context.fillStyle = "#EEE";
     context.fillRect(2, 2, 196, 196);
 
     // Vars
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Functions
     function mouse_down(e){
         drawing = true;
+        context.strokeStyle = "#005BAC";
         lastX = e.offsetX;
         lastY = e.offsetY;
     }

@@ -125,7 +125,7 @@
                     <canvas 
                         id="signature_professional_canvas"
                         width="200" height="200"
-                        class="border-5 border-[blue-[#1d4ed8]]"
+                        class="border-5 border-[#999]"
                     >
                     </canvas>
                 </div>
