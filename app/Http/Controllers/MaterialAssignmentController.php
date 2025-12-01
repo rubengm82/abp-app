@@ -284,4 +284,12 @@ class MaterialAssignmentController extends Controller
                          ->with('success', 'Nota eliminada correctament!');
     }
 
+
+    /**
+     * Clear signature with null value when press button clear signature
+     */
+    public function clearSignature(String $id){
+        MaterialAssignment::where('id', $id)->update(['signature' => null]);
+        return back()->with('success', 'Signatura esborrada correctament!');
+    }
 }

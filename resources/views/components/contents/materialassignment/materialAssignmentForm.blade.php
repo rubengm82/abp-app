@@ -116,32 +116,13 @@
             </div>
         </div>
 
-        <!-- Firm Professional -->
-        <div class="card bg-base-100 shadow-xl">
-            <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Signatura Professional</h2>
-                <p class="text-center">Heu de signar per poder crear l'assignació (*)</p>
-                <div class="flex justify-center w-full">
-                    <canvas 
-                        id="signature_professional_canvas"
-                        width="200" height="200"
-                        class="border-5 border-[#999]"
-                    >
-                    </canvas>
-                </div>
-
-            </div>
-        </div>
-
         <!-- Botones de acción -->
         <div class="flex justify-end gap-4">
             <a href="{{ route('materialassignment_form') }}" class="btn btn-outline">Netejar</a>
-            <button type="submit" id="button_submit_material_assignment" class="btn btn-info" disabled>Crear Assignació</button>
+            <button type="submit" id="button_submit_material_assignment" class="btn btn-info">Crear Assignació</button>
         </div>
     </form>
 </div>
-
-<script src="{{ asset('js/components/partials/canvas-signature.js') }}"></script>
 
 @include('components.partials.mainToasts')
 @endsection

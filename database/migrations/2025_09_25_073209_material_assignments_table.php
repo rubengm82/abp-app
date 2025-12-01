@@ -30,6 +30,7 @@ return new class extends Migration
             
             // Additional information
             $table->text('observations')->nullable()->comment('Observations');
+            $table->text('signature')->nullable()->comment('Signature Professional');
             
             $table->timestamps();
         });

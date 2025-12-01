@@ -117,6 +117,27 @@
             </div>
         </div>
 
+        <!-- Signature Professional -->
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+                <div class="flex justify-start">
+                    <h2 class="card-title text-xl mb-4">Signatura Professional</h2>
+                </div>
+                <div class="flex justify-center gap-3">
+                    <button type="button" id="btn_clear_signature" class="btn btn-sm btn-outline w-auto" data-id="{{ $materialAssignment->id }}">Netejar Firma</button>
+                    <button type="button" id="btn_clear_signature" class="btn btn-sm btn-info w-auto">Desar Firma</button>
+                </div>
+                <div class="flex justify-center w-full">
+                    <canvas 
+                        id="signature_professional_canvas"
+                        width="200" height="200"
+                        class="border-5 border-[#999]"
+                    >
+                    </canvas>
+                </div>
+            </div>
+        </div>
+
         <!-- Botón de acción -->
         <div class="flex justify-end gap-4">
             <a href="{{ route('materialassignments_list') }}" class="btn btn-outline">Cancel·lar</a>
@@ -124,6 +145,8 @@
         </div>
     </form>
 </div>
+
+<script src="{{ asset('js/components/partials/canvas-signature.js') }}"></script>
 
 @include('components.partials.mainToasts')
 @endsection

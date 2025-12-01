@@ -143,6 +143,28 @@
         createdByField="createdByProfessional"
     />
 
+    <div>
+        @if ($materialAssignment->signature)
+            <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+                <div class="card-body">
+                    <h2 class="card-title text-xl mb-4">Signatura del professional</h2>
+                    <div class="flex justify-center w-full">
+                        <img src="https://placehold.co/200x200" alt="signatura_material" >
+                    </div>
+                </div>
+            </div>
+        @else
+            <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+                <div class="card-body">
+                    <h2 class="card-title text-xl mb-4">Signatura del professional</h2>
+                    <div class="space-y-4">
+                        <p>No s’ha assignat cap signatura a l’assignació del material</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
 
 @include('components.partials.mainToasts')
 @endsection

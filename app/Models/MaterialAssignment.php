@@ -17,6 +17,7 @@ class MaterialAssignment extends Model
         'shoe_size',
         'assignment_date',
         'assigned_by_professional_id',
+        'signature',
         'observations',
     ];
 
