@@ -13,14 +13,22 @@ class GlobalDocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = DocumentComponent::with(['uploadedByProfessional'])->where('center_id', Auth::user()->center_id);
+        $query = DocumentComponent::with(['uploadedByProfessional'])
+            ->whereHas('uploadedByProfessional', function ($q) {
+                $q->where('center_id', Auth::user()->center_id);
+            });
 
         // Search functionality
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('original_name', 'like', "%{$search}%")
                   ->orWhere('file_name', 'like', "%{$search}%")
-                  ->orWhere('document_type', 'like', "%{$search}%");
+                  ->orWhere('document_type', 'like', "%{$search}%")
+                  ->orWhereHas('uploadedByProfessional', function ($professionalQuery) use ($search) {
+                      $professionalQuery->where('name', 'like', "%{$search}%")
+                                        ->orWhere('surname1', 'like', "%{$search}%")
+                                        ->orWhere('surname2', 'like', "%{$search}%");
+                  });
             });
         }
 
