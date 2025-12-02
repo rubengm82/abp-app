@@ -30,6 +30,7 @@
         @csrf
         @method('PUT')
         
+        @if ($signatura == 0)
         <!-- Informació de l'Assignació -->
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
@@ -116,7 +117,9 @@
                 </div>
             </div>
         </div>
+        @endif            
 
+        @if ($signatura == 1)
         <!-- Signature Professional -->
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
@@ -137,11 +140,19 @@
                 </div>
             </div>
         </div>
+        @endif
 
         <!-- Botón de acción -->
-        <div class="flex justify-end gap-4">
-            <a href="{{ route('materialassignments_list') }}" class="btn btn-outline">Cancel·lar</a>
-            <button type="submit" class="btn btn-info">Actualitzar Assignació</button>
+        <div class="flex justify-end gap-4 mt-3">
+            @if ($signatura == 1)
+                <a href="{{ route('materialassignments_list') }}" class="btn btn-outline">Enrere</a>
+            @endif
+            @if ($signatura == 0)
+                <a href="{{ route('materialassignments_list') }}" class="btn btn-outline">Cancel·lar</a>
+            @endif
+            @if ($signatura == 0)
+                <button type="submit" class="btn btn-info">Actualitzar Assignació</button>
+            @endif
         </div>
     </form>
 </div>

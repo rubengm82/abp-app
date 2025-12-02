@@ -123,6 +123,34 @@
         </div>
     </div>
 
+    <div>
+        @if ($materialAssignment->signature)
+            <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+                <div class="card-body">
+                    <div class="flex justify-between items-center">
+                        <h2 class="card-title text-xl">Signatura del professional del material assignat</h2>
+                        <a href="{{ route('materialassignment_edit', ['materialAssignment' => $materialAssignment, 'signatura' => 1]) }}" class="btn btn-sm btn-warning">Editar Signatura</a>
+                    </div>
+                    <div class="flex justify-center w-full">
+                        <img src="{{ asset($materialAssignment->signature) }}" alt="signatura_material" >
+                    </div>
+                </div>
+            </div>
+        @else
+            <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+                <div class="card-body">
+                    <div class="flex justify-between items-center">
+                        <h2 class="card-title text-xl">Signatura del professional del material assignat</h2>
+                        <a href="{{ route('materialassignment_edit', ['materialAssignment' => $materialAssignment, 'signatura' => 1]) }}" class="btn btn-sm btn-warning">Afegir Signatura</a>
+                    </div>
+                    <div class="space-y-4">
+                        <p>Aquesta assignació del material no té cap signatura</p>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
    <!-- Documents -->
     <x-partials.documents-section
         :items="$materialAssignment->documents"
@@ -142,28 +170,6 @@
         :editRoute="'materialassignment_note_update'"
         createdByField="createdByProfessional"
     />
-
-    <div>
-        @if ($materialAssignment->signature)
-            <div class="card bg-base-100 text-base-content shadow-xl mt-6">
-                <div class="card-body">
-                    <h2 class="card-title text-xl mb-4">Signatura del professional</h2>
-                    <div class="flex justify-center w-full">
-                        <img src="https://placehold.co/200x200" alt="signatura_material" >
-                    </div>
-                </div>
-            </div>
-        @else
-            <div class="card bg-base-100 text-base-content shadow-xl mt-6">
-                <div class="card-body">
-                    <h2 class="card-title text-xl mb-4">Signatura del professional</h2>
-                    <div class="space-y-4">
-                        <p>No s’ha assignat cap signatura a l’assignació del material</p>
-                    </div>
-                </div>
-            </div>
-        @endif
-    </div>
 
 
 @include('components.partials.mainToasts')

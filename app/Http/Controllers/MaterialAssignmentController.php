@@ -99,12 +99,14 @@ class MaterialAssignmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(MaterialAssignment $materialAssignment)
+    public function edit(MaterialAssignment $materialAssignment, Request $request)
     {
         $professionals = Professional::where('status', 1)->get();
+        $signatura = $request->query('signatura', 0); // 1 si viene, 0 por defecto. Si pone 1 oculta el resto del edit y solo es para firmar
         return view('components.contents.materialassignment.materialAssignmentEdit')
             ->with('materialAssignment', $materialAssignment)
-            ->with('professionals', $professionals);
+            ->with('professionals', $professionals)
+            ->with('signatura', $signatura);
     }
 
     /**
@@ -288,12 +290,13 @@ class MaterialAssignmentController extends Controller
     /**
      * Clear signature with null value when press button clear signature
      */
-    public function clearSignature(String $id){
+    public function clearSignature(String $id)
+    {
         $materialAssignment = MaterialAssignment::findOrFail($id);
 
         // Borrar el archivo físico si existe
-        if ($materialAssignment->signature && Storage::disk('public')->exists($materialAssignment->signature)) {
-            Storage::disk('public')->delete($materialAssignment->signature);
+        if ($materialAssignment->signature && file_exists(public_path($materialAssignment->signature))) {
+            unlink(public_path($materialAssignment->signature));
         }
 
         // Actualizar la base de datos
@@ -313,27 +316,33 @@ class MaterialAssignmentController extends Controller
         $message = '';
         $filePath = null;
 
-        // Tomar la firma
         $signatureData = $request->input('signature');
 
         if (!$signatureData) {
             $message = 'Firma no enviada';
         } else {
-            // Limpiar cabecera base64
             $signatureData = preg_replace('/^data:image\/png;base64,/', '', $signatureData);
-
-            // Decodificar base64
             $signatureBinary = base64_decode(str_replace(' ', '+', $signatureData));
 
-            // Validar que sea PNG
             $imgInfo = getimagesizefromstring($signatureBinary);
             if (!$imgInfo || $imgInfo['mime'] !== 'image/png') {
                 $message = 'Formato de firma no válido';
             } else {
-                // Guardar archivo
+                // Borrar firma anterior si existe
+                if ($materialAssignment->signature && file_exists(public_path($materialAssignment->signature))) {
+                    unlink(public_path($materialAssignment->signature));
+                }
+
+                // Crear carpeta si no existe
+                $dir = public_path('documents/material-assignments/signatures');
+                if (!is_dir($dir)) {
+                    mkdir($dir, 0755, true);
+                }
+
+                // Guardar archivo directamente en public/
                 $fileName = "signature_{$materialAssignment->id}.png";
                 $filePath = "documents/material-assignments/signatures/{$fileName}";
-                Storage::disk('public')->put($filePath, $signatureBinary);
+                file_put_contents(public_path($filePath), $signatureBinary);
 
                 // Guardar ruta en DB
                 $materialAssignment->signature = $filePath;

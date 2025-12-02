@@ -8,6 +8,7 @@
             <th class="px-4 py-2 text-left">Data Assignació</th>
             <th class="px-4 py-2 text-left">Assignat per</th>
             <th class="px-4 py-2 text-left">Observacions</th>
+            <th class="px-4 py-2 text-left">Signatura</th>
             <th class="px-4 py-2 text-right">Accions</th>
         </tr>
     </thead>
@@ -56,6 +57,13 @@
                         </span>
                     @else
                         <span class="text-base-content/50"></span>
+                    @endif
+                </td>
+                <td>
+                    @if($assignment->signature)
+                        <span class="badge badge-dash badge-info">Signat</span>
+                    @else
+                        <span class="badge badge-dash badge-warning">No signat</span>
                     @endif
                 </td>
                 <td class="px-4 py-2 text-right">
