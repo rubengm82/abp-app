@@ -289,10 +289,66 @@ class MaterialAssignmentController extends Controller
      * Clear signature with null value when press button clear signature
      */
     public function clearSignature(String $id){
-        MaterialAssignment::where('id', $id)->update(['signature' => null]);
+        $materialAssignment = MaterialAssignment::findOrFail($id);
+
+        // Borrar el archivo físico si existe
+        if ($materialAssignment->signature && Storage::disk('public')->exists($materialAssignment->signature)) {
+            Storage::disk('public')->delete($materialAssignment->signature);
+        }
+
+        // Actualizar la base de datos
+        $materialAssignment->update(['signature' => null]);
+
         return response()->json([
             'success' => true,
             'message' => '¡Firma borrada correctamente!'
         ]);
     }
+
+    public function saveSignature(String $id, Request $request)
+    {
+        $materialAssignment = MaterialAssignment::findOrFail($id);
+
+        $success = false;
+        $message = '';
+        $filePath = null;
+
+        // Tomar la firma
+        $signatureData = $request->input('signature');
+
+        if (!$signatureData) {
+            $message = 'Firma no enviada';
+        } else {
+            // Limpiar cabecera base64
+            $signatureData = preg_replace('/^data:image\/png;base64,/', '', $signatureData);
+
+            // Decodificar base64
+            $signatureBinary = base64_decode(str_replace(' ', '+', $signatureData));
+
+            // Validar que sea PNG
+            $imgInfo = getimagesizefromstring($signatureBinary);
+            if (!$imgInfo || $imgInfo['mime'] !== 'image/png') {
+                $message = 'Formato de firma no válido';
+            } else {
+                // Guardar archivo
+                $fileName = "signature_{$materialAssignment->id}.png";
+                $filePath = "documents/material-assignments/signatures/{$fileName}";
+                Storage::disk('public')->put($filePath, $signatureBinary);
+
+                // Guardar ruta en DB
+                $materialAssignment->signature = $filePath;
+                $materialAssignment->save();
+
+                $success = true;
+                $message = 'Firma guardada correctamente!';
+            }
+        }
+
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+            'file_path' => $filePath
+        ], $success ? 200 : 422);
+    }
+
 }

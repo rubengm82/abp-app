@@ -125,7 +125,7 @@
                 </div>
                 <div class="flex justify-center gap-3">
                     <button type="button" id="btn_clear_signature" class="btn btn-sm btn-outline w-auto" data-id="{{ $materialAssignment->id }}">Netejar Firma</button>
-                    <button type="button" id="btn_desar_signature" class="btn btn-sm btn-info w-auto">Desar Firma</button>
+                    <button type="button" id="btn_save_signature" class="btn btn-sm btn-info w-auto" data-id="{{ $materialAssignment->id }}" disabled>Desar Firma</button>
                 </div>
                 <div class="flex justify-center w-full">
                     <canvas 

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Button clear
     let btn_clear_signature = document.getElementById('btn_clear_signature');
+    let btn_save_signature = document.getElementById('btn_save_signature');
 
     // Canvas
     let canvas = document.getElementById('signature_professional_canvas');
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function mouse_up(){
         drawing = false;
+        btn_save_signature.disabled = false;
     }
     
     function mouse_move(e){
@@ -72,9 +74,35 @@ document.addEventListener('DOMContentLoaded', () => {
             if(data.success) {
                 // console.log('Firma eliminada en la BBDD');
                 toast_signature(data.message);
+                btn_save_signature.disabled = true;
             }
         })
         .catch(error => console.error('Error al limpiar firma:', error));
+    }
+
+    function save_signaure() {
+        const id = btn_save_signature.dataset.id;
+
+        // Convertimos canvas a base64
+        const canvasData = canvas.toDataURL('image/png');
+
+        fetch(`/materialassignment/save-signature/${id}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify({ signature: canvasData })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                toast_signature(data.message);
+            }
+        })
+        .catch(error => console.error('Error al guardar firma:', error));
     }
 
     function toast_signature(message) {
@@ -101,5 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.addEventListener('mouseup', mouse_up);
     canvas.addEventListener('mousemove', mouse_move);
     btn_clear_signature.addEventListener('click', remove_and_clear_signature);
+    btn_save_signature.addEventListener('click', save_signaure);
 
 });

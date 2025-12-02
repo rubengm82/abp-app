@@ -176,7 +176,8 @@ Route::middleware('auth')->get('/materialassignment/edit/{materialAssignment}', 
 Route::middleware('auth')->put('/materialassignment/update/{materialAssignment}', [MaterialAssignmentController::class, 'update'])->name('materialassignment_update');
 Route::middleware('auth')->delete('/materialassignment/delete/{materialAssignment}', [MaterialAssignmentController::class, 'destroy'])->name('materialassignment_delete');
 Route::middleware('auth')->get('/materialassignment/downloadCSV', [MaterialAssignmentController::class, 'downloadCSV'])->name('materialassignment_downloadCSV');
-Route::middleware('auth')->post('/materialassignment/clear-signature/{id}', [MaterialAssignmentController::class, 'clearSignature'])->name('materialassignment_clear_signature');
+Route::middleware('auth')->post('/materialassignment/clear-signature/{id}', [MaterialAssignmentController::class, 'clearSignature']);
+Route::middleware('auth')->post('/materialassignment/save-signature/{id}', [MaterialAssignmentController::class, 'saveSignature']);
 
 /* Material Assignment Notes */
 Route::middleware('auth')->post('/materialassignment/notes/{materialAssignment}', [MaterialAssignmentController::class, 'materialassignment_note_add'])->name('materialassignment_note_add');
