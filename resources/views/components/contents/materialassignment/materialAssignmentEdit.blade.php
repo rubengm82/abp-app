@@ -10,7 +10,12 @@
     :current="'Editar'"
     />
 <div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
-    <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar Assignació de Material</h1>
+    @if ($signatura == 0)
+        <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar Assignació de Material</h1>
+    @endif
+    @if ($signatura == 1)
+        <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Signatura de la Assignació del Material</h1>
+    @endif
     
     <!-- Mostrar errores de validación -->
     @if ($errors->any())
@@ -123,9 +128,6 @@
         <!-- Signature Professional -->
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body">
-                <div class="flex justify-start">
-                    <h2 class="card-title text-xl mb-4">Signatura Professional</h2>
-                </div>
                 <div class="flex justify-center gap-3">
                     <button type="button" id="btn_clear_signature" class="btn btn-sm btn-outline w-auto" data-id="{{ $materialAssignment->id }}">Netejar Firma</button>
                     <button type="button" id="btn_save_signature" class="btn btn-sm btn-info w-auto" data-id="{{ $materialAssignment->id }}" disabled>Desar Firma</button>

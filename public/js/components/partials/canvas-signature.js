@@ -54,31 +54,32 @@ document.addEventListener('DOMContentLoaded', () => {
         context.clearRect(2, 2, 196, 196);
         context.fillStyle = "#EEE";
         context.fillRect(2, 2, 196, 196);
-        clear_signaure();
+        btn_save_signature.disabled = true;
+        // clear_signaure();
     }
 
     // Update signature on DB (Clear o update)
-    function clear_signaure() {
-        const id = btn_clear_signature.dataset.id;
+    // function clear_signaure() {
+    //     const id = btn_clear_signature.dataset.id;
 
-        fetch(`/materialassignment/clear-signature/${id}`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Accept': 'application/json',
-            },
-            credentials: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.success) {
-                // console.log('Firma eliminada en la BBDD');
-                toast_signature(data.message);
-                btn_save_signature.disabled = true;
-            }
-        })
-        .catch(error => console.error('Error al limpiar firma:', error));
-    }
+    //     fetch(`/materialassignment/clear-signature/${id}`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    //             'Accept': 'application/json',
+    //         },
+    //         credentials: 'same-origin'
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if(data.success) {
+    //             // console.log('Firma eliminada en la BBDD');
+    //             toast_signature(data.message);
+    //             btn_save_signature.disabled = true;
+    //         }
+    //     })
+    //     .catch(error => console.error('Error al limpiar firma:', error));
+    // }
 
     function save_signaure() {
         const id = btn_save_signature.dataset.id;

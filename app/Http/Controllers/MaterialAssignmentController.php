@@ -302,10 +302,7 @@ class MaterialAssignmentController extends Controller
         // Actualizar la base de datos
         $materialAssignment->update(['signature' => null]);
 
-        return response()->json([
-            'success' => true,
-            'message' => '¡Firma borrada correctamente!'
-        ]);
+        return redirect()->route('materialassignments_list')->with('success', '¡Firma borrada correctamente!');
     }
 
     public function saveSignature(String $id, Request $request)

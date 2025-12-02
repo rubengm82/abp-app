@@ -129,7 +129,19 @@
                 <div class="card-body">
                     <div class="flex justify-between items-center">
                         <h2 class="card-title text-xl">Signatura del professional del material assignat</h2>
-                        <a href="{{ route('materialassignment_edit', ['materialAssignment' => $materialAssignment, 'signatura' => 1]) }}" class="btn btn-sm btn-warning">Editar Signatura</a>
+                        <div class="relative">
+                            <x-partials.modal 
+                                id="deleteSignature{{ $materialAssignment->id }}" 
+                                msj="Estàs segur que vols eliminar aquesta signatura?" 
+                                btnText="Eliminar Signatura" 
+                                class="btn-sm btn-error"
+                            >
+                                <form action="{{ route('materialassignment_clear_signature', $materialAssignment->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                                </form>
+                            </x-partials.modal>
+                        </div>
                     </div>
                     <div class="flex justify-center w-full">
                         <img src="{{ asset($materialAssignment->signature) }}" alt="signatura_material" >
