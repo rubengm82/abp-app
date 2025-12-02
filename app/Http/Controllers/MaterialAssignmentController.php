@@ -290,6 +290,9 @@ class MaterialAssignmentController extends Controller
      */
     public function clearSignature(String $id){
         MaterialAssignment::where('id', $id)->update(['signature' => null]);
-        return back()->with('success', 'Signatura esborrada correctament!');
+        return response()->json([
+            'success' => true,
+            'message' => '¡Firma borrada correctamente!'
+        ]);
     }
 }

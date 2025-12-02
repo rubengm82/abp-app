@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Button submit
-    let button_submit_material_assignment = document.getElementById('button_submit_material_assignment');
     // Button clear
     let btn_clear_signature = document.getElementById('btn_clear_signature');
 
@@ -17,12 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
     context.fillStyle = "#EEE";
     context.fillRect(2, 2, 196, 196);
 
-    // Vars
+    // ////////
+    // VARS //
+    // ///////
     let drawing = false;
     let lastX = 0;
     let lastY = 0;
 
-    // Functions
+    // ////////////
+    // Functions //
+    // ////////////
     function mouse_down(e){
         drawing = true;
         context.strokeStyle = "#005BAC";
@@ -50,20 +52,54 @@ document.addEventListener('DOMContentLoaded', () => {
         context.clearRect(2, 2, 196, 196);
         context.fillStyle = "#EEE";
         context.fillRect(2, 2, 196, 196);
-        fetch_signature_null();
+        clear_signaure();
     }
 
     // Update signature on DB (Clear o update)
-    function fetch_signature_null() {
-        
+    function clear_signaure() {
+        const id = btn_clear_signature.dataset.id;
+
+        fetch(`/materialassignment/clear-signature/${id}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                // console.log('Firma eliminada en la BBDD');
+                toast_signature(data.message);
+            }
+        })
+        .catch(error => console.error('Error al limpiar firma:', error));
     }
 
-    // Events
+    function toast_signature(message) {
+        const toastContainer = document.createElement('div');
+        toastContainer.classList.add('toast', 'toast-end');
+
+        const alertDiv = document.createElement('div');
+        alertDiv.classList.add('alert', 'alert-success');
+        alertDiv.innerHTML = `<span>${message}</span>`;
+
+        toastContainer.appendChild(alertDiv);
+        document.body.appendChild(toastContainer);
+
+        // Auto-borrar el toast tras 3s
+        setTimeout(() => {
+            toastContainer.remove();
+        }, 3000);
+    }
+
+    // /////////
+    // Events //
+    // /////////
     canvas.addEventListener('mousedown', mouse_down);
     canvas.addEventListener('mouseup', mouse_up);
     canvas.addEventListener('mousemove', mouse_move);
-
-    // Button clear
     btn_clear_signature.addEventListener('click', remove_and_clear_signature);
 
 });
