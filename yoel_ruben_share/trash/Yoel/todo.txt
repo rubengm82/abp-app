@@ -1,9 +1,7 @@
 # Sprint 4  - TODO LIST
 
 Todo: 
-* Add that managers also have Restricted notes
-* Only Directiu users and the creator user can delete/edit their note.
-* Same with documents
+* Utilizar el método storage igual que en los documentos para almacenar en el directorio de siempre las firmas de los usuarios.
 
 
 Apuntes:
@@ -17,11 +15,4 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: Notas editables y eliminables sólo por User y Rol Alto
-* Ahora los gerentes también pueden hacer notas restringidas
-* El método fileadd de s.compl y manten no estaba actualizado, no funcionaba el type de documentos
-* Ahora sólo roles altos o el propio usuario puede editar/eliminar su nota
-* Ahora sólo roles altos o el propio usuario puede eliminar sus documentos
-* Ahora se muestra correctamente el type de documento en los shows
-* Modificado el estílo del paginado del listado de docs
-* Centres > Centre
+To commit: "Modificadas firmas para que utilicen el mismo método de storage que los documentos"

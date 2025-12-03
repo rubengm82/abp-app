@@ -144,7 +144,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center w-full">
-                        <img src="{{ asset('storage/' . $materialAssignment->signature) }}" alt="signatura_material">
+                        <img src="{{ route('materialassignment_show_signature', $materialAssignment) }}" alt="signatura_material">
                     </div>
                 </div>
             </div>

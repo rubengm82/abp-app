@@ -294,9 +294,9 @@ class MaterialAssignmentController extends Controller
     {
         $materialAssignment = MaterialAssignment::findOrFail($id);
 
-        // Borrar archivo si existe
-        if ($materialAssignment->signature && file_exists(storage_path('app/public/' . $materialAssignment->signature))) {
-            unlink(storage_path('app/public/' . $materialAssignment->signature));
+        // Borrar archivo si existe usando Storage (igual que los documentos)
+        if ($materialAssignment->signature && Storage::disk('public')->exists($materialAssignment->signature)) {
+            Storage::disk('public')->delete($materialAssignment->signature);
         }
 
         // Actualizar DB
@@ -328,23 +328,16 @@ class MaterialAssignmentController extends Controller
             if (!$imgInfo || $imgInfo['mime'] !== 'image/png') {
                 $message = 'Formato de firma no válido';
             } else {
-
-                // Carpeta dentro de storage/app/public
-                $dir = storage_path('app/public/documents/material-assignments/signatures');
-                if (!is_dir($dir)) {
-                    mkdir($dir, 0755, true);
-                }
-
-                // Borrar firma anterior si existe
-                if ($materialAssignment->signature && file_exists(storage_path('app/public/' . $materialAssignment->signature))) {
-                    unlink(storage_path('app/public/' . $materialAssignment->signature));
+                // Borrar firma anterior si existe usando Storage (igual que los documentos)
+                if ($materialAssignment->signature && Storage::disk('public')->exists($materialAssignment->signature)) {
+                    Storage::disk('public')->delete($materialAssignment->signature);
                 }
 
                 $fileName = "signature_{$materialAssignment->id}.png";
                 $filePath = "documents/material-assignments/signatures/{$fileName}";
 
-                // Guardar archivo
-                file_put_contents(storage_path('app/public/' . $filePath), $signatureBinary);
+                // Guardar archivo usando Storage (igual que los documentos)
+                Storage::disk('public')->put($filePath, $signatureBinary);
 
                 // Guardar ruta en DB
                 $materialAssignment->signature = $filePath;
@@ -360,6 +353,26 @@ class MaterialAssignmentController extends Controller
             'message' => $message,
             'file_path' => $filePath
         ], $success ? 200 : 422);
+    }
+
+    /**
+     * Show signature image (serve from storage without symlink)
+     */
+    public function showSignature(MaterialAssignment $materialAssignment)
+    {
+        if (!$materialAssignment->signature) {
+            abort(404, 'Firma no encontrada');
+        }
+
+        $path = storage_path('app/public/' . $materialAssignment->signature);
+
+        if (!file_exists($path)) {
+            abort(404, 'Archivo de firma no encontrado');
+        }
+
+        return response()->file($path, [
+            'Content-Type' => 'image/png',
+        ]);
     }
 
 }
