@@ -72,6 +72,18 @@
                 </label>
                 <select name="document_type" class="select select-bordered w-full">
                     <option value="">-- Selecciona un tipus --</option>
+                    <option value="Organització del Centre">Organització del Centre</option>
+                    <option value="Documents del Departament">Documents del Departament</option>
+                    <option value="Memòries i Seguiment anual">Memòries i Seguiment anual</option>
+                    <option value="PRL">PRL</option>
+                    <option value="Comitè d'Empresa">Comitè d'Empresa</option>
+                    <option value="Informes professionals">Informes professionals</option>
+                    <option value="Informes persones usuàries">Informes persones usuàries</option>
+                    <option value="Qualitat i ISO">Qualitat i ISO</option>
+                    <option value="Projectes">Projectes</option>
+                    <option value="Comissions">Comissions</option>
+                    <option value="Famílies">Famílies</option>
+                    <option value="Comunicació i Reunions">Comunicació i Reunions</option>
                     <option value="Altres">Altres</option>
                 </select>
             </div>

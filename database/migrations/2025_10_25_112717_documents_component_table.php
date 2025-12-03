@@ -31,7 +31,21 @@ return new class extends Migration
                   ->comment('Professional that uploaded the document');
 
             // Document type (enum)
-            $table->enum('document_type', ['Altres'])->nullable()->comment('Type of document');
+            $table->enum('document_type', [
+                'Organització del Centre',
+                'Documents del Departament',
+                'Memòries i Seguiment anual',
+                'PRL',
+                'Comitè d\'Empresa',
+                'Informes professionals',
+                'Informes persones usuàries',
+                'Qualitat i ISO',
+                'Projectes',
+                'Comissions',
+                'Famílies',
+                'Comunicació i Reunions',
+                'Altres'
+            ])->nullable()->comment('Type of document');
 
             $table->timestamps(); // created_at and updated_at
         });

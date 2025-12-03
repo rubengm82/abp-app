@@ -1,7 +1,38 @@
-# Sprint 4 Document Evolution - TODO LIST
+# Sprint 4  - TODO LIST
 
 Todo: 
-* 
+* Añadir los nuevos "types" de documentos a los documentos, por ahora estaba en 'Altres' y habrá que añadir:
+·         Organització del Centre
+
+·         Documents del Departament
+
+·         Memòries i Seguiment anual
+
+·         PRL
+
+·         Comitè d’Empresa
+
+·         Informes professionals
+
+·         Informes persones usuàries
+
+·         Qualitat i ISO
+
+·         Projectes
+
+·         Comissions
+
+·         Famílies
+
+·         Comunicació i Reunions
+
+·         Altres
+* Habrá que añadir el tipo al selector del pop-up de documentos cuando se sube uno en cualquier show resources/views/components/partials/documents-section.blade.php
+* El método index de app/Http/Controllers/GlobalDocumentController.php utiiza center_id como si exisitiera en el registro, pero no existe, en su lugar ha de utilizar el center_id del profesional que ha subido el documento.
+Contexto:
+app/Models/DocumentComponent.php
+database/migrations/2025_10_25_112717_documents_component_table.php
+
 
 Apuntes:
 * Esconder "Centros"
@@ -26,5 +57,4 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: QoL Index x Center
-* Ahora los index sólo muestran los registros que sean del centro del usuario logeado
+To commit: 

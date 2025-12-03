@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let searchTimer;
 
         function loadData(url = baseUrl) {
+            console.log('loadData', url);
             const fullUrl = url + (url.includes('?') ? '&' : '?') + 'search=' + encodeURIComponent(searchTerm);
             fetch(fullUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
                 .then(res => res.text())
