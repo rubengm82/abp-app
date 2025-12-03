@@ -12,6 +12,8 @@
     <!-- Header: Name and actions -->
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold text-base-content">{{ $externalContact->company ?? 'Contacte Extern #' . $externalContact->id }}</h1> --}}
+        <!-- Buttons -->
+        @if((Auth::user()->role ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             <a href="{{ route('externalcontact_edit', $externalContact) }}" class="btn btn-sm btn-info">Editar</a>
             <x-partials.modal 
@@ -27,6 +29,7 @@
                 </form>
             </x-partials.modal>
         </div>
+        @endif
     </div>
 
     <!-- Basic Information -->

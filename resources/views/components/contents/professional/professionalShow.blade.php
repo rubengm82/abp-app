@@ -11,6 +11,8 @@
 <div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1> --}}
+        <!-- Buttons -->
+        @if((Auth::user()->role ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             @if($professional->status == 1)
                 <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
@@ -40,8 +42,8 @@
                 </form>
             @endif
         </div>
+        @endif
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Personal information -->
         <div class="card bg-base-100 text-base-content shadow-xl">
