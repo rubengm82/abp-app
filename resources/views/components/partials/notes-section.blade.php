@@ -21,7 +21,7 @@
         @if($items->count())
             <div class="space-y-4">
                 @foreach($items as $item)
-                    @continue(!empty($item->restricted) && (Auth::user()->role ?? null) !== 'Directiu')
+                    @continue(!empty($item->restricted) && !in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']))
                     <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ !empty($item->restricted) ? 'border-orange-500' : 'border-blue-500' }}">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-sm text-gray-600">
@@ -31,6 +31,17 @@
                                 </strong>
                                 <span class="ml-2">{{ $item->created_at?->format('d/m/Y H:i') ?? 'Data desconeguda' }}</span>
                             </div>
+                            {{-- Buttons --}}
+                            {{-- Only Directiu users and the creator user can delete/edit their note --}}
+                            @if (
+                                in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']) ||
+                                (
+                                    $createdByField &&
+                                    isset($item->$createdByField) &&
+                                    isset(Auth::user()->id) &&
+                                    $item->$createdByField->id == Auth::user()->id
+                                )
+                            )
                             <div class="flex gap-2">
                                 {{-- Editar --}}
                                 <button type="button" class="btn btn-xs btn-info"
@@ -56,6 +67,7 @@
                                     </x-partials.modal>
                                 @endif
                             </div>
+                            @endif
                         </div>
                         <p class="text-base-content break-all whitespace-pre-wrap">{{ $item->notes ?? $item->text ?? '' }}</p>
                     </div>
@@ -78,7 +90,7 @@
                 <label class="label"><span class="label-text">Nota:</span></label>
                 <textarea name="notes" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
-            @if((Auth::user()->role ?? null) === 'Directiu')
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']))
             <div class="form-control mb-4">
                 <label class="label cursor-pointer">
                     <span class="label-text">Restringida:</span>
@@ -106,7 +118,7 @@
                 <label class="label"><span class="label-text">Nota:</span></label>
                 <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full" rows="4" required></textarea>
             </div>
-            @if((Auth::user()->role ?? null) === 'Directiu')
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']))
             <div class="form-control mb-4">
                 <label class="label cursor-pointer">
                     <span class="label-text">Restringida:</span>

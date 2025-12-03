@@ -28,24 +28,37 @@
                                    {{ $item->original_name ?? 'Sense nom' }}
                                 </a>
                                 <div class="text-sm text-gray-600 mt-1">
+                                    <span class="badge badge-sm badge-info mr-2">{{ $item->document_type ?: 'Altres' }}</span>
                                     {{ $uploadedByField ? ($item->$uploadedByField->name ?? '') : '' }}
                                     — {{ $item->created_at?->format('d/m/Y H:i') }}
                                 </div>
                             </div>
 
-                            @if($deleteRoute)
-                                <x-partials.modal 
-                                    id="deleteDocument{{ $item->id }}" 
-                                    msj="Estàs segur que vols eliminar aquest document?" 
-                                    btnText="Eliminar"
-                                    class="btn-xs btn-error"
-                                >
-                                    <form action="{{ route($deleteRoute, $item) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-error" data-loading-text="Eliminant...">Acceptar</button>
-                                    </form>
-                                </x-partials.modal>
+                            {{-- Buttons --}}
+                            {{-- Only Directiu users and the creator user can delete their document --}}
+                            @if (
+                                in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']) ||
+                                (
+                                    $uploadedByField &&
+                                    isset($item->$uploadedByField) &&
+                                    isset(Auth::user()->id) &&
+                                    $item->$uploadedByField->id == Auth::user()->id
+                                )
+                            )
+                                @if($deleteRoute)
+                                    <x-partials.modal 
+                                        id="deleteDocument{{ $item->id }}" 
+                                        msj="Estàs segur que vols eliminar aquest document?" 
+                                        btnText="Eliminar"
+                                        class="btn-xs btn-error"
+                                    >
+                                        <form action="{{ route($deleteRoute, $item) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-error" data-loading-text="Eliminant...">Acceptar</button>
+                                        </form>
+                                    </x-partials.modal>
+                                @endif
                             @endif
                         </div>
                     </div>

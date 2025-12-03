@@ -34,7 +34,7 @@
             <li>
                 <a href="{{ route('center_show', ['id' => Auth::user()->center_id]) }}">
                     <x-partials.icon name="building-office" class="w-6 h-6 text-primary" />
-                    Centres
+                    Centre
                 </a>
             </li>
             @endif
