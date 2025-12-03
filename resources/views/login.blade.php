@@ -76,6 +76,38 @@
         </div>
     @endif
 
+    {{-- Modal for Center Selection --}}
+    @if(isset($show_modal) && $show_modal)
+    <input type="checkbox" id="centerModal" class="modal-toggle" checked />
+    <div class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">Selecciona un centre</h3>
+
+            <form action="{{ route('select_center') }}" method="POST">
+                @csrf
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Centre</span>
+                    </label>
+                    <select name="center_id" class="select select-bordered ml-3" required>
+                        <option value="">Selecciona un centre</option>
+                        @foreach($centers as $center)
+                            <option value="{{ $center->id }}">{{ $center->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="modal-action">
+                    <label for="centerModal" class="btn btn-outline">Cancel·lar</label>
+                    <button type="submit" class="btn btn-primary">Acceder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
+
+
 <script src="{{ asset('js/components/partials/toast.js') }}"></script>
 <script src="{{ asset('js/components/partials/menu-sidebar-reset.js') }}"></script>
 </body>

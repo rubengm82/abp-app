@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 Route::middleware('guest')->group(function () {
     Route::get('/', [LoginController::class, 'show'])->name('login');
     Route::post('/', [LoginController::class, 'login']);
+    Route::post('/select-center', [LoginController::class, 'selectCenter'])->name('select_center');  // for Gerent role
 });
 
 /* ------------------------ LOGOUT ------------------------ */
