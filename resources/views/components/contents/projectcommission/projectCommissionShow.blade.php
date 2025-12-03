@@ -12,6 +12,8 @@
     <!-- Header: Nombre y acciones -->
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold text-base-content">{{ $projectCommission->name }}</h1> --}}
+        <!-- Buttons -->
+        @if((Auth::user()->role ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             @if($projectCommission->status == 'Actiu')
                 <a href="{{ route('projectcommission_edit', $projectCommission) }}" class="btn btn-sm btn-info">Editar</a>
@@ -38,6 +40,7 @@
                 </form>
             @endif
         </div>
+        @endif
     </div>
 
     <!-- Información básica y descripción -->

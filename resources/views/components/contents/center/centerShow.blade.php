@@ -11,11 +11,15 @@
 <div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold">{{ $center->name }}</h1> --}}
+        <!-- Buttons -->
+        @if((Auth::user()->role ?? null) !== 'Tècnic')
         <div class="flex gap-2">
+            <!-- Edit Center -->
             @if($center->status == 1)
                 <a href="{{ route('center_edit', $center) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
             @if($center->status == 1)
+            <!-- Desactivate Center -->
                 <div class="relative">
                     <x-partials.modal 
                         id="desactivateCenter{{ $center->id }}" 
@@ -32,6 +36,7 @@
                         </form>
                     </x-partials.modal>
                 </div>
+                <!-- Delete Center -->
                 <div class="relative">
                     <x-partials.modal 
                         id="deleteCenter{{ $center->id }}" 
@@ -49,6 +54,7 @@
                     </x-partials.modal>
                 </div>
             @else
+                <!-- Activate Center -->
                 <form action="{{ route('center_activate', $center) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('PATCH')
@@ -58,6 +64,7 @@
                 </form>
             @endif
         </div>
+        @endif
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

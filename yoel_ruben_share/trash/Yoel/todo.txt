@@ -1,32 +1,7 @@
 # Sprint 4  - TODO LIST
 
 Todo: 
-* Añadir los nuevos "types" de documentos a los documentos, por ahora estaba en 'Altres' y habrá que añadir:
-·         Organització del Centre
-
-·         Documents del Departament
-
-·         Memòries i Seguiment anual
-
-·         PRL
-
-·         Comitè d’Empresa
-
-·         Informes professionals
-
-·         Informes persones usuàries
-
-·         Qualitat i ISO
-
-·         Projectes
-
-·         Comissions
-
-·         Famílies
-
-·         Comunicació i Reunions
-
-·         Altres
+* 
 * Habrá que añadir el tipo al selector del pop-up de documentos cuando se sube uno en cualquier show resources/views/components/partials/documents-section.blade.php
 * El método index de app/Http/Controllers/GlobalDocumentController.php utiiza center_id como si exisitiera en el registro, pero no existe, en su lugar ha de utilizar el center_id del profesional que ha subido el documento.
 Contexto:
@@ -57,4 +32,6 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: 
+To commit: ShowUserCentro y Control de Acciones
+* Ahora los usuarios diferentes de Gerent, verán el show de su centro al clicar en el botón del sidebar
+* Ahora sólo los usaurios diferentes de Tècnic pueden ver los botones de acción en los shows
