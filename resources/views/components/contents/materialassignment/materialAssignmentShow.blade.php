@@ -136,7 +136,7 @@
                                 btnText="Eliminar Signatura" 
                                 class="btn-sm btn-error"
                             >
-                                <form action="{{ route('materialassignment_clear_signature', $materialAssignment->id) }}" method="POST">
+                                <form action="{{ route('materialassignment_delete_signature', $materialAssignment->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
                                 </form>
@@ -144,7 +144,7 @@
                         </div>
                     </div>
                     <div class="flex justify-center w-full">
-                        <img src="{{ asset($materialAssignment->signature) }}" alt="signatura_material" >
+                        <img src="{{ asset('storage/' . $materialAssignment->signature) }}" alt="signatura_material">
                     </div>
                 </div>
             </div>

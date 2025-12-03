@@ -288,23 +288,26 @@ class MaterialAssignmentController extends Controller
 
 
     /**
-     * Clear signature with null value when press button clear signature
+     * Clear/Delete signature with null value when press button clear signature
      */
-    public function clearSignature(String $id)
+    public function deleteSignature(String $id)
     {
         $materialAssignment = MaterialAssignment::findOrFail($id);
 
-        // Borrar el archivo físico si existe
-        if ($materialAssignment->signature && file_exists(public_path($materialAssignment->signature))) {
-            unlink(public_path($materialAssignment->signature));
+        // Borrar archivo si existe
+        if ($materialAssignment->signature && file_exists(storage_path('app/public/' . $materialAssignment->signature))) {
+            unlink(storage_path('app/public/' . $materialAssignment->signature));
         }
 
-        // Actualizar la base de datos
+        // Actualizar DB
         $materialAssignment->update(['signature' => null]);
 
         return redirect()->route('materialassignments_list')->with('success', '¡Firma borrada correctamente!');
     }
 
+    /**
+     * Clear signature with null value when press button clear signature
+     */
     public function saveSignature(String $id, Request $request)
     {
         $materialAssignment = MaterialAssignment::findOrFail($id);
@@ -325,21 +328,23 @@ class MaterialAssignmentController extends Controller
             if (!$imgInfo || $imgInfo['mime'] !== 'image/png') {
                 $message = 'Formato de firma no válido';
             } else {
-                // Borrar firma anterior si existe
-                if ($materialAssignment->signature && file_exists(public_path($materialAssignment->signature))) {
-                    unlink(public_path($materialAssignment->signature));
-                }
 
-                // Crear carpeta si no existe
-                $dir = public_path('documents/material-assignments/signatures');
+                // Carpeta dentro de storage/app/public
+                $dir = storage_path('app/public/documents/material-assignments/signatures');
                 if (!is_dir($dir)) {
                     mkdir($dir, 0755, true);
                 }
 
-                // Guardar archivo directamente en public/
+                // Borrar firma anterior si existe
+                if ($materialAssignment->signature && file_exists(storage_path('app/public/' . $materialAssignment->signature))) {
+                    unlink(storage_path('app/public/' . $materialAssignment->signature));
+                }
+
                 $fileName = "signature_{$materialAssignment->id}.png";
                 $filePath = "documents/material-assignments/signatures/{$fileName}";
-                file_put_contents(public_path($filePath), $signatureBinary);
+
+                // Guardar archivo
+                file_put_contents(storage_path('app/public/' . $filePath), $signatureBinary);
 
                 // Guardar ruta en DB
                 $materialAssignment->signature = $filePath;
