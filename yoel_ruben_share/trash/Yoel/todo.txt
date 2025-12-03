@@ -1,28 +1,13 @@
 # Sprint 4  - TODO LIST
 
 Todo: 
-* 
-* Habrá que añadir el tipo al selector del pop-up de documentos cuando se sube uno en cualquier show resources/views/components/partials/documents-section.blade.php
-* El método index de app/Http/Controllers/GlobalDocumentController.php utiiza center_id como si exisitiera en el registro, pero no existe, en su lugar ha de utilizar el center_id del profesional que ha subido el documento.
-Contexto:
-app/Models/DocumentComponent.php
-database/migrations/2025_10_25_112717_documents_component_table.php
+* Add that managers also have Restricted notes
+* Only Directiu users and the creator user can delete/edit their note.
+* Same with documents
 
 
 Apuntes:
-* Esconder "Centros"
-* Quiatar columna de "Centro" en todas las listas:
-** Profesionales [X]
-** Contactos Externos [X]
-** RRHH [X]
-** Mantenimiento [X]
-** Revisar Avaluation
-** Revisar Proyectos
-** Servicios Complementarios [X]
-** Los Desactivados [X]
-* Añadir campo Centros a Cursos
-* Arreglar lista Documentos Globales, asegurar por Centro
-* Reordenar SideBar
+* 
 
 To know:
 * En caso de tener que hacer un crud de una tabla nueva, utiliza el archivo yoel_ruben_share/trash/Yoel/master_checklist.txt como instrucciones básicas
@@ -32,6 +17,11 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: ShowUserCentro y Control de Acciones
-* Ahora los usuarios diferentes de Gerent, verán el show de su centro al clicar en el botón del sidebar
-* Ahora sólo los usaurios diferentes de Tècnic pueden ver los botones de acción en los shows
+To commit: Notas editables y eliminables sólo por User y Rol Alto
+* Ahora los gerentes también pueden hacer notas restringidas
+* El método fileadd de s.compl y manten no estaba actualizado, no funcionaba el type de documentos
+* Ahora sólo roles altos o el propio usuario puede editar/eliminar su nota
+* Ahora sólo roles altos o el propio usuario puede eliminar sus documentos
+* Ahora se muestra correctamente el type de documento en los shows
+* Modificado el estílo del paginado del listado de docs
+* Centres > Centre

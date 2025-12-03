@@ -29,9 +29,9 @@
     </tbody>
 </table>
 
-@if($documents->hasPages())
-    <div class="mt-4">
-        {{ $documents->links() }}
-    </div>
-@endif
+<div class="pagination">
+    <div class="mt-6 flex justify-center">
+       {{ $documents->links('pagination::daisyui-pagination') }}
+   </div>
+</div>
 
