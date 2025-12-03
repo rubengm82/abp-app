@@ -31,7 +31,9 @@
                     <div class="flex items-center w-2/3 mx-auto border border-orange-300 rounded-full focus-within:ring-1 focus-within:ring-orange-400 focus-within:border-orange-400">
                         <!-- Icon y separator -->
                         <div class="flex items-center pl-4">
-                            <span class="text-xl">👤</span>
+                            <span class="text-xl">
+                                <x-partials.icon name="user" class="w-6 h-6 text-primary" />
+                            </span>
                             <div class="ml-2 w-px h-6 bg-gray-300"></div>
                         </div>
                         <!-- Input -->
@@ -45,7 +47,9 @@
                     <div class="flex items-center w-2/3 mx-auto border border-orange-300 rounded-full focus-within:ring-1 focus-within:ring-orange-400 focus-within:border-orange-400">
                         <!-- Icon y separator -->
                         <div class="flex items-center pl-4">
-                            <span class="text-xl">🔒</span>
+                            <span class="text-xl">
+                                <x-partials.icon name="lock-closed" class="w-6 h-6 text-primary" />
+                            </span>
                             <div class="ml-2 w-px h-6 bg-gray-300"></div>
                         </div>
                         <!-- Input -->
