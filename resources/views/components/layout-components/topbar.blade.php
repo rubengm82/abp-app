@@ -32,7 +32,7 @@
                 <span class="block border-t border-gray-400 my-2 w-full rounded-none"></span>
                 
                 <li class="text-gray-400 pointer-events-none flex flex-col items-center gap-1">
-                    <span class="text-base-100 font-bold text-base-content text-center">
+                    <span class="font-bold text-base-content text-center">
                         {{ (Auth::user()->name) . ' ' . (Auth::user()->surname1) . ' ' . (Auth::user()->surname2 ?? '') }}
                     </span>
                     <span class="text-primary font-bold text-center text-xl">
