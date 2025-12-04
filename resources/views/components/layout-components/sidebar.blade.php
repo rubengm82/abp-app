@@ -1,3 +1,8 @@
+@php
+    $isTecnic = (Auth::user()->role ?? null) === 'Tècnic';
+@endphp
+
+
 <div class="w-64 fixed top-16 bottom-0 left-0 flex flex-col justify-between shadow-md bg-base-200">
 
     <!-- Navigation menu -->
@@ -149,6 +154,7 @@
                     </ul>
 
                     <!-- Add Professional -->
+                    @if(!$isTecnic)
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('professional_form') }}">
@@ -157,7 +163,7 @@
                             </a>
                         </li>
                     </ul>
-
+                    @endif
                     <!-- Submenu Cursos -->
                     <ul class="text-xs">
                         <li>
@@ -174,6 +180,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                @if(!$isTecnic)
                                 <ul class="text-xs">
                                     <li>
                                         <a href="{{ route('course_form') }}">
@@ -182,6 +189,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                @endif
                             </details>
                         </li>
                     </ul>
@@ -206,6 +214,7 @@
                                 </ul>
 
                                 <!-- Add Evaluation -->
+                                @if(!$isTecnic)
                                 <ul class="text-xs">
                                     <li>
                                         <a href="{{ route('professional_evaluations_quiz_form') }}">
@@ -214,6 +223,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                @endif
                             </details>
                         </li>
                     </ul>
@@ -234,6 +244,7 @@
                             </a>
                         </li>
                     </ul>
+                    @if(!$isTecnic)
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('projectcommission_form') }}">
@@ -242,6 +253,7 @@
                             </a>
                         </li>
                     </ul>
+                    @endif
                 </details>
             </li>
             <!-- Submenu Material-Assignments -->
@@ -267,12 +279,14 @@
                                 Llistar
                             </a>
                         </li>
+                        @if(!$isTecnic)
                         <li>
                             <a href="{{ route('complementaryservice_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
                                 Afegir
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </details>
             </li>
@@ -310,6 +324,7 @@
             @endif
 
             <!-- Submenu Desactivations -->
+            @if(!$isTecnic)
             <li>
                 <details>
                     <summary>
@@ -350,7 +365,7 @@
                     </ul>
                 </details>
             </li>
-
+            @endif
         </ul>
     </nav>
 
