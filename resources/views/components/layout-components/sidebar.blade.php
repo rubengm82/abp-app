@@ -1,8 +1,3 @@
-@php
-    $isTecnic = (Auth::user()->role ?? null) === 'Tècnic';
-@endphp
-
-
 <div class="w-64 fixed top-16 bottom-0 left-0 flex flex-col justify-between shadow-md bg-base-200">
 
     <!-- Navigation menu -->
@@ -154,7 +149,7 @@
                     </ul>
 
                     <!-- Add Professional -->
-                    @if(!$isTecnic)
+                    @if((Auth::user()->role ?? null) !== 'Tècnic')
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('professional_form') }}">
@@ -180,7 +175,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                                @if(!$isTecnic)
+                                @if((Auth::user()->role ?? null) !== 'Tècnic')
                                 <ul class="text-xs">
                                     <li>
                                         <a href="{{ route('course_form') }}">
@@ -214,7 +209,7 @@
                                 </ul>
 
                                 <!-- Add Evaluation -->
-                                @if(!$isTecnic)
+                                @if((Auth::user()->role ?? null) !== 'Tècnic')
                                 <ul class="text-xs">
                                     <li>
                                         <a href="{{ route('professional_evaluations_quiz_form') }}">
@@ -244,7 +239,7 @@
                             </a>
                         </li>
                     </ul>
-                    @if(!$isTecnic)
+                    @if((Auth::user()->role ?? null) !== 'Tècnic')
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('projectcommission_form') }}">
@@ -279,7 +274,7 @@
                                 Llistar
                             </a>
                         </li>
-                        @if(!$isTecnic)
+                        @if((Auth::user()->role ?? null) !== 'Tècnic')
                         <li>
                             <a href="{{ route('complementaryservice_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -324,7 +319,7 @@
             @endif
 
             <!-- Submenu Desactivations -->
-            @if(!$isTecnic)
+            @if((Auth::user()->role ?? null) !== 'Tècnic')
             <li>
                 <details>
                     <summary>
