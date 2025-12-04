@@ -36,7 +36,7 @@ return new class extends Migration
                 'Documents del Departament',
                 'Memòries i Seguiment anual',
                 'PRL',
-                'Comitè d\'Empresa',
+                'Comitè Empresa',
                 'Informes professionals',
                 'Informes persones usuàries',
                 'Qualitat i ISO',
