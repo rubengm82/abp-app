@@ -22,9 +22,7 @@
         </a>
 
         @if(!$isDeactivated)
-            <a href="{{ route('complementaryservice_form') }}" class="btn btn-sm btn-primary">
-                Afegir Servei
-            </a>
+            {{-- <a href="{{ route('complementaryservice_form') }}" class="btn btn-sm btn-primary">Afegir Servei</a> --}}
         @endif
     </div>
 </div>

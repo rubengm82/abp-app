@@ -19,7 +19,7 @@
     <div class="flex gap-4">
         <a href="{{ route('maintenances_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
         @if(!$isDeactivated)
-            <a href="{{ route('maintenance_form') }}" class="btn btn-sm btn-primary">Afegir Manteniment</a>
+            {{-- <a href="{{ route('maintenance_form') }}" class="btn btn-sm btn-primary">Afegir Manteniment</a> --}}
         @endif
     </div>
 </div>

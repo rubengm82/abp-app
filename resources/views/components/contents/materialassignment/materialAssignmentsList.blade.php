@@ -17,7 +17,7 @@
     </div>
     <div class="flex gap-4">
         <a href="{{ route('materialassignment_downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
-        <a href="{{ route('materialassignment_form') }}" class="btn btn-sm btn-primary">Afegir Assignació</a>
+        {{-- <a href="{{ route('materialassignment_form') }}" class="btn btn-sm btn-primary">Afegir Assignació</a> --}}
     </div>
 </div>
 @endif
