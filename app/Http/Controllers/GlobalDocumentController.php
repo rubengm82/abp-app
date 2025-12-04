@@ -13,7 +13,7 @@ class GlobalDocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = DocumentComponent::with(['uploadedByProfessional'])
+        $query = DocumentComponent::with(['uploadedByProfessional', 'documentable'])
             ->whereHas('uploadedByProfessional', function ($q) {
                 $q->where('center_id', Auth::user()->center_id);
             });

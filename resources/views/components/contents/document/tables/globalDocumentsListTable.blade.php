@@ -4,6 +4,7 @@
             <th class="px-4 py-2 text-left">Nom</th>
             <th class="px-4 py-2 text-left">Tipus</th>
             <th class="px-4 py-2 text-left">Pujat per</th>
+            <th class="px-4 py-2 text-left">Origen</th>
             <th class="px-4 py-2 text-left">Data</th>
         </tr>
     </thead>
@@ -20,7 +21,14 @@
                     @if($document->uploadedByProfessional)
                         {{ $document->uploadedByProfessional->name }} {{ $document->uploadedByProfessional->surname1 }}
                     @else
-                        
+
+                    @endif
+                </td>
+                <td class="px-4 py-2">
+                    @if($document->origin_url)
+                        <a href="{{ $document->origin_url }}" class="link link-warning">{{ $document->origin }}</a>
+                    @else
+                        {{ $document->origin }}
                     @endif
                 </td>
                 <td class="px-4 py-2">{{ $document->created_at ? \Carbon\Carbon::parse($document->created_at)->format('d/m/Y') : '' }}</td>
