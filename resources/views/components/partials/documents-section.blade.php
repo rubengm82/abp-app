@@ -18,10 +18,10 @@
 
         {{-- List Documents --}}
         @if($items->count())
-            <div class="space-y-3">
+            <div class="space-y-3 max-h-96 overflow-y-auto overflow-x-hidden">
                 @foreach($items->sortByDesc('created_at') as $item)
                     <div class="bg-base-200 p-4 rounded-lg border-l-4 border-green-500">
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-start">
                             <div>
                                 <a href="{{ $downloadRoute ? route($downloadRoute, $item) : '#' }}"
                                    class="text-blue-600 hover:text-blue-800 font-medium">
