@@ -19,16 +19,16 @@
         <x-partials.search-bar />
     </div>
     <div class="flex gap-{{ $isDeactivated ? 4 : 2 }}">
-        <a href="{{ route('professionals.downloadCSV', $isDeactivated ? 0 : 1) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+        <a href="{{ route('professionals.downloadCSV', $isDeactivated ? 0 : 1) }}" class="btn btn-sm btn-secondary">Descarregar Llistat</a>
         @if(!$isDeactivated)
-            <a href="{{ route('professionals.downloadCSV.materialAssignments') }}" class="btn btn-sm btn-warning">Descarregar Uniformitat</a>
+            <a href="{{ route('professionals.downloadCSV.materialAssignments') }}" class="btn btn-sm btn-secondary">Descarregar Uniformitat</a>
             <a href="{{ route('professional_form') }}" class="btn btn-sm btn-primary">Afegir Professional</a>
         @endif
     </div>
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 overflow-x-auto border border-gray-500/20">
     @if($professionals->count() > 0)
         <div id="tableToSearch-container" data-url="{{ $isDeactivated ? '/professionals/desactivated/list' : '/professionals/list' }}">
             @include('components.contents.professional.tables.professionalsListTable')

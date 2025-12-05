@@ -8,14 +8,14 @@
     ]"
     :current="'Detalls'"
     />
-<div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <div class="flex justify-end items-center mb-6">
-        {{-- <h1 class="text-3xl font-bold">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1> --}}
+        {{-- <h1 class="text-3xl font-bold text-md">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1> --}}
         <!-- Buttons -->
         @if((Auth::user()->role ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             @if($professional->status == 1)
-                <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
+                <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-secondary">Editar</a>
             @endif
             @if($professional->status == 1)
                 <x-partials.modal 
@@ -46,25 +46,25 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Personal information -->
-        <div class="card bg-base-100 text-base-content shadow-xl">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació personal</h2>
+                <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació personal</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">Nom complet:</label>
-                        <p class="text-sm">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</p>
+                        <label class="font-bold text-md">Nom complet:</label>
+                        <p class="text-sm text-base-content/50">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">DNI:</label>
-                        <p class="text-sm">{{ $professional->dni }}</p>
+                        <label class="font-bold text-md">DNI:</label>
+                        <p class="text-sm text-base-content/50">{{ $professional->dni }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Rol:</label>
-                        <p class="text-sm">{{ $professional->role ?: 'No especificat' }}</p>
+                        <label class="font-bold text-md">Rol:</label>
+                        <p class="text-sm text-base-content/50">{{ $professional->role ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Estat laboral:</label>
-                        <p class="text-sm">
+                        <label class="font-bold text-md">Estat laboral:</label>
+                        <p class="text-sm text-base-content/50 mt-1">
                             <span class="badge badge-dash {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
                                 {{ $professional->employment_status ?: 'No especificat' }}
                             </span>
@@ -75,21 +75,21 @@
         </div>
 
         <!-- Contact information -->
-        <div class="card bg-base-100 text-base-content shadow-xl">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació de contacte</h2>
+                <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació de contacte</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">Telèfon:</label>
-                        <p class="text-sm">{{ $professional->phone ?: 'No especificat' }}</p>
+                        <label class="font-bold text-md">Telèfon:</label>
+                        <p class="text-sm text-base-content/50">{{ $professional->phone ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Email:</label>
-                        <p class="text-sm">{{ $professional->email ?: 'No especificat' }}</p>
+                        <label class="font-bold text-md">Email:</label>
+                        <p class="text-sm text-base-content/50">{{ $professional->email ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Adreça:</label>
-                        <p class="text-sm">{{ $professional->address ?: 'No especificada' }}</p>
+                        <label class="font-bold text-md">Adreça:</label>
+                        <p class="text-sm text-base-content/50">{{ $professional->address ?: 'No especificada' }}</p>
                     </div>
                     
                 </div>
@@ -98,62 +98,62 @@
     </div>
 
     <!-- Curriculum Vitae -->
-    <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Currículum Vitae</h2>
-            <p class="text-sm break-all whitespace-pre-wrap">{{ $professional->cvitae ?: 'No hi ha currículum disponible' }}</p>
+            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Currículum Vitae</h2>
+            <p class="text-sm text-base-content/50 break-all whitespace-pre-wrap">{{ $professional->cvitae ?: 'No hi ha currículum disponible' }}</p>
         </div>
     </div>
 
     <!-- Additional information -->
-    <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Informació addicional</h2>
+            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació addicional</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
-                    <label class="font-semibold">Usuari de login:</label>
-                    <p class="text-sm">{{ $professional->user ?: 'No especificat' }}</p>
+                    <label class="font-bold text-md">Usuari de login:</label>
+                    <p class="text-sm text-base-content/50">{{ $professional->user ?: 'No especificat' }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold">Taquilla:</label>
-                    <p class="text-sm">{{ $professional->locker_num ?: 'No especificat' }}</p>
+                    <label class="font-bold text-md">Taquilla:</label>
+                    <p class="text-sm text-base-content/50">{{ $professional->locker_num ?: 'No especificat' }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold">Clau Codi:</label>
-                    <p class="text-sm">{{ $professional->key_code ?: 'No especificat' }}</p>
+                    <label class="font-bold text-md">Clau Codi:</label>
+                    <p class="text-sm text-base-content/50">{{ $professional->key_code ?: 'No especificat' }}</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Material Assignments -->
-    <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Uniformitat Assignada</h2>
+            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Uniformitat Assignada</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="text-center">
-                    <label class="font-semibold">Samarreta:</label>
+                    <label class="font-bold text-md">Samarreta:</label>
                     @if($shirtSize)
-                        <p class="text-2xl font-bold text-blue-600">{{ $shirtSize }}</p>
+                        <p class="text-2xl font-bold text-md text-primary">{{ $shirtSize }}</p>
                     @else
-                        <p class="text-sm text-gray-400">No assignat</p>
+                        <p class="text-sm text-base-content/50">No assignat</p>
                     @endif
                 </div>
                 <div class="text-center">
-                    <label class="font-semibold">Pantaló:</label>
+                    <label class="font-bold text-md">Pantaló:</label>
                     @if($pantsSize)
-                        <p class="text-2xl font-bold text-green-600">{{ $pantsSize }}</p>
+                        <p class="text-2xl font-bold text-md text-secondary">{{ $pantsSize }}</p>
                     @else
-                        <p class="text-sm text-gray-400">No assignat</p>
+                        <p class="text-sm text-base-content/50">No assignat</p>
                     @endif
                 </div>
                 <div class="text-center">
-                    <label class="font-semibold">Sabata:</label>
+                    <label class="font-bold text-md">Sabata:</label>
                     @if($shoeSize)
-                        <p class="text-2xl font-bold text-purple-600">{{ $shoeSize }}</p>
+                        <p class="text-2xl font-bold text-md text-error">{{ $shoeSize }}</p>
                     @else
-                        <p class="text-sm text-gray-400">No assignat</p>
+                        <p class="text-sm text-base-content/50">No assignat</p>
                     @endif
                 </div>
             </div>
@@ -161,9 +161,9 @@
     </div>
 
     <!-- Projects Assigned -->
-    <div class="card bg-base-100 shadow-xl mt-6">
+    <div class="card bg-base-100 shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Projectes asignats</h2>
+            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Projectes asignats</h2>
             
             @if($professional->assignedProjects->count() > 0)
                 <div class="space-y-3">
@@ -171,7 +171,7 @@
                         <div class="p-3 bg-base-200 rounded-lg">
                             <div>
                                 <a href="{{ route('projectcommission_show', $project->id) }}" 
-                                   class="font-semibold link link-hover">
+                                   class="font-semibold text-md link link-hover text-info">
                                     {{ $project->name }}
                                 </a>
                             </div>
@@ -181,23 +181,23 @@
             @else
                 <div class="text-center py-8 text-base-content/50">
                     <i class="fas fa-folder text-4xl mb-4"></i>
-                    <p class="text-sm">No hi ha projectes asignats</p>
+                    <p class="text-sm text-base-content/50">No hi ha projectes asignats</p>
                 </div>
             @endif
         </div>
     </div>
 
     <!-- Courses Assigned -->
-    <div class="card bg-base-100 shadow-xl mt-6">
+    <div class="card bg-base-100 shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Cursos asignats</h2>
+            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Cursos asignats</h2>
             
             @if($professional->assignedCourses->count() > 0)
                 <div class="space-y-3">
                     @foreach($professional->assignedCourses as $course)
                         <div class="p-3 bg-base-200 rounded-lg flex items-center justify-between">
                             <div>
-                                <a href="{{ route('course_show', $course->id) }}" class="font-semibold link link-hover">
+                                <a href="{{ route('course_show', $course->id) }}" class="font-semibold text-md link link-hover text-info">
                                     {{ $course->training_name }}
                                 </a>
                             </div>
