@@ -48,7 +48,7 @@
         <!-- Personal information -->
         <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació personal</h2>
+                <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació Personal</h2>
                 <div class="space-y-3">
                     <div>
                         <label class="font-bold text-md">Nom complet:</label>
