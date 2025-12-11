@@ -2,12 +2,14 @@
 
 @section('content')
 
+@if((Auth::user()->role ?? null) === 'Gerent')
 <x-partials.breadcrumb
     :items="[
         'Centres' => route('centers_list'),
     ]"
     :current="'Detalls'"
     />
+@endif
 <div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold">{{ $center->name }}</h1> --}}

@@ -149,6 +149,7 @@
                     </ul>
 
                     <!-- Add Professional -->
+                    @if((Auth::user()->role ?? null) !== 'Tècnic')
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('professional_form') }}">
@@ -157,7 +158,7 @@
                             </a>
                         </li>
                     </ul>
-
+                    @endif
                     <!-- Submenu Cursos -->
                     <ul class="text-xs">
                         <li>
@@ -174,6 +175,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                @if((Auth::user()->role ?? null) !== 'Tècnic')
                                 <ul class="text-xs">
                                     <li>
                                         <a href="{{ route('course_form') }}">
@@ -182,6 +184,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                @endif
                             </details>
                         </li>
                     </ul>
@@ -206,6 +209,7 @@
                                 </ul>
 
                                 <!-- Add Evaluation -->
+                                @if((Auth::user()->role ?? null) !== 'Tècnic')
                                 <ul class="text-xs">
                                     <li>
                                         <a href="{{ route('professional_evaluations_quiz_form') }}">
@@ -214,6 +218,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                @endif
                             </details>
                         </li>
                     </ul>
@@ -234,6 +239,7 @@
                             </a>
                         </li>
                     </ul>
+                    @if((Auth::user()->role ?? null) !== 'Tècnic')
                     <ul class="text-xs">
                         <li>
                             <a href="{{ route('projectcommission_form') }}">
@@ -242,6 +248,7 @@
                             </a>
                         </li>
                     </ul>
+                    @endif
                 </details>
             </li>
             <!-- Submenu Material-Assignments -->
@@ -267,12 +274,14 @@
                                 Llistar
                             </a>
                         </li>
+                        @if((Auth::user()->role ?? null) !== 'Tècnic')
                         <li>
                             <a href="{{ route('complementaryservice_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
                                 Afegir
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </details>
             </li>
@@ -310,6 +319,7 @@
             @endif
 
             <!-- Submenu Desactivations -->
+            @if((Auth::user()->role ?? null) !== 'Tècnic')
             <li>
                 <details>
                     <summary>
@@ -350,7 +360,7 @@
                     </ul>
                 </details>
             </li>
-
+            @endif
         </ul>
     </nav>
 

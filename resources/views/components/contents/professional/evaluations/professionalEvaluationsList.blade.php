@@ -19,7 +19,7 @@
     </div>
     <div class="flex gap-4">
         <a href="{{ route('professional_evaluations.downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
-        <a href="{{ route('professional_evaluations_quiz_form') }}" class="btn btn-sm btn-primary">Afegir Evaluació</a>
+        {{-- <a href="{{ route('professional_evaluations_quiz_form') }}" class="btn btn-sm btn-primary">Afegir Evaluació</a> --}}
     </div>
 </div>
 @endif

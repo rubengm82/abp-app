@@ -18,7 +18,7 @@
     <div class="flex gap-4">
         <a href="{{ route('projectcommissions.downloadCSV', ['status' => $isDeactivated ? 'Inactiu' : 'Actiu']) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
         @if(!$isDeactivated)
-            <a href="{{ route('projectcommission_form') }}" class="btn btn-sm btn-primary">Afegir Projecte/Comissió</a>
+            {{-- <a href="{{ route('projectcommission_form') }}" class="btn btn-sm btn-primary">Afegir Projecte/Comissió</a> --}}
         @endif
     </div>
 </div>

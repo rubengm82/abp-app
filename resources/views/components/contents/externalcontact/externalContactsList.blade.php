@@ -17,7 +17,7 @@
     </div>
     <div class="flex gap-4">
         <a href="{{ route('externalcontacts.downloadCSV') }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
-        <a href="{{ route('externalcontact_form') }}" class="btn btn-sm btn-primary">Afegir Contacte Extern</a>
+        {{-- <a href="{{ route('externalcontact_form') }}" class="btn btn-sm btn-primary">Afegir Contacte Extern</a> --}}
     </div>
 </div>
 @endif

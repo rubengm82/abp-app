@@ -22,7 +22,7 @@
         <a href="{{ route('professionals.downloadCSV', $isDeactivated ? 0 : 1) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
         @if(!$isDeactivated)
             <a href="{{ route('professionals.downloadCSV.materialAssignments') }}" class="btn btn-sm btn-warning">Descarregar Uniformitat</a>
-            <a href="{{ route('professional_form') }}" class="btn btn-sm btn-primary">Afegir Professional</a>
+            {{-- <a href="{{ route('professional_form') }}" class="btn btn-sm btn-primary">Afegir Professional</a> --}}
         @endif
     </div>
 </div>

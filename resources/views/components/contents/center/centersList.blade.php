@@ -18,7 +18,7 @@
     <div class="flex gap-4">
         <a href="{{ route('centers.downloadCSV', ['status' => $isDeactivated ? 0 : 1]) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
         @if(!$isDeactivated)
-            <a href="{{ route('center_form') }}" class="btn btn-sm btn-primary">Afegir Centre</a>
+            {{-- <a href="{{ route('center_form') }}" class="btn btn-sm btn-primary">Afegir Centre</a> --}}
         @endif
     </div>
 </div>
