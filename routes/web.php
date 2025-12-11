@@ -14,6 +14,7 @@ use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\GeneralServiceController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\GlobalDocumentController;
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -278,3 +279,6 @@ Route::middleware('auth')->delete('/complementaryservices/notes/{note}', [Comple
 Route::middleware('auth')->post('/complementaryservices/documents/{complementaryService}', [ComplementaryServiceController::class, 'complementaryservice_document_add'])->name('complementaryservices_document_add');
 Route::middleware('auth')->delete('/complementaryservices/documents/{document}', [ComplementaryServiceController::class, 'complementaryservice_document_delete'])->name('complementaryservices_document_delete');
 Route::middleware('auth')->get('/complementaryservices/documents/download/{document}', [ComplementaryServiceController::class, 'complementaryservice_document_download'])->name('complementaryservices_document_download');
+
+/* ------------------------ ABOUT ------------------------ */
+Route::middleware('auth')->get('/about', [AboutController::class, 'show'])->name('about_show');

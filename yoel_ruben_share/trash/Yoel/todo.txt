@@ -1,8 +1,52 @@
 # Sprint 4  - TODO LIST
 
 Todo: 
-* Utilizar el método storage igual que en los documentos para almacenar en el directorio de siempre las firmas de los usuarios.
+Inpirandote en el siguiente html y script de ts, crea un nuevo menú "About", recurda; en catalan, para que apareza información importante, por ejemplo en este caso las licencias y del software.
 
+"""
+# cat tmp
+ <div class="software">
+    <ul>
+      <li>IBM Cognos Analytics 11: <a href="#" target="_blank">Consumer License</a></li>
+      <li>Angular {{ angularVersion }}: <a href="https://github.com/angular/angular/blob/master/LICENSE" target="_blank">MIT License</a></li>
+      <li>HammerJS {{ hammerVersion }}: <a href="https://github.com/hammerjs/hammer.js/blob/master/LICENSE.md" target="_blank">MIT License</a></li>
+      <li>MomentJS {{ momentVersion }}: <a href="https://github.com/moment/moment/blob/develop/LICENSE" target="_blank">MIT License</a></li>
+      <li>ngx-translate {{ ngx_translateVersion }}: <a href="https://github.com/ngx-translate/core/blob/master/LICENSE" target="_blank">MIT License</a></li>
+      <li>angular-svg-round-progressbar {{ progressVersion }}: <a href="https://github.com/crisbeto/angular-svg-round-progressbar/blob/master/LICENSE" target="_blank">MIT License</a></li>
+      <li>ng-connection-service {{ connectionVersion }}: <a href="https://github.com/ultrasonicsoft/ng-connection-service/blob/master/LICENSE" target="_blank">MIT License</a></li>
+    </ul>
+  </div>
+export class AboutComponent implements OnInit {
+  constructor(
+    public config: ConfigService,
+    private translate: TranslateService,
+    private snack: MatSnackBar,
+    private data: DataService,
+    public _cognos: CognosService,
+    private _store: Store
+  ) {
+    this.data.currentLevel = 1;
+    this.angularVersion = VERSION.full;
+    this.momentVersion = formatVersion(configJson.dependencies.moment);
+    this.hammerVersion = formatVersion(configJson.dependencies.hammerjs);
+    this.ngx_translateVersion = formatVersion(configJson.dependencies['@ngx-translate/core']);
+    this.progressVersion = formatVersion(configJson.dependencies['angular-svg-round-progressbar']);
+    this.connectionVersion = formatVersion(configJson.dependencies['ng-connection-service']);
+  } <div class="software">
+    <ul>
+      <li>IBM Cognos Analytics 11: <a href="#" target="_blank">Consumer License</a></li>
+      <li>Angular {{ angularVersion }}: <a href="https://github.com/angular/angular/blob/master/LICENSE" target="_blank">MIT License</a></li>
+      <li>HammerJS {{ hammerVersion }}: <a href="https://github.com/hammerjs/hammer.js/blob/master/LICENSE.md" target="_blank">MIT License</a></li>
+      <li>MomentJS {{ momentVersion }}: <a href="https://github.com/moment/moment/blob/develop/LICENSE" target="_blank">MIT License</a></li>
+      <li>ngx-translate {{ ngx_translateVersion }}: <a href="https://github.com/ngx-translate/core/blob/master/LICENSE" target="_blank">MIT License</a></li>
+      <li>angular-svg-round-progressbar {{ progressVersion }}: <a href="https://github.com/crisbeto/angular-svg-round-progressbar/blob/master/LICENSE" target="_blank">MIT License</a></li>
+      <li>ng-connection-service {{ connectionVersion }}: <a href="https://github.com/ultrasonicsoft/ng-connection-service/blob/master/LICENSE" target="_blank">MIT License</a></li>
+    </ul>
+  </div>
+
+// apartado de software
+<p _ngcontent-ng-c1703533262="">This mobile report has been developed by <a _ngcontent-ng-c1703533262="" href="https://amvara.de/" target="_blank">AMVARA CONSULTING</a> using <a _ngcontent-ng-c1703533262="" href="https://www.ibm.com/products/cognos-analytics" target="_blank">IBM Cognos Analytics</a> and <a _ngcontent-ng-c1703533262="" href="https://angular.dev/" target="_blank">Angular</a>.<br _ngcontent-ng-c1703533262=""> The data queries were provided by the respective business department itself. </p>
+"""
 
 Apuntes:
 * 

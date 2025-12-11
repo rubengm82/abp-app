@@ -361,6 +361,14 @@
                 </details>
             </li>
             @endif
+
+            <!-- About Menu -->
+            <li>
+                <a href="{{ route('about_show') }}">
+                    <x-partials.icon name="information-circle" class="w-6 h-6 text-primary" />
+                    Info
+                </a>
+            </li>
         </ul>
     </nav>
 
