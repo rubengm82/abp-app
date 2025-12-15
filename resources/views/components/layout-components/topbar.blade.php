@@ -59,6 +59,17 @@
                 <!-- Separator -->
                 <span class="block border-t border-gray-400 my-2 w-full rounded-none"></span>
 
+                <!-- About/Info -->
+                <li>
+                    <a href="{{ route('about_show') }}" class="flex items-center gap-2">
+                        <x-partials.icon name="information-circle" class="w-5 h-5" />
+                        <span>Info</span>
+                    </a>
+                </li>
+
+                <!-- Separator -->
+                <span class="block border-t border-gray-400 my-2 w-full rounded-none"></span>
+
                 <!-- Logout -->
                 <li>
                     <x-partials.modal 
