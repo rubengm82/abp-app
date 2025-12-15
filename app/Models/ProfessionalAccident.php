@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class ProfessionalAccident extends Model
 {
@@ -45,5 +46,21 @@ class ProfessionalAccident extends Model
     public function affectedProfessional()
     {
         return $this->belongsTo(Professional::class, 'affected_professional_id');
+    }
+
+    /**
+     * Relationship with notes
+     */
+    public function notes()
+    {
+        return $this->morphMany(NotesComponent::class, 'noteable')->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Relationship with documents
+     */
+    public function documents()
+    {
+        return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc');
     }
 }

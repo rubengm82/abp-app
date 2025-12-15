@@ -127,6 +127,16 @@ Route::middleware('auth')->put('/professional_accident/update/{id}', [Profession
 Route::middleware('auth')->delete('/professional_accident/delete/{id}', [ProfessionalAccidentController::class, "destroy"])->name("professional_accident_delete");
 Route::middleware('auth')->post('/professional_accident/end-leave/{id}', [ProfessionalAccidentController::class, "endLeave"])->name("professional_accident_end_leave");
 
+/* Professional Accident Notes */
+Route::middleware('auth')->post('/professional_accident/notes/{professionalAccident}', [ProfessionalAccidentController::class, 'professional_accident_note_add'])->name('professional_accident_note_add');
+Route::middleware('auth')->put('/professional_accident/notes/{note}', [ProfessionalAccidentController::class, 'professional_accident_note_update'])->name('professional_accident_note_update');
+Route::middleware('auth')->delete('/professional_accident/notes/{note}', [ProfessionalAccidentController::class, 'professional_accident_note_delete'])->name('professional_accident_note_delete');
+
+/* Professional Accident Documents */
+Route::middleware('auth')->post('/professional_accident/documents/{professionalAccident}', [ProfessionalAccidentController::class, 'professional_accident_document_add'])->name('professional_accident_document_add');
+Route::middleware('auth')->delete('/professional_accident/documents/{document}', [ProfessionalAccidentController::class, 'professional_accident_document_delete'])->name('professional_accident_document_delete');
+Route::middleware('auth')->get('/professional_accident/documents/download/{document}', [ProfessionalAccidentController::class, 'professional_accident_document_download'])->name('professional_accident_document_download');
+
 /* ------------------------ PROJECT COMMISSIONS ------------------------ */
 Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
 Route::middleware('auth')->post('/projectcommission/add', [ProjectCommissionController::class, "store"])->name("projectcommission_add");

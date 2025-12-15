@@ -152,6 +152,26 @@
         </div>
     </div>
 
+    <!-- Documents -->
+    <x-partials.documents-section
+        :items="$accident->documents"
+        title="Documents"            
+        uploadAction="{{ route('professional_accident_document_add', $accident) }}"
+        downloadRoute="professional_accident_document_download"
+        deleteRoute="professional_accident_document_delete"
+        uploadedByField="uploadedByProfessional"
+    />
+
+    <!-- Notes -->
+    <x-partials.notes-section
+        :items="$accident->notes"
+        title="Notes"
+        addAction="{{ route('professional_accident_note_add', $accident) }}"
+        deleteRoute="professional_accident_note_delete"
+        :editRoute="'professional_accident_note_update'"
+        createdByField="createdByProfessional"
+    />
+
 @include('components.partials.mainToasts')
 @endsection
 
