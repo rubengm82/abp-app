@@ -77,6 +77,9 @@ class ProfessionalAccidentSeeder extends Seeder
                 'description' => $descriptions[array_rand($descriptions)],
                 'created_by_professional_id' => $createdByProfessionalId,
                 'affected_professional_id' => $affectedProfessionalId,
+                'duration' => null,
+                'start_date' => null,
+                'end_date' => null,
                 'created_at' => $date->toDateTimeString(),
                 'updated_at' => $date->toDateTimeString(),
             ];
