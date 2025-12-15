@@ -57,7 +57,7 @@ class ProfessionalAccidentSeeder extends Seeder
             'Caiguda a causa dun terra mullat',
         ];
 
-        $types = ['Sin baixa', 'Con baixa', 'Baixa Finalitzada'];
+        $types = ['Sin baixa', 'Amb baixa', 'Baixa Finalitzada'];
         
         $accidents = [];
         
@@ -84,8 +84,8 @@ class ProfessionalAccidentSeeder extends Seeder
                 'updated_at' => $date->toDateTimeString(),
             ];
 
-            // Add leave information if type is "Con baixa"
-            if ($type === 'Con baixa') {
+            // Add leave information if type is "Amb baixa"
+            if ($type === 'Amb baixa') {
                 $startDate = $date->copy()->addDays(rand(0, 2));
                 $duration = rand(5, 30);
                 $endDate = $startDate->copy()->addDays($duration);

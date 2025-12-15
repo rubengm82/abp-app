@@ -14,7 +14,7 @@
         @foreach($accidents as $accident)
             <tr class="hover:bg-base-300 transition-colors">
                 <td class="px-4 py-2">
-                    <span class="badge badge-dash whitespace-normal text-center {{ $accident->type === 'Baixa Finalitzada' ? 'badge-success' : ($accident->type === 'Con baixa' ? 'badge-warning' : 'badge-info') }}">
+                    <span class="badge badge-dash whitespace-normal text-center {{ $accident->type === 'Baixa Finalitzada' ? 'badge-success' : ($accident->type === 'Amb baixa' ? 'badge-warning' : 'badge-info') }}">
                         {{ $accident->type }}
                     </span>
                 </td>

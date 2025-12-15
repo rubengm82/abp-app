@@ -48,7 +48,7 @@ class ProfessionalAccidentController extends Controller
         // Get available professionals (not on leave) for the current center
         $availableProfessionals = Professional::where('status', 1)
             ->where('center_id', Auth::user()->center_id)
-            ->where('employment_status', '!=', 'Baixa')
+            ->where('is_on_leave', false)
             ->orderBy('name')
             ->get();
 
@@ -63,7 +63,7 @@ class ProfessionalAccidentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'type' => 'required|in:Sin baixa,Con baixa,Baixa Finalitzada',
+            'type' => 'required|in:Sin baixa,Amb baixa,Baixa Finalitzada',
             'date' => 'required|date',
             'context' => 'nullable|string|max:5000',
             'description' => 'nullable|string|max:5000',
@@ -78,10 +78,10 @@ class ProfessionalAccidentController extends Controller
 
         ProfessionalAccident::create($validated);
 
-        // If type is "Con baixa", update the affected professional's employment_status to 'Baixa'
-        if ($validated['type'] === 'Con baixa') {
+        // If type is "Amb baixa", update the affected professional's leave status
+        if ($validated['type'] === 'Amb baixa') {
             $affectedProfessional = Professional::findOrFail($validated['affected_professional_id']);
-            $affectedProfessional->update(['employment_status' => 'Baixa']);
+            $affectedProfessional->update(['is_on_leave' => true]);
         }
 
         return redirect()->route('professional_accidents_list')->with('success', 'Accident professional registrat correctament!');
@@ -112,7 +112,7 @@ class ProfessionalAccidentController extends Controller
         $availableProfessionals = Professional::where('status', 1)
             ->where('center_id', Auth::user()->center_id)
             ->where(function($q) use ($accident) {
-                $q->where('employment_status', '!=', 'Baixa')
+                $q->where('is_on_leave', false)
                   ->orWhere('id', $accident->affected_professional_id);
             })
             ->orderBy('name')
@@ -132,7 +132,7 @@ class ProfessionalAccidentController extends Controller
         $accident = ProfessionalAccident::findOrFail($id);
 
         $validated = $request->validate([
-            'type' => 'required|in:Sin baixa,Con baixa,Baixa Finalitzada',
+            'type' => 'required|in:Sin baixa,Amb baixa,Baixa Finalitzada',
             'date' => 'required|date',
             'context' => 'nullable|string|max:5000',
             'description' => 'nullable|string|max:5000',
@@ -163,16 +163,16 @@ class ProfessionalAccidentController extends Controller
         $affectedProfessional = Professional::findOrFail($validated['affected_professional_id']);
 
         // Handle automatic status updates
-        if ($validated['type'] === 'Con baixa') {
-            // If changing to "Con baixa" or already is "Con baixa", set to 'Baixa'
-            $affectedProfessional->update(['employment_status' => 'Baixa']);
+        if ($validated['type'] === 'Amb baixa') {
+            // If changing to "Amb baixa", set is_on_leave to true
+            $affectedProfessional->update(['is_on_leave' => true]);
         } elseif ($validated['type'] === 'Baixa Finalitzada') {
-            // If type is "Baixa Finalitzada", ensure professional is 'Actiu'
-            $affectedProfessional->update(['employment_status' => 'Actiu']);
+            // If type is "Baixa Finalitzada", set is_on_leave to false
+            $affectedProfessional->update(['is_on_leave' => false]);
         } else {
-            // If changing from "Con baixa" to "Sin baixa", set back to 'Actiu'
-            if ($oldType === 'Con baixa' || $oldType === 'Baixa Finalitzada') {
-                $affectedProfessional->update(['employment_status' => 'Actiu']);
+            // If changing from "Amb baixa" to "Sin baixa", set is_on_leave to false
+            if ($oldType === 'Amb baixa' || $oldType === 'Baixa Finalitzada') {
+                $affectedProfessional->update(['is_on_leave' => false]);
             }
         }
 
@@ -186,11 +186,11 @@ class ProfessionalAccidentController extends Controller
     {
         $accident = ProfessionalAccident::findOrFail($id);
         
-        // If it was a "Con baixa" type, restore the professional's status
-        if ($accident->type === 'Con baixa') {
+        // If it was an "Amb baixa" type, restore the professional's leave status
+        if ($accident->type === 'Amb baixa') {
             $affectedProfessional = $accident->affectedProfessional;
             if ($affectedProfessional) {
-                $affectedProfessional->update(['employment_status' => 'Actiu']);
+                $affectedProfessional->update(['is_on_leave' => false]);
             }
         }
 
@@ -206,8 +206,8 @@ class ProfessionalAccidentController extends Controller
     {
         $accident = ProfessionalAccident::findOrFail($id);
         
-        // Only allow ending leaves for "Con baixa" type
-        if ($accident->type !== 'Con baixa') {
+        // Only allow ending leaves for "Amb baixa" type
+        if ($accident->type !== 'Amb baixa') {
             return redirect()->route('professional_accident_show', $accident->id)
                 ->with('error', 'Només es poden finalitzar les baixes.');
         }
@@ -218,10 +218,10 @@ class ProfessionalAccidentController extends Controller
                 ->with('error', 'Aquesta baixa ja està finalitzada.');
         }
 
-        // Update the affected professional's status back to 'Actiu'
+        // Update the affected professional's leave status
         $affectedProfessional = $accident->affectedProfessional;
         if ($affectedProfessional) {
-            $affectedProfessional->update(['employment_status' => 'Actiu']);
+            $affectedProfessional->update(['is_on_leave' => false]);
         }
 
         // Update the accident: change type to 'Baixa Finalitzada' and set end_date if not set
@@ -232,6 +232,6 @@ class ProfessionalAccidentController extends Controller
         $accident->update($updateData);
 
         return redirect()->route('professional_accident_show', $accident->id)
-            ->with('success', 'Baixa finalitzada correctament! El professional ha estat actualitzat a Actiu.');
+            ->with('success', 'Baixa finalitzada correctament! El professional ha estat actualitzat.');
     }
 }

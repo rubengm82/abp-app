@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('professional_accidents', function (Blueprint $table) {
             $table->id();
             
-            // Type: Sin baixa, Con baixa, or Baixa Finalitzada
-            $table->enum('type', ['Sin baixa', 'Con baixa', 'Baixa Finalitzada'])->comment('Accident type: with or without leave, or ended leave');
+            // Type: Sin baixa, Amb baixa, or Baixa Finalitzada
+            $table->enum('type', ['Sin baixa', 'Amb baixa', 'Baixa Finalitzada'])->comment('Accident type: with or without leave, or ended leave');
             
             // Date of the accident
             $table->date('date')->comment('Accident date');
@@ -30,7 +30,7 @@ return new class extends Migration
             // Affected professional
             $table->foreignId('affected_professional_id')->constrained('professionals')->onDelete('cascade')->comment('Affected professional');
             
-            // Fields for "Con baixa" type
+            // Fields for "Amb baixa" type
             $table->integer('duration')->nullable()->comment('Leave duration in days');
             $table->date('start_date')->nullable()->comment('Leave start date');
             $table->date('end_date')->nullable()->comment('Leave end date');

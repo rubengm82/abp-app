@@ -44,7 +44,7 @@
                         <select name="type" id="id_type" class="select select-bordered w-full" required>
                             <option value="">Selecciona un tipus</option>
                             <option value="Sin baixa" {{ old('type', $accident->type) == 'Sin baixa' ? 'selected' : '' }}>Sin baixa</option>
-                            <option value="Con baixa" {{ old('type', $accident->type) == 'Con baixa' ? 'selected' : '' }}>Con baixa</option>
+                            <option value="Amb baixa" {{ old('type', $accident->type) == 'Amb baixa' ? 'selected' : '' }}>Amb baixa</option>
                         </select>
                     </div>
 
@@ -96,11 +96,11 @@
             </div>
         </div>
 
-        <!-- Leave Information (only for "Con baixa" type) -->
+        <!-- Leave Information (only for "Amb baixa" type) -->
         @php
             $currentType = old('type', $accident->type);
         @endphp
-        <div class="card shadow-xl" id="leaveInfoSection" @if($currentType != 'Con baixa') style="display: none;" @endif>
+        <div class="card shadow-xl" id="leaveInfoSection" @if($currentType != 'Amb baixa') style="display: none;" @endif>
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació de la baixa</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -147,7 +147,7 @@
         
         function toggleLeaveSection() {
             const type = typeSelect.value;
-            if (type === 'Con baixa') {
+            if (type === 'Amb baixa') {
                 leaveSection.style.display = 'block';
             } else {
                 leaveSection.style.display = 'none';
