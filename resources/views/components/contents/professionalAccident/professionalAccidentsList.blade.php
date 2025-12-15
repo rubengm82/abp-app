@@ -16,9 +16,6 @@
     <div>
         <x-partials.search-bar />
     </div>
-    <div class="flex gap-2">
-        <a href="{{ route('professional_accident_form') }}" class="btn btn-sm btn-primary">Afegir Accident</a>
-    </div>
 </div>
 @endif
 

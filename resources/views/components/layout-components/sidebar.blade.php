@@ -165,7 +165,7 @@
                         <li>
                             <details>
                                 <summary>
-                                    <x-partials.icon name="heart" class="w-6 h-6 text-primary" />
+                                    <x-partials.icon name="clipboard-document" class="w-6 h-6 text-primary" />
                                     Accidents professionals
                                 </summary>
                                 <ul class="text-xs">

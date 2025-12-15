@@ -14,34 +14,38 @@
         <div class="flex gap-2">
             <a href="{{ route('professional_accident_edit', $accident) }}" class="btn btn-sm btn-info">Editar</a>
             @if($accident->type === 'Con baja')
+                <div class="relative">
+                    <x-partials.modal 
+                        :id="'modal_end_leave_' . $accident->id" 
+                        :msj="'Estàs segur que vols finalitzar aquesta baixa? El professional serà actualitzat a Actiu.'"  
+                        :btnText="'Finalitzar Baixa'" 
+                        class="btn-sm btn-success"
+                    >
+                        <form action="{{ route('professional_accident_end_leave', $accident->id) }}" method="POST" id="endLeaveForm{{ $accident->id }}">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-success">
+                                Acceptar
+                            </button>
+                        </form>
+                    </x-partials.modal>
+                </div>
+            @endif
+            <div class="relative">
                 <x-partials.modal 
-                    id="endLeave{{ $accident->id }}" 
-                    msj="Estàs segur que vols finalitzar aquesta baixa? El professional serà actualitzat a Actiu."  
-                    btnText="Finalitzar Baixa" 
-                    class="btn-sm btn-success"
+                    :id="'modal_delete_accident_' . $accident->id" 
+                    :msj="'Estàs segur que vols eliminar aquest accident professional?'"  
+                    :btnText="'Eliminar'" 
+                    class="btn-sm btn-error"
                 >
-                    <form action="{{ route('professional_accident_end_leave', $accident) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('professional_accident_delete', $accident->id) }}" method="POST" id="deleteAccidentForm{{ $accident->id }}">
                         @csrf
-                        <button type="submit" class="btn btn-sm btn-success">
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-error">
                             Acceptar
                         </button>
                     </form>
                 </x-partials.modal>
-            @endif
-            <x-partials.modal 
-                id="deleteAccident{{ $accident->id }}" 
-                msj="Estàs segur que vols eliminar aquest accident professional?"  
-                btnText="Eliminar" 
-                class="btn-sm btn-error"
-            >
-                <form action="{{ route('professional_accident_delete', $accident) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-error">
-                        Acceptar
-                    </button>
-                </form>
-            </x-partials.modal>
+            </div>
         </div>
     </div>
 
