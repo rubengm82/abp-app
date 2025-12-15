@@ -41,8 +41,8 @@
                         </label>
                         <select name="type" id="id_type" class="select select-bordered w-full" required>
                             <option value="">Selecciona un tipus</option>
-                            <option value="Sin baja" {{ old('type') == 'Sin baja' ? 'selected' : '' }}>Sin baja</option>
-                            <option value="Con baja" {{ old('type') == 'Con baja' ? 'selected' : '' }}>Con baja</option>
+                            <option value="Sin baixa" {{ old('type') == 'Sin baixa' ? 'selected' : '' }}>Sin baixa</option>
+                            <option value="Con baixa" {{ old('type') == 'Con baixa' ? 'selected' : '' }}>Con baixa</option>
                         </select>
                     </div>
 
@@ -92,7 +92,7 @@
             </div>
         </div>
 
-        <!-- Leave Information (only for "Con baja" type) -->
+        <!-- Leave Information (only for "Con baixa" type) -->
         <div class="card shadow-xl" id="leaveInfoSection" style="display: none;">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4">Informació de la baixa</h2>
@@ -141,7 +141,7 @@
         
         function toggleLeaveSection() {
             const type = typeSelect.value;
-            if (type === 'Con baja') {
+            if (type === 'Con baixa') {
                 leaveSection.style.display = 'block';
             } else {
                 leaveSection.style.display = 'none';
@@ -151,7 +151,7 @@
         typeSelect.addEventListener('change', toggleLeaveSection);
         
         // Trigger on page load if old input exists
-        if (initialType === 'Con baja') {
+        if (initialType === 'Con baixa') {
             toggleLeaveSection();
         }
     });

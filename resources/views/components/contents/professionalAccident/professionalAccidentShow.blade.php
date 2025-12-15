@@ -13,7 +13,7 @@
         <h1 class="text-3xl font-bold">Accident professional #{{ $accident->id }}</h1>
         <div class="flex gap-2">
             <a href="{{ route('professional_accident_edit', $accident) }}" class="btn btn-sm btn-info">Editar</a>
-            @if($accident->type === 'Con baja')
+            @if($accident->type === 'Con baixa')
                 <div class="relative">
                     <x-partials.modal 
                         :id="'modal_end_leave_' . $accident->id" 
@@ -58,7 +58,7 @@
                     <div>
                         <label class="font-semibold">Tipus:</label>
                         <p class="text-lg">
-                            <span class="badge badge-dash {{ $accident->type === 'Baja Finalitzada' ? 'badge-success' : ($accident->type === 'Con baja' ? 'badge-warning' : 'badge-info') }}">
+                            <span class="badge badge-dash {{ $accident->type === 'Baixa Finalitzada' ? 'badge-success' : ($accident->type === 'Con baixa' ? 'badge-warning' : 'badge-info') }}">
                                 {{ $accident->type }}
                             </span>
                         </p>
@@ -67,7 +67,7 @@
                         <label class="font-semibold">Data:</label>
                         <p class="text-lg">{{ $accident->date->format('d/m/Y') }}</p>
                     </div>
-                    @if($accident->type === 'Con baja' || $accident->type === 'Baja Finalitzada')
+                    @if($accident->type === 'Con baixa' || $accident->type === 'Baixa Finalitzada')
                         <div>
                             <label class="font-semibold">Data d'inici de la baixa:</label>
                             <p class="text-lg">{{ $accident->start_date ? $accident->start_date->format('d/m/Y') : '-' }}</p>

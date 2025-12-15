@@ -63,7 +63,7 @@ class ProfessionalAccidentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'type' => 'required|in:Sin baja,Con baja,Baja Finalitzada',
+            'type' => 'required|in:Sin baixa,Con baixa,Baixa Finalitzada',
             'date' => 'required|date',
             'context' => 'nullable|string|max:5000',
             'description' => 'nullable|string|max:5000',
@@ -78,8 +78,8 @@ class ProfessionalAccidentController extends Controller
 
         ProfessionalAccident::create($validated);
 
-        // If type is "Con baja", update the affected professional's employment_status to 'Baixa'
-        if ($validated['type'] === 'Con baja') {
+        // If type is "Con baixa", update the affected professional's employment_status to 'Baixa'
+        if ($validated['type'] === 'Con baixa') {
             $affectedProfessional = Professional::findOrFail($validated['affected_professional_id']);
             $affectedProfessional->update(['employment_status' => 'Baixa']);
         }
@@ -132,7 +132,7 @@ class ProfessionalAccidentController extends Controller
         $accident = ProfessionalAccident::findOrFail($id);
 
         $validated = $request->validate([
-            'type' => 'required|in:Sin baja,Con baja,Baja Finalitzada',
+            'type' => 'required|in:Sin baixa,Con baixa,Baixa Finalitzada',
             'date' => 'required|date',
             'context' => 'nullable|string|max:5000',
             'description' => 'nullable|string|max:5000',
@@ -147,15 +147,15 @@ class ProfessionalAccidentController extends Controller
 
         $oldType = $accident->type;
 
-        // Prevent changing type to 'Baja Finalitzada' manually - only through endLeave method
-        if ($validated['type'] === 'Baja Finalitzada' && $oldType !== 'Baja Finalitzada') {
+        // Prevent changing type to 'Baixa Finalitzada' manually - only through endLeave method
+        if ($validated['type'] === 'Baixa Finalitzada' && $oldType !== 'Baixa Finalitzada') {
             return redirect()->route('professional_accident_edit', $accident->id)
-                ->with('error', 'No es pot canviar el tipus a "Baja Finalitzada" manualment. Utilitza el botó "Finalitzar Baixa".');
+                ->with('error', 'No es pot canviar el tipus a "Baixa Finalitzada" manualment. Utilitza el botó "Finalitzar Baixa".');
         }
 
-        // If it was 'Baja Finalitzada', keep it as such
-        if ($oldType === 'Baja Finalitzada') {
-            $validated['type'] = 'Baja Finalitzada';
+        // If it was 'Baixa Finalitzada', keep it as such
+        if ($oldType === 'Baixa Finalitzada') {
+            $validated['type'] = 'Baixa Finalitzada';
         }
 
         $accident->update($validated);
@@ -163,15 +163,15 @@ class ProfessionalAccidentController extends Controller
         $affectedProfessional = Professional::findOrFail($validated['affected_professional_id']);
 
         // Handle automatic status updates
-        if ($validated['type'] === 'Con baja') {
-            // If changing to "Con baja" or already is "Con baja", set to 'Baixa'
+        if ($validated['type'] === 'Con baixa') {
+            // If changing to "Con baixa" or already is "Con baixa", set to 'Baixa'
             $affectedProfessional->update(['employment_status' => 'Baixa']);
-        } elseif ($validated['type'] === 'Baja Finalitzada') {
-            // If type is "Baja Finalitzada", ensure professional is 'Actiu'
+        } elseif ($validated['type'] === 'Baixa Finalitzada') {
+            // If type is "Baixa Finalitzada", ensure professional is 'Actiu'
             $affectedProfessional->update(['employment_status' => 'Actiu']);
         } else {
-            // If changing from "Con baja" to "Sin baja", set back to 'Actiu'
-            if ($oldType === 'Con baja' || $oldType === 'Baja Finalitzada') {
+            // If changing from "Con baixa" to "Sin baixa", set back to 'Actiu'
+            if ($oldType === 'Con baixa' || $oldType === 'Baixa Finalitzada') {
                 $affectedProfessional->update(['employment_status' => 'Actiu']);
             }
         }
@@ -186,8 +186,8 @@ class ProfessionalAccidentController extends Controller
     {
         $accident = ProfessionalAccident::findOrFail($id);
         
-        // If it was a "Con baja" type, restore the professional's status
-        if ($accident->type === 'Con baja') {
+        // If it was a "Con baixa" type, restore the professional's status
+        if ($accident->type === 'Con baixa') {
             $affectedProfessional = $accident->affectedProfessional;
             if ($affectedProfessional) {
                 $affectedProfessional->update(['employment_status' => 'Actiu']);
@@ -206,14 +206,14 @@ class ProfessionalAccidentController extends Controller
     {
         $accident = ProfessionalAccident::findOrFail($id);
         
-        // Only allow ending leaves for "Con baja" type
-        if ($accident->type !== 'Con baja') {
+        // Only allow ending leaves for "Con baixa" type
+        if ($accident->type !== 'Con baixa') {
             return redirect()->route('professional_accident_show', $accident->id)
                 ->with('error', 'Només es poden finalitzar les baixes.');
         }
 
         // Check if leave is already ended
-        if ($accident->type === 'Baja Finalitzada') {
+        if ($accident->type === 'Baixa Finalitzada') {
             return redirect()->route('professional_accident_show', $accident->id)
                 ->with('error', 'Aquesta baixa ja està finalitzada.');
         }
@@ -224,8 +224,8 @@ class ProfessionalAccidentController extends Controller
             $affectedProfessional->update(['employment_status' => 'Actiu']);
         }
 
-        // Update the accident: change type to 'Baja Finalitzada' and set end_date if not set
-        $updateData = ['type' => 'Baja Finalitzada'];
+        // Update the accident: change type to 'Baixa Finalitzada' and set end_date if not set
+        $updateData = ['type' => 'Baixa Finalitzada'];
         if (!$accident->end_date) {
             $updateData['end_date'] = now()->toDateString();
         }
