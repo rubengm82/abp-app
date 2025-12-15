@@ -1,4 +1,4 @@
-<div class="w-64 fixed top-16 bottom-0 left-0 flex flex-col justify-between shadow-md bg-base-200">
+<div id="sidebar" class="w-64 fixed top-16 bottom-0 left-0 flex flex-col justify-between shadow-md bg-base-200 transition-transform duration-300 ease-in-out">
 
     <!-- Navigation menu -->
     <nav class="flex-1 overflow-auto">

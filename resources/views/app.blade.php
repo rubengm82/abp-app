@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Valparadis App')</title>
     <script src="{{ asset('js/components/partials/themeswitch-antiflickering.js') }}"></script>
+    <script src="{{ asset('js/components/partials/sidebar-toggle-antiflickering.js') }}"></script>
     
     @vite('resources/css/app.css')
 </head>
@@ -19,7 +20,7 @@
     <x-layout-components.sidebar />
 
     <!-- Main content -->
-    <main class="ml-64 mt-16 p-4 overflow-auto min-h-[calc(100vh-4rem)] bg-base-300 shadow-inner">
+    <main id="main-content" class="ml-64 mt-16 p-4 overflow-auto min-h-[calc(100vh-4rem)] bg-base-300 shadow-inner transition-all duration-300 ease-in-out">
 
         @hasSection('content')
             <div class="w-full">
@@ -38,6 +39,7 @@
     <script src="{{ asset('js/components/partials/themeswitch.js') }}"></script>
     <script src="{{ asset('js/components/partials/modal.js') }}"></script>
     <script src="{{ asset('js/components/partials/menu-sidebar.js') }}"></script>
+    <script src="{{ asset('js/components/partials/sidebar-toggle.js') }}"></script>
     <script src="{{ asset('js/components/partials/forms_one_click.js') }}"></script>
 </body>
 </html>

@@ -87,3 +87,12 @@
 /* OURS CUSTOMS CSS */
 /* ******************/
 @import './components/backgroundLogin.css';
+
+/* Sidebar collapse styles */
+[data-sidebar-collapsed="true"] #sidebar {
+    transform: translateX(-100%);
+}
+
+[data-sidebar-collapsed="true"] #main-content {
+    margin-left: 0;
+}

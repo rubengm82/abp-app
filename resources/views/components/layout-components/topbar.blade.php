@@ -1,11 +1,18 @@
 <div class="h-16 bg-gray-800 flex items-center justify-between px-4 w-full fixed top-0 left-0 z-10 shadow-xl">
 
     {{-- LEFT --}}
-    <!-- Logo  -->
-    <div class="flex items-center text-lg font-bold select-none">
-        <a href="{{ route('home') }}" class="block px-4 py-2 no-underline">
-            <span class="text-primary text-3xl">{{ (Auth::user()->center)->name}}</span>
-        </a>
+    <div class="flex items-center gap-4">
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="btn btn-ghost btn-sm p-2 text-white hover:text-gray-200 hover:bg-gray-700" title="Mostrar/Ocultar menú">
+            <x-partials.icon name="bars-3" class="w-6 h-6" />
+        </button>
+        
+        <!-- Logo  -->
+        <div class="flex items-center text-lg font-bold select-none">
+            <a href="{{ route('home') }}" class="block px-4 py-2 no-underline">
+                <span class="text-primary text-3xl">{{ (Auth::user()->center)->name}}</span>
+            </a>
+        </div>
     </div>
 
     {{-- RIGHT --}}
