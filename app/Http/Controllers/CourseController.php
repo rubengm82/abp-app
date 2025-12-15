@@ -309,7 +309,11 @@ class CourseController extends Controller
     public function assignProfessionals(Course $course)
     {
         // Get all active professionals
-        $allProfessionals = Professional::where('status', 1)->orderBy('name')->get();
+        $allProfessionals = Professional::where('status', 1)
+            ->where('center_id', Auth::user()->center_id)
+            ->orderBy('name')
+            ->orderBy('surname1')
+            ->get();
         
         // Get assigned professional IDs
         // pluck(): method that extracts a single column

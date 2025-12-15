@@ -52,7 +52,11 @@ class ProjectCommissionController extends Controller
      */
     public function create()
     {
-        $professionals = Professional::where('status', 1)->get();
+        $professionals = Professional::where('status', 1)
+            ->where('center_id', Auth::user()->center_id)
+            ->orderBy('name')
+            ->orderBy('surname1')
+            ->get();
         return view("components.contents.projectcommission.projectCommissionForm")->with('professionals', $professionals);
     }
 
@@ -98,7 +102,11 @@ class ProjectCommissionController extends Controller
      */
     public function edit(ProjectCommission $projectCommission)
     {
-        $professionals = Professional::where('status', 1)->get();
+        $professionals = Professional::where('status', 1)
+            ->where('center_id', Auth::user()->center_id)
+            ->orderBy('name')
+            ->orderBy('surname1')
+            ->get();
         return view("components.contents.projectcommission.projectCommissionEdit")->with([
             'projectCommission' => $projectCommission,
             'professionals' => $professionals
@@ -319,7 +327,11 @@ class ProjectCommissionController extends Controller
     public function assignProfessionals(ProjectCommission $projectCommission)
     {
         // Get all active professionals
-        $allProfessionals = Professional::where('status', 1)->orderBy('name')->get();
+        $allProfessionals = Professional::where('status', 1)
+            ->where('center_id', Auth::user()->center_id)
+            ->orderBy('name')
+            ->orderBy('surname1')
+            ->get();
         
         // Get assigned professional IDs
         // pluck(): method that extracts a single column

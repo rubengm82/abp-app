@@ -50,7 +50,11 @@ class MaterialAssignmentController extends Controller
      */
     public function create()
     {
-        $professionals = Professional::where('status', 1)->get();
+        $professionals = Professional::where('status', 1)
+            ->where('center_id', Auth::user()->center_id)
+            ->orderBy('name')
+            ->orderBy('surname1')
+            ->get();
         return view('components.contents.materialassignment.materialAssignmentForm')
             ->with('professionals', $professionals);
     }
@@ -101,7 +105,11 @@ class MaterialAssignmentController extends Controller
      */
     public function edit(MaterialAssignment $materialAssignment, Request $request)
     {
-        $professionals = Professional::where('status', 1)->get();
+        $professionals = Professional::where('status', 1)
+            ->where('center_id', Auth::user()->center_id)
+            ->orderBy('name')
+            ->orderBy('surname1')
+            ->get();
         $signatura = $request->query('signatura', 0); // 1 si viene, 0 por defecto. Si pone 1 oculta el resto del edit y solo es para firmar
         return view('components.contents.materialassignment.materialAssignmentEdit')
             ->with('materialAssignment', $materialAssignment)

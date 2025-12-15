@@ -49,7 +49,14 @@ class HrIssueController extends Controller
      */
     public function create()
     {
-        return view("components.contents.hrIssue.hrIssueForm");
+        $professionals = Professional::where('status', 1)
+            ->where('center_id', Auth::user()->center_id)
+            ->orderBy('name')
+            ->orderBy('surname1')
+            ->get();
+        
+        return view("components.contents.hrIssue.hrIssueForm")
+            ->with('professionals', $professionals);
     }
 
     /**
@@ -96,9 +103,17 @@ class HrIssueController extends Controller
      */
     public function edit(string $id)
     {
-
         $hrIssue = HrIssue::findOrFail($id);
-        return view("components.contents.hrIssue.hrIssueEdit")->with('hrIssue', $hrIssue);
+        
+        $professionals = Professional::where('status', 1)
+            ->where('center_id', Auth::user()->center_id)
+            ->orderBy('name')
+            ->orderBy('surname1')
+            ->get();
+        
+        return view("components.contents.hrIssue.hrIssueEdit")
+            ->with('hrIssue', $hrIssue)
+            ->with('professionals', $professionals);
     }
 
     /**

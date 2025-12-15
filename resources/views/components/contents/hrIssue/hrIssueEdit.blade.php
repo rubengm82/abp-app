@@ -89,7 +89,7 @@
                         </label>
                         <select name="affected_professional_id" id="id_affected_professional_id" class="select select-bordered w-full" required>
                             <option value="">Selecciona un professional</option>
-                            @foreach(\App\Models\Professional::where('status', 1)->orderBy('name')->get() as $professional)
+                            @foreach($professionals as $professional)
                                 <option value="{{ $professional->id }}" {{ old('affected_professional_id', $hrIssue->affected_professional_id) == $professional->id ? 'selected' : '' }}>
                                     {{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}
                                 </option>
@@ -103,7 +103,7 @@
                         </label>
                         <select name="registering_professional_id" id="id_registering_professional_id" class="select select-bordered w-full" required>
                             <option value="">Selecciona un professional</option>
-                            @foreach(\App\Models\Professional::where('status', 1)->orderBy('name')->get() as $professional)
+                            @foreach($professionals as $professional)
                                 <option value="{{ $professional->id }}" {{ old('registering_professional_id', $hrIssue->registering_professional_id) == $professional->id ? 'selected' : '' }}>
                                     {{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}
                                 </option>
@@ -117,7 +117,7 @@
                         </label>
                         <select name="referred_to_professional_id" id="id_referred_to_professional_id" class="select select-bordered w-full">
                             <option value="">No derivat</option>
-                            @foreach(\App\Models\Professional::where('status', 1)->orderBy('name')->get() as $professional)
+                            @foreach($professionals as $professional)
                                 <option value="{{ $professional->id }}" {{ old('referred_to_professional_id', $hrIssue->referred_to_professional_id) == $professional->id ? 'selected' : '' }}>
                                     {{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}
                                 </option>
