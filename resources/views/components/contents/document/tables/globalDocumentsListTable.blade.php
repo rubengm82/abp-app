@@ -12,7 +12,7 @@
         @foreach($documents as $document)
             <tr class="hover:bg-base-300 transition-colors">
                 <td class="px-4 py-2 font-medium">
-                    <a href="{{ route('global_document_download', $document) }}" class="text-primary hover:underline">
+                    <a href="{{ route('global_document_download', $document) }}" class="link link-info link-hover">
                         {{ Str::limit($document->original_name, 40) }}
                     </a>
                 </td>
@@ -26,7 +26,7 @@
                 </td>
                 <td class="px-4 py-2">
                     @if($document->origin_url)
-                        <a href="{{ $document->origin_url }}" class="link link-warning">{{ $document->origin }}</a>
+                        <a href="{{ $document->origin_url }}" class="link link-info link-hover">{{ $document->origin }}</a>
                     @else
                         {{ $document->origin }}
                     @endif

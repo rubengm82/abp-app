@@ -8,11 +8,11 @@
             @if((Auth::user()->role ?? null) === 'Gerent')
             <li>
                 <details>
-                    <summary>
+                    <summary class="font-normal">
                         <x-partials.icon name="building-office" class="w-6 h-6 text-primary" />
                         Centres
                     </summary>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('centers_list') }}">
                                 <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
@@ -20,7 +20,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('center_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -42,11 +42,11 @@
             <!-- Submenu External Contacts -->
             <li>
                 <details>
-                    <summary>
+                    <summary class="font-normal">
                         <x-partials.icon name="phone" class="w-6 h-6 text-primary" />
                         Contactes Externs
                     </summary>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('externalcontacts_list') }}">
                                 <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
@@ -54,7 +54,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('externalcontact_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -67,7 +67,7 @@
 
             <!-- Submenu Global Documents -->
             @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']))
-            <li>
+            <li class="font-normal">
                 <a href="{{ route('global_documents_list') }}">
                     <x-partials.icon name="document-text" class="w-6 h-6 text-primary" />
                     Documents Globals
@@ -79,11 +79,11 @@
             @if((Auth::user()->role ?? null) === 'Directiu' || (Auth::user()->role ?? null) === 'Gerent')
             <li>
                 <details>
-                    <summary>
+                    <summary class="font-normal">
                         <x-partials.icon name="exclamation-triangle" class="w-6 h-6 text-primary" />
                         Temes pendents RRHH
                     </summary>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('hr_issues_list') }}">
                                 <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
@@ -91,7 +91,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('hr_issue_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -104,14 +104,14 @@
             @endif
 
             <!-- Submenu Maintenances -->
-            @if((Auth::user()->role ?? null) !== 'Tècnic')
+            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
             <li>
                 <details>
-                    <summary>
+                    <summary class="font-normal">
                         <x-partials.icon name="wrench" class="w-6 h-6 text-primary" />
                         Manteniments
                     </summary>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('maintenances_list') }}">
                                 <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
@@ -119,7 +119,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{  route('maintenance_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -133,13 +133,13 @@
             <!-- Submenu Professionals -->
             <li>
                 <details>
-                    <summary>
+                    <summary class="font-normal">
                         <x-partials.icon name="user-group" class="w-6 h-6 text-primary" />
                         Professionals
                     </summary>
 
                     <!-- List Professionals -->
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('professionals_list') }}">
                                 <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
@@ -149,8 +149,7 @@
                     </ul>
 
                     <!-- Add Professional -->
-                    @if((Auth::user()->role ?? null) !== 'Tècnic')
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('professional_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -158,17 +157,16 @@
                             </a>
                         </li>
                     </ul>
-                    @endif
                     <!-- Submenu Professional Accidents (Directiu and Administració only) -->
-                    @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració']))
-                    <ul class="text-xs">
+                    @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <details>
-                                <summary>
+                                <summary class="font-normal text-base-content">
                                     <x-partials.icon name="clipboard-document" class="w-6 h-6 text-primary" />
-                                    Accidents professionals
+                                    Accidents
                                 </summary>
-                                <ul class="text-xs">
+                                <ul class="text-xs text-base-content/65">
                                     <li>
                                         <a href="{{ route('professional_accidents_list') }}">
                                             <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
@@ -176,7 +174,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <ul class="text-xs">
+                                <ul class="text-xs text-base-content/65">
                                     <li>
                                         <a href="{{ route('professional_accident_form') }}">
                                             <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -189,14 +187,14 @@
                     </ul>
                     @endif
                     <!-- Submenu Cursos -->
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <details>
-                                <summary>
+                                <summary class="font-normal text-base-content">
                                     <x-partials.icon name="academic-cap" class="w-6 h-6 text-primary" />
                                     Cursos
                                 </summary>
-                                <ul class="text-xs">
+                                <ul class="text-xs text-base-content/65">
                                     <li>
                                         <a href="{{ route('courses_list') }}">
                                             <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
@@ -204,8 +202,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                                @if((Auth::user()->role ?? null) !== 'Tècnic')
-                                <ul class="text-xs">
+                                <ul class="text-xs text-base-content/65">
                                     <li>
                                         <a href="{{ route('course_form') }}">
                                             <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -213,22 +210,21 @@
                                         </a>
                                     </li>
                                 </ul>
-                                @endif
                             </details>
                         </li>
                     </ul>
 
                     <!-- Submenu Evaluations -->
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <details>
-                                <summary>
+                                <summary class="font-normal text-base-content">
                                     <x-partials.icon name="clipboard-document-check" class="w-6 h-6 text-primary" />
                                     Avaluacions
                                 </summary>
 
                                 <!-- List Evaluations -->
-                                <ul class="text-xs">
+                                <ul class="text-xs text-base-content/65">
                                     <li>
                                         <a href="{{ route('professional_evaluations_list') }}">
                                             <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
@@ -238,8 +234,7 @@
                                 </ul>
 
                                 <!-- Add Evaluation -->
-                                @if((Auth::user()->role ?? null) !== 'Tècnic')
-                                <ul class="text-xs">
+                                <ul class="text-xs text-base-content/65">
                                     <li>
                                         <a href="{{ route('professional_evaluations_quiz_form') }}">
                                             <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -247,7 +242,6 @@
                                         </a>
                                     </li>
                                 </ul>
-                                @endif
                             </details>
                         </li>
                     </ul>
@@ -256,11 +250,11 @@
             <!-- Submenu Project/Commissions -->
             <li>
                 <details>
-                    <summary>
+                    <summary class="font-normal">
                         <x-partials.icon name="rectangle-group" class="w-6 h-6 text-primary" />
                         Projectes/Comissions
                     </summary>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('projectcommissions_list') }}">
                                 <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
@@ -268,8 +262,7 @@
                             </a>
                         </li>
                     </ul>
-                    @if((Auth::user()->role ?? null) !== 'Tècnic')
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('projectcommission_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
@@ -277,40 +270,53 @@
                             </a>
                         </li>
                     </ul>
-                    @endif
                 </details>
             </li>
             <!-- Submenu Material-Assignments -->
             @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
             <li>
-                <a href="{{ route('materialassignments_list') }}">
-                    <x-partials.icon name="identification" class="w-6 h-6 text-primary" />
-                    Registre de Uniformitat
-                </a>
+                <details>
+                    <summary class="font-normal">
+                        <x-partials.icon name="identification" class="w-6 h-6 text-primary" />
+                        Registre de Uniformitat
+                    </summary>
+                    <ul class="text-xs text-base-content/65">
+                        <li>
+                            <a href="{{ route('materialassignments_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('materialassignment_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
             </li>
             @endif
             <!-- Submenu Complementary Services -->
             <li>
                 <details>
-                    <summary>
+                    <summary class="font-normal">
                         <x-partials.icon name="wrench-screwdriver" class="w-6 h-6 text-primary" />
                         Serveis Complementaris
                     </summary>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('complementaryservices_list') }}">
                                 <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
                                 Llistar
                             </a>
                         </li>
-                        @if((Auth::user()->role ?? null) !== 'Tècnic')
                         <li>
                             <a href="{{ route('complementaryservice_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
                                 Afegir
                             </a>
                         </li>
-                        @endif
                     </ul>
                 </details>
             </li>
@@ -319,11 +325,11 @@
             @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
             <li>
                 <details>
-                    <summary>
+                    <summary class="font-normal">
                         <x-partials.icon name="wrench-screwdriver" class="w-6 h-6 text-primary" />
                         Serveis Generals
                     </summary>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('general_service_show', ['service_type' => 'Cuina']) }}">
                                 <x-partials.icon name="minus" class="w-4 h-4 text-info" />
@@ -348,14 +354,13 @@
             @endif
 
             <!-- Submenu Desactivations -->
-            @if((Auth::user()->role ?? null) !== 'Tècnic')
             <li>
                 <details>
-                    <summary>
+                    <summary class="font-normal">
                         <x-partials.icon name="folder-open" class="w-6 h-6 text-gray-400" />
                         Desactivacions
                     </summary>
-                    <ul class="text-xs">
+                    <ul class="text-xs text-base-content/65">
                         <li>
                             <a href="{{ route('centers_desactivated_list') }}">
                                 <x-partials.icon name="building-office" class="w-4 h-4 text-gray-400" />
@@ -389,7 +394,6 @@
                     </ul>
                 </details>
             </li>
-            @endif
         </ul>
     </nav>
 

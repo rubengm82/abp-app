@@ -7,11 +7,11 @@
     'createdByField' => null,
 ])
 
-<div class="card bg-base-100 text-base-content shadow-xl mt-6">
+<div class="card bg-base-100 text-base-content shadow-xl/10 mt-6 border border-gray-500/20">
     <div class="card-body">
         {{-- Title and Add Button --}}
         <div class="flex justify-between items-center mb-4">
-            <h2 class="card-title text-xl" id="notes-section">{{ $title }}</h2>
+            <h2 class="card-title text-xl underline underline-offset-5" id="notes-section">{{ $title }}</h2>
             @if($addAction)
                 <button class="btn btn-sm btn-primary" data-open-modal="addNoteModal">Afegir Nota</button>
             @endif
@@ -19,12 +19,12 @@
 
         {{-- List Notes --}}
         @if($items->count())
-            <div class="space-y-4 max-h-96 overflow-y-auto overflow-x-hidden">
+            <div class="space-y-4">
                 @foreach($items as $item)
                     @continue(!empty($item->restricted) && !in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']))
-                    <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ !empty($item->restricted) ? 'border-orange-500' : 'border-blue-500' }}">
+                    <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ !empty($item->restricted) ? 'border-primary' : 'border-info' }}">
                         <div class="flex justify-between items-start mb-2">
-                            <div class="text-sm text-gray-600">
+                            <div class="text-sm text-base-content">
                                 <strong>
                                     {{ $createdByField ? ($item->$createdByField->name ?? 'Usuari desconegut') : 'Usuari desconegut' }}
                                     {{ $createdByField ? ($item->$createdByField->surname1 ?? '') : '' }}

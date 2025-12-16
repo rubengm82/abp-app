@@ -7,7 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Valparadis App')</title>
     <script src="{{ asset('js/components/partials/themeswitch-antiflickering.js') }}"></script>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     @vite('resources/css/app.css')
 </head>
 <body class="bg-base-200 min-w-[700px]">

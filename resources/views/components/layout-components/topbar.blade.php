@@ -1,4 +1,5 @@
-<div class="h-16 bg-gray-800 flex items-center justify-between px-4 w-full fixed top-0 left-0 z-10 shadow-xl">
+<div class="h-16 w-full fixed top-0 left-0 z-10 flex items-center justify-between px-4 shadow-xl
+            bg-linear-to-r from-[#191f29]/95 to-[#262a33]/90 backdrop-blur-xs border-b border-gray-700/50">
 
     {{-- LEFT --}}
     <!-- Logo  -->
@@ -12,11 +13,11 @@
     <div class="flex items-center gap-6 text-gray-500">
         
         {{-- Time/Date --}}
-        <span id="current-time">{{ \Carbon\Carbon::now()->format('m/d/Y H:i:s') }}</span>
+        <span id="current-time">{{ \Carbon\Carbon::now()->format('m/d/Y H:i') }}</span>
 
         <div class="dropdown dropdown-end">
             <!-- Button dropdown - ICON USER -->
-            <label tabindex="0" class="bg-orange-500 hover:bg-orange-400 text-white w-9 h-9 flex items-center justify-center rounded-full cursor-pointer">
+            <label tabindex="0" class="bg-orange-500 hover:bg-orange-400 text-white w-9 h-9 flex items-center justify-center rounded-full cursor-pointer ring-2 ring-offset-3 ring-offset-gray-800 ring-primary/80">
                 <x-partials.icon name="user" class="w-6 h-6 text-white" />
             </label>
 
@@ -70,7 +71,6 @@
                         <form action="{{ route('logout') }}" method="POST" class="w-full">
                             @csrf
                             <button type="submit" class="btn btn-sm btn-error w-full flex items-center gap-2">
-                                <i class="fa-solid fa-arrow-right"></i>
                                 <span>Sortir</span>
                             </button>
                         </form>

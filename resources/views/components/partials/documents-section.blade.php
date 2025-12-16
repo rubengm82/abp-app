@@ -7,10 +7,10 @@
     'uploadedByField' => null,
 ])
 
-<div class="card bg-base-100 text-base-content shadow-xl mt-6">
+<div class="card bg-base-100 text-base-content shadow-xl/10 mt-6 border border-gray-500/20">
     <div class="card-body">
         <div class="flex justify-between items-center mb-4">
-            <h2 class="card-title text-xl" id="documents-section">{{ $title }}</h2>
+            <h2 class="card-title text-xl underline underline-offset-5" id="documents-section">{{ $title }}</h2>
             @if($uploadAction)
                 <button class="btn btn-sm btn-primary" data-open-modal="addDocumentModal">Pujar Document</button>
             @endif
@@ -18,13 +18,13 @@
 
         {{-- List Documents --}}
         @if($items->count())
-            <div class="space-y-3 max-h-96 overflow-y-auto overflow-x-hidden">
+            <div class="space-y-3">
                 @foreach($items->sortByDesc('created_at') as $item)
                     <div class="bg-base-200 p-4 rounded-lg border-l-4 border-green-500">
-                        <div class="flex justify-between items-start">
+                        <div class="flex justify-between items-center">
                             <div>
                                 <a href="{{ $downloadRoute ? route($downloadRoute, $item) : '#' }}"
-                                   class="text-blue-600 hover:text-blue-800 font-medium">
+                                   class="link link-hover text-info font-medium">
                                    {{ $item->original_name ?? 'Sense nom' }}
                                 </a>
                                 <div class="text-sm text-gray-600 mt-1">

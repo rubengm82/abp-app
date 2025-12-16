@@ -10,29 +10,29 @@
     --color-base-200: oklch(98% 0 0);
     --color-base-300: oklch(95% 0 0);
     --color-base-content: oklch(21% 0.006 285.885);
-    --color-primary: oklch(76% 0.188 70.08);
+    --color-primary: oklch(75.6% 0.149 65.000);
     --color-primary-content: oklch(96% 0.003 264.542);
-    --color-secondary: oklch(70% 0.213 47.604);
+    --color-secondary: oklch(64.4% 0.186 167.800);
     --color-secondary-content: oklch(96% 0.003 264.542);
-    --color-accent: oklch(76% 0.188 70.08);
+    --color-accent: oklch(76.0% 0.146 70.080);
     --color-accent-content: oklch(96% 0.003 264.542);
     --color-neutral: oklch(70% 0 0);
     --color-neutral-content: oklch(98% 0.003 247.858);
-    --color-info: oklch(71% 0.143 215.221);
+    --color-info: oklch(68.4% 0.143 215.221);
     --color-info-content: oklch(96% 0.003 264.542);
-    --color-success: oklch(72% 0.219 149.579);
+    --color-success: oklch(72.0% 0.160 149.579);
     --color-success-content: oklch(96% 0.003 264.542);
-    --color-warning: oklch(79% 0.184 86.047);
+    --color-warning: oklch(78.5% 0.184 76.400);
     --color-warning-content: oklch(96% 0.003 264.542);
-    --color-error: oklch(63% 0.237 25.331);
+    --color-error: oklch(63.0% 0.162 25.331);
     --color-error-content: oklch(96% 0.003 264.542);
     --radius-selector: 0.25rem;
-    --radius-field: 0.5rem;
-    --radius-box: 0.5rem;
+    --radius-field: 1rem;
+    --radius-box: 1rem;
     --size-selector: 0.25rem;
     --size-field: 0.25rem;
     --border: 1px;
-    --depth: 1;
+    --depth: 0;
     --noise: 0;
 }
 @plugin "daisyui/theme" {
@@ -44,29 +44,29 @@
     --color-base-200: oklch(28.036% 0.019 264.182);
     --color-base-300: oklch(26.346% 0.018 262.177);
     --color-base-content: oklch(82.901% 0.031 222.959);
-    --color-primary: oklch(76% 0.188 70.08);
+    --color-primary: oklch(75.6% 0.149 65.000);
     --color-primary-content: oklch(96% 0.003 264.542);
-    --color-secondary: oklch(70% 0.213 47.604);
+    --color-secondary: oklch(64.4% 0.186 167.800);
     --color-secondary-content: oklch(96% 0.003 264.542);
-    --color-accent: oklch(76% 0.188 70.08);
+    --color-accent: oklch(76.0% 0.146 70.080);
     --color-accent-content: oklch(96% 0.003 264.542);
     --color-neutral: oklch(70% 0 0);
     --color-neutral-content: oklch(98% 0.003 247.858);
-    --color-info: oklch(71% 0.143 215.221);
+    --color-info: oklch(68.4% 0.143 215.221);
     --color-info-content: oklch(96% 0.003 264.542);
-    --color-success: oklch(72% 0.219 149.579);
+    --color-success: oklch(72.0% 0.160 149.579);
     --color-success-content: oklch(96% 0.003 264.542);
-    --color-warning: oklch(79% 0.184 86.047);
+    --color-warning: oklch(78.5% 0.184 76.400);
     --color-warning-content: oklch(96% 0.003 264.542);
-    --color-error: oklch(63% 0.237 25.331);
+    --color-error: oklch(63.0% 0.162 25.331);
     --color-error-content: oklch(96% 0.003 264.542);
     --radius-selector: 0.25rem;
-    --radius-field: 0.5rem;
-    --radius-box: 0.5rem;
+    --radius-field: 1rem;
+    --radius-box: 1rem;
     --size-selector: 0.25rem;
     --size-field: 0.25rem;
     --border: 1px;
-    --depth: 1;
+    --depth: 0;
     --noise: 0;
 }
 
@@ -78,7 +78,7 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
@@ -87,3 +87,17 @@
 /* OURS CUSTOMS CSS */
 /* ******************/
 @import './components/backgroundLogin.css';
+
+/* ANIMATIONS BUTTONS */
+@utility btn {
+  @apply transition-transform duration-150 ease-in-out hover:-translate-y-0.5;
+}
+
+/* NO BORDERS EN LOS INPUT, SELECT, TEXTAREA ETC... */
+.select,
+.textarea,
+.input:focus,
+.input:focus-within {
+    outline: none !important;
+    outline-offset: 0 !important;
+}
