@@ -9,8 +9,8 @@
     :current="'Detalls'"
     />
 <div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold">Tema pendent RRHH #{{ $hrIssue->id }}</h1>
+    <div class="flex justify-end items-center mb-6">
+        {{-- <h1 class="text-3xl font-bold">Tema pendent RRHH #{{ $hrIssue->id }}</h1> --}}
         <div class="flex gap-2">
             <a href="{{ route('hr_issue_edit', $hrIssue) }}" class="btn btn-sm btn-info">Editar</a>
             <x-partials.modal 

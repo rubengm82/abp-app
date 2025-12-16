@@ -10,7 +10,7 @@
     :current="'Detalls'"
 />
 
-<div class="max-w-4xl mx-auto bg-base-200 p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
+<div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
 
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold text-base-content">{{ $course->training_name }}</h1> --}}
@@ -34,7 +34,7 @@
 
     <!-- Basic Info -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="card bg-base-100 shadow-xl md:col-span-2">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 md:col-span-2">
             <div class="card-body">
                 <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació bàsica</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -84,7 +84,7 @@
     </div>
 
     <!-- Additinal Info -->
-    <div class="card bg-base-100 shadow-xl mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -125,7 +125,7 @@
     />
 
     <!-- Professionals Assigned -->
-    <div class="card bg-base-100 shadow-xl mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
         <div class="card-body">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="card-title text-xl">Profesionals apuntats al curs</h2>

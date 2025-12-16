@@ -10,7 +10,7 @@
     :current="'Detalls'"
 />
 
-<div class="w-full mx-auto bg-base-100 text-base-content p-6 rounded shadow text-sm">
+<div class="w-full mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <!-- Page Title -->
     <div class="flex justify-center items-center mb-6">
         <h1 class="text-2xl font-bold text-center">Resultat de la valoració del/la professional</h1>
