@@ -29,7 +29,7 @@ class ProfessionalController extends Controller
             ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
         }
 
-        $professionals = $query->paginate(10)->appends(['search' => $search]);
+        $professionals = $query->get();
 
         $isDeactivated = ($status == 0);
 

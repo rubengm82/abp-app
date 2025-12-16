@@ -27,8 +27,8 @@ class CourseController extends Controller
                 $query->whereAny(['training_center', 'training_name', 'forcem_code', 'attendance_type', 'start_date'], 'like', "%{$search}%"); // Adjust fields to match your table
             }
 
-            // Paginate results and keep search term in query string
-            $courses = $query->paginate(10)->appends(['search' => $search]);
+            // Get all results
+            $courses = $query->get();
 
             // Return partial view if AJAX, otherwise full view
             return $request->ajax()

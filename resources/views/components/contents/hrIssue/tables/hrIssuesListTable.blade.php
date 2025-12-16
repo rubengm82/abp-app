@@ -56,9 +56,9 @@
     </tbody>
 </table>
 
-<div class="pagination">
+{{-- <div class="pagination">
     <div class="mt-6 flex justify-center">
        {{ $hrIssues->links('pagination::daisyui-pagination') }}
    </div>
-</div>
+</div> --}}
 

@@ -29,9 +29,7 @@ class ComplementaryServiceController extends Controller
             );
         }
 
-        $complementaryServices = $query->orderBy('start_date', 'desc')
-                                    ->paginate(10)
-                                    ->appends(['search' => $search]);
+        $complementaryServices = $query->orderBy('start_date', 'desc')->get();
 
         $isDeactivated = ($status == 0);
 

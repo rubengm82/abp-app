@@ -59,29 +59,16 @@ class EvaluationsController extends Controller
 
         $sortedGroups = $groupedEvaluations->sortByDesc(fn($item) => $item->group->first()->created_at);
 
-        $page = $request->get('page', 1);
-        $perPage = 10;
-
-        $pagedGroups = $sortedGroups->forPage($page, $perPage);
-
-        $pagination = new LengthAwarePaginator(
-            $pagedGroups,
-            $sortedGroups->count(),
-            $perPage,
-            $page,
-            ['path' => $request->url(), 'query' => $request->query()]
-        );
-
         if ($request->ajax()) {
             return view('components.contents.professional.evaluations.tables.professionalEvaluationsListTable', [
-                'groupedEvaluations' => $pagedGroups,
-                'evaluations' => $pagination,
+                'groupedEvaluations' => $sortedGroups,
+                'evaluations' => $sortedGroups,
             ])->render();
         }
 
         return view('components.contents.professional.evaluations.professionalEvaluationsList', [
-            'groupedEvaluations' => $pagedGroups,
-            'evaluations' => $pagination,
+            'groupedEvaluations' => $sortedGroups,
+            'evaluations' => $sortedGroups,
         ]);
     }
 

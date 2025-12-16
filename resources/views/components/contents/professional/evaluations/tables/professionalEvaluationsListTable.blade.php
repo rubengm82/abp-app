@@ -54,8 +54,8 @@
     </tbody>
 </table>
 
-<div class="pagination">
+{{-- <div class="pagination">
     <div class="mt-6 flex justify-center">
        {{ $evaluations->links('pagination::daisyui-pagination') }}
    </div>
-</div>
+</div> --}}

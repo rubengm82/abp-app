@@ -38,7 +38,7 @@ class MaterialAssignmentController extends Controller
             });
         }
 
-        $materialAssignments = $query->paginate(10)->appends(['search' => $search]);
+        $materialAssignments = $query->get();
 
         return $request->ajax()
             ? view('components.contents.materialassignment.tables.materialAssignmentsListTable', with(['materialAssignments' => $materialAssignments]))->render()

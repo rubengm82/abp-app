@@ -37,7 +37,7 @@ class HrIssueController extends Controller
             });
         }
 
-        $hrIssues = $query->orderBy('opening_date', 'desc')->paginate(10)->appends(['search' => $search]);
+        $hrIssues = $query->orderBy('opening_date', 'desc')->get();
 
         return $request->ajax()
             ? view('components.contents.hrIssue.tables.hrIssuesListTable', with(['hrIssues' => $hrIssues]))->render()

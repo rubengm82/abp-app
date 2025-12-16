@@ -32,7 +32,7 @@ class GlobalDocumentController extends Controller
             });
         }
 
-        $documents = $query->orderBy('created_at', 'desc')->paginate(10)->appends(['search' => $search]);
+        $documents = $query->orderBy('created_at', 'desc')->get();
 
         return $request->ajax()
             ? view('components.contents.document.tables.globalDocumentsListTable', with(['documents' => $documents]))->render()

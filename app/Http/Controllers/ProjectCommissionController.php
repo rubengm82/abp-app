@@ -31,7 +31,7 @@ class ProjectCommissionController extends Controller
                 );
         }
 
-        $projectCommissions = $query->paginate(10)->appends(['search' => $search]);
+        $projectCommissions = $query->get();
 
         $isDeactivated = ($status == 'Inactiu');
 

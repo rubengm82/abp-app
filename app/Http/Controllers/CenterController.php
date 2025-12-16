@@ -27,7 +27,7 @@ class CenterController extends Controller
 
         };
 
-        $centers = $query->paginate(10)->appends(['search' => $search]);
+        $centers = $query->get();
 
         $isDeactivated = ($status == 0);
 

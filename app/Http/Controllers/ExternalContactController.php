@@ -21,7 +21,7 @@ class ExternalContactController extends Controller
         if ($search = $request->get('search')) {
             $query->whereAny(['id', 'external_contact_type', 'company', 'department', 'name', 'surname', 'phone', 'email'], 'like', "%{$search}%");
         }
-        $externalContacts = $query->paginate(10)->appends(['search' => $search]);
+        $externalContacts = $query->get();
 
         return $request->ajax()
             ? view('components.contents.externalcontact.tables.externalContactsListTable', with(['externalContacts' => $externalContacts]))->render()

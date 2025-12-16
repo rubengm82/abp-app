@@ -29,7 +29,7 @@ class MaintenanceController extends Controller
             );
         }
 
-        $maintenances = $query->paginate(10)->appends(['search' => $search]);
+        $maintenances = $query->get();
 
         $isDeactivated = ($status == 0);
 
