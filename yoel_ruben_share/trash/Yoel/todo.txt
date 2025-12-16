@@ -1,8 +1,16 @@
 # Sprint 4  - TODO LIST
 
 Todo: 
-* Utilizar el método storage igual que en los documentos para almacenar en el directorio de siempre las firmas de los usuarios.
-
+* Crear nuevo CRUD para seguimiento de accidentabilidad de profesionales
+** Respeta el formato de los demás controlers.
+* Crea un nuevo list, show, form, edit. Añadelo al sidebar
+* Tipo normal (Sin baja)
+** Asegurate de que la migración contiene: Tipo (Sin/con baja), Fecha, Context, Descripció, professional que emplena (el usuario logeado, FK), Profesional afectado (FK)
+* Tipo Con baja
+** Además de lo anterior, tiene Duración, fecha inicio fecha fin (Añadir a la migración y Habrá que ponerlo en el formulario)
+* Sólo visible para usuarios rol "Directiu" y "Administració" (Afecta al sidebar)
+* Al crear uno de estos registros, habrá que automáticamente actualizar al Profesional afectado para cambiar su estado de Activo a Baja (Comprueba en la migración de Profesionales)
+* Cuando se Cese una baja, se volverá a actualizar automáticamente al Profesional
 
 Apuntes:
 * 
@@ -15,4 +23,4 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: "Modificadas firmas para que utilicen el mismo método de storage que los documentos"
+To commit: 

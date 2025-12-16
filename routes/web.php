@@ -14,6 +14,7 @@ use App\Http\Controllers\CourseAssignmentController;
 use App\Http\Controllers\GeneralServiceController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\GlobalDocumentController;
+use App\Http\Controllers\ProfessionalAccidentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,6 +116,26 @@ Route::middleware('auth')->delete('/hr_issue/notes/{note}', [HrIssueController::
 Route::middleware('auth')->post('/hr_issue/documents/{hrIssue}', [HrIssueController::class, 'hr_issue_document_add'])->name('hr_issue_document_add');
 Route::middleware('auth')->delete('/hr_issue/documents/{document}', [HrIssueController::class, 'hr_issue_document_delete'])->name('hr_issue_document_delete');
 Route::middleware('auth')->get('/hr_issue/documents/download/{document}', [HrIssueController::class, 'hr_issue_document_download'])->name('hr_issue_document_download');
+
+/* ------------------------ PROFESSIONAL ACCIDENTS ------------------------ */
+Route::middleware('auth')->get('/professional_accidents/list', [ProfessionalAccidentController::class, "index"])->name("professional_accidents_list");
+Route::middleware('auth')->get('/professional_accident/form', [ProfessionalAccidentController::class, "create"])->name("professional_accident_form");
+Route::middleware('auth')->post('/professional_accident/add', [ProfessionalAccidentController::class, "store"])->name("professional_accident_add");
+Route::middleware('auth')->get('/professional_accident/show/{id}', [ProfessionalAccidentController::class, "show"])->name("professional_accident_show");
+Route::middleware('auth')->get('/professional_accident/edit/{id}', [ProfessionalAccidentController::class, "edit"])->name("professional_accident_edit");
+Route::middleware('auth')->put('/professional_accident/update/{id}', [ProfessionalAccidentController::class, "update"])->name("professional_accident_update");
+Route::middleware('auth')->delete('/professional_accident/delete/{id}', [ProfessionalAccidentController::class, "destroy"])->name("professional_accident_delete");
+Route::middleware('auth')->post('/professional_accident/end-leave/{id}', [ProfessionalAccidentController::class, "endLeave"])->name("professional_accident_end_leave");
+
+/* Professional Accident Notes */
+Route::middleware('auth')->post('/professional_accident/notes/{professionalAccident}', [ProfessionalAccidentController::class, 'professional_accident_note_add'])->name('professional_accident_note_add');
+Route::middleware('auth')->put('/professional_accident/notes/{note}', [ProfessionalAccidentController::class, 'professional_accident_note_update'])->name('professional_accident_note_update');
+Route::middleware('auth')->delete('/professional_accident/notes/{note}', [ProfessionalAccidentController::class, 'professional_accident_note_delete'])->name('professional_accident_note_delete');
+
+/* Professional Accident Documents */
+Route::middleware('auth')->post('/professional_accident/documents/{professionalAccident}', [ProfessionalAccidentController::class, 'professional_accident_document_add'])->name('professional_accident_document_add');
+Route::middleware('auth')->delete('/professional_accident/documents/{document}', [ProfessionalAccidentController::class, 'professional_accident_document_delete'])->name('professional_accident_document_delete');
+Route::middleware('auth')->get('/professional_accident/documents/download/{document}', [ProfessionalAccidentController::class, 'professional_accident_document_download'])->name('professional_accident_document_download');
 
 /* ------------------------ PROJECT COMMISSIONS ------------------------ */
 Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");

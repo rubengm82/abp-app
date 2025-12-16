@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             ExternalContactSeeder::class,
             GeneralServiceSeeder::class,
             ComplementaryServiceSeeder::class,
-            MaintenanceSeeder::class
+            MaintenanceSeeder::class,
+            ProfessionalAccidentSeeder::class
         ]);
     }
 }

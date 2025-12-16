@@ -65,8 +65,8 @@
                     <div>
                         <label class="font-semibold">Estat laboral:</label>
                         <p class="text-sm">
-                            <span class="badge badge-dash {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
-                                {{ $professional->employment_status ?: 'No especificat' }}
+                            <span class="badge badge-dash {{ $professional->is_on_leave ? 'badge-error' : ($professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning') }}">
+                                {{ $professional->display_status }}
                             </span>
                         </p>
                     </div>

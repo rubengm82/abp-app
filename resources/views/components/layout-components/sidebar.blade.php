@@ -102,9 +102,9 @@
                 </details>
             </li>
             @endif
-            
+
             <!-- Submenu Maintenances -->
-            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
+            @if((Auth::user()->role ?? null) !== 'Tècnic')
             <li>
                 <details>
                     <summary>
@@ -156,6 +156,35 @@
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
                                 Afegir
                             </a>
+                        </li>
+                    </ul>
+                    @endif
+                    <!-- Submenu Professional Accidents (Directiu and Administració only) -->
+                    @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració']))
+                    <ul class="text-xs">
+                        <li>
+                            <details>
+                                <summary>
+                                    <x-partials.icon name="clipboard-document" class="w-6 h-6 text-primary" />
+                                    Accidents professionals
+                                </summary>
+                                <ul class="text-xs">
+                                    <li>
+                                        <a href="{{ route('professional_accidents_list') }}">
+                                            <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                            Llistar
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="text-xs">
+                                    <li>
+                                        <a href="{{ route('professional_accident_form') }}">
+                                            <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                            Afegir
+                                        </a>
+                                    </li>
+                                </ul>
+                            </details>
                         </li>
                     </ul>
                     @endif

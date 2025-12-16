@@ -25,6 +25,7 @@ class Professional extends Authenticatable
         'email',
         'address',
         'employment_status',
+        'is_on_leave',
         'cvitae',
         'user',       // username
         'password',   // hashed password
@@ -89,6 +90,25 @@ class Professional extends Authenticatable
     public function userAccount()
     {
         return $this->hasOne(User::class, 'professional_id');
+    }
+
+    /**
+     * Get the display status (shows 'Baixa' with priority if on leave)
+     */
+    public function getDisplayStatusAttribute()
+    {
+        if ($this->is_on_leave) {
+            return 'Baixa';
+        }
+        return $this->employment_status ?? 'No especificat';
+    }
+
+    /**
+     * Check if professional is available (not on leave and active)
+     */
+    public function isAvailable()
+    {
+        return !$this->is_on_leave && $this->status == 1;
     }
 
     /**
