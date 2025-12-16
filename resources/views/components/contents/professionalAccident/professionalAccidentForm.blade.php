@@ -129,33 +129,7 @@
     </form>
 </div>
 
-@php
-    $initialType = old('type', '');
-@endphp
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const typeSelect = document.getElementById('id_type');
-        const leaveSection = document.getElementById('leaveInfoSection');
-        const initialType = '{{ $initialType }}';
-        
-        function toggleLeaveSection() {
-            const type = typeSelect.value;
-            if (type === 'Amb baixa') {
-                leaveSection.style.display = 'block';
-            } else {
-                leaveSection.style.display = 'none';
-            }
-        }
-        
-        typeSelect.addEventListener('change', toggleLeaveSection);
-        
-        // Trigger on page load if old input exists
-        if (initialType === 'Amb baixa') {
-            toggleLeaveSection();
-        }
-    });
-</script>
+<script src="{{ asset('js/components/partials/accident-type.js') }}"></script>
 
 @include('components.partials.mainToasts')
 @endsection

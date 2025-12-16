@@ -72,29 +72,8 @@
             </div>
         </div>
 
-        <!-- Professional Selection -->
-        <div class="card shadow-xl">
-            <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Professional afectat</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Professional afectat</span>
-                        </label>
-                        @if($accident->affectedProfessional)
-                            <input type="text" class="input input-bordered w-full" value="{{ $accident->affectedProfessional->name }} {{ $accident->affectedProfessional->surname1 }} {{ $accident->affectedProfessional->surname2 }}" readonly disabled>
-                            <input type="hidden" name="affected_professional_id" value="{{ $accident->affected_professional_id }}">
-                        @else
-                            <input type="text" class="input input-bordered w-full" value="No assignat" readonly disabled>
-                            <input type="hidden" name="affected_professional_id" value="{{ $accident->affected_professional_id }}">
-                        @endif
-                        <label class="label">
-                            <span class="label-text-alt text-base-content/70">El professional afectat no es pot modificar</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Hidden field for affected professional -->
+        <input type="hidden" name="affected_professional_id" value="{{ $accident->affected_professional_id }}">
 
         <!-- Leave Information (only for "Amb baixa" type) -->
         @php
@@ -136,27 +115,7 @@
     </form>
 </div>
 
-@php
-    $editInitialType = old('type', $accident->type);
-@endphp
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const typeSelect = document.getElementById('id_type');
-        const leaveSection = document.getElementById('leaveInfoSection');
-        
-        function toggleLeaveSection() {
-            const type = typeSelect.value;
-            if (type === 'Amb baixa') {
-                leaveSection.style.display = 'block';
-            } else {
-                leaveSection.style.display = 'none';
-            }
-        }
-        
-        typeSelect.addEventListener('change', toggleLeaveSection);
-    });
-</script>
+<script src="{{ asset('js/components/partials/accident-type.js') }}"></script>
 
 @include('components.partials.mainToasts')
 @endsection

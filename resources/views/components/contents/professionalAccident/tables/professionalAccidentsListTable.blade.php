@@ -35,12 +35,12 @@
                 </td>
                 <td class="px-4 py-2">
                     <div class="max-w-xs truncate" title="{{ $accident->context }}">
-                        {{ $accident->context ? Str::limit($accident->context, 50) : '-' }}
+                        {{ $accident->context ? Str::limit($accident->context, 50) : '' }}
                     </div>
                 </td>
                 <td class="px-4 py-2">
                     <div class="max-w-xs truncate" title="{{ $accident->description }}">
-                        {{ $accident->description ? Str::limit($accident->description, 50) : '-' }}
+                        {{ $accident->description ? Str::limit($accident->description, 50) : '' }}
                     </div>
                 </td>
                 <td class="px-4 py-2 text-right">

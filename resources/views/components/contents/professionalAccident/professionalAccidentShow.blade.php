@@ -70,15 +70,15 @@
                     @if($accident->type === 'Amb baixa' || $accident->type === 'Baixa Finalitzada')
                         <div>
                             <label class="font-semibold">Data d'inici de la baixa:</label>
-                            <p class="text-lg">{{ $accident->start_date ? $accident->start_date->format('d/m/Y') : '-' }}</p>
+                            <p class="text-lg">{{ $accident->start_date ? $accident->start_date->format('d/m/Y') : '' }}</p>
                         </div>
                         <div>
                             <label class="font-semibold">Data de fi de la baixa:</label>
-                            <p class="text-lg">{{ $accident->end_date ? $accident->end_date->format('d/m/Y') : '-' }}</p>
+                            <p class="text-lg">{{ $accident->end_date ? $accident->end_date->format('d/m/Y') : '' }}</p>
                         </div>
                         <div>
                             <label class="font-semibold">Durada (dies):</label>
-                            <p class="text-lg">{{ $accident->duration ?? '-' }}</p>
+                            <p class="text-lg">{{ $accident->duration ?? '' }}</p>
                         </div>
                     @endif
                 </div>
