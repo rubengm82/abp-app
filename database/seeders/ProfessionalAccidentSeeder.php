@@ -6,7 +6,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use App\Helpers\mainlog;
 class ProfessionalAccidentSeeder extends Seeder
 {
     /**
@@ -96,9 +95,6 @@ class ProfessionalAccidentSeeder extends Seeder
             }
 
             $accidents[] = $accident;
-            if ($i == 5) {
-                mainlog::log('Professional accidents seeded' . json_encode($accident));
-            }
         }
         // mainlog::log('Professional accidents seeded successfully!' . json_encode($accidents));   
         DB::table('professional_accidents')->insert($accidents);
