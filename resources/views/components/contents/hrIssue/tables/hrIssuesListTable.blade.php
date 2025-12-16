@@ -42,7 +42,7 @@
                 <td class="px-4 py-2">{{ $hrIssue->opening_date->format('d/m/Y') }}</td>
 
                 <td class="px-4 py-2">
-                    <span class="badge badge-dash whitespace-normal text-center {{ $hrIssue->status === 'Tancat' ? 'badge-success' : 'badge-warning' }}">
+                    <span class="badge badge-dash whitespace-nowrap text-center min-w-0 max-w-full truncate {{ $hrIssue->status === 'Tancat' ? 'badge-success' : 'badge-warning' }}">
                         {{ $hrIssue->status }}
                     </span>
                 </td>

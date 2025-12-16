@@ -13,7 +13,7 @@
 
     @vite('resources/css/app.css')
 </head>
-<body class="bg-base-200 min-w-[700px]">
+<body class="bg-base-200 min-w-[450px]">
 
     <!-- Full-width TopBar -->
     <x-layout-components.topbar />

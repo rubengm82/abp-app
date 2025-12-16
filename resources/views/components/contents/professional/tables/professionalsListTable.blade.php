@@ -25,7 +25,7 @@
                 <td class="px-4 py-2">{{ $professional->phone }}</td>
                 <td class="px-4 py-2">{{ $professional->email }}</td>
                 <td class="px-4 py-2">
-                    <span class="badge badge-dash h-auto whitespace-normal text-center {{ ($isDeactivated ? ($professional->employment_status === 'No Contractat') : ($professional->employment_status === 'Actiu')) ? 'badge-success' : 'badge-warning' }}">
+                    <span class="badge badge-dash h-auto whitespace-nowrap text-center min-w-0 max-w-full truncate {{ ($isDeactivated ? ($professional->employment_status === 'No Contractat') : ($professional->employment_status === 'Actiu')) ? 'badge-success' : 'badge-warning' }}">
                         {{ $professional->employment_status }}
                     </span>
                 </td>
