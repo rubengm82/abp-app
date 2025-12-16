@@ -7,9 +7,9 @@
         'Serveis Complementaris' => route('complementaryservices_list'),
     ]"
     :current="'Detalls'"
-/>
+    />
 
-<div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
 
     <!-- Header -->
     <div class="flex justify-end items-center mb-6">
@@ -19,10 +19,10 @@
             <a href="{{ route('complementaryservice_edit', $complementaryService) }}" class="btn btn-sm btn-info">Editar</a>
 
             <div class="relative">
-                <x-partials.modal 
-                    id="modal_desactivate_complementary_service_{{ $complementaryService->id }}" 
-                    msj="Estàs segur que vols desactivar aquest servei complementari?" 
-                    btnText="Desactivar" 
+                <x-partials.modal
+                    id="modal_desactivate_complementary_service_{{ $complementaryService->id }}"
+                    msj="Estàs segur que vols desactivar aquest servei complementari?"
+                    btnText="Desactivar"
                     class="btn-sm btn-warning"
                     width="100"
                 >
@@ -57,37 +57,37 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         <!-- Responsable -->
-        <div class="card bg-base-100 text-base-content shadow-xl">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">Tipus de Servei:</label>
-                        <p class="text-sm">{{ $complementaryService->service_type ?? 'No especificat' }}</p>
+                        <label class="font-bold text-md">Tipus de Servei:</label>
+                        <p class="text-sm text-base-content/50">{{ $complementaryService->service_type ?? 'No especificat' }}</p>
                     </div>
                 </div>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">Nom del responsable:</label>
-                        <p class="text-sm">{{ $complementaryService->service_responsible ?? 'No assignat' }}</p>
+                        <label class="font-bold text-md">Nom del responsable:</label>
+                        <p class="text-sm text-base-content/50">{{ $complementaryService->service_responsible ?? 'No assignat' }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Start Date -->
-        <div class="card bg-base-100 text-base-content shadow-xl">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold" >Data d'inici:</label>
-                        <p class="text-sm">
+                        <label class="font-bold text-md" >Data d'inici:</label>
+                        <p class="text-sm text-base-content/50">
                             {{ $complementaryService->start_date ? \Carbon\Carbon::parse($complementaryService->start_date)->format('d/m/Y') : 'No especificada' }}
                         </p>
                     </div>
                     <div>
-                        <label class="font-semibold" >Data fi:</label>
-                        <p class="text-sm">
+                        <label class="font-bold text-md" >Data fi:</label>
+                        <p class="text-sm text-base-content/50">
                             {{ $complementaryService->end_date ? \Carbon\Carbon::parse($complementaryService->end_date)->format('d/m/Y') : 'No especificada' }}
                         </p>
                     </div>

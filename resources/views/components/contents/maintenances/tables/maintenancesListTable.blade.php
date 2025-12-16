@@ -1,6 +1,6 @@
 <table class="table w-full table-xs {{ $isDeactivated ? 'table-zebra' : '' }} table-hover text-sm">
     <thead>
-        <tr class="bg-base-300 text-base-content font-semibold">
+        <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Nom del Manteniment</th>
             <th class="px-4 py-2 text-left">Resposable del Manteniment</th>
             <th class="px-4 py-2 text-left">Descripció</th>
@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         @foreach($maintenances as $maintenance)
-            <tr class="hover:bg-{{ $isDeactivated ? 'base-200' : 'base-300' }} transition-colors">
+            <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2">{{ Str::limit($maintenance->name_maintenance, 60) }}</td>
                 <td class="px-4 py-2">{{ Str::limit($maintenance->responsible_maintenance, 60) }}</td>
                 <td class="px-4 py-2">

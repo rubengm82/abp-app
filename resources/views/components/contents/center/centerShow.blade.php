@@ -10,7 +10,7 @@
     :current="'Detalls'"
     />
 @endif
-<div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold">{{ $center->name }}</h1> --}}
         <!-- Buttons -->
@@ -71,17 +71,17 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Basic information -->
-        <div class="card shadow-xl bg-base-100 text-base-content">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació bàsica</h2>
+                <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació bàsica</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">Nom del centre:</label>
-                        <p>{{ $center->name }}</p>
+                        <label class="font-bold text-md">Nom del centre:</label>
+                        <p class="text-base-content/50">{{ $center->name }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Estat:</label>
-                        <p>
+                        <label class="font-bold text-md">Estat:</label>
+                        <p class="text-base-content/50">
                             <span class="badge badge-dash {{ $center->status == 1 ? 'badge-success' : 'badge-error' }}">
                                 {{ $center->status == 1 ? 'Actiu' : 'Inactiu' }}
                             </span>
@@ -92,21 +92,21 @@
         </div>
 
         <!-- Contact information -->
-        <div class="card shadow-xl bg-base-100 text-base-content">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació de contacte</h2>
+                <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació de contacte</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">Adreça:</label>
-                        <p>{{ $center->address ?: 'No especificada' }}</p>
+                        <label class="font-bold text-md">Adreça:</label>
+                        <p class="text-base-content/50">{{ $center->address ?: 'No especificada' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Telèfon:</label>
-                        <p>{{ $center->phone ?: 'No especificat' }}</p>
+                        <label class="font-bold text-md">Telèfon:</label>
+                        <p class="text-base-content/50">{{ $center->phone ?: 'No especificat' }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Email:</label>
-                        <p>{{ $center->email ?: 'No especificat' }}</p>
+                        <label class="font-bold text-md">Email:</label>
+                        <p class="text-base-content/50">{{ $center->email ?: 'No especificat' }}</p>
                     </div>
                 </div>
             </div>
@@ -114,17 +114,17 @@
     </div>
 
     <!-- Additional information -->
-    <div class="card shadow-xl bg-base-100 text-base-content mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Informació addicional</h2>
+            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació addicional</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="font-semibold">Data de creació:</label>
-                    <p>{{ $center->created_at ? $center->created_at->format('d/m/Y H:i') : 'No especificada' }}</p>
+                    <label class="font-bold text-md">Data de creació:</label>
+                    <p class="text-base-content/50">{{ $center->created_at ? $center->created_at->format('d/m/Y H:i') : 'No especificada' }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold">Última actualització:</label>
-                    <p>{{ $center->updated_at ? $center->updated_at->format('d/m/Y H:i') : 'No especificada' }}</p>
+                    <label class="font-bold text-md">Última actualització:</label>
+                    <p class="text-base-content/50">{{ $center->updated_at ? $center->updated_at->format('d/m/Y H:i') : 'No especificada' }}</p>
                 </div>
             </div>
         </div>

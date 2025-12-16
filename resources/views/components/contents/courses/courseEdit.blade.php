@@ -11,7 +11,7 @@
     :current="'Editar'"
 />
 
-<div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-200 p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">
         {{ isset($course) ? 'Editar curs' : 'Afegir curs' }}
     </h1>
@@ -20,7 +20,7 @@
     @if ($errors->any())
         <div class="alert alert-error mb-6">
             <div>
-                <h3 class="font-bold">Hi ha errors en el formulari:</h3>
+                <h3 class="font-bold text-base-content mb-1">Hi ha errors en el formulari:</h3>
                 <ul class="list-disc list-inside">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -37,12 +37,12 @@
         @endif
 
         <!-- Basic Information -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació Bàsica</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació Bàsica</h2>
                 <div class="space-y-4">
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Nom del curs *</span>
                         </label>
                         <input type="text" name="training_name" id="id_training_name" placeholder="Ex: Curs de programació en Java" 
@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Codi FORCEM</span>
                         </label>
                         <input type="text" name="forcem_code" id="id_forcem_code" placeholder="Ex: FRC-2025-01" 
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Tipus de curs</span>
                         </label>
                         <input type="text" name="type" id="id_type" placeholder="Ex: Formació interna, Taller, etc." 
@@ -69,7 +69,7 @@
                     </div>
 
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Modalitat</span>
                         </label>
                         <select name="attendance_type" id="id_attendance_type" class="select select-bordered w-full">
@@ -84,12 +84,12 @@
         </div>
 
         <!-- Dates and Duration -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Dates i Durada</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Dates i Durada</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Data d'inici</span>
                         </label>
                         <input type="date" name="start_date" id="id_start_date" class="input input-bordered w-full" 
@@ -97,7 +97,7 @@
                     </div>
                     
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Data de finalització</span>
                         </label>
                         <input type="date" name="end_date" id="id_end_date" class="input input-bordered w-full" 
@@ -106,7 +106,7 @@
                 </div>
 
                 <div class="form-control mt-4">
-                    <label class="label">
+                    <label class="label font-bold text-base-content mb-1">
                         <span class="label-text">Hores totals</span>
                     </label>
                     <input type="number" name="total_hours" id="id_total_hours" placeholder="Ex: 30" 
@@ -118,12 +118,12 @@
         </div>
 
         <!-- Other Details -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Altres Detalls</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Altres Detalls</h2>
                 <div class="space-y-4">
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Taller</span>
                         </label>
                         <input type="text" name="workshop" id="id_workshop" placeholder="Ex: Taller pràctic de fusteria" 
@@ -132,7 +132,7 @@
                     </div>
 
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Dia de conferència</span>
                         </label>
                         <input type="text" name="conference_day" id="id_conference_day" placeholder="Ex: Dimecres" 
@@ -141,7 +141,7 @@
                     </div>
 
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Congrés</span>
                         </label>
                         <input type="text" name="congress" id="id_congress" placeholder="Ex: Congrés de Formació 2025" 
@@ -150,7 +150,7 @@
                     </div>
 
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Assistents</span>
                         </label>
                         <input type="text" name="attendee" id="id_attendee" placeholder="Ex: Professionals del centre" 
@@ -159,7 +159,7 @@
                     </div>
 
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Centre de Formació</span>
                         </label>
                         <input type="text" name="training_center" id="id_training_center" placeholder="Ex: Casa Vapor Gran" 

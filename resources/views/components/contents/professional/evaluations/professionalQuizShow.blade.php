@@ -17,7 +17,7 @@
     </div>
     
     <!-- Evaluation Show -->
-    <div class="card bg-base-100 text-base-content shadow-xl mb-6 text-sm">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mb-6 text-sm">
         <div class="card-body">
             <h2 class="card-title text-lg mb-2">
                 Professional evaluat:
@@ -40,7 +40,7 @@
 
             <div class="flex justify-end gap-4 mt-4">
                 <a href="{{ route('professional_evaluation_quiz_downloadCSV', $answers->first()->evaluation_uuid) }}" 
-                   class="btn btn-sm btn-warning text-sm">
+                   class="btn btn-sm btn-secondary text-sm">
                    Descarregar Avaluació
                 </a>
                 <x-partials.modal 
@@ -61,12 +61,12 @@
         </div>
     </div>
 
-    <div class="card bg-base-100 text-base-content shadow-xl text-sm">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 text-sm">
         <div class="card-body">
             <div class="overflow-x-auto">
                 <table class="table w-full text-sm rounded-lg overflow-hidden">
                     <thead>
-                        <tr class="bg-primary text-white font-semibold text-sm rounded-t-lg">
+                        <tr class="bg-primary text-white font-bold text-sm rounded-t-lg">
                             <th class="w-1/2 px-3 py-2">Pregunta</th>
                             <th class="text-center px-3 py-2">Gens d'acord</th>
                             <th class="text-center px-3 py-2">Poc d'acord</th>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="mt-4 p-4 bg-base-200 rounded shadow text-center">
-                <span class="font-semibold">Percentatge mitjà de l'avaluació:</span>
+                <span class="font-bold">Percentatge mitjà de l'avaluació:</span>
                 <div class="flex items-center justify-center mt-2">
                     <span class="text-primary text-lg">
                         @if (($averagePercentage ?? 0) <= 25)
@@ -127,7 +127,7 @@
 
     <!-- Observation -->
     @if($observation && $observation->observation)
-    <div class="card bg-base-100 text-base-content shadow-xl text-sm mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 text-sm mt-6">
         <div class="card-body">
             <h2 class="card-title text-lg mb-2">Observació</h2>
             <div class="p-4 bg-base-200 rounded">

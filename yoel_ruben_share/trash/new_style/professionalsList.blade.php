@@ -22,6 +22,7 @@
         <a href="{{ route('professionals.downloadCSV', $isDeactivated ? 0 : 1) }}" class="btn btn-sm btn-secondary">Descarregar Llistat</a>
         @if(!$isDeactivated)
             <a href="{{ route('professionals.downloadCSV.materialAssignments') }}" class="btn btn-sm btn-secondary">Descarregar Uniformitat</a>
+            <a href="{{ route('professional_form') }}" class="btn btn-sm btn-primary">Afegir Professional</a>
         @endif
     </div>
 </div>
@@ -40,10 +41,10 @@
                 </div>
             </div>
             @if($isDeactivated)
-                <h3 class="text-xl font-bold text-base-content mb-2">No hi ha professionals desactivats</h3>
+                <h3 class="text-xl font-semibold text-base-content mb-2">No hi ha professionals desactivats</h3>
                 <p class="text-base-content/70 mb-4">Tots els professionals estan actualment actius.</p>
             @else
-                <h3 class="text-xl font-bold text-base-content mb-2">Encara no hi ha professionals registrats</h3>
+                <h3 class="text-xl font-semibold text-base-content mb-2">Encara no hi ha professionals registrats</h3>
                 <p class="text-base-content/70 mb-4">Comença afegint el primer professional a la base de dades.</p>
                 <a href="{{ route('professional_form') }}" class="btn btn-primary">Afegir Primer Professional</a>
             @endif

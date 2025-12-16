@@ -8,40 +8,40 @@
     ]"
     :current="'Afegir Centre'"
     />
-<div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-200 p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Afegir centre</h1>
     
     <form action="{{ route('center_add') }}" method="post" class="space-y-6">
         @csrf
 
         <!-- Center Information -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació del Centre</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació del Centre</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Nom del centre *</span>
                         </label>
                         <input type="text" name="name" id="id_name" placeholder="Ex: Centre Barcelona Nord" class="input input-bordered w-full" value="{{ old('name') }}" required>
                     </div>
-                    
+
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Telèfon</span>
                         </label>
                         <input type="text" name="phone" id="id_phone" placeholder="Ex: 93 123 45 67" class="input input-bordered w-full" value="{{ old('phone') }}">
                     </div>
-                    
+
                     <div class="form-control md:col-span-2">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Adreça</span>
                         </label>
                         <input type="text" name="address" id="id_address" placeholder="Ex: Carrer Major, 123, Barcelona" class="input input-bordered w-full" value="{{ old('address') }}">
                     </div>
-                    
+
                     <div class="form-control md:col-span-2">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Correu electrònic</span>
                         </label>
                         <input type="email" name="email" id="id_email" placeholder="Ex: info@centrebarcelonanord.com" class="input input-bordered w-full" value="{{ old('email') }}">

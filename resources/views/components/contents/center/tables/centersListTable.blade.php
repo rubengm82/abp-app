@@ -1,6 +1,6 @@
-<table class="table w-full table-xs {{ $isDeactivated ? 'table-zebra' : '' }} table-hover text-sm">
+<table class="table w-full table-xs table-hover text-sm">
     <thead>
-        <tr class="bg-base-300 text-base-content font-semibold">
+        <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Nom</th>
             <th class="px-4 py-2 text-left">Adreça</th>
             <th class="px-4 py-2 text-left">Telèfon</th>
@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         @foreach($centers as $center)
-            <tr class="hover:bg-{{ $isDeactivated ? 'base-200' : 'base-300' }} transition-colors">
+            <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2 font-medium">{{ $center->name }}</td>
                 <td class="px-4 py-2">{{ $center->address }}</td>
                 <td class="px-4 py-2">{{ $center->phone }}</td>

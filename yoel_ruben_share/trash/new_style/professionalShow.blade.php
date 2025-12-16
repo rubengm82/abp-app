@@ -10,12 +10,12 @@
     />
 <div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <div class="flex justify-end items-center mb-6">
-        {{-- <h1 class="text-3xl font-bold">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1> --}}
+        {{-- <h1 class="text-3xl font-bold text-md">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1> --}}
         <!-- Buttons -->
         @if((Auth::user()->role ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             @if($professional->status == 1)
-                <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
+                <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-secondary">Editar</a>
             @endif
             @if($professional->status == 1)
                 <x-partials.modal 
@@ -91,14 +91,14 @@
                         <label class="font-bold text-md">Adreça:</label>
                         <p class="text-sm text-base-content/50">{{ $professional->address ?: 'No especificada' }}</p>
                     </div>
-
+                    
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Curriculum Vitae -->
-    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
             <h2 class="card-title text-xl underline underline-offset-5 mb-4">Currículum Vitae</h2>
             <p class="text-sm text-base-content/50 break-all whitespace-pre-wrap">{{ $professional->cvitae ?: 'No hi ha currículum disponible' }}</p>
@@ -106,7 +106,7 @@
     </div>
 
     <!-- Additional information -->
-    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
             <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació addicional</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -127,10 +127,10 @@
     </div>
 
     <!-- Material Assignments -->
-    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
             <h2 class="card-title text-xl underline underline-offset-5 mb-4">Uniformitat Assignada</h2>
-
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="text-center">
                     <label class="font-bold text-md">Samarreta:</label>
@@ -164,14 +164,14 @@
     <div class="card bg-base-100 shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
             <h2 class="card-title text-xl underline underline-offset-5 mb-4">Projectes asignats</h2>
-
+            
             @if($professional->assignedProjects->count() > 0)
                 <div class="space-y-3">
                     @foreach($professional->assignedProjects as $project)
                         <div class="p-3 bg-base-200 rounded-lg">
                             <div>
-                                <a href="{{ route('projectcommission_show', $project->id) }}"
-                                    class="font-bold text-md link link-hover text-info text-info">
+                                <a href="{{ route('projectcommission_show', $project->id) }}" 
+                                   class="font-semibold text-md link link-hover text-info">
                                     {{ $project->name }}
                                 </a>
                             </div>
@@ -191,13 +191,13 @@
     <div class="card bg-base-100 shadow-xl/10 mt-6 border border-gray-500/20">
         <div class="card-body">
             <h2 class="card-title text-xl underline underline-offset-5 mb-4">Cursos asignats</h2>
-
+            
             @if($professional->assignedCourses->count() > 0)
                 <div class="space-y-3">
                     @foreach($professional->assignedCourses as $course)
                         <div class="p-3 bg-base-200 rounded-lg flex items-center justify-between">
                             <div>
-                                <a href="{{ route('course_show', $course->id) }}" class="font-bold text-md link link-hover text-info text-info">
+                                <a href="{{ route('course_show', $course->id) }}" class="font-semibold text-md link link-hover text-info">
                                     {{ $course->training_name }}
                                 </a>
                             </div>
@@ -213,7 +213,7 @@
             @else
                 <p class="text-gray-500">No hi ha cursos asignats.</p>
             @endif
-
+            
         </div>
     </div>
 

@@ -21,14 +21,14 @@
         @csrf
         
         <!-- Evaluator | Evaluated -> Card -->  
-        <div class="card bg-base-100 text-base-content shadow-xl mb-6 text-sm">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mb-6 text-sm">
             <div class="card-body">
                 <h2 class="card-title text-lg mb-2">Selecciona els professionals</h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Avaluat -->
                     <div>
-                        <label for="avaluat" class="block font-semibold mb-1 text-primary">(*) Professional a Avaluar:</label>
+                        <label for="avaluat" class="block font-bold mb-1 text-primary">(*) Professional a Avaluar:</label>
                         <select id="avaluat" name="avaluat" class="select select-bordered w-full text-sm" required>
                             <option value="">Selecciona un professional</option>
                             @foreach($professionals as $professional)
@@ -56,12 +56,12 @@
         </div>
 
         <!-- Questions Table -->
-        <div class="card bg-base-100 text-base-content shadow-xl text-sm">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 text-sm">
             <div class="card-body">
                 <div class="overflow-x-auto">
                     <table class="table w-full text-sm rounded-lg overflow-hidden">
                         <thead>
-                            <tr class="bg-primary text-white font-semibold text-sm rounded-t-lg">
+                            <tr class="bg-primary text-white font-bold text-sm rounded-t-lg">
                                 <th class="w-1/2 px-3 py-2">Pregunta</th>
                                 <th class="text-center px-3 py-2">Gens d'acord</th>
                                 <th class="text-center px-3 py-2">Poc d'acord</th>
@@ -77,7 +77,7 @@
 
                                         <div class="text-xs text-gray-500 mt-1">
                                             <span>Mitjana: </span> 
-                                            {{-- <span class="font-semibold">{{ $questionAverages[$question->id] ?? 0 }}%</span>  --}}
+                                            {{-- <span class="font-bold">{{ $questionAverages[$question->id] ?? 0 }}%</span>  --}}
                                             {{-- <span>—</span> --}}
                                             @if (($questionAverages[$question->id] ?? 0) <= 25)
                                                 Gens d'acord
@@ -111,11 +111,11 @@
         </div>
 
         <!-- Observation -->
-        <div class="card bg-base-100 text-base-content shadow-xl text-sm">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 text-sm">
             <div class="card-body">
                 <h2 class="card-title text-lg mb-2">Observació</h2>
                 <div class="form-control">
-                    <label class="label">
+                    <label class="label font-bold text-base-content mb-1">
                         <span class="label-text">Observació (opcional)</span>
                     </label>
                     <textarea name="observation" id="id_observation" rows="4" placeholder="Afegeix una observació o comentari sobre l'avaluació..." class="textarea textarea-bordered w-full">{{ old('observation') }}</textarea>

@@ -19,14 +19,14 @@
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 overflow-x-auto border border-gray-500/20">
     @if($documents->count() > 0)
         <div id="tableToSearch-container" data-url="/documents/list">
             @include('components.contents.document.tables.globalDocumentsListTable')
         </div>
     @else
         <div class="text-center py-12">
-            <h3 class="text-xl font-semibold text-base-content mb-2">Encara no hi ha documents registrats</h3>
+            <h3 class="text-xl font-bold text-base-content mb-2">Encara no hi ha documents registrats</h3>
             <p class="text-base-content/70 mb-4">Els documents apareixeran aquí quan siguin pujats.</p>
         </div>
     @endif

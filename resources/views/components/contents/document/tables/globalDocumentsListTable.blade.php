@@ -1,6 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
-        <tr class="bg-base-300 text-base-content font-semibold">
+        <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Nom</th>
             <th class="px-4 py-2 text-left">Tipus</th>
             <th class="px-4 py-2 text-left">Pujat per</th>
@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         @foreach($documents as $document)
-            <tr class="hover:bg-base-300 transition-colors">
+            <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2 font-medium">
                     <a href="{{ route('global_document_download', $document) }}" class="link link-info link-hover">
                         {{ Str::limit($document->original_name, 40) }}

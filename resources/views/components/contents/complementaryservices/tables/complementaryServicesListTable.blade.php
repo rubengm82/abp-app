@@ -1,6 +1,6 @@
 <table class="table w-full table-xs {{ $isDeactivated ? 'table-zebra' : '' }} table-hover text-sm">
     <thead>
-        <tr class="bg-base-300 text-base-content font-semibold">
+        <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Tipus de Servei</th>
             <th class="px-4 py-2 text-left">Responsable</th>
             <th class="px-4 py-2 text-left">Data d'Inici</th>
@@ -11,7 +11,7 @@
 
     <tbody>
         @foreach($complementaryServices as $service)
-            <tr class="hover:bg-{{ $isDeactivated ? 'base-200' : 'base-300' }} transition-colors">
+            <tr class="hover:bg-base-300 transition-colors text-xs">
 
                 <td class="px-4 py-2">
                     {{ Str::limit($service->service_type, 50) ?? 'No especificat' }}

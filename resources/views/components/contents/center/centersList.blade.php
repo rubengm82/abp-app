@@ -16,15 +16,15 @@
         <x-partials.search-bar />
     </div>
     <div class="flex gap-4">
-        <a href="{{ route('centers.downloadCSV', ['status' => $isDeactivated ? 0 : 1]) }}" class="btn btn-sm btn-warning">Descarregar Llistat</a>
+        <a href="{{ route('centers.downloadCSV', ['status' => $isDeactivated ? 0 : 1]) }}" class="btn btn-sm btn-secondary">Descarregar Llistat</a>
         @if(!$isDeactivated)
-            {{-- <a href="{{ route('center_form') }}" class="btn btn-sm btn-primary">Afegir Centre</a> --}}
+            <a href="{{ route('center_form') }}" class="btn btn-sm btn-primary">Afegir Centre</a>
         @endif
     </div>
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 overflow-x-auto border border-gray-500/20">
     @if($centers->count() > 0)
         <div id="tableToSearch-container" data-url="{{ $isDeactivated ? '/centers/desactivated/list' : '/centers/list' }}">
             @include('components.contents.center.tables.centersListTable')
@@ -37,10 +37,10 @@
                         <x-partials.icon name="building-office" class="w-15 h-15 text-primary" />
                     </div>
                 </div>
-                <h3 class="text-xl font-semibold text-base-content mb-2">No hi ha centres desactivats</h3>
+                <h3 class="text-xl font-bold text-base-content mb-2">No hi ha centres desactivats</h3>
                 <p class="text-base-content/70 mb-4">Tots els centres estan actualment actius.</p>
             @else
-                <h3 class="text-xl font-semibold text-base-content mb-2">Encara no hi ha centres registrats</h3>
+                <h3 class="text-xl font-bold text-base-content mb-2">Encara no hi ha centres registrats</h3>
                 <a href="{{ route('center_form') }}" class="btn btn-primary">Afegir Primer Centre</a>
             @endif
         </div>

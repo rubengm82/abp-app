@@ -17,7 +17,7 @@
         <x-partials.search-bar />
     </div>
     <div class="flex gap-4">
-        <a href="{{ route('omplementaryservice_downloadCSV') }}" class="btn btn-sm btn-warning">
+        <a href="{{ route('omplementaryservice_downloadCSV') }}" class="btn btn-sm btn-secondary">
             Descarregar Llistat
         </a>
 
@@ -28,7 +28,7 @@
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg overflow-x-auto">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 overflow-x-auto border border-gray-500/20">
     @if($complementaryServices->count() > 0)
         <div id="tableToSearch-container" data-url="{{ $isDeactivated ? '/complementaryservices/desactivated/list' : '/complementaryservices/list' }}">
             @include('components.contents.complementaryservices.tables.complementaryServicesListTable')
@@ -39,12 +39,12 @@
                 <div class="flex justify-center mb-4">
                     <x-partials.icon name="wrench-screwdriver" class="w-15 h-15 text-primary" />
                 </div>
-                <h3 class="text-xl font-semibold text-base-content mb-2">
+                <h3 class="text-xl font-bold text-base-content mb-2">
                     No hi ha serveis complementaris desactivats
                 </h3>
                 <p class="text-base-content/70 mb-4">Tots els serveis estan actualment actius.</p>
             @else
-                <h3 class="text-xl font-semibold text-base-content mb-2">
+                <h3 class="text-xl font-bold text-base-content mb-2">
                     Encara no hi ha serveis complementaris registrats
                 </h3>
                 <a href="{{ route('complementaryservice_form') }}" class="btn btn-primary">

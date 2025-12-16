@@ -9,14 +9,14 @@
     :current="'Editar Manteniment'"
 />
 
-<div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-200 p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar Manteniment</h1>
     
     <!-- Mostra errors de validació -->
     @if ($errors->any())
         <div class="alert alert-error mb-6">
             <div>
-                <h3 class="font-bold">Hi ha errors en el formulari:</h3>
+                <h3 class="font-bold text-base-content mb-1">Hi ha errors en el formulari:</h3>
                 <ul class="list-disc list-inside">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -31,13 +31,13 @@
         @method('PUT') <!-- Método PUT para actualizar -->
 
         <!-- Maintenance Information -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació del Manteniment</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació del Manteniment</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Nom del manteniment *</span>
                         </label>
                         <input 
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Responsable *</span>
                         </label>
                         <input 
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="form-control md:col-span-2">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Descripció</span>
                         </label>
                         <textarea 
@@ -83,12 +83,12 @@
         </div>
 
         <!-- Opening Date -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Data</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Data</h2>
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="form-control w-full md:w-1/2">
-                        <label class="label" for="id_opening_date_maintenance">
+                        <label class="label font-bold text-base-content mb-1" for="id_opening_date_maintenance">
                             <span class="label-text">Data d'obertura *</span>
                         </label>
                         <input 
@@ -101,7 +101,7 @@
                         >
                     </div>
                     <div class="form-control w-full md:w-1/2">
-                        <label class="label" for="id_ending_date_maintenance">
+                        <label class="label font-bold text-base-content mb-1" for="id_ending_date_maintenance">
                             <span class="label-text">Data fi</span>
                         </label>
                         <input

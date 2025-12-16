@@ -9,7 +9,7 @@
     ]"
     :current="'Editar Tema pendent RRHH'"
     />
-<div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-200 p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar tema pendent RRHH</h1>
     
     <!-- Show validation errors -->
@@ -17,7 +17,7 @@
         <div class="alert alert-error mb-6">
             <div>
                 <div>
-                    <h3 class="font-bold">Hi ha errors en el formulari:</h3>
+                    <h3 class="font-bold text-base-content mb-1">Hi ha errors en el formulari:</h3>
                     <ul class="list-disc list-inside">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -33,12 +33,12 @@
         @method('PUT')
 
         <!-- Issue Information -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació del tema pendent</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació del tema pendent</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Centre</span>
                         </label>
                         <select name="center_id" id="id_center_id" class="select select-bordered w-full">
@@ -52,21 +52,21 @@
                     </div>
 
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Data d'obertura *</span>
                         </label>
                         <input type="date" name="opening_date" id="id_opening_date" class="input input-bordered w-full" value="{{ old('opening_date', $hrIssue->opening_date->format('Y-m-d')) }}" required>
                     </div>
                     
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Data de tancament</span>
                         </label>
                         <input type="date" name="closing_date" id="id_closing_date" class="input input-bordered w-full" value="{{ old('closing_date', $hrIssue->closing_date ? $hrIssue->closing_date->format('Y-m-d') : '') }}">
                     </div>
                     
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Estat *</span>
                         </label>
                         <select name="status" id="id_status" class="select select-bordered w-full" required>
@@ -79,12 +79,12 @@
         </div>
 
         <!-- Professionals Selection -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Professionals</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Professionals</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Professional afectat *</span>
                         </label>
                         <select name="affected_professional_id" id="id_affected_professional_id" class="select select-bordered w-full" required>
@@ -98,7 +98,7 @@
                     </div>
                     
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Registrat per *</span>
                         </label>
                         <select name="registering_professional_id" id="id_registering_professional_id" class="select select-bordered w-full" required>
@@ -112,7 +112,7 @@
                     </div>
                     
                     <div class="form-control md:col-span-2">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Derivat a</span>
                         </label>
                         <select name="referred_to_professional_id" id="id_referred_to_professional_id" class="select select-bordered w-full">
@@ -129,11 +129,11 @@
         </div>
 
         <!-- Description -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Descripció</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Descripció</h2>
                 <div class="form-control">
-                    <label class="label">
+                    <label class="label font-bold text-base-content mb-1">
                         <span class="label-text">Descripció del tema *</span>
                     </label>
                     <textarea name="description" id="id_description" rows="6" placeholder="Descriu el tema pendent RRHH..." class="textarea textarea-bordered w-full" required>{{ old('description', $hrIssue->description) }}</textarea>

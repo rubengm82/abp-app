@@ -9,7 +9,7 @@
     ]"
     :current="'Editar'"
     />
-<div class="max-w-4xl mx-auto bg-base-100 p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-200 p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">Editar projecte/comissió</h1>
     
     <!-- Show validation errors -->
@@ -17,7 +17,7 @@
         <div class="alert alert-error mb-6">
             <div>
                 <div>
-                    <h3 class="font-bold">Hi ha errors en el formulari:</h3>
+                    <h3 class="font-bold text-base-content mb-1">Hi ha errors en el formulari:</h3>
                     <ul class="list-disc list-inside">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -32,19 +32,19 @@
         @csrf
 
         <!-- Basic Information -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació Bàsica</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació Bàsica</h2>
                 <div class="space-y-4">
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Nom/Títol del projecte/comissió *</span>
                         </label>
                         <input type="text" name="name" id="id_name" placeholder="Ex: Projecte de renovació de l'edifici principal" class="input input-bordered w-full" value="{{ old('name', $projectCommission->name) }}" required>
                     </div>
                     
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Tipus *</span>
                         </label>
                         <select name="type" id="id_type" class="select select-bordered w-full" required>
@@ -58,19 +58,19 @@
         </div>
 
         <!-- Dates and Timeline -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Dates i Cronograma</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Dates i Cronograma</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Data d'inici</span>
                         </label>
                         <input type="date" name="start_date" id="id_start_date" class="input input-bordered w-full" value="{{ old('start_date', $projectCommission->start_date) }}">
                     </div>
                     
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Data estimada de finalització</span>
                         </label>
                         <input type="date" name="estimated_end_date" id="id_estimated_end_date" class="input input-bordered w-full" value="{{ old('estimated_end_date', $projectCommission->estimated_end_date) }}">
@@ -80,12 +80,12 @@
         </div>
 
         <!-- Project Details -->
-        <div class="card shadow-xl">
+        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Detalls del Projecte/Comissió</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Detalls del Projecte/Comissió</h2>
                 <div class="space-y-4">
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Professional responsable</span>
                         </label>
                         <select name="responsible_professional_id" id="id_responsible_professional_id" class="select select-bordered w-full">
@@ -99,7 +99,7 @@
                     </div>
                     
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Descripció</span>
                         </label>
                         <textarea name="description" id="id_description" placeholder="Descriu els objectius, abast i detalls del projecte/comissió..." class="textarea textarea-bordered w-full" rows="4">{{ old('description', $projectCommission->description) }}</textarea>

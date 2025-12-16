@@ -10,7 +10,7 @@
     :current="'Assignar professionals'"
 />
 
-<div class="max-w-6xl mx-auto bg-base-100 p-6 rounded shadow">
+<div class="max-w-6xl mx-auto bg-base-200 p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-base-content">{{ $course->training_name }}</h1>
@@ -28,7 +28,7 @@
             <div class="flex gap-6 mt-4" id="dropZona">
                 <!-- Unassigned List -->
                 <div class="w-1/2">
-                    <h4 class="text-lg font-semibold mb-3">No assignats</h4>
+                    <h4 class="text-lg font-bold mb-3">No assignats</h4>
                     <ul id="unassigned-manual"
                     ondragover="event.preventDefault();"
                     ondrop="handleDrop(event, this);"
@@ -47,7 +47,7 @@
 
                 <!-- Assigned List -->
                 <div class="w-1/2">
-                    <h4 class="text-lg font-semibold mb-3">Assignats</h4>
+                    <h4 class="text-lg font-bold mb-3">Assignats</h4>
                     <ul id="assigned-manual" class="bg-base-200 rounded-lg shadow-md p-4 space-y-3 h-[500px] overflow-y-auto"
                         ondragover="event.preventDefault();"
                         ondrop="handleDrop(event, this);">

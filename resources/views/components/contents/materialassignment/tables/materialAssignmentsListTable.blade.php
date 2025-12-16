@@ -1,6 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
-        <tr class="bg-base-300 text-base-content font-semibold">
+        <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Professional</th>
             <th class="px-4 py-2 text-center">Samarreta</th>
             <th class="px-4 py-2 text-center">Pantaló</th>
@@ -14,10 +14,10 @@
     </thead>
     <tbody>
         @foreach ($materialAssignments as $assignment)
-            <tr class="hover:bg-base-300 transition-colors">
+            <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2 font-medium">
                     <a href="{{ route('professional_show', $assignment->professional->id) }}" 
-                        class="link link-hover link-info">
+                        class="link link-hover text-info link-info">
                         {{ $assignment->professional->name }} {{ $assignment->professional->surname1 }}
                     </a>
                 </td>
@@ -52,7 +52,7 @@
                 </td>
                 <td class="px-4 py-2">
                     @if($assignment->observations)
-                        <span class="text-sm" title="{{ $assignment->observations }}">
+                        <span class="text-sm text-base-content/50" title="{{ $assignment->observations }}">
                             {{ Str::limit($assignment->observations, 30) }}
                         </span>
                     @else

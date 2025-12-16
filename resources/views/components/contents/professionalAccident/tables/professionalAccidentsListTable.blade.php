@@ -1,6 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
-        <tr class="bg-base-300 text-base-content font-semibold">
+        <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Tipus</th>
             <th class="px-4 py-2 text-left">Data</th>
             <th class="px-4 py-2 text-left">Professional afectat</th>
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         @foreach($accidents as $accident)
-            <tr class="hover:bg-base-300 transition-colors">
+            <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2">
                     <span class="badge badge-dash whitespace-normal text-center {{ $accident->type === 'Baixa Finalitzada' ? 'badge-success' : ($accident->type === 'Amb baixa' ? 'badge-warning' : 'badge-info') }}">
                         {{ $accident->type }}

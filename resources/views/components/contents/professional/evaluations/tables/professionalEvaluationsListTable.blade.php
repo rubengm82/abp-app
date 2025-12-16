@@ -1,6 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
-        <tr class="bg-base-300 text-base-content font-semibold">
+        <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Avaluat</th>
             <th class="px-4 py-2 text-left">Avaluador</th>
             <th class="px-4 py-2 text-left">Data de l'Avaluació</th>
@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         @foreach($groupedEvaluations as $group)
-            <tr class="hover:bg-base-300 transition-colors">
+            <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2">
                     {{ optional($group->group->first()->evaluatedProfessional)->name }}
                     {{ optional($group->group->first()->evaluatedProfessional)->surname1 }}
@@ -27,7 +27,7 @@
                     {{ $group->group->first()->created_at->toDateTimeString() }}
                 </td>
 
-               <td class="px-4 py-2 text-right font-semibold text-base-content">
+               <td class="px-4 py-2 text-right font-bold text-base-content">
                     @if (($group->averagePercentage ?? 0) <= 25)
                         Gens d'acord
                     @elseif (($group->averagePercentage ?? 0) <= 50)

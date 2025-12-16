@@ -1,6 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
-        <tr class="bg-base-300 text-base-content font-semibold">
+        <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Tipus</th>
             <th class="px-4 py-2 text-left">Empresa</th>
             <th class="px-4 py-2 text-left">Departament</th>
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         @foreach ($externalContacts as $externalContact)
-            <tr class="hover:bg-base-300 transition-colors">
+            <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2">{{ $externalContact->external_contact_type ?? '' }}</td>
                 <td class="px-4 py-2 font-medium">{{ $externalContact->company ?? '' }}</td>
                 <td class="px-4 py-2">{{ $externalContact->department ?? '' }}</td>

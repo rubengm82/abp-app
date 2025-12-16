@@ -21,13 +21,13 @@
             <div class="space-y-3">
                 @foreach($items->sortByDesc('created_at') as $item)
                     <div class="bg-base-200 p-4 rounded-lg border-l-4 border-green-500">
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-start">
                             <div>
                                 <a href="{{ $downloadRoute ? route($downloadRoute, $item) : '#' }}"
                                    class="link link-hover text-info font-medium">
                                    {{ $item->original_name ?? 'Sense nom' }}
                                 </a>
-                                <div class="text-sm text-gray-600 mt-1">
+                                <div class="text-sm text-base-content mt-1">
                                     <span class="badge badge-sm badge-info mr-2">{{ $item->document_type ?: 'Altres' }}</span>
                                     {{ $uploadedByField ? ($item->$uploadedByField->name ?? '') : '' }}
                                     — {{ $item->created_at?->format('d/m/Y H:i') }}

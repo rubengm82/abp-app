@@ -8,7 +8,7 @@
     ]"
     :current="'Detalls'"
     />
-<div class="max-w-4xl mx-auto bg-base-100 text-base-content p-6 rounded shadow">
+<div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold">Detalls de l'Assignació de Material</h1>
         <div class="flex gap-2">
@@ -25,17 +25,17 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Assignment information -->
-        <div class="card bg-base-100 text-base-content shadow-xl">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Informació de l'Assignació</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació de l'Assignació</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">Data d'assignació:</label>
-                        <p>{{ $materialAssignment->assignment_date->format('d/m/Y') }}</p>
+                        <label class="font-bold text-md">Data d'assignació:</label>
+                        <p class="text-sm text-base-content/50">{{ $materialAssignment->assignment_date->format('d/m/Y') }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Assignat per:</label>
-                        <p>
+                        <label class="font-bold text-md">Assignat per:</label>
+                        <p class="text-sm text-base-content/50">
                             @if($materialAssignment->assignedBy)
                                 {{ $materialAssignment->assignedBy->name }} {{ $materialAssignment->assignedBy->surname1 }}
                             @else
@@ -48,21 +48,21 @@
         </div>
 
         <!-- Information about the professional -->
-        <div class="card bg-base-100 text-base-content shadow-xl">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl mb-4">Professional</h2>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Professional</h2>
                 <div class="space-y-3">
                     <div>
-                        <label class="font-semibold">Nom:</label>
-                        <p>{{ $materialAssignment->professional->name }} {{ $materialAssignment->professional->surname1 }} {{ $materialAssignment->professional->surname2 }}</p>
+                        <label class="font-bold text-md">Nom:</label>
+                        <p class="text-sm text-base-content/50">{{ $materialAssignment->professional->name }} {{ $materialAssignment->professional->surname1 }} {{ $materialAssignment->professional->surname2 }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">DNI:</label>
-                        <p>{{ $materialAssignment->professional->dni }}</p>
+                        <label class="font-bold text-md">DNI:</label>
+                        <p class="text-sm text-base-content/50">{{ $materialAssignment->professional->dni }}</p>
                     </div>
                     <div>
-                        <label class="font-semibold">Rol:</label>
-                        <p>{{ $materialAssignment->professional->role }}</p>
+                        <label class="font-bold text-md">Rol:</label>
+                        <p class="text-sm text-base-content/50">{{ $materialAssignment->professional->role }}</p>
                     </div>
                 </div>
             </div>
@@ -70,32 +70,32 @@
     </div>
 
     <!-- Assigned sizes -->
-    <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Talles Assignades</h2>
+            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Talles Assignades</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="text-center">
-                    <label class="font-semibold">Samarreta:</label>
+                    <label class="font-bold text-md">Samarreta:</label>
                     @if($materialAssignment->shirt_size)
-                        <p class="text-2xl font-bold text-blue-600">{{ $materialAssignment->shirt_size }}</p>
+                        <p class="text-2xl font-bold text-md text-primary">{{ $materialAssignment->shirt_size }}</p>
                     @else
-                        <p class="text-lg text-gray-400">No assignat</p>
+                        <p class="text-sm text-base-content/50">No assignat</p>
                     @endif
                 </div>
                 <div class="text-center">
-                    <label class="font-semibold">Pantaló:</label>
+                    <label class="font-bold text-md">Pantaló:</label>
                     @if($materialAssignment->pants_size)
-                        <p class="text-2xl font-bold text-green-600">{{ $materialAssignment->pants_size }}</p>
+                        <p class="text-2xl font-bold text-md text-secondary">{{ $materialAssignment->pants_size }}</p>
                     @else
-                        <p class="text-lg text-gray-400">No assignat</p>
+                        <p class="text-sm text-base-content/50">No assignat</p>
                     @endif
                 </div>
                 <div class="text-center">
-                    <label class="font-semibold">Sabata:</label>
+                    <label class="font-bold text-md">Sabata:</label>
                     @if($materialAssignment->shoe_size)
-                        <p class="text-2xl font-bold text-purple-600">{{ $materialAssignment->shoe_size }}</p>
+                        <p class="text-2xl font-bold text-md text-error">{{ $materialAssignment->shoe_size }}</p>
                     @else
-                        <p class="text-lg text-gray-400">No assignat</p>
+                        <p class="text-sm text-base-content/50">No assignat</p>
                     @endif
                 </div>
             </div>
@@ -103,21 +103,21 @@
     </div>
 
     <!-- Observations and documents -->
-    <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
         <div class="card-body">
-            <h2 class="card-title text-xl mb-4">Informació Addicional</h2>
+            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació Addicional</h2>
             <div class="space-y-4">
                 <div>
-                    <label class="font-semibold">Observacions:</label>
-                    <p class="mt-2 break-all overflow-wrap-anywhere">{{ $materialAssignment->observations ?: 'No hi ha observacions' }}</p>
+                    <label class="font-bold text-md">Observacions:</label>
+                    <p class="text-sm text-base-content/50 break-all whitespace-pre-wrap">{{ $materialAssignment->observations ?: 'No hi ha observacions' }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold">Data de creació:</label>
-                    <p>{{ $materialAssignment->created_at->format('d/m/Y H:i') }}</p>
+                    <label class="font-bold text-md">Data de creació:</label>
+                    <p class="text-sm text-base-content/50">{{ $materialAssignment->created_at->format('d/m/Y H:i') }}</p>
                 </div>
                 <div>
-                    <label class="font-semibold">Última actualització:</label>
-                    <p>{{ $materialAssignment->updated_at->format('d/m/Y H:i') }}</p>
+                    <label class="font-bold text-md">Última actualització:</label>
+                    <p class="text-sm text-base-content/50">{{ $materialAssignment->updated_at->format('d/m/Y H:i') }}</p>
                 </div>
             </div>
         </div>
@@ -125,7 +125,7 @@
 
     <div>
         @if ($materialAssignment->signature)
-            <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+            <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
                 <div class="card-body">
                     <div class="flex justify-between items-center">
                         <h2 class="card-title text-xl">Signatura del professional del material assignat</h2>
@@ -149,11 +149,11 @@
                 </div>
             </div>
         @else
-            <div class="card bg-base-100 text-base-content shadow-xl mt-6">
+            <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
                 <div class="card-body">
                     <div class="flex justify-between items-center">
                         <h2 class="card-title text-xl">Signatura del professional del material assignat</h2>
-                        <a href="{{ route('materialassignment_edit', ['materialAssignment' => $materialAssignment, 'signatura' => 1]) }}" class="btn btn-sm btn-warning">Afegir Signatura</a>
+                        <a href="{{ route('materialassignment_edit', ['materialAssignment' => $materialAssignment, 'signatura' => 1]) }}" class="btn btn-sm btn-secondary">Afegir Signatura</a>
                     </div>
                     <div class="space-y-4">
                         <p>Aquesta assignació del material no té cap signatura</p>

@@ -1,6 +1,6 @@
 <table class="table w-full table-xs table-hover text-sm">
     <thead>
-        <tr class="bg-base-300 text-base-content font-semibold">
+        <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Nom del curs</th>
             <th class="px-4 py-2 text-left">Centre de Formació</th>
             <th class="px-4 py-2 text-left">Codi FORCEM</th>
@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         @foreach($courses as $course)
-            <tr class="hover:bg-base-300 transition-colors">
+            <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2 font-medium">{{ Str::limit($course->training_name, 30) }}</td>
                 <td class="px-4 py-2">{{ Str::limit($course->training_center, 25) }}</td>
                 <td class="px-4 py-2">{{ Str::limit($course->forcem_code, 15) }}</td>
