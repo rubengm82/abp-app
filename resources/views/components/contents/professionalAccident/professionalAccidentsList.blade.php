@@ -16,6 +16,9 @@
     <div>
         <x-partials.search-bar />
     </div>
+    <div class="flex gap-4">
+        <a href="{{ route('professional_accidents.downloadCSV') }}" class="btn btn-sm btn-secondary">Descarregar Llistat</a>
+    </div>
 </div>
 @endif
 

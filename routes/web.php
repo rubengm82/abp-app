@@ -126,6 +126,7 @@ Route::middleware('auth')->get('/professional_accident/edit/{id}', [Professional
 Route::middleware('auth')->put('/professional_accident/update/{id}', [ProfessionalAccidentController::class, "update"])->name("professional_accident_update");
 Route::middleware('auth')->delete('/professional_accident/delete/{id}', [ProfessionalAccidentController::class, "destroy"])->name("professional_accident_delete");
 Route::middleware('auth')->post('/professional_accident/end-leave/{id}', [ProfessionalAccidentController::class, "endLeave"])->name("professional_accident_end_leave");
+Route::middleware('auth')->get('/professional_accidents/downloadCSV', [ProfessionalAccidentController::class, "downloadCSV"])->name("professional_accidents.downloadCSV");
 
 /* Professional Accident Notes */
 Route::middleware('auth')->post('/professional_accident/notes/{professionalAccident}', [ProfessionalAccidentController::class, 'professional_accident_note_add'])->name('professional_accident_note_add');

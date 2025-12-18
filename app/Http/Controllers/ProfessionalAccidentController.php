@@ -350,4 +350,49 @@ class ProfessionalAccidentController extends Controller
         return redirect()->route('professional_accident_show', $note->noteable->id . '#notes-section')
                          ->with('success', 'Nota eliminada correctament!');
     }
+
+    /**
+     * Download CSV from resource in storage
+     */
+    public function downloadCSV()
+    {
+        $accidents = ProfessionalAccident::with(['affectedProfessional', 'createdByProfessional'])
+            ->whereHas('affectedProfessional', function($q) {
+                $q->where('center_id', Auth::user()->center_id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = "accidents_professionals_{$timestamp}.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['Tipus', 'Data', 'Professional Afectat', 'Registrat Per', 'Context', 'Descripció', 'Duració', 'Data Inici', 'Data Fi']);
+
+        foreach ($accidents as $accident) {
+            $affectedName = $accident->affectedProfessional 
+                ? trim($accident->affectedProfessional->name . ' ' . $accident->affectedProfessional->surname1 . ' ' . ($accident->affectedProfessional->surname2 ?? ''))
+                : 'No especificat';
+            
+            $createdByName = $accident->createdByProfessional 
+                ? trim($accident->createdByProfessional->name . ' ' . $accident->createdByProfessional->surname1 . ' ' . ($accident->createdByProfessional->surname2 ?? ''))
+                : 'No especificat';
+
+            fputcsv($handle, [
+                $accident->type ?? '',
+                $accident->date ? $accident->date->format('d/m/Y') : '',
+                $affectedName,
+                $createdByName,
+                $accident->context ?? '',
+                $accident->description ?? '',
+                $accident->duration ?? '',
+                $accident->start_date ? $accident->start_date->format('d/m/Y') : '',
+                $accident->end_date ? $accident->end_date->format('d/m/Y') : '',
+            ]);
+        }
+
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
 }
