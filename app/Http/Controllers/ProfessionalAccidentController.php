@@ -150,36 +150,40 @@ class ProfessionalAccidentController extends Controller
 
         $oldType = $accident->type;
 
+        $response = null;
+
         // Prevent changing type to 'Baixa Finalitzada' manually - only through endLeave method
         if ($validated['type'] === 'Baixa Finalitzada' && $oldType !== 'Baixa Finalitzada') {
-            return redirect()->route('professional_accident_edit', $accident->id)
+            $response = redirect()->route('professional_accident_edit', $accident->id)
                 ->with('error', 'No es pot canviar el tipus a "Baixa Finalitzada" manualment. Utilitza el botó "Finalitzar Baixa".');
-        }
-
-        // If it was 'Baixa Finalitzada', keep it as such
-        if ($oldType === 'Baixa Finalitzada') {
-            $validated['type'] = 'Baixa Finalitzada';
-        }
-
-        $accident->update($validated);
-
-        $affectedProfessional = Professional::findOrFail($validated['affected_professional_id']);
-
-        // Handle automatic status updates
-        if ($validated['type'] === 'Amb baixa') {
-            // If changing to "Amb baixa", set is_on_leave to true
-            $affectedProfessional->update(['is_on_leave' => true]);
-        } elseif ($validated['type'] === 'Baixa Finalitzada') {
-            // If type is "Baixa Finalitzada", set is_on_leave to false
-            $affectedProfessional->update(['is_on_leave' => false]);
         } else {
-            // If changing from "Amb baixa" to "Sin baixa", set is_on_leave to false
-            if ($oldType === 'Amb baixa' || $oldType === 'Baixa Finalitzada') {
-                $affectedProfessional->update(['is_on_leave' => false]);
+            // If it was 'Baixa Finalitzada', keep it as such
+            if ($oldType === 'Baixa Finalitzada') {
+                $validated['type'] = 'Baixa Finalitzada';
             }
+
+            $accident->update($validated);
+
+            $affectedProfessional = Professional::findOrFail($validated['affected_professional_id']);
+
+            // Handle automatic status updates
+            if ($validated['type'] === 'Amb baixa') {
+                // If changing to "Amb baixa", set is_on_leave to true
+                $affectedProfessional->update(['is_on_leave' => true]);
+            } elseif ($validated['type'] === 'Baixa Finalitzada') {
+                // If type is "Baixa Finalitzada", set is_on_leave to false
+                $affectedProfessional->update(['is_on_leave' => false]);
+            } else {
+                // If changing from "Amb baixa" to "Sin baixa", set is_on_leave to false
+                if ($oldType === 'Amb baixa' || $oldType === 'Baixa Finalitzada') {
+                    $affectedProfessional->update(['is_on_leave' => false]);
+                }
+            }
+
+            $response = redirect()->route('professional_accidents_list')->with('success', 'Accident professional actualitzat correctament!');
         }
 
-        return redirect()->route('professional_accidents_list')->with('success', 'Accident professional actualitzat correctament!');
+        return $response;
     }
 
     /**
@@ -209,33 +213,35 @@ class ProfessionalAccidentController extends Controller
     {
         $accident = ProfessionalAccident::findOrFail($id);
         
+        $response = null;
+
         // Only allow ending leaves for "Amb baixa" type
         if ($accident->type !== 'Amb baixa') {
-            return redirect()->route('professional_accident_show', $accident->id)
+            $response = redirect()->route('professional_accident_show', $accident->id)
                 ->with('error', 'Només es poden finalitzar les baixes.');
-        }
-
-        // Check if leave is already ended
-        if ($accident->type === 'Baixa Finalitzada') {
-            return redirect()->route('professional_accident_show', $accident->id)
+        } elseif ($accident->type === 'Baixa Finalitzada') {
+            // Check if leave is already ended
+            $response = redirect()->route('professional_accident_show', $accident->id)
                 ->with('error', 'Aquesta baixa ja està finalitzada.');
+        } else {
+            // Update the affected professional's leave status
+            $affectedProfessional = $accident->affectedProfessional;
+            if ($affectedProfessional) {
+                $affectedProfessional->update(['is_on_leave' => false]);
+            }
+
+            // Update the accident: change type to 'Baixa Finalitzada' and set end_date if not set
+            $updateData = ['type' => 'Baixa Finalitzada'];
+            if (!$accident->end_date) {
+                $updateData['end_date'] = now()->toDateString();
+            }
+            $accident->update($updateData);
+
+            $response = redirect()->route('professional_accident_show', $accident->id)
+                ->with('success', 'Baixa finalitzada correctament! El professional ha estat actualitzat.');
         }
 
-        // Update the affected professional's leave status
-        $affectedProfessional = $accident->affectedProfessional;
-        if ($affectedProfessional) {
-            $affectedProfessional->update(['is_on_leave' => false]);
-        }
-
-        // Update the accident: change type to 'Baixa Finalitzada' and set end_date if not set
-        $updateData = ['type' => 'Baixa Finalitzada'];
-        if (!$accident->end_date) {
-            $updateData['end_date'] = now()->toDateString();
-        }
-        $accident->update($updateData);
-
-        return redirect()->route('professional_accident_show', $accident->id)
-            ->with('success', 'Baixa finalitzada correctament! El professional ha estat actualitzat.');
+        return $response;
     }
 
     //// DOCUMENTS ////
@@ -275,11 +281,14 @@ class ProfessionalAccidentController extends Controller
     {
         $path = storage_path('app/public/' . $document->file_path);
 
+        $response = null;
         if (file_exists($path)) {
-            return response()->download($path, $document->original_name);
+            $response = response()->download($path, $document->original_name);
+        } else {
+            $response = back()->with('error', 'El document no existeix.');
         }
 
-        return back()->with('error', 'El document no existeix.');
+        return $response;
     }
 
     // Delete Document to server

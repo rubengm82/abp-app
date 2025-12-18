@@ -133,36 +133,39 @@ class EvaluationsController extends Controller
             'observation' => 'nullable|string|max:5000',
         ]);
 
+        $response = null;
+
         // Check that you are not evaluating yourself
         if ($request->input('avaluat') == $request->input('evaluador')) {
-            return redirect()->back()
+            $response = redirect()->back()
                 ->withInput()
                 ->with(['error' => 'No es pot avaluar a un mateix.']);
+        } else {
+            $uuid_pre_generated = Str::uuid()->toString();
+
+            foreach ($request->questions as $quiz_id => $answer_value) {
+                Evaluation::create([
+                    'evaluated_professional_id' => $request->input('avaluat'),
+                    'evaluator_professional_id' => $request->input('evaluador'),
+                    'question_id' => $quiz_id,
+                    'answer' => $answer_value,
+                    'evaluation_uuid' => $uuid_pre_generated,
+                ]);
+            }
+
+            // Create or update observation if provided
+            if ($request->has('observation') && !empty($request->input('observation'))) {
+                EvaluationObservation::updateOrCreate(
+                    ['evaluation_uuid' => $uuid_pre_generated],
+                    ['observation' => $request->input('observation')]
+                );
+            }
+
+            $response = redirect()->route('professional_evaluations_list')
+                ->with('success', 'Evaluació afegida correctament!');
         }
 
-        
-        $uuid_pre_generated = Str::uuid()->toString();
-
-        foreach ($request->questions as $quiz_id => $answer_value) {
-            Evaluation::create([
-                'evaluated_professional_id' => $request->input('avaluat'),
-                'evaluator_professional_id' => $request->input('evaluador'),
-                'question_id' => $quiz_id,
-                'answer' => $answer_value,
-                'evaluation_uuid' => $uuid_pre_generated,
-            ]);
-        }
-
-        // Create or update observation if provided
-        if ($request->has('observation') && !empty($request->input('observation'))) {
-            EvaluationObservation::updateOrCreate(
-                ['evaluation_uuid' => $uuid_pre_generated],
-                ['observation' => $request->input('observation')]
-            );
-        }
-
-        return redirect()->route('professional_evaluations_list')
-            ->with('success', 'Evaluació afegida correctament!');
+        return $response;
     }
 
     /**
@@ -300,66 +303,69 @@ class EvaluationsController extends Controller
             ->where('evaluation_uuid', $evaluation_uuid)
             ->get();
 
+        $response = null;
         if ($answers->isEmpty()) {
-            return redirect()->back()->with('error', 'No s’ha trobat aquesta avaluació.');
-        }
-
-        $first = $answers->first();
-        $questions = Quiz::all();
-
-        $averagePercentage = $this->calculateAveragePercentage($questions, $answers);
-
-        if ($averagePercentage <= 25) {
-            $averageText = "Gens d'acord";
-        } elseif ($averagePercentage <= 50) {
-            $averageText = "Poc d'acord";
-        } elseif ($averagePercentage <= 75) {
-            $averageText = "Bastant d'acord";
+            $response = redirect()->back()->with('error', "No s'ha trobat aquesta avaluació.");
         } else {
-            $averageText = "Molt d'acord";
+            $first = $answers->first();
+            $questions = Quiz::all();
+
+            $averagePercentage = $this->calculateAveragePercentage($questions, $answers);
+
+            if ($averagePercentage <= 25) {
+                $averageText = "Gens d'acord";
+            } elseif ($averagePercentage <= 50) {
+                $averageText = "Poc d'acord";
+            } elseif ($averagePercentage <= 75) {
+                $averageText = "Bastant d'acord";
+            } else {
+                $averageText = "Molt d'acord";
+            }
+
+            // FILE NAME
+            $evaluatedName = Str::slug(
+                trim(
+                    optional($first->evaluatedProfessional)->name . ' ' .
+                    optional($first->evaluatedProfessional)->surname1 . ' ' .
+                    optional($first->evaluatedProfessional)->surname2
+                ),
+                '_'
+            );
+            $evaluationDate = $first->created_at->format('d-m-Y_H-i-s');
+            $filename = "avaluacio_{$evaluatedName}_{$evaluationDate}.csv";
+
+            $handle = fopen($filename, 'w+');
+
+            fputcsv($handle, ["Professional Avaluat:", optional($first->evaluatedProfessional)->name . ' ' . optional($first->evaluatedProfessional)->surname1 . ' ' . optional($first->evaluatedProfessional)->surname2]);
+            fputcsv($handle, ["Professional Avaluador:", optional($first->evaluatorProfessional)->name . ' ' . optional($first->evaluatorProfessional)->surname1 . ' ' . optional($first->evaluatorProfessional)->surname2]);
+            fputcsv($handle, ["Data de l'avaluació:", $first->created_at->format('d/m/Y H:i:s')]);
+            
+            fputcsv($handle, ["Resposta mitjana:", $averageText]);
+
+            fputcsv($handle, []);
+
+            fputcsv($handle, ['Pregunta', 'Resposta']);
+
+            $answerTextMap = [
+                0 => 'Gens d\'acord',
+                1 => 'Poc d\'acord',
+                2 => 'Bastant d\'acord',
+                3 => 'Molt d\'acord',
+            ];
+
+            foreach ($answers as $answer) {
+                fputcsv($handle, [
+                    $answer->question->question ?? 'Pregunta sense nom',
+                    $answerTextMap[$answer->answer] ?? $answer->answer,
+                ]);
+            }
+
+            fclose($handle);
+
+            $response = response()->download($filename)->deleteFileAfterSend(true);
         }
 
-        // FILE NAME
-        $evaluatedName = Str::slug(
-            trim(
-                optional($first->evaluatedProfessional)->name . ' ' .
-                optional($first->evaluatedProfessional)->surname1 . ' ' .
-                optional($first->evaluatedProfessional)->surname2
-            ),
-            '_'
-        );
-        $evaluationDate = $first->created_at->format('d-m-Y_H-i-s');
-        $filename = "avaluacio_{$evaluatedName}_{$evaluationDate}.csv";
-
-        $handle = fopen($filename, 'w+');
-
-        fputcsv($handle, ["Professional Avaluat:", optional($first->evaluatedProfessional)->name . ' ' . optional($first->evaluatedProfessional)->surname1 . ' ' . optional($first->evaluatedProfessional)->surname2]);
-        fputcsv($handle, ["Professional Avaluador:", optional($first->evaluatorProfessional)->name . ' ' . optional($first->evaluatorProfessional)->surname1 . ' ' . optional($first->evaluatorProfessional)->surname2]);
-        fputcsv($handle, ["Data de l'avaluació:", $first->created_at->format('d/m/Y H:i:s')]);
-        
-        fputcsv($handle, ["Resposta mitjana:", $averageText]);
-
-        fputcsv($handle, []);
-
-        fputcsv($handle, ['Pregunta', 'Resposta']);
-
-        $answerTextMap = [
-            0 => 'Gens d\'acord',
-            1 => 'Poc d\'acord',
-            2 => 'Bastant d\'acord',
-            3 => 'Molt d\'acord',
-        ];
-
-        foreach ($answers as $answer) {
-            fputcsv($handle, [
-                $answer->question->question ?? 'Pregunta sense nom',
-                $answerTextMap[$answer->answer] ?? $answer->answer,
-            ]);
-        }
-
-        fclose($handle);
-
-        return response()->download($filename)->deleteFileAfterSend(true);
+        return $response;
     }
     
     // Calculate average percentage from answers

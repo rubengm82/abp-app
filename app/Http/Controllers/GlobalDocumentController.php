@@ -46,11 +46,14 @@ class GlobalDocumentController extends Controller
     {
         $path = storage_path('app/public/' . $document->file_path);
 
+        $response = null;
         if (file_exists($path)) {
-            return response()->download($path, $document->original_name);
+            $response = response()->download($path, $document->original_name);
+        } else {
+            $response = back()->with('error', 'El document no existeix.');
         }
 
-        return back()->with('error', 'El document no existeix.');
+        return $response;
     }
 }
 
