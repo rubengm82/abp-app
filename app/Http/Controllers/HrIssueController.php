@@ -183,7 +183,7 @@ class HrIssueController extends Controller
             'file_size' => $file->getSize(),
             'mime_type' => $file->getMimeType(),
             'uploaded_by_professional_id' => Auth::user()->id,
-            'document_type' => $request->input('document_type'),
+            'document_type' => $request->input('document_type') ? $request->input('document_type') : 'Altres' ,
         ]);
 
         return back()->with('success', 'Document pujat correctament!');
