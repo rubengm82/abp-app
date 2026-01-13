@@ -29,7 +29,7 @@ class MaintenanceController extends Controller
             );
         }
 
-        $maintenances = $query->get();
+        $maintenances = $query->orderBy('created_at', 'desc')->get();
 
         $isDeactivated = ($status == 0);
 
@@ -67,6 +67,7 @@ class MaintenanceController extends Controller
             'opening_date_maintenance' => $validated['opening_date_maintenance'],
             'ending_date_maintenance' => $validated['ending_date_maintenance'],
             'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
+            'status' => 1,
         ]);
 
         return redirect()->route('maintenances_list')->with('success', 'Manteniment creat correctament!');

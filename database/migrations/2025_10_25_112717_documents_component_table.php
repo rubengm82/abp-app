@@ -45,7 +45,7 @@ return new class extends Migration
                 'Famílies',
                 'Comunicació i Reunions',
                 'Altres'
-            ])->nullable()->comment('Type of document');
+            ])->nullable()->comment('Type of document')->default('Altres');
 
             $table->timestamps(); // created_at and updated_at
         });

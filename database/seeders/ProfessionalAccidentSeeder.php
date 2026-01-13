@@ -99,6 +99,6 @@ class ProfessionalAccidentSeeder extends Seeder
         // mainlog::log('Professional accidents seeded successfully!' . json_encode($accidents));   
         DB::table('professional_accidents')->insert($accidents);
         
-        $this->command->info('Professional accidents seeded successfully!');
+        // $this->command->info('Professional accidents seeded successfully!');
     }
 }
