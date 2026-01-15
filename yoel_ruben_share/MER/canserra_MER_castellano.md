@@ -1,6 +1,6 @@
 # Esquema de Base de Datos - MER (Modelo Entidad-Relación)
 
-Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
+Actualizado basado en migraciones reales (Septiembre-Diciembre 2025)
 
 ## RECOMENDACIONES DE DISEÑO
 
@@ -9,9 +9,14 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 - **notes_component**: Utiliza relaciones polimórficas (noteable_id/noteable_type) para adjuntar notas a cualquier modelo
 
 ### SISTEMA DE EVALUACIÓN
-- **evaluations**: Utiliza evaluation_id para agrupar múltiples pares pregunta-respuesta en una sola sesión de evaluación
+- **evaluations**: Utiliza evaluation_uuid (UUID) para agrupar múltiples pares pregunta-respuesta en una sola sesión de evaluación
 - **quiz**: Almacena preguntas individuales
+- **evaluation_observations**: Almacena observaciones/comentarios para cada grupo de evaluación
 - Cada registro de evaluación se vincula a una pregunta del cuestionario con un valor de respuesta (0-3)
+
+### GESTIÓN DE ACCIDENTES
+- **professional_accidents**: Reemplaza las antiguas tablas ACCIDENT y ACCIDENT_FOLLOW_UP
+- Soporta tres tipos: 'Sin baixa', 'Amb baixa', 'Baixa Finalitzada'
 
 ---
 
@@ -20,10 +25,10 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 ### USERS (Usuarios)
 - id (INT, PK)
 - professional_id (INT, FK → PROFESIONAL, nullable)
-- name (VARCHAR(255))
-- email (VARCHAR(255))
-- password (VARCHAR(255))
-- remember_token (VARCHAR(100))
+- name (VARCHAR(255), nullable)
+- email (VARCHAR(255), nullable)
+- password (VARCHAR(255), nullable)
+- remember_token (VARCHAR(100), nullable)
 - email_verified_at (TIMESTAMP, nullable)
 - created_at (TIMESTAMP)
 - updated_at (TIMESTAMP)
@@ -44,12 +49,13 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 - name (VARCHAR(100)) -- Primer nombre
 - surname1 (VARCHAR(100)) -- Primer apellido
 - surname2 (VARCHAR(100), nullable) -- Segundo apellido
-- role (ENUM: 'Directiu', 'Administració', 'Tècnic', nullable) -- Rol profesional
+- role (ENUM: 'Directiu', 'Administració', 'Tècnic', 'Gerent', nullable) -- Rol profesional
 - dni (VARCHAR(100), UNIQUE) -- DNI
 - phone (VARCHAR(20), nullable)
 - email (VARCHAR(255), UNIQUE, nullable)
 - address (VARCHAR(500), nullable)
-- employment_status (ENUM: 'Actiu', 'Suplència', 'Baixa', 'No contractat', nullable) -- Estado laboral
+- employment_status (ENUM: 'Actiu', 'Suplència', 'No contractat', nullable) -- Estado laboral
+- is_on_leave (BOOLEAN, default: false) -- ¿Está el profesional de baja?
 - cvitae (TEXT, nullable) -- Currículum vitae
 - user (VARCHAR(50), UNIQUE, nullable) -- Usuario de login
 - password (VARCHAR(255), nullable)
@@ -72,21 +78,7 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 - assignment_date (DATE) -- Fecha de asignación
 - assigned_by_professional_id (INT, FK → PROFESSIONAL, nullable) -- Profesional que asignó
 - observations (TEXT, nullable)
-- created_at (TIMESTAMP)
-- updated_at (TIMESTAMP)
-
----
-
-## GESTIÓN DE REGISTROS
-
-### RECORD (Registro)
-- id (INT, PK)
-- professional_id (INT, FK → PROFESSIONAL)
-- type (ENUM) -- Tipo: 'Seguiment', 'Avaluació', 'Accident', 'Baixa_llarga', 'Observació'
-- date (DATE) -- Fecha del registro
-- description (TEXT, nullable)
-- comments (TEXT, nullable)
-- file (VARCHAR(500), nullable) -- Ruta del archivo adjunto
+- signature (TEXT, nullable) -- Firma del profesional
 - created_at (TIMESTAMP)
 - updated_at (TIMESTAMP)
 
@@ -96,6 +88,7 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 
 ### COURSE (Curso)
 - id (INT, PK)
+- center_id (INT, FK → CENTER, nullable) -- Referencia al centro
 - training_center (VARCHAR(255), nullable) -- Centro de formación
 - forcem_code (VARCHAR(50), nullable) -- Código FORCEM
 - total_hours (INT, nullable) -- Horas totales del curso
@@ -131,12 +124,18 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 
 ### EVALUATION (Evaluación)
 - id (INT, PK)
-- evaluation_id (VARCHAR(255)) -- ID único de evaluación para agrupar registros
+- evaluation_uuid (UUID) -- UUID único de evaluación para agrupar registros
 - evaluator_professional_id (INT, FK → PROFESSIONAL) -- Profesional evaluador
 - evaluated_professional_id (INT, FK → PROFESSIONAL) -- Profesional evaluado
 - question_id (INT, FK → QUIZ) -- ID de la pregunta del cuestionario
 - answer (INT) -- Valor de respuesta de 0 a 3
-- evaluation_date (DATE) -- Fecha de evaluación
+- created_at (TIMESTAMP)
+- updated_at (TIMESTAMP)
+
+### EVALUATION_OBSERVATIONS (Observaciones de Evaluación)
+- id (INT, PK)
+- evaluation_uuid (UUID) -- Referencia UUID de evaluación para agrupar evaluaciones
+- observation (TEXT, nullable) -- Observación/comentario para la evaluación
 - created_at (TIMESTAMP)
 - updated_at (TIMESTAMP)
 
@@ -144,23 +143,16 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 
 ## GESTIÓN DE SERVICIOS Y CONTACTOS
 
-### SERVICE_CONTACT (Contacto de Servicio)
-- id (INT, PK)
-- type (VARCHAR(100)) -- Tipo: servicio_general, servicio_complementario, contacto_asistencial, contacto_general
-- responsible (VARCHAR(255), nullable) -- Persona responsable (texto libre)
-- phone (VARCHAR(20), nullable)
-- email (VARCHAR(255), nullable)
-- observations (TEXT, nullable)
-- created_at (TIMESTAMP)
-- updated_at (TIMESTAMP)
-
 ### EXTERNAL_CONTACT (Contacto Externo)
 - id (INT, PK)
+- center_id (INT, FK → CENTER, nullable) -- Referencia al centro
 - external_contact_type (VARCHAR(100), nullable) -- Tipo de contacto externo
 - service_reason (VARCHAR(255), nullable) -- Motivo del servicio
 - company (VARCHAR(255), nullable) -- Nombre de la empresa
+- department (VARCHAR(255), nullable) -- Departamento
 - name (VARCHAR(255), nullable) -- Nombre del contacto
 - surname (VARCHAR(255), nullable) -- Apellido del contacto
+- link (VARCHAR(500), nullable) -- Enlace
 - phone (VARCHAR(20), nullable)
 - email (VARCHAR(255), nullable)
 - observations (TEXT, nullable)
@@ -169,63 +161,22 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 
 ### GENERAL_SERVICE (Servicio General)
 - id (INT, PK)
-- service_type (VARCHAR(100), nullable) -- Tipo de servicio
-- assigned_professional_id (INT, FK → PROFESSIONAL, nullable) -- Profesional asignado
-- contact_professional_id (INT, FK → PROFESSIONAL, nullable) -- Profesional de contacto
-- external_contact_id (INT, FK → EXTERNAL_CONTACT, nullable) -- Referencia a contacto externo
-- start_date (DATE, nullable) -- Fecha de inicio del servicio
-- end_date (DATE, nullable) -- Fecha de fin del servicio
+- center_id (INT, FK → CENTER, nullable) -- Referencia al centro
+- service_type (VARCHAR(100)) -- Tipo de servicio
+- responsible (VARCHAR(255), nullable) -- Responsable
+- responsible_info (TEXT, nullable) -- Información de contacto del responsable
+- planning (TEXT, nullable) -- Planificación
 - created_at (TIMESTAMP)
 - updated_at (TIMESTAMP)
 
 ### COMPLEMENTARY_SERVICE (Servicio Complementario)
 - id (INT, PK)
-- service_type (VARCHAR(100), nullable) -- Tipo de servicio
-- service_responsible (VARCHAR(255), nullable) -- Responsable del servicio (texto libre)
-- start_date (DATE, nullable) -- Fecha de inicio del servicio
+- center_id (INT, FK → CENTER, nullable) -- Referencia al centro
+- service_type (VARCHAR(255), nullable) -- Tipo de servicio
+- service_responsible (VARCHAR(255), nullable) -- Responsable del servicio
+- start_date (DATE) -- Fecha de inicio del servicio
 - end_date (DATE, nullable) -- Fecha de fin del servicio
-- documents (VARCHAR(500), nullable) -- Documentos relacionados
-- created_at (TIMESTAMP)
-- updated_at (TIMESTAMP)
-
----
-
-## GESTIÓN DE SEGUIMIENTOS
-
-### WORK_FOLLOW_UP (Seguimiento Laboral)
-- id (INT, PK)
-- follow_up_type (VARCHAR(100), nullable) -- Tipo de seguimiento
-- follow_up_date (DATE) -- Fecha de seguimiento
-- recorder_professional_id (INT, FK → PROFESSIONAL) -- Profesional que registró
-- professional_id (INT, FK → PROFESSIONAL) -- Profesional siendo seguido
-- topic (VARCHAR(255), nullable) -- Tema del seguimiento
-- comment (TEXT, nullable) -- Comentario del seguimiento
-- created_at (TIMESTAMP)
-- updated_at (TIMESTAMP)
-
----
-
-## GESTIÓN DE ACCIDENTES
-
-### ACCIDENT (Accidente)
-- id (INT, PK)
-- accident_type (VARCHAR(100), nullable) -- Tipo de accidente
-- start_date (DATE) -- Fecha de inicio del accidente
-- end_date (DATE, nullable) -- Fecha de fin del accidente
-- description (TEXT, nullable) -- Descripción del accidente
-- reporting_professional_id (INT, FK → PROFESSIONAL) -- Profesional que reportó
-- injured_professional_id (INT, FK → PROFESSIONAL) -- Profesional lesionado
-- created_at (TIMESTAMP)
-- updated_at (TIMESTAMP)
-
-### ACCIDENT_FOLLOW_UP (Seguimiento de Accidente)
-- id (INT, PK)
-- accident_id (INT, FK → ACCIDENT) -- Referencia al accidente
-- professional_id (INT, FK → PROFESSIONAL) -- Referencia al profesional
-- follow_up_date (DATE) -- Fecha de seguimiento
-- description (TEXT, nullable) -- Descripción del seguimiento
-- notes (TEXT, nullable) -- Notas adicionales
-- documents (VARCHAR(500), nullable) -- Documentos relacionados
+- status (INT, nullable) -- Estado del servicio
 - created_at (TIMESTAMP)
 - updated_at (TIMESTAMP)
 
@@ -235,20 +186,13 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 
 ### MAINTENANCE (Mantenimiento)
 - id (INT, PK)
-- opening_date (DATE) -- Fecha de apertura del mantenimiento
+- center_id (INT, FK → CENTER, nullable) -- Referencia al centro
+- name_maintenance (VARCHAR(100)) -- Nombre del mantenimiento
+- responsible_maintenance (VARCHAR(100), nullable) -- Persona/Empresa que realiza el mantenimiento
 - description (TEXT, nullable) -- Descripción del mantenimiento
-- assigned_to_professional_id (INT, FK → PROFESSIONAL, nullable) -- Profesional asignado
-- documents (VARCHAR(500), nullable) -- Documentos relacionados
-- end_date (DATE, nullable) -- Fecha de fin del mantenimiento
-- created_at (TIMESTAMP)
-- updated_at (TIMESTAMP)
-
-### MAINTENANCE_FOLLOW_UP (Seguimiento de Mantenimiento)
-- id (INT, PK)
-- maintenance_id (INT, FK → MAINTENANCE) -- Referencia al mantenimiento
-- professional_id (INT, FK → PROFESSIONAL) -- Referencia al profesional
-- description (TEXT, nullable) -- Descripción del seguimiento
-- documents (VARCHAR(500), nullable) -- Documentos relacionados
+- opening_date_maintenance (DATE) -- Fecha de apertura del mantenimiento
+- ending_date_maintenance (DATE, nullable) -- Fecha de cierre del mantenimiento
+- status (INT, nullable) -- Estado del mantenimiento
 - created_at (TIMESTAMP)
 - updated_at (TIMESTAMP)
 
@@ -258,21 +202,14 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 
 ### HR_ISSUES (Temas de RRHH)
 - id (INT, PK)
-- date (DATE) -- Fecha del tema
+- center_id (INT, FK → CENTER, nullable) -- Referencia al centro
+- opening_date (DATE) -- Fecha de apertura del tema
+- closing_date (DATE, nullable) -- Fecha de cierre del tema
 - affected_professional_id (INT, FK → PROFESSIONAL) -- Profesional afectado
 - registering_professional_id (INT, FK → PROFESSIONAL) -- Profesional que registró
-- referred_to (VARCHAR(255), nullable) -- Derivado a (texto libre)
-- documents (VARCHAR(500), nullable) -- Documentos relacionados
-- end_date (DATE, nullable) -- Fecha de resolución del tema
-- created_at (TIMESTAMP)
-- updated_at (TIMESTAMP)
-
-### HR_ISSUES_FOLLOW_UP (Seguimiento de Temas de RRHH)
-- id (INT, PK)
-- hr_issue_id (INT, FK → HR_ISSUES) -- Referencia al tema de RRHH
-- professional_id (INT, FK → PROFESSIONAL) -- Referencia al profesional
-- description (TEXT, nullable) -- Descripción del seguimiento
-- documents (VARCHAR(500), nullable) -- Documentos relacionados
+- referred_to_professional_id (INT, FK → PROFESSIONAL, nullable) -- Profesional al que se deriva
+- description (TEXT) -- Descripción del tema
+- status (ENUM: 'Obert', 'Tancat', default: 'Obert') -- Estado del tema
 - created_at (TIMESTAMP)
 - updated_at (TIMESTAMP)
 
@@ -282,6 +219,7 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 
 ### PROJECT_COMMISSION (Proyectos y Comisiones)
 - id (INT, PK)
+- center_id (INT, FK → CENTER, nullable) -- Referencia al centro
 - name (VARCHAR(255)) -- Nombre del proyecto/comisión
 - start_date (DATE, nullable) -- Fecha de inicio
 - estimated_end_date (DATE, nullable) -- Fecha de fin estimada
@@ -301,6 +239,24 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 
 ---
 
+## GESTIÓN DE ACCIDENTES
+
+### PROFESSIONAL_ACCIDENT (Accidente Profesional)
+- id (INT, PK)
+- type (ENUM: 'Sin baixa', 'Amb baixa', 'Baixa Finalitzada') -- Tipo de accidente: sin baja, con baja, o baja finalizada
+- date (DATE) -- Fecha del accidente
+- context (TEXT, nullable) -- Contexto del accidente
+- description (TEXT, nullable) -- Descripción del accidente
+- created_by_professional_id (INT, FK → PROFESSIONAL) -- Profesional que creó el registro
+- affected_professional_id (INT, FK → PROFESSIONAL) -- Profesional afectado
+- duration (INT, nullable) -- Duración de la baja en días (para tipo 'Amb baixa')
+- start_date (DATE, nullable) -- Fecha de inicio de la baja (para tipo 'Amb baixa')
+- end_date (DATE, nullable) -- Fecha de fin de la baja (para tipo 'Amb baixa')
+- created_at (TIMESTAMP)
+- updated_at (TIMESTAMP)
+
+---
+
 ## COMPONENTES POLIMÓRFICOS DE DOCUMENTOS Y NOTAS
 
 ### DOCUMENTS_COMPONENT (Componente de Documentos)
@@ -313,6 +269,7 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 - documentable_id (INT) -- Polimórfico: ID del modelo relacionado
 - documentable_type (VARCHAR(255)) -- Polimórfico: Tipo del modelo relacionado (App\Models\Center, App\Models\ProjectCommission, etc.)
 - uploaded_by_professional_id (INT, FK → PROFESSIONAL, nullable) -- Profesional que subió el documento
+- document_type (ENUM, default: 'Altres', nullable) -- Tipo de documento: 'Organització del Centre', 'Documents del Departament', 'Memòries i Seguiment anual', 'PRL', 'Comitè Empresa', 'Informes profesionales', 'Informes persones usuàries', 'Qualitat i ISO', 'Projectes', 'Comissions', 'Famílies', 'Comunicació i Reunions', 'Altres'
 - created_at (TIMESTAMP)
 - updated_at (TIMESTAMP)
 
@@ -322,6 +279,7 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 - noteable_id (INT) -- Polimórfico: ID del modelo relacionado
 - noteable_type (VARCHAR(255)) -- Polimórfico: Tipo del modelo relacionado (App\Models\Center, App\Models\Professional, App\Models\ProjectCommission, etc.)
 - created_by_professional_id (INT, FK → PROFESSIONAL, nullable) -- Profesional que creó la nota
+- restricted (INT, nullable) -- Bandera de nota restringida por rol
 - created_at (TIMESTAMP)
 - updated_at (TIMESTAMP)
 
@@ -329,23 +287,73 @@ Actualizado basado en migraciones reales (Septiembre-Octubre 2025)
 
 ## NOTAS IMPORTANTES
 
-### Tablas Obsoletas Removidas
-- ACTIVITY (Actividad) - Funcionalidad integrada en PROJECT_COMMISSION
-- PROFESSIONAL_ACTIVITY - Funcionalidad integrada en PROJECT_COMMISSION_ASSIGNMENT
-- DOCUMENT - Funcionalidad reemplazada por DOCUMENTS_COMPONENT (polimórfico)
-- CENTER_DOCUMENTS - Funcionalidad reemplazada por DOCUMENTS_COMPONENT (polimórfico)
-- PROFESSIONAL_DOCUMENT - Funcionalidad reemplazada por DOCUMENTS_COMPONENT (polimórfico)
-- MATERIAL_ASSIGNMENT_DOCUMENT - Funcionalidad reemplazada por DOCUMENTS_COMPONENT (polimórfico)
-- PROJECT_COMMISSION_DOCUMENTS - Funcionalidad reemplazada por DOCUMENTS_COMPONENT (polimórfico)
-- PROFESSIONAL_NOTE - Funcionalidad reemplazada por NOTES_COMPONENT (polimórfico)
-- CENTER_NOTE - Funcionalidad reemplazada por NOTES_COMPONENT (polimórfico)
-- MATERIAL_ASSIGNMENT_NOTE - Funcionalidad reemplazada por NOTES_COMPONENT (polimórfico)
-- PROJECT_COMMISSION_NOTE - Funcionalidad reemplazada por NOTES_COMPONENT (polimórfico)
+### Cambios Importantes desde la Versión Anterior
 
-### Cambios Importantes
 1. **Sistema polimórfico**: Los documentos y notas ahora usan relaciones polimórficas, permitiendo adjuntar documentos/notas a cualquier modelo sin necesidad de tablas específicas
-2. **Sistema de evaluaciones**: Cambió de un campo TEXT `responses` a múltiples registros vinculados a preguntas individuales del cuestionario
-3. **Tabla users**: Ahora incluye relación con profesionales
-4. **Tabla professionals**: Incluye campo `dni` único y `locker_num`
+
+2. **Sistema de evaluaciones**: 
+   - Cambió de un campo TEXT `responses` a múltiples registros vinculados a preguntas individuales del cuestionario
+   - Usa `evaluation_uuid` (UUID) en lugar de `evaluation_id` (VARCHAR)
+   - Nueva tabla `evaluation_observations` para almacenar observaciones por grupo de evaluación
+
+3. **Tabla users**: Ahora incluye relación con profesionales y campos estándar de Laravel (name, email, password, etc.)
+
+4. **Tabla professionals**: 
+   - Incluye campo `dni` único y `locker_num`
+   - Nuevo rol 'Gerent' en el enum
+   - Nuevo campo `is_on_leave` (boolean) separado del estado laboral
+   - `employment_status` ya no incluye 'Baixa' (se maneja con `is_on_leave`)
+
 5. **Tabla centers**: Incluye campo `status`
-6. **Tabla project_commissions**: Incluye campo `status` y `estimated_end_date` en lugar de `end_date`
+
+6. **Tabla project_commissions**: Incluye campo `status`, `estimated_end_date` y `center_id`
+
+7. **Tabla courses**: Ahora incluye `center_id`
+
+8. **Tabla material_assignments**: Incluye campo `signature`
+
+9. **Tabla external_contacts**: 
+   - Incluye `center_id`, `department` y `link`
+   - Estructura diferente a la versión anterior
+
+10. **Tabla general_services**: 
+    - Estructura completamente diferente: ahora tiene `center_id`, `responsible`, `responsible_info`, `planning`
+    - Ya no tiene `assigned_professional_id`, `contact_professional_id`, `external_contact_id`, `start_date`, `end_date`
+
+11. **Tabla complementary_services**: 
+    - Incluye `center_id` y `status`
+    - Ya no tiene campo `documents`
+
+12. **Tabla maintenances**: 
+    - Estructura diferente: `name_maintenance`, `responsible_maintenance`, `opening_date_maintenance`, `ending_date_maintenance`, `status`, `center_id`
+    - Ya no tiene `assigned_to_professional_id` ni `documents`
+    - Ya no existe tabla `maintenance_follow_ups`
+
+13. **Tabla hr_issues**: 
+    - Estructura diferente: `opening_date`, `closing_date`, `referred_to_professional_id` (FK), `status` (enum), `center_id`, `description`
+    - Ya no tiene `date`, `end_date`, `referred_to` (VARCHAR), `documents`
+    - Ya no existe tabla `hr_issues_follow_ups`
+
+14. **Tabla professional_accidents**: 
+    - Nueva tabla que reemplaza `accidents` y `accident_follow_ups`
+    - Soporta tres tipos: 'Sin baixa', 'Amb baixa', 'Baixa Finalitzada'
+    - Incluye campos para gestión de bajas: `duration`, `start_date`, `end_date`
+
+15. **Tabla documents_component**: 
+    - Incluye campo `document_type` (enum) con categorías predefinidas
+
+16. **Tabla notes_component**: 
+    - Incluye campo `restricted` para control de acceso por rol
+
+### Tablas Obsoletas Removidas
+- **RECORD** - Existe en migraciones pendientes pero no está migrada
+- **WORK_FOLLOW_UP** - Existe en migraciones pendientes pero no está migrada
+- **SERVICE_CONTACT** - Existe en migraciones pendientes pero no está migrada
+- **ACCIDENT** - Reemplazada por PROFESSIONAL_ACCIDENT
+- **ACCIDENT_FOLLOW_UP** - Reemplazada por PROFESSIONAL_ACCIDENT
+- **MAINTENANCE_FOLLOW_UP** - Ya no existe
+- **HR_ISSUES_FOLLOW_UP** - Ya no existe
+
+### Tablas Nuevas
+- **EVALUATION_OBSERVATIONS** - Para almacenar observaciones de evaluaciones
+- **PROFESSIONAL_ACCIDENT** - Nueva tabla unificada para gestión de accidentes
