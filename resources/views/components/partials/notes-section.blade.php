@@ -19,7 +19,7 @@
 
         {{-- List Notes --}}
         @if($items->count())
-            <div class="space-y-4">
+            <div class="space-y-4 max-h-96 overflow-y-auto overflow-x-hidden">
                 @foreach($items as $item)
                     @continue(!empty($item->restricted) && !in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']))
                     <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ !empty($item->restricted) ? 'border-primary' : 'border-info' }}">
