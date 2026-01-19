@@ -1,4 +1,4 @@
-<table class="table w-full table-xs table-hover text-sm">
+<table class="table w-full table-md table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Professional</th>
@@ -61,9 +61,9 @@
                 </td>
                 <td>
                     @if($assignment->signature)
-                        <span class="badge badge-dash badge-info">Signat</span>
+                        <span class="badge badge-dash whitespace-nowrap badge-info">Signat</span>
                     @else
-                        <span class="badge badge-dash badge-warning">No signat</span>
+                        <span class="badge badge-dash whitespace-nowrap badge-warning">No signat</span>
                     @endif
                 </td>
                 <td class="px-4 py-2 text-right">

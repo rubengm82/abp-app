@@ -58,7 +58,7 @@
                     <div>
                         <label class="font-bold text-md">Tipus:</label>
                         <p class="text-sm text-base-content/50">
-                            <span class="badge badge-dash {{ $accident->type === 'Baixa Finalitzada' ? 'badge-success' : ($accident->type === 'Amb baixa' ? 'badge-warning' : 'badge-info') }}">
+                            <span class="badge badge-dash whitespace-nowrap {{ $accident->type === 'Baixa Finalitzada' ? 'badge-success' : ($accident->type === 'Amb baixa' ? 'badge-warning' : 'badge-info') }}">
                                 {{ $accident->type }}
                             </span>
                         </p>

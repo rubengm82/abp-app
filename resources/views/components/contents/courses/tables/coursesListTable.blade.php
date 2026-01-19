@@ -1,4 +1,4 @@
-<table class="table w-full table-xs table-hover text-sm">
+<table class="table w-full table-md table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Nom del curs</th>
