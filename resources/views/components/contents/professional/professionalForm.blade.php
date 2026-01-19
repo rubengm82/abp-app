@@ -91,7 +91,6 @@
                             <option value="">Selecciona estat</option>
                             <option value="Actiu" {{ old('employment_status') == 'Actiu' ? 'selected' : '' }}>Actiu</option>
                             <option value="Suplència" {{ old('employment_status') == 'Suplència' ? 'selected' : '' }}>Suplència</option>
-                            <option value="Baixa" {{ old('employment_status') == 'Baixa' ? 'selected' : '' }}>Baixa</option>
                             <option value="No contractat" {{ old('employment_status') == 'No contractat' ? 'selected' : '' }}>No contractat</option>
                         </select>
                     </div>
