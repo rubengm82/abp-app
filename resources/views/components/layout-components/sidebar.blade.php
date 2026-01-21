@@ -288,6 +288,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('materialassignments_existencies_roba_list') }}">
+                                <x-partials.icon name="tag" class="w-4 h-4 text-info" />
+                                Existencies Roba
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('materialassignment_form') }}">
                                 <x-partials.icon name="plus" class="w-4 h-4 text-info" />
                                 Afegir

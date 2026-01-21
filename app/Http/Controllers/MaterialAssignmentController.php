@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MaterialAssignment;
 use App\Models\Professional;
+use App\Models\Center;
 use App\Models\DocumentComponent;
 use App\Models\NotesComponent;
 use App\Helpers\mainlog;
@@ -384,6 +385,129 @@ class MaterialAssignmentController extends Controller
         return response()->file($path, [
             'Content-Type' => 'image/png',
         ]);
+    }
+
+    /**
+     * Show the stock of clothing for the logged-in center
+     */
+    public function showStockList()
+    {
+        $center = Center::with(['professionals' => function($q) {
+            $q->with(['materialAssignments' => function($q2) {
+                $q2->orderBy('assignment_date', 'desc')->orderBy('created_at', 'desc');
+            }]);
+        }])->findOrFail(Auth::user()->center_id);
+
+        $shirtSizes = [];
+        $pantsSizes = [];
+        $shoeSizes = [];
+
+        foreach ($center->professionals as $professional) {
+            $latestAssignment = $professional->materialAssignments->first();
+            if ($latestAssignment) {
+                if ($latestAssignment->shirt_size) {
+                    $shirtSizes[$latestAssignment->shirt_size] = ($shirtSizes[$latestAssignment->shirt_size] ?? 0) + 1;
+                }
+                if ($latestAssignment->pants_size) {
+                    $pantsSizes[$latestAssignment->pants_size] = ($pantsSizes[$latestAssignment->pants_size] ?? 0) + 1;
+                }
+                if ($latestAssignment->shoe_size) {
+                    $shoeSizes[$latestAssignment->shoe_size] = ($shoeSizes[$latestAssignment->shoe_size] ?? 0) + 1;
+                }
+            }
+        }
+
+        // Ordenar las tallas según el orden especificado
+        $shirtOrder = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56'];
+        $pantsOrder = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56'];
+        $shoeOrder = ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56'];
+
+        // Función para ordenar según el orden especificado
+        uksort($shirtSizes, function($a, $b) use ($shirtOrder) {
+            return array_search($a, $shirtOrder) - array_search($b, $shirtOrder);
+        });
+        uksort($pantsSizes, function($a, $b) use ($pantsOrder) {
+            return array_search($a, $pantsOrder) - array_search($b, $pantsOrder);
+        });
+        uksort($shoeSizes, function($a, $b) use ($shoeOrder) {
+            return array_search($a, $shoeOrder) - array_search($b, $shoeOrder);
+        });
+
+        return view('components.contents.materialassignment.materialAssignmentStockList')->with([
+            'center' => $center,
+            'shirtSizes' => $shirtSizes,
+            'pantsSizes' => $pantsSizes,
+            'shoeSizes' => $shoeSizes,
+        ]);
+    }
+
+    /**
+     * Download CSV of clothing stock for a center
+     */
+    public function downloadStockCSV(int $centerId)
+    {
+        $center = Center::with(['professionals' => function($q) {
+            $q->with(['materialAssignments' => function($q2) {
+                $q2->orderBy('assignment_date', 'desc')->orderBy('created_at', 'desc');
+            }]);
+        }])->findOrFail($centerId);
+
+        $shirtSizes = [];
+        $pantsSizes = [];
+        $shoeSizes = [];
+
+        foreach ($center->professionals as $professional) {
+            $latestAssignment = $professional->materialAssignments->first();
+            if ($latestAssignment) {
+                if ($latestAssignment->shirt_size) {
+                    $shirtSizes[$latestAssignment->shirt_size] = ($shirtSizes[$latestAssignment->shirt_size] ?? 0) + 1;
+                }
+                if ($latestAssignment->pants_size) {
+                    $pantsSizes[$latestAssignment->pants_size] = ($pantsSizes[$latestAssignment->pants_size] ?? 0) + 1;
+                }
+                if ($latestAssignment->shoe_size) {
+                    $shoeSizes[$latestAssignment->shoe_size] = ($shoeSizes[$latestAssignment->shoe_size] ?? 0) + 1;
+                }
+            }
+        }
+
+        // Ordenar las tallas según el orden especificado
+        $shirtOrder = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56'];
+        $pantsOrder = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '36', '38', '40', '42', '44', '46', '48', '50', '52', '54', '56'];
+        $shoeOrder = ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56'];
+
+        uksort($shirtSizes, function($a, $b) use ($shirtOrder) {
+            return array_search($a, $shirtOrder) - array_search($b, $shirtOrder);
+        });
+        uksort($pantsSizes, function($a, $b) use ($pantsOrder) {
+            return array_search($a, $pantsOrder) - array_search($b, $pantsOrder);
+        });
+        uksort($shoeSizes, function($a, $b) use ($shoeOrder) {
+            return array_search($a, $shoeOrder) - array_search($b, $shoeOrder);
+        });
+
+        $timestamp = now()->format('Y-m-d_H-i-s');
+        $filename = "existencies_roba_{$center->name}_{$timestamp}.csv";
+
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['Talla de Camiseta', 'Quantitat', 'Talla de Pantaló', 'Quantitat', 'Talla de Sabata', 'Quantitat']);
+
+        $maxRows = max(count($shirtSizes), count($pantsSizes), count($shoeSizes));
+        for ($i = 0; $i < $maxRows; $i++) {
+            $row = [
+                array_keys($shirtSizes)[$i] ?? '',
+                array_values($shirtSizes)[$i] ?? '',
+                array_keys($pantsSizes)[$i] ?? '',
+                array_values($pantsSizes)[$i] ?? '',
+                array_keys($shoeSizes)[$i] ?? '',
+                array_values($shoeSizes)[$i] ?? '',
+            ];
+            fputcsv($handle, $row);
+        }
+
+        fclose($handle);
+
+        return response()->download($filename)->deleteFileAfterSend(true);
     }
 
 }
