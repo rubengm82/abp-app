@@ -13,23 +13,6 @@
         {{-- <h1 class="text-3xl font-bold">Accident professional #{{ $accident->id }}</h1> --}}
         <div class="flex gap-2">
             <a href="{{ route('professional_accident_edit', $accident) }}" class="btn btn-sm btn-info">Editar</a>
-            @if($accident->type === 'Amb baixa')
-                <div class="relative">
-                    <x-partials.modal 
-                        :id="'modal_end_leave_' . $accident->id" 
-                        :msj="'Estàs segur que vols finalitzar aquesta baixa? El professional serà actualitzat al seu estat laboral anterior.'"  
-                        :btnText="'Finalitzar Baixa'" 
-                        class="btn-sm btn-success"
-                    >
-                        <form action="{{ route('professional_accident_end_leave', $accident->id) }}" method="POST" id="endLeaveForm{{ $accident->id }}">
-                            @csrf
-                            <button type="submit" class="btn btn-sm btn-success">
-                                Acceptar
-                            </button>
-                        </form>
-                    </x-partials.modal>
-                </div>
-            @endif
             <div class="relative">
                 <x-partials.modal 
                     :id="'modal_delete_accident_' . $accident->id" 
@@ -58,7 +41,7 @@
                     <div>
                         <label class="font-bold text-md">Tipus:</label>
                         <p class="text-sm text-base-content/50">
-                            <span class="badge badge-dash whitespace-nowrap {{ $accident->type === 'Baixa Finalitzada' ? 'badge-success' : ($accident->type === 'Amb baixa' ? 'badge-warning' : 'badge-info') }}">
+                            <span class="badge badge-dash whitespace-nowrap {{ $accident->type === 'Amb baixa' ? 'badge-warning' : 'badge-info' }}">
                                 {{ $accident->type }}
                             </span>
                         </p>
@@ -67,7 +50,7 @@
                         <label class="font-bold text-md">Data:</label>
                         <p class="text-sm text-base-content/50">{{ $accident->date->format('d/m/Y') }}</p>
                     </div>
-                    @if($accident->type === 'Amb baixa' || $accident->type === 'Baixa Finalitzada')
+                    @if($accident->type === 'Amb baixa')
                         <div>
                             <label class="font-bold text-md">Data d'inici de la baixa:</label>
                             <p class="text-sm text-base-content/50">{{ $accident->start_date ? $accident->start_date->format('d/m/Y') : '' }}</p>

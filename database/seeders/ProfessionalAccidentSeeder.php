@@ -56,7 +56,7 @@ class ProfessionalAccidentSeeder extends Seeder
             'Caiguda a causa dun terra mullat',
         ];
 
-        $types = ['Sin baixa', 'Amb baixa', 'Baixa Finalitzada'];
+        $types = ['Sense baixa', 'Amb baixa'];
         
         $accidents = [];
         

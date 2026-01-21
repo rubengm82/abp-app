@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('professional_accidents', function (Blueprint $table) {
             $table->id();
             
-            // Type: Sin baixa, Amb baixa, or Baixa Finalitzada
-            $table->enum('type', ['Sin baixa', 'Amb baixa', 'Baixa Finalitzada'])->comment('Accident type: with or without leave, or ended leave');
+            // Type: Sense baixa or Amb baixa
+            $table->enum('type', ['Sense baixa', 'Amb baixa'])->comment('Accident type: with or without leave');
             
             // Date of the accident
             $table->date('date')->comment('Accident date');

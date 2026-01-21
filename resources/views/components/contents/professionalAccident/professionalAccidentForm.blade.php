@@ -41,7 +41,7 @@
                         </label>
                         <select name="type" id="id_type" class="select select-bordered w-full" required>
                             <option value="">Selecciona un tipus</option>
-                            <option value="Sin baixa" {{ old('type') == 'Sin baixa' ? 'selected' : '' }}>Sin baixa</option>
+                            <option value="Sense baixa" {{ old('type') == 'Sense baixa' ? 'selected' : '' }}>Sense baixa</option>
                             <option value="Amb baixa" {{ old('type') == 'Amb baixa' ? 'selected' : '' }}>Amb baixa</option>
                         </select>
                     </div>

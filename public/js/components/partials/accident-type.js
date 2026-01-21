@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             leaveSection.style.display = 'block';
         } else {
             leaveSection.style.display = 'none';
-            // Clear input values when "Sin baixa" is selected
+            // Clear input values when "Sense baixa" is selected
             if (startDateInput) startDateInput.value = '';
             if (endDateInput) endDateInput.value = '';
             if (durationInput) durationInput.value = '';
