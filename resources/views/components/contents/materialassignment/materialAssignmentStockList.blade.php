@@ -23,12 +23,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Talla de Camiseta</th>
-                    <th>Cantidad</th>
-                    <th>Talla de Pantalón</th>
-                    <th>Cantidad</th>
-                    <th>Talla de Zapato</th>
-                    <th>Cantidad</th>
+                    <th>Talla de Samarreta</th>
+                    <th>Quantitat</th>
+                    <th>Talla de Pantaló</th>
+                    <th>Quantitat</th>
+                    <th>Talla de Sabata</th>
+                    <th>Quantitat</th>
                 </tr>
             </thead>
             <tbody>
