@@ -23,11 +23,11 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Talla de Samarreta</th>
+                    <th>Samarretas</th>
                     <th>Quantitat</th>
-                    <th>Talla de Pantaló</th>
+                    <th>Pantalons</th>
                     <th>Quantitat</th>
-                    <th>Talla de Sabata</th>
+                    <th>Sabates</th>
                     <th>Quantitat</th>
                 </tr>
             </thead>
