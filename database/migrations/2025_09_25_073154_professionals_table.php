@@ -32,9 +32,6 @@ return new class extends Migration
 
                 // Employment status
                 $table->enum('employment_status', ['Actiu', 'Suplència', 'No contractat'])->nullable()->comment('Employment status');
-                
-                // Leave status (separate from employment status)
-                $table->boolean('is_on_leave')->default(false)->comment('Is professional on leave?');
 
                 // Additional info
                 $table->text('cvitae')->nullable()->comment('Curriculum vitae');
