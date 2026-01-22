@@ -105,6 +105,15 @@
                     </div>
 
                 </div>
+
+                <!-- Description -->
+                <div class="form-control">
+                    <label class="label font-bold text-base-content mb-1 mt-2">
+                        <span class="label-text">Descripció</span>
+                    </label>
+                    <textarea name="description" id="id_description" rows="6" class="textarea textarea-bordered w-full">{{ old('description') }}</textarea>
+                </div>
+
             </div>
         </div>
 

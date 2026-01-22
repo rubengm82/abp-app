@@ -56,6 +56,7 @@ class ComplementaryServiceController extends Controller
             'service_responsible' => 'required|string',
             'start_date' => 'required',
             'end_date' => 'nullable',
+            'description' => 'nullable',
         ]);
 
         ComplementaryService::create([
@@ -64,6 +65,8 @@ class ComplementaryServiceController extends Controller
             'start_date' => $request->input('start_date'),
             'end_date' => $request->input('end_date'),
             'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
+            'description' => $request->input('description'),
+            'status' => 1,
         ]);
 
         return redirect()->route('complementaryservices_list')->with('success', 'Servei Complenmentari creat correctament.');
@@ -95,6 +98,7 @@ class ComplementaryServiceController extends Controller
             'service_responsible' => 'required|string',
             'start_date' => 'required',
             'end_date' => 'nullable',
+            'description' => 'nullable',
         ]);
 
         $complementaryService->update([
@@ -103,6 +107,7 @@ class ComplementaryServiceController extends Controller
             'start_date' => $validated['start_date'],
             'end_date' => $validated['end_date'],
             // center_id is not modified, it remains the existing one
+            'description' => $request->input('description'),
         ]);
 
         return redirect()->route('complementaryservices_list')->with('success', 'Servei Complenmentari actualitzat correctament!');

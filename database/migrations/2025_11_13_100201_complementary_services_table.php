@@ -25,6 +25,8 @@ return new class extends Migration
             $table->date('start_date')->comment('Service start date');
             $table->date('end_date')->nullable()->comment('Service start date');
 
+            $table->text('description')->nullable()->comment('Issue description');
+
             $table->integer('status')->nullable();
            
             $table->timestamps();

@@ -52,7 +52,7 @@
 
         <!-- Action Buttons -->
         <div class="flex justify-end gap-4">
-            <a href="{{ route('center_form') }}" class="btn btn-outline">Netejar</a>
+            <a href="{{ route('centers_list') }}" class="btn btn-outline">Cancel·lar</a>
             <input type="submit" value="Crear Centre" class="btn btn-info">
         </div>
     </form>

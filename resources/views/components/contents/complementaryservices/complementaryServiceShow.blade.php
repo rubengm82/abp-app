@@ -95,6 +95,15 @@
             </div>
         </div>
 
+        
+    </div>
+    
+    <!-- Description -->
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Descripció</h2>
+            <p class="text-sm text-base-content/50 break-all whitespace-pre-wrap">{{ $complementaryService->description ?: 'No hi ha descripció disponible' }}</p>
+        </div>
     </div>
 
    <!-- Documents -->

@@ -15,6 +15,7 @@ class ComplementaryService extends Model
         'service_responsible',
         'start_date',
         'end_date',
+        'description',
         'status',
     ];
 
