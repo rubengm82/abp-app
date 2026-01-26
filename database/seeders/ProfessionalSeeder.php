@@ -450,6 +450,24 @@ class ProfessionalSeeder extends Seeder
                 'key_code' => 'KEY022',
                 'status' => 1,
             ],
+            [
+                'center_id' => 1,
+                'role' => 'Directiu',
+                'name' => 'Yolanda',
+                'surname1' => 'Andreu',
+                'surname2' => '',
+                'dni' => '95182855T',
+                'phone' => '+34 600 000 002',
+                'email' => 'yandreu@fundaciovallparadis.cat',
+                'address' => 'Carrer Gerent, 1, Barcelona',
+                'employment_status' => 'Actiu',
+                'cvitae' => 'Usuari administracio',
+                'user' => 'yandreu',
+                'password' => 'admin', // automatic hash
+                'locker_num' => 'T024',
+                'key_code' => 'KEY023',
+                'status' => 1,
+            ],
         ];
 
         // Hash de passwords ANTES de insertar
