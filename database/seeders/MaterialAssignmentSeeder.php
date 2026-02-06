@@ -23,7 +23,7 @@ class MaterialAssignmentSeeder extends Seeder
                 'shoe_size' => '42',
                 'assignment_date' => Carbon::now()->subMonths(6),
                 'assigned_by_professional_id' => 2,
-                'observations' => 'Uniforme inicial assignat al nou directiu',
+                'observations' => 'Uniforme inicial assignat a la nova direcció',
                 'signature' => null,
                 'created_at' => now(),
                 'updated_at' => now(),

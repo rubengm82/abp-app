@@ -170,7 +170,7 @@
 
 ## NOTES:
 - All CRUD operations should respect the 'status' field for soft deletion
-- Professional roles: Directiu, Administració, Tècnic
+- Professional roles: Direcció, Administració, Tècnic
 - Employment status: Actiu, Suplència, Baixa, No contractat
 - Use Laravel Eloquent ORM for all database queries
 - Follow Laravel and project naming conventions

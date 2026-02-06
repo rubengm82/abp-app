@@ -21,15 +21,15 @@ class ProfessionalAccidentSeeder extends Seeder
             return;
         }
 
-        // Get professionals with Directiu or Administració role to use as creators
+        // Get professionals with Direcció or Administració role to use as creators
         $creatorIds = DB::table('professionals')
-            ->whereIn('role', ['Directiu', 'Administració'])
+            ->whereIn('role', ['Direcció', 'Administració'])
             ->where('status', 1)
             ->pluck('id')
             ->toArray();
 
         if (empty($creatorIds)) {
-            $this->command->warn('No Directiu or Administració professionals found. Using first professional as creator.');
+            $this->command->warn('No Direcció or Administració professionals found. Using first professional as creator.');
             $creatorIds = [$professionalIds[0]];
         }
 

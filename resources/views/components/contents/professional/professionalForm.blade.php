@@ -77,7 +77,7 @@
                         </label>
                         <select name="role" id="id_role" class="select select-bordered w-full">
                             <option value="">Selecciona un rol</option>
-                            <option value="Directiu" {{ old('role') == 'Directiu' ? 'selected' : '' }}>Directiu</option>
+                            <option value="Direcció" {{ old('role') == 'Direcció' ? 'selected' : '' }}>Direcció</option>
                             <option value="Administració" {{ old('role') == 'Administració' ? 'selected' : '' }}>Administració</option>
                             <option value="Tècnic" {{ old('role') == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
                         </select>

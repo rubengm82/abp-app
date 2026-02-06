@@ -49,7 +49,7 @@ Actualizado basado en migraciones reales (Septiembre-Diciembre 2025)
 - name (VARCHAR(100)) -- Primer nombre
 - surname1 (VARCHAR(100)) -- Primer apellido
 - surname2 (VARCHAR(100), nullable) -- Segundo apellido
-- role (ENUM: 'Directiu', 'Administració', 'Tècnic', 'Gerent', nullable) -- Rol profesional
+- role (ENUM: 'Direcció', 'Administració', 'Tècnic', 'Gerent', nullable) -- Rol profesional
 - dni (VARCHAR(100), UNIQUE) -- DNI
 - phone (VARCHAR(20), nullable)
 - email (VARCHAR(255), UNIQUE, nullable)

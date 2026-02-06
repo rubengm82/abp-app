@@ -35,9 +35,9 @@
                             </div>
 
                             {{-- Buttons --}}
-                            {{-- Only Directiu users and the creator user can delete their document --}}
+                            {{-- Only Direcció users and the creator user can delete their document --}}
                             @if (
-                                in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']) ||
+                                in_array(Auth::user()->role ?? null, ['Direcció', 'Gerent']) ||
                                 (
                                     $uploadedByField &&
                                     isset($item->$uploadedByField) &&

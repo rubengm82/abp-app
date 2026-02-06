@@ -66,7 +66,7 @@
             </li>
 
             <!-- Submenu Global Documents -->
-            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Gerent']))
+            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Gerent']))
             <li class="font-normal">
                 <a href="{{ route('global_documents_list') }}">
                     <x-partials.icon name="document-text" class="w-6 h-6 text-primary" />
@@ -75,8 +75,8 @@
             </li>
             @endif
 
-            <!-- Submenu HR Issues (Directiu and Gerent only) -->
-            @if((Auth::user()->role ?? null) === 'Directiu' || (Auth::user()->role ?? null) === 'Gerent')
+            <!-- Submenu HR Issues (Direcció and Gerent only) -->
+            @if((Auth::user()->role ?? null) === 'Direcció' || (Auth::user()->role ?? null) === 'Gerent')
             <li>
                 <details>
                     <summary class="font-normal">
@@ -104,7 +104,7 @@
             @endif
 
             <!-- Submenu Maintenances -->
-            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
+            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Administració', 'Gerent']))
             <li>
                 <details>
                     <summary class="font-normal">
@@ -157,8 +157,8 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- Submenu Professional Accidents (Directiu and Administració only) -->
-                    @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
+                    <!-- Submenu Professional Accidents (Direcció and Administració only) -->
+                    @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Administració', 'Gerent']))
                     <ul class="text-xs text-base-content/65">
                         <li>
                             <details>
@@ -273,7 +273,7 @@
                 </details>
             </li>
             <!-- Submenu Material-Assignments -->
-            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
+            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Administració', 'Gerent']))
             <li>
                 <details>
                     <summary class="font-normal">
@@ -327,8 +327,8 @@
                 </details>
             </li>
 
-            <!-- Submenu General Services (Directiu and Administratiu only) -->
-            @if(in_array(Auth::user()->role ?? null, ['Directiu', 'Administració', 'Gerent']))
+            <!-- Submenu General Services (Direcció and Administratiu only) -->
+            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Administració', 'Gerent']))
             <li>
                 <details>
                     <summary class="font-normal">

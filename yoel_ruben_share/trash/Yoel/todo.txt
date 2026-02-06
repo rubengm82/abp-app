@@ -1,7 +1,9 @@
-# Sprint 5  - TODO LIST
+# Sprint 6  - TODO LIST
 
 Todo: 
-* 
+* Haz un grep de todo el proyecto buscando la palabra 'Directiu' y modificala a 'Direcció'.
+** Revisa también los modelos de la base de datos, ya que debe de haber algún enum a corregir también
+** No te olvides de revisar todas las vistas, sobretodo los formularios y el sidebar.
 
 Apuntes:
 * 
@@ -14,4 +16,4 @@ To know:
 * Todos los botones de la web deben de respetar el mismo tamaño.
 * Recordar, comentarios en inglés, campos en inglés, html en catalán, enums catalán
 
-To commit: 
+To commit:  

@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const canOpen = editForm && editText && modal;
             if (canOpen) {
                 editText.value = note;
-                // Only set checkbox if it exists (user is Directiu) and restricted value is available
+                // Only set checkbox if it exists (user is Direcció) and restricted value is available
                 if (editRestricted && restricted !== undefined && restricted !== null) {
                     // Handle both boolean and integer values (true/1 = checked, false/0 = unchecked)
                     editRestricted.checked = restricted === true || restricted === 1 || restricted === '1';

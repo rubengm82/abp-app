@@ -38,7 +38,7 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Directiu',
+                'role' => 'Direcció',
                 'name' => 'Joan',
                 'surname1' => 'García',
                 'surname2' => 'Martínez',
@@ -200,7 +200,7 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Directiu', // Coordinador → Directiu
+                'role' => 'Direcció', // Coordinador → Direcció
                 'name' => 'Marta',
                 'surname1' => 'Domènech',
                 'surname2' => 'Puig',
@@ -272,7 +272,7 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 2,
-                'role' => 'Directiu',
+                'role' => 'Direcció',
                 'name' => 'Núria',
                 'surname1' => 'Roca',
                 'surname2' => 'Vidal',
@@ -380,17 +380,17 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Directiu',
-                'name' => 'Directiu',
-                'surname1' => 'Directiu',
-                'surname2' => 'Directiu',
+                'role' => 'Direcció',
+                'name' => 'Direcció',
+                'surname1' => 'Direcció',
+                'surname2' => 'Direcció',
                 'dni' => 'U1234567W',
                 'phone' => '+34 600 000 001',
-                'email' => 'directiu@canserra.cat',
-                'address' => 'Carrer Directiu, 1, Barcelona',
+                'email' => 'direccio@canserra.cat',
+                'address' => 'Carrer Direcció, 1, Barcelona',
                 'employment_status' => 'Actiu',
-                'cvitae' => 'Usuari directiu',
-                'user' => 'directiu',
+                'cvitae' => 'Usuari direcció',
+                'user' => 'direccio',
                 'password' => 'admin', // automatic hash
                 'locker_num' => 'T021',
                 'key_code' => 'KEY020',
@@ -452,7 +452,7 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Directiu',
+                'role' => 'Direcció',
                 'name' => 'Yolanda',
                 'surname1' => 'Andreu',
                 'surname2' => '',
