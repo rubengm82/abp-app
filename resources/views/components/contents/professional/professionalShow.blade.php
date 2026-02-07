@@ -105,27 +105,6 @@
         </div>
     </div>
 
-    <!-- Additional information -->
-    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
-        <div class="card-body">
-            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació addicional</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div>
-                    <label class="font-bold text-md">Usuari de login:</label>
-                    <p class="text-sm text-base-content/50">{{ $professional->user ?: 'No especificat' }}</p>
-                </div>
-                <div>
-                    <label class="font-bold text-md">Taquilla:</label>
-                    <p class="text-sm text-base-content/50">{{ $professional->locker_num ?: 'No especificat' }}</p>
-                </div>
-                <div>
-                    <label class="font-bold text-md">Clau Codi:</label>
-                    <p class="text-sm text-base-content/50">{{ $professional->key_code ?: 'No especificat' }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Material Assignments -->
     <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
         <div class="card-body">
@@ -236,6 +215,27 @@
     :editRoute="'professional_note_update'"
     createdByField="createdByProfessional"
     />
+
+    <!-- Informació addicional -->
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació addicional</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="font-bold text-md">Usuari de login:</label>
+                    <p class="text-sm text-base-content/50">{{ $professional->user ?: 'No especificat' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Taquilla:</label>
+                    <p class="text-sm text-base-content/50">{{ $professional->locker_num ?: 'No especificat' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Clau Codi:</label>
+                    <p class="text-sm text-base-content/50">{{ $professional->key_code ?: 'No especificat' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @include('components.partials.mainToasts')
 @endsection

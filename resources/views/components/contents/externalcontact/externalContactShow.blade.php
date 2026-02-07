@@ -118,23 +118,6 @@
     </div>
     @endif
 
-    <!-- Additional Information -->
-    <div class="card bg-base-100 shadow-xl mt-6">
-        <div class="card-body">
-            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label class="font-bold">Data de creació:</label>
-                    <p class="text-sm text-base-content/50">{{ $externalContact->created_at ?: 'No especificada' }}</p>
-                </div>
-                <div>
-                    <label class="font-bold">Última actualització:</label>
-                    <p class="text-sm text-base-content/50">{{ $externalContact->updated_at ?: 'No especificada' }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Documents -->
     <x-partials.documents-section
         :items="$externalContact->documents"
@@ -154,6 +137,23 @@
         :editRoute="'externalcontact_note_update'"
         createdByField="createdByProfessional"
     />
+
+    <!-- Informació addicional -->
+    <div class="card bg-base-100 shadow-xl mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="font-bold">Data de creació:</label>
+                    <p class="text-sm text-base-content/50">{{ $externalContact->created_at ?: 'No especificada' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold">Última actualització:</label>
+                    <p class="text-sm text-base-content/50">{{ $externalContact->updated_at ?: 'No especificada' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @include('components.partials.mainToasts')
 @endsection

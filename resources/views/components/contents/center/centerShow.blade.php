@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if((Auth::user()->role ?? null) === 'Gerent')
+@if((Auth::user()->role ?? null) === 'Gerència')
 <x-partials.breadcrumb
     :items="[
         'Centres' => route('centers_list'),
@@ -14,7 +14,7 @@
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold">{{ $center->name }}</h1> --}}
         <!-- Buttons -->
-        @if((Auth::user()->role ?? null) !== 'Tècnic')
+        @if((Auth::user()->role ?? null) === 'Gerència')
         <div class="flex gap-2">
             <!-- Edit Center -->
             @if($center->status == 1)
@@ -33,23 +33,6 @@
                             @csrf
                             @method('PATCH')
                             <button type="submit" class="btn btn-sm btn-warning">
-                                Acceptar
-                            </button>
-                        </form>
-                    </x-partials.modal>
-                </div>
-                <!-- Delete Center -->
-                <div class="relative">
-                    <x-partials.modal 
-                        id="deleteCenter{{ $center->id }}" 
-                        msj="Estàs segur que vols eliminar aquest centre?" 
-                        btnText="Eliminar" 
-                        class="btn-sm btn-error"
-                    >
-                        <form action="{{ route('center_delete', $center->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-error">
                                 Acceptar
                             </button>
                         </form>
@@ -113,23 +96,6 @@
         </div>
     </div>
 
-    <!-- Additional information -->
-    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
-        <div class="card-body">
-            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació addicional</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="font-bold text-md">Data de creació:</label>
-                    <p class="text-base-content/50">{{ $center->created_at ? $center->created_at->format('d/m/Y H:i') : 'No especificada' }}</p>
-                </div>
-                <div>
-                    <label class="font-bold text-md">Última actualització:</label>
-                    <p class="text-base-content/50">{{ $center->updated_at ? $center->updated_at->format('d/m/Y H:i') : 'No especificada' }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Documents -->
     <x-partials.documents-section
         :items="$center->documents"                                     {{-- Collection Documents --}}
@@ -150,6 +116,22 @@
         createdByField="createdByProfessional"              {{-- FK --}}
     />
 
+    <!-- Informació addicional -->
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació addicional</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="font-bold text-md">Data de creació:</label>
+                    <p class="text-base-content/50">{{ $center->created_at ? $center->created_at->format('d/m/Y H:i') : 'No especificada' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Última actualització:</label>
+                    <p class="text-base-content/50">{{ $center->updated_at ? $center->updated_at->format('d/m/Y H:i') : 'No especificada' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @include('components.partials.mainToasts')
 @endsection

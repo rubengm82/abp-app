@@ -118,23 +118,6 @@
     </div>
     @endif
 
-    <!-- Additional information -->
-    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
-        <div class="card-body">
-            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div>
-                    <label class="font-bold text-md">Data de creació:</label>
-                    <p class="text-sm text-base-content/50">{{ $accident->created_at->format('d/m/Y H:i') }}</p>
-                </div>
-                <div>
-                    <label class="font-bold text-md">Última actualització:</label>
-                    <p class="text-sm text-base-content/50">{{ $accident->updated_at->format('d/m/Y H:i') }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Documents -->
     <x-partials.documents-section
         :items="$accident->documents"
@@ -154,6 +137,23 @@
         :editRoute="'professional_accident_note_update'"
         createdByField="createdByProfessional"
     />
+
+    <!-- Informació addicional -->
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="font-bold text-md">Data de creació:</label>
+                    <p class="text-sm text-base-content/50">{{ $accident->created_at->format('d/m/Y H:i') }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Última actualització:</label>
+                    <p class="text-sm text-base-content/50">{{ $accident->updated_at->format('d/m/Y H:i') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @include('components.partials.mainToasts')
 @endsection

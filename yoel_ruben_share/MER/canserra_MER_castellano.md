@@ -49,7 +49,7 @@ Actualizado basado en migraciones reales (Septiembre-Diciembre 2025)
 - name (VARCHAR(100)) -- Primer nombre
 - surname1 (VARCHAR(100)) -- Primer apellido
 - surname2 (VARCHAR(100), nullable) -- Segundo apellido
-- role (ENUM: 'Direcció', 'Administració', 'Tècnic', 'Gerent', nullable) -- Rol profesional
+- role (ENUM: 'Direcció', 'Administració', 'Tècnic', 'Gerència', nullable) -- Rol profesional
 - dni (VARCHAR(100), UNIQUE) -- DNI
 - phone (VARCHAR(20), nullable)
 - email (VARCHAR(255), UNIQUE, nullable)
@@ -300,7 +300,7 @@ Actualizado basado en migraciones reales (Septiembre-Diciembre 2025)
 
 4. **Tabla professionals**: 
    - Incluye campo `dni` único y `locker_num`
-   - Nuevo rol 'Gerent' en el enum
+   - Nuevo rol 'Gerència' en el enum
    - Nuevo campo `is_on_leave` (boolean) separado del estado laboral
    - `employment_status` ya no incluye 'Baixa' (se maneja con `is_on_leave`)
 

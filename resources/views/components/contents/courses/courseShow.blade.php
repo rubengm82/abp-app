@@ -83,26 +83,6 @@
         </div>
     </div>
 
-    <!-- Additinal Info -->
-    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
-        <div class="card-body">
-            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="font-bold">Data d’inici:</label>
-                    <p class="text-sm text-base-content/50">
-                        {{ $course->start_date ? \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') : 'No especificada' }}
-                    </p>
-                </div>
-                <div>
-                    <label class="font-bold">Data de finalització:</label>
-                    <p class="text-sm text-base-content/50">
-                        {{ $course->end_date ? \Carbon\Carbon::parse($course->end_date)->format('d/m/Y') : 'No especificada' }}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Documents -->
     <x-partials.documents-section
@@ -181,6 +161,27 @@
                     <p class="text-sm text-base-content/50">No hi ha professionals assignats al curs</p>
                 </div>
             @endif
+        </div>
+    </div>
+
+    <!-- Informació addicional -->
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="font-bold">Data d'inici:</label>
+                    <p class="text-sm text-base-content/50">
+                        {{ $course->start_date ? \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') : 'No especificada' }}
+                    </p>
+                </div>
+                <div>
+                    <label class="font-bold">Data de finalització:</label>
+                    <p class="text-sm text-base-content/50">
+                        {{ $course->end_date ? \Carbon\Carbon::parse($course->end_date)->format('d/m/Y') : 'No especificada' }}
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 

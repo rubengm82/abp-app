@@ -103,23 +103,6 @@
         </div>
     </div>
 
-    <!-- Información adicional -->
-    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
-        <div class="card-body">
-            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label class="font-bold text-md">Data de creació:</label>
-                    <p class="text-sm text-base-content/50">{{ $projectCommission->created_at ?: 'No especificada' }}</p>
-                </div>
-                <div>
-                    <label class="font-bold text-md">Última actualització:</label>
-                    <p class="text-sm text-base-content/50">{{ $projectCommission->updated_at ?: 'No especificada' }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Documents -->
     <x-partials.documents-section
         :items="$projectCommission->documents"
@@ -174,6 +157,23 @@
                     <p class="text-sm text-base-content/50">No hi ha professionals assignats al projecte</p>
                 </div>
             @endif
+        </div>
+    </div>
+
+    <!-- Informació addicional -->
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="font-bold text-md">Data de creació:</label>
+                    <p class="text-sm text-base-content/50">{{ $projectCommission->created_at ?: 'No especificada' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Última actualització:</label>
+                    <p class="text-sm text-base-content/50">{{ $projectCommission->updated_at ?: 'No especificada' }}</p>
+                </div>
+            </div>
         </div>
     </div>
 

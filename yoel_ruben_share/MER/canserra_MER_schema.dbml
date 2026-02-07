@@ -60,7 +60,7 @@ Table PROFESSIONAL {
   name varchar(100) [not null, note: 'First name']
   surname1 varchar(100) [not null, note: 'First surname']
   surname2 varchar(100) [null, note: 'Second surname']
-  role enum('Direcció', 'Administració', 'Tècnic', 'Gerent') [null, note: 'Professional role']
+  role enum('Direcció', 'Administració', 'Tècnic', 'Gerència') [null, note: 'Professional role']
   dni varchar(100) [unique, note: 'DNI']
   phone varchar(20) [null, note: 'Contact phone']
   email varchar(255) [unique, null, note: 'Email address']

@@ -22,7 +22,7 @@ return new class extends Migration
                 $table->string('name', 100)->comment('First name');
                 $table->string('surname1', 100)->comment('First surname');
                 $table->string('surname2', 100)->nullable()->comment('Second surname');
-                $table->enum('role', ['Direcció', 'Administració', 'Tècnic', 'Gerent'])->nullable()->comment('Professional role');
+                $table->enum('role', ['Direcció', 'Administració', 'Tècnic', 'Gerència'])->nullable()->comment('Professional role');
                 $table->string('dni', 100)->unique()->comment('DNI');
 
                 // Contact info
@@ -44,6 +44,10 @@ return new class extends Migration
                 $table->timestamps();
             });
         }
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('professional_id')->nullable()->constrained('professionals')->onDelete('cascade');
+        });
     }
 
     /**
@@ -51,6 +55,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['professional_id']);
+            $table->dropColumn('professional_id');
+        });
         Schema::dropIfExists('professionals');
     }
 };

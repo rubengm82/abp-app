@@ -35,7 +35,7 @@ class ProductionSeeder extends Seeder
         $professionals = [
             [
                 'center_id' => 1,
-                'role' => 'Gerent',
+                'role' => 'Gerència',
                 'name' => 'Admin',
                 'surname1' => 'Admin',
                 'surname2' => 'Admin',
