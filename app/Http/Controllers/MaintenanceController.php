@@ -200,13 +200,9 @@ class MaintenanceController extends Controller
     // Delete Document to server
     public function maintenance_document_delete(DocumentComponent $document)
     {
-        if (Storage::disk('public')->exists($document->file_path)) {
-            Storage::disk('public')->delete($document->file_path);
-        }
+        $document->update(['active' => false]);
 
-        $document->delete();
-
-        return back()->with('success', 'Document eliminat correctament!');
+        return back()->with('success', 'Document desactivat correctament!');
     }
     
 

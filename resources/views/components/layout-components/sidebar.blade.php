@@ -409,6 +409,14 @@
                                 Serveis Complementaris
                             </a>
                         </li>
+                        @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                        <li>
+                            <a href="{{ route('documents_desactivated_list') }}">
+                                <x-partials.icon name="document" class="w-4 h-4 text-gray-400" />
+                                Documents
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                 </details>
             </li>

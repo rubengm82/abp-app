@@ -259,6 +259,9 @@ Route::middleware('auth')->get('/general_service/documents/download/{document}',
 /* ------------------------ GLOBAL DOCUMENTS ------------------------ */
 Route::middleware('auth')->get('/documents/list', [GlobalDocumentController::class, 'index'])->name('global_documents_list');
 Route::middleware('auth')->get('/documents/download/{document}', [GlobalDocumentController::class, 'download'])->name('global_document_download');
+Route::middleware('auth')->get('/documents/desactivated/list', [GlobalDocumentController::class, 'desactivatedIndex'])->name('documents_desactivated_list');
+Route::middleware('auth')->patch('/documents/restore/{document}', [GlobalDocumentController::class, 'restore'])->name('document_restore');
+Route::middleware('auth')->delete('/documents/destroy/{document}', [GlobalDocumentController::class, 'destroy'])->name('document_destroy_permanent');
 
 /* ------------------------ MAINTENANCES ------------------------ */
 Route::middleware('auth')->get('/maintenances/list', [MaintenanceController::class, 'index'])->name('maintenances_list');

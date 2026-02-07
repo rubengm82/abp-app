@@ -200,16 +200,12 @@ class ComplementaryServiceController extends Controller
         return $response;
     }
 
-    // Delete Document to server
+    // Deactivate document (soft delete; file kept for restore from Desactivacions)
     public function complementaryservice_document_delete(DocumentComponent $document)
     {
-        if (Storage::disk('public')->exists($document->file_path)) {
-            Storage::disk('public')->delete($document->file_path);
-        }
+        $document->update(['active' => false]);
 
-        $document->delete();
-
-        return back()->with('success', 'Document eliminat correctament!');
+        return back()->with('success', 'Document desactivat correctament!');
     }
     
 

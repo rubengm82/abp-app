@@ -17,13 +17,23 @@ class DocumentComponent extends Model
         'uploaded_by_professional_id',
         'document_type',
         'note',
+        'active',
     ];
 
     protected $casts = [
         'file_size' => 'integer',
+        'active' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    /**
+     * Scope to only include active documents
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('active', true);
+    }
 
     /**
      * Polymorphic relation to any model (Center, ProjectCommission, etc.)

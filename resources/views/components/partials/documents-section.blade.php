@@ -51,14 +51,14 @@
                                 @if($deleteRoute)
                                     <x-partials.modal 
                                         id="deleteDocument{{ $item->id }}" 
-                                        msj="Estàs segur que vols eliminar aquest document?" 
-                                        btnText="Eliminar"
+                                        msj="Estàs segur que vols desactivar aquest document?" 
+                                        btnText="Desactivar"
                                         class="btn-xs btn-error"
                                     >
                                         <form action="{{ route($deleteRoute, $item) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-error" data-loading-text="Eliminant...">Acceptar</button>
+                                            <button type="submit" class="btn btn-sm btn-error" data-loading-text="Desactivant...">Acceptar</button>
                                         </form>
                                     </x-partials.modal>
                                 @endif

@@ -19,7 +19,7 @@
             opacity-0 pointer-events-none transition-opacity duration-200
             peer-checked:opacity-100 peer-checked:pointer-events-auto">
     <div class="bg-base-100 text-base-content rounded-lg p-6 {{ $width }}">
-        <p class="mb-6 {{ $textSize }}">{{ $msj }}</p>
+        <p class="mb-6 text-left {{ $textSize }}">{{ $msj }}</p>
         <div class="flex justify-end space-x-2">
             <!-- Cancel -->
             <label for="{{ $id }}" class="btn btn-sm cursor-pointer">Cancel·lar</label>

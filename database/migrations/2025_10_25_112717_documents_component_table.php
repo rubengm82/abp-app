@@ -49,6 +49,8 @@ return new class extends Migration
 
             $table->text('note')->nullable()->comment('Optional note for the document');
 
+            $table->boolean('active')->default(true)->comment('Whether the document is active (soft delete)');
+
             $table->timestamps(); // created_at and updated_at
         });
     }

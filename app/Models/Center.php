@@ -37,7 +37,7 @@ class Center extends Model
      */
     public function documents(): MorphMany
     {
-        return $this->morphMany(DocumentComponent::class, 'documentable')->orderBy('created_at', 'desc');
+        return $this->morphMany(DocumentComponent::class, 'documentable')->active()->orderBy('created_at', 'desc');
     }
 
     /**

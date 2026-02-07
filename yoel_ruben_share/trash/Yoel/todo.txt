@@ -1,14 +1,14 @@
 # Sprint 6  - TODO LIST
 
 Todo:
-* Añadir estado a complementaryservice igual que hemos hecho en projectcommission
-** enum(Obert Naranja, Tancat Verde)
-** Debe de salir en el show y en el listado
-** ASegurate de que siga existiendo el parámetro active_status igual que en projectcommission para poder desactivar el registro correctamente
-** Modifica los formularios en consecuencia
-* Haz que la 'Data final' sea opcional, no required
-** Hay un error en el formulario de edición, aparece 2 veces el texto 'Data d\'inici'. Fix it 
-*** Que aparezcan juntas horizontalmente igual que en el formulario de alta
+* Capa de protección para los documentos. 
+Ahora mismo el modal de Eliminar un documento, lo elimina. Vamos a hacer que en realidad los desactive
+** Para ello añade al modelo de documentos un campo active.
+** Modifica el indexado en shows y listado de Documents Globals para que sólo se muestren los activos
+* El botón eliminar cambiará el estado
+* Añade al apartado de Desactivacions un listado de documentso (del centro) que estén desactivados. Este apartado sólo lo puede ver un Directiu.
+* Aquí podrá restaurar el documento (cambiar estado a activo) y eliminar definitivamente.
+
 
 Apuntes:
 * 
