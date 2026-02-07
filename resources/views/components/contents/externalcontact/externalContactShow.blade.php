@@ -16,18 +16,20 @@
         @if((Auth::user()->permissions ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             <a href="{{ route('externalcontact_edit', $externalContact) }}" class="btn btn-sm btn-info">Editar</a>
-            <x-partials.modal 
-                id="deleteExternalContact{{ $externalContact->id }}" 
-                msj="Estàs segur que vols eliminar aquest contacte extern?" 
-                btnText="Eliminar" 
-                class="btn-sm btn-error"
-            >
-                <form action="{{ route('externalcontact_delete', $externalContact) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
-                </form>
-            </x-partials.modal>
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                <x-partials.modal 
+                    id="deleteExternalContact{{ $externalContact->id }}" 
+                    msj="Estàs segur que vols eliminar aquest contacte extern?" 
+                    btnText="Eliminar" 
+                    class="btn-sm btn-error"
+                >
+                    <form action="{{ route('externalcontact_delete', $externalContact) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                    </form>
+                </x-partials.modal>
+            @endif
         </div>
         @endif
     </div>

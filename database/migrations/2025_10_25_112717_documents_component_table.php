@@ -47,6 +47,8 @@ return new class extends Migration
                 'Altres'
             ])->nullable()->comment('Type of document')->default('Altres');
 
+            $table->text('note')->nullable()->comment('Optional note for the document');
+
             $table->timestamps(); // created_at and updated_at
         });
     }

@@ -5,6 +5,7 @@
             <th class="px-4 py-2 text-left">Tipus</th>
             <th class="px-4 py-2 text-left">Pujat per</th>
             <th class="px-4 py-2 text-left">Origen</th>
+            <th class="px-4 py-2 text-left">Nota</th>
             <th class="px-4 py-2 text-left">Data</th>
         </tr>
     </thead>
@@ -31,6 +32,7 @@
                         {{ $document->origin }}
                     @endif
                 </td>
+                <td class="px-4 py-2 max-w-[200px] break-words">{{ $document->note ? Str::limit($document->note, 50) : '—' }}</td>
                 <td class="px-4 py-2">{{ $document->created_at ? \Carbon\Carbon::parse($document->created_at)->format('d/m/Y') : '' }}</td>
             </tr>
         @endforeach

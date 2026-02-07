@@ -18,26 +18,28 @@
             @if($projectCommission->status == 'Actiu')
                 <a href="{{ route('projectcommission_edit', $projectCommission) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
-            @if($projectCommission->status == 'Actiu')
-                <x-partials.modal id="desactivateProjectCommission{{ $projectCommission->id }}" 
-                    msj="Estàs segur que vols desactivar aquesta comissió?" 
-                    btnText="Desactivar" class="btn-sm btn-error">
-                    <form action="{{ route('projectcommission_desactivate', $projectCommission) }}" method="POST" style="display:inline;">
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                @if($projectCommission->status == 'Actiu')
+                    <x-partials.modal id="desactivateProjectCommission{{ $projectCommission->id }}" 
+                        msj="Estàs segur que vols desactivar aquesta comissió?" 
+                        btnText="Desactivar" class="btn-sm btn-error">
+                        <form action="{{ route('projectcommission_desactivate', $projectCommission) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-sm btn-error">
+                                Acceptar
+                            </button>
+                        </form>
+                    </x-partials.modal>
+                @else
+                    <form action="{{ route('projectcommission_activate', $projectCommission) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="btn btn-sm btn-error">
-                            Acceptar
+                        <button type="submit" class="btn btn-sm btn-success">
+                            Activar
                         </button>
                     </form>
-                </x-partials.modal>
-            @else
-                <form action="{{ route('projectcommission_activate', $projectCommission) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-sm btn-success">
-                        Activar
-                    </button>
-                </form>
+                @endif
             @endif
         </div>
         @endif

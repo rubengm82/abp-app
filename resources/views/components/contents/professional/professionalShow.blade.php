@@ -17,29 +17,31 @@
             @if($professional->status == 1)
                 <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
-            @if($professional->status == 1)
-                <x-partials.modal 
-                    id="desactivateProfessional{{ $professional->id }}" 
-                    msj="Estàs segur que vols desactivar aquest professional?"  
-                    btnText="Desactivar" 
-                    class="btn-sm btn-error"
-                >
-                    <form action="{{ route('professional_desactivate', $professional) }}" method="POST" style="display:inline;">
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                @if($professional->status == 1)
+                    <x-partials.modal 
+                        id="desactivateProfessional{{ $professional->id }}" 
+                        msj="Estàs segur que vols desactivar aquest professional?"  
+                        btnText="Desactivar" 
+                        class="btn-sm btn-error"
+                    >
+                        <form action="{{ route('professional_desactivate', $professional) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-sm btn-error">
+                                Acceptar
+                            </button>
+                        </form>
+                    </x-partials.modal>
+                @else
+                    <form action="{{ route('professional_activate', $professional->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="btn btn-sm btn-error">
-                            Acceptar
+                        <button type="submit" class="btn btn-sm btn-success">
+                            Activar
                         </button>
                     </form>
-                </x-partials.modal>
-            @else
-                <form action="{{ route('professional_activate', $professional->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('PATCH')
-                    <button type="submit" class="btn btn-sm btn-success">
-                        Activar
-                    </button>
-                </form>
+                @endif
             @endif
         </div>
         @endif
@@ -220,7 +222,7 @@
     <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl underline underline-offset-5 mb-4">
-                <a href="{{ route('seguiment_show', $professional) }}" class="link link-info hover:no-underline">Veure seguiment complet</a>
+                <a href="{{ route('seguiment_show', $professional) }}" class="link link-info underline decoration-info hover:decoration-info">Veure seguiment complet</a>
             </h2>
             @if($lastNote ?? null)
                 <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ !empty($lastNote->restricted) ? 'border-primary' : 'border-info' }}">
@@ -235,6 +237,67 @@
                 </div>
             @else
                 <p class="text-sm text-base-content/50">No hi ha notes de seguiment.</p>
+            @endif
+        </div>
+    </div>
+
+    <!-- Avaluacions -->
+    <div class="card bg-base-100 text-base-content shadow-xl/10 mt-6 border border-gray-500/20">
+        <div class="card-body">
+            <h2 class="card-title text-xl underline underline-offset-5 mb-2">Avaluacions</h2>
+            @if($evaluationAverage !== null || ($lastEvaluationRow && $lastEvaluationAverage !== null))
+                <div class="space-y-4">
+                    @if($lastEvaluationRow && $lastEvaluationAverage !== null)
+                        <div>
+                            <a href="{{ route('professional_evaluation_quiz_show', [
+                                $professional->id,
+                                $lastEvaluationRow->evaluator_professional_id,
+                                $lastEvaluationRow->evaluation_uuid,
+                            ]) }}" class="font-bold text-md link link-info hover:decoration-info">Promig última avaluació:</a>
+                            <p class="mt-1 font-bold text-lg
+                                @if(($lastEvaluationAverage ?? 0) <= 25) text-error
+                                @elseif(($lastEvaluationAverage ?? 0) <= 50) text-warning
+                                @elseif(($lastEvaluationAverage ?? 0) <= 75) text-info
+                                @else text-success
+                                @endif">
+                                @if(($lastEvaluationAverage ?? 0) <= 25)
+                                    Gens d'acord
+                                @elseif(($lastEvaluationAverage ?? 0) <= 50)
+                                    Poc d'acord
+                                @elseif(($lastEvaluationAverage ?? 0) <= 75)
+                                    Bastant d'acord
+                                @else
+                                    Molt d'acord
+                                @endif
+                                ({{ $lastEvaluationAverage }}%)
+                            </p>
+                        </div>
+                    @endif
+                    @if($evaluationAverage !== null)
+                        <div>
+                            <label class="font-bold text-md">Promig de totes les avaluacions:</label>
+                            <p class="mt-1 font-bold text-lg
+                                @if(($evaluationAverage ?? 0) <= 25) text-error
+                                @elseif(($evaluationAverage ?? 0) <= 50) text-warning
+                                @elseif(($evaluationAverage ?? 0) <= 75) text-info
+                                @else text-success
+                                @endif">
+                                @if(($evaluationAverage ?? 0) <= 25)
+                                    Gens d'acord
+                                @elseif(($evaluationAverage ?? 0) <= 50)
+                                    Poc d'acord
+                                @elseif(($evaluationAverage ?? 0) <= 75)
+                                    Bastant d'acord
+                                @else
+                                    Molt d'acord
+                                @endif
+                                ({{ $evaluationAverage }}%)
+                            </p>
+                        </div>
+                    @endif
+                </div>
+            @else
+                <p class="text-base-content/50">No hi ha avaluacions.</p>
             @endif
         </div>
     </div>

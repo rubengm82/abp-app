@@ -39,17 +39,11 @@
                         </select>
                     </div>
                     
-                    <!-- Evaluador -->
+                    <!-- Avalutor (user logged in) -->
                     <div>
-                        <label for="evaluador" class="block font-medium mb-1">(*) Professional Avaluador:</label>
-                        <select id="evaluador" name="evaluador" class="select select-bordered w-full text-sm" required>
-                            <option value="">Selecciona un professional</option>
-                            @foreach($professionals as $professional)
-                                <option value="{{ $professional->id }}">
-                                    {{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <label class="block font-medium mb-1">Professional Avaluador:</label>
+                        <input type="hidden" name="evaluador" value="{{ $currentProfessional->id }}">
+                        <p class="py-2 px-3 bg-base-200 rounded-lg text-sm">{{ $currentProfessional->name }} {{ $currentProfessional->surname1 }} {{ $currentProfessional->surname2 }}</p>
                     </div>
                 </div>
             </div>

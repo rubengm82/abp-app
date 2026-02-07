@@ -13,22 +13,24 @@
         {{-- <h1 class="text-3xl font-bold">Accident professional #{{ $accident->id }}</h1> --}}
         <div class="flex gap-2">
             <a href="{{ route('professional_accident_edit', $accident) }}" class="btn btn-sm btn-info">Editar</a>
-            <div class="relative">
-                <x-partials.modal 
-                    :id="'modal_delete_accident_' . $accident->id" 
-                    :msj="'Estàs segur que vols eliminar aquest accident professional?'"  
-                    :btnText="'Eliminar'" 
-                    class="btn-sm btn-error"
-                >
-                    <form action="{{ route('professional_accident_delete', $accident->id) }}" method="POST" id="deleteAccidentForm{{ $accident->id }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-error">
-                            Acceptar
-                        </button>
-                    </form>
-                </x-partials.modal>
-            </div>
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                <div class="relative">
+                    <x-partials.modal 
+                        :id="'modal_delete_accident_' . $accident->id" 
+                        :msj="'Estàs segur que vols eliminar aquest accident professional?'"  
+                        :btnText="'Eliminar'" 
+                        class="btn-sm btn-error"
+                    >
+                        <form action="{{ route('professional_accident_delete', $accident->id) }}" method="POST" id="deleteAccidentForm{{ $accident->id }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-error">
+                                Acceptar
+                            </button>
+                        </form>
+                    </x-partials.modal>
+                </div>
+            @endif
         </div>
     </div>
 

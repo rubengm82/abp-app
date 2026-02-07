@@ -18,37 +18,39 @@
         <div class="flex gap-2">
             <a href="{{ route('complementaryservice_edit', $complementaryService) }}" class="btn btn-sm btn-info">Editar</a>
 
-            <div class="relative">
-                <x-partials.modal
-                    id="modal_desactivate_complementary_service_{{ $complementaryService->id }}"
-                    msj="Estàs segur que vols desactivar aquest servei complementari?"
-                    btnText="Desactivar"
-                    class="btn-sm btn-warning"
-                    width="100"
-                >
-                    <form action="{{ route('complementaryservice_desactivate', $complementaryService) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
-                    </form>
-                </x-partials.modal>
-            </div>
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                <div class="relative">
+                    <x-partials.modal
+                        id="modal_desactivate_complementary_service_{{ $complementaryService->id }}"
+                        msj="Estàs segur que vols desactivar aquest servei complementari?"
+                        btnText="Desactivar"
+                        class="btn-sm btn-warning"
+                        width="100"
+                    >
+                        <form action="{{ route('complementaryservice_desactivate', $complementaryService) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
+                        </form>
+                    </x-partials.modal>
+                </div>
 
-            <div class="relative">
-                <x-partials.modal 
-                    id="modal_delete_complementary_service_{{ $complementaryService->id }}" 
-                    msj="Estàs segur que vols eliminar aquest servei complementari?" 
-                    btnText="Eliminar" 
-                    class="btn-sm btn-error"
-                    width="100"
-                >
-                    <form action="{{ route('complementaryservice_delete', $complementaryService) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
-                    </form>
-                </x-partials.modal>
-            </div>
+                <div class="relative">
+                    <x-partials.modal 
+                        id="modal_delete_complementary_service_{{ $complementaryService->id }}" 
+                        msj="Estàs segur que vols eliminar aquest servei complementari?" 
+                        btnText="Eliminar" 
+                        class="btn-sm btn-error"
+                        width="100"
+                    >
+                        <form action="{{ route('complementaryservice_delete', $complementaryService) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                        </form>
+                    </x-partials.modal>
+                </div>
+            @endif
         </div>
         @endif
     </div>

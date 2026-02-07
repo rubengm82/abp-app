@@ -6,6 +6,8 @@ use App\Models\Professional;
 use App\Models\MaterialAssignment;
 use App\Models\DocumentComponent;
 use App\Models\NotesComponent;
+use App\Models\Evaluation;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -135,12 +137,33 @@ class ProfessionalController extends Controller
                 })
                 ->first();
 
+        // Avaluacions: promedio de todas las evaluaciones recibidas y última evaluación
+        $evaluationsReceived = Evaluation::where('evaluated_professional_id', $professional->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        $questions = Quiz::all();
+        $evaluationAverage = null;
+        $lastEvaluationRow = $evaluationsReceived->first();
+        $lastEvaluationAverage = null;
+        if ($evaluationsReceived->isNotEmpty() && $questions->isNotEmpty()) {
+            $groupedByUuid = $evaluationsReceived->groupBy('evaluation_uuid');
+            $averages = $groupedByUuid->map(fn ($group) => $this->evaluationAveragePercentage($questions, $group));
+            $evaluationAverage = round($averages->avg(), 2);
+            if ($lastEvaluationRow) {
+                $lastGroup = $evaluationsReceived->where('evaluation_uuid', $lastEvaluationRow->evaluation_uuid);
+                $lastEvaluationAverage = round($this->evaluationAveragePercentage($questions, $lastGroup), 2);
+            }
+        }
+
         return view('components.contents.professional.professionalShow')->with([
             'professional' => $professional,
             'shirtSize' => $shirtSize,
             'pantsSize' => $pantsSize,
             'shoeSize' => $shoeSize,
             'lastNote' => $lastNote,
+            'evaluationAverage' => $evaluationAverage,
+            'lastEvaluationRow' => $lastEvaluationRow,
+            'lastEvaluationAverage' => $lastEvaluationAverage,
         ]);
     }
 
@@ -342,6 +365,7 @@ class ProfessionalController extends Controller
         $request->validate([
             'file' => 'required|file|max:10240',
             'document_type' => 'nullable|string',
+            'note' => 'nullable|string',
         ]);
 
         $file = $request->file('file');
@@ -362,6 +386,7 @@ class ProfessionalController extends Controller
             'mime_type' => $file->getMimeType(),
             'uploaded_by_professional_id' => Auth::user()->id,
             'document_type' => $request->input('document_type') ? $request->input('document_type') : 'Altres' ,
+            'note' => $request->input('note'),
         ]);
 
         return back()->with('success', 'Document pujat correctament!');
@@ -427,7 +452,7 @@ class ProfessionalController extends Controller
             ->orderBy('name');
 
         if ($search = $request->get('search')) {
-            $query->whereAny(['name', 'surname1', 'surname2', 'role'], 'like', "%{$search}%");
+            $query->whereAny(['name', 'surname1', 'surname2', 'role', 'email', 'employment_status'], 'like', "%{$search}%");
         }
 
         $professionals = $query->get();
@@ -498,6 +523,31 @@ class ProfessionalController extends Controller
 
         return redirect()->route('seguiment_show', $note->noteable)
                          ->with('success', 'Nota eliminada correctament!');
+    }
+
+    /**
+     * Average percentage for one evaluation (same logic as EvaluationsController).
+     */
+    private function evaluationAveragePercentage($questions, $answers): float
+    {
+        $totalQuestions = $questions->count();
+        if ($totalQuestions === 0) {
+            return 0;
+        }
+        $sumPercentage = 0;
+        foreach ($questions as $question) {
+            $answer = $answers->firstWhere('question_id', $question->id);
+            if ($answer !== null) {
+                $sumPercentage += match ((int) $answer->answer) {
+                    0 => 25,
+                    1 => 50,
+                    2 => 75,
+                    3 => 100,
+                    default => 0,
+                };
+            }
+        }
+        return round($sumPercentage / $totalQuestions, 2);
     }
 
 }

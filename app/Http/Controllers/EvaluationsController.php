@@ -113,10 +113,13 @@ class EvaluationsController extends Controller
             $questionAverages[$question->id] = $avg;
         }
 
+        $currentProfessional = Auth::user();
+
         return view("components.contents.professional.evaluations.professionalQuiz", [
             'questions' => $questions,
             'professionals' => $professionals,
             'questionAverages' => $questionAverages,
+            'currentProfessional' => $currentProfessional,
         ]);
     }
 

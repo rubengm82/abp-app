@@ -15,7 +15,8 @@ class DocumentComponent extends Model
         'file_size',
         'mime_type',
         'uploaded_by_professional_id',
-        'document_type'
+        'document_type',
+        'note',
     ];
 
     protected $casts = [

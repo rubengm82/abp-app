@@ -15,21 +15,27 @@
             <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2">
                     @if($hrIssue->affectedProfessional)
-                        <p>{{ $hrIssue->affectedProfessional->name }} {{ $hrIssue->affectedProfessional->surname1 }}</p>
+                        <a href="{{ route('professional_show', $hrIssue->affectedProfessional->id) }}" class="link link-hover text-info link-info">
+                            {{ $hrIssue->affectedProfessional->name }} {{ $hrIssue->affectedProfessional->surname1 }}
+                        </a>
                     @else
                         <span class="text-base-content/50">No assignat</span>
                     @endif
                 </td>
                 <td class="px-4 py-2">
                     @if($hrIssue->registeringProfessional)
-                        {{ $hrIssue->registeringProfessional->name }} {{ $hrIssue->registeringProfessional->surname1 }}
+                        <a href="{{ route('professional_show', $hrIssue->registeringProfessional->id) }}" class="link link-hover text-info link-info">
+                            {{ $hrIssue->registeringProfessional->name }} {{ $hrIssue->registeringProfessional->surname1 }}
+                        </a>
                     @else
                         <span class="text-base-content/50">No assignat</span>
                     @endif
                 </td>
                 <td class="px-4 py-2">
                     @if($hrIssue->referredToProfessional)
-                        <p>{{ $hrIssue->referredToProfessional->name }} {{ $hrIssue->referredToProfessional->surname1 }}</p>
+                        <a href="{{ route('professional_show', $hrIssue->referredToProfessional->id) }}" class="link link-hover text-info link-info">
+                            {{ $hrIssue->referredToProfessional->name }} {{ $hrIssue->referredToProfessional->surname1 }}
+                        </a>
                     @else
                         <span class="text-base-content/50"></span>
                     @endif

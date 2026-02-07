@@ -45,7 +45,9 @@
                 <td class="px-4 py-2">{{ $assignment->assignment_date->format('d/m/Y') }}</td>
                 <td class="px-4 py-2">
                     @if($assignment->assignedBy)
-                        {{ $assignment->assignedBy->name }} {{ $assignment->assignedBy->surname1 }}
+                        <a href="{{ route('professional_show', $assignment->assignedBy->id) }}" class="link link-hover text-info link-info">
+                            {{ $assignment->assignedBy->name }} {{ $assignment->assignedBy->surname1 }}
+                        </a>
                     @else
                         <span class="text-base-content/50">No especificat</span>
                     @endif

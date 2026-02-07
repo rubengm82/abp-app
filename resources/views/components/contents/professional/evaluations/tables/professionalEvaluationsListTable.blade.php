@@ -12,15 +12,25 @@
         @foreach($groupedEvaluations as $group)
             <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2">
-                    {{ optional($group->group->first()->evaluatedProfessional)->name }}
-                    {{ optional($group->group->first()->evaluatedProfessional)->surname1 }}
-                    {{ optional($group->group->first()->evaluatedProfessional)->surname2 }}
+                    @php $evaluated = $group->group->first()->evaluatedProfessional; @endphp
+                    @if($evaluated)
+                        <a href="{{ route('professional_show', $evaluated->id) }}" class="link link-hover text-info link-info">
+                            {{ $evaluated->name }} {{ $evaluated->surname1 }} {{ $evaluated->surname2 }}
+                        </a>
+                    @else
+                        —
+                    @endif
                 </td>
 
                 <td class="px-4 py-2">
-                    {{ optional($group->group->first()->evaluatorProfessional)->name }}
-                    {{ optional($group->group->first()->evaluatorProfessional)->surname1 }}
-                    {{ optional($group->group->first()->evaluatorProfessional)->surname2 }}
+                    @php $evaluator = $group->group->first()->evaluatorProfessional; @endphp
+                    @if($evaluator)
+                        <a href="{{ route('professional_show', $evaluator->id) }}" class="link link-hover text-info link-info">
+                            {{ $evaluator->name }} {{ $evaluator->surname1 }} {{ $evaluator->surname2 }}
+                        </a>
+                    @else
+                        —
+                    @endif
                 </td>
 
                 <td class="px-4 py-2">

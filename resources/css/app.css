@@ -101,3 +101,11 @@
     outline: none !important;
     outline-offset: 0 !important;
 }
+
+/* Contenedor de listas/tablas largas: la barra horizontal queda siempre visible.
+   Altura limitada para que solo haya un scroll vertical (el del contenedor), no el del main. */
+.scrollable-list-container {
+    max-height: calc(100vh - 18rem);
+    overflow-x: auto;
+    overflow-y: auto;
+}

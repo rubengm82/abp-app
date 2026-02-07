@@ -24,7 +24,7 @@
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 overflow-x-auto border border-gray-500/20">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 scrollable-list-container border border-gray-500/20">
     @if($groupedEvaluations->count() > 0)
         <div id="tableToSearch-container" data-url="/professionals/evaluations/list">
             @include('components.contents.professional.evaluations.tables.professionalEvaluationsListTable')

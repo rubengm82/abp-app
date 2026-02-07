@@ -12,37 +12,40 @@
 <div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <div class="flex justify-end items-center mb-6">
         <div class="flex gap-2">
-            <a href="{{ route('maintenance_edit', $maintenance) }}" class="btn btn-sm btn-info">Editar</a>
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
+                <a href="{{ route('maintenance_edit', $maintenance) }}" class="btn btn-sm btn-info">Editar</a>
+            @endif
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                <div class="relative">
+                    <x-partials.modal
+                        id="modal_desactivate_maintenance_{{ $maintenance->id }}"
+                        msj="Estàs segur que vols desactivar aquest manteniment?"
+                        btnText="Desactivar"
+                        class="btn-sm btn-warning"
+                    >
+                        <form action="{{ route('maintenance_desactivate', $maintenance) }}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
+                        </form>
+                    </x-partials.modal>
+                </div>
 
-            <div class="relative">
-                <x-partials.modal
-                    id="modal_desactivate_maintenance_{{ $maintenance->id }}"
-                    msj="Estàs segur que vols desactivar aquest manteniment?"
-                    btnText="Desactivar"
-                    class="btn-sm btn-warning"
-                >
-                    <form action="{{ route('maintenance_desactivate', $maintenance) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
-                    </form>
-                </x-partials.modal>
-            </div>
-
-            <div class="relative">
-                <x-partials.modal 
-                    id="modal_delete_maintenance_{{ $maintenance->id }}" 
-                    msj="Estàs segur que vols eliminar aquest manteniment?" 
-                    btnText="Eliminar" 
-                    class="btn-sm btn-error"
-                >
-                    <form action="{{ route('maintenance_delete', $maintenance) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
-                    </form>
-                </x-partials.modal>
-            </div>
+                <div class="relative">
+                    <x-partials.modal 
+                        id="modal_delete_maintenance_{{ $maintenance->id }}" 
+                        msj="Estàs segur que vols eliminar aquest manteniment?" 
+                        btnText="Eliminar" 
+                        class="btn-sm btn-error"
+                    >
+                        <form action="{{ route('maintenance_delete', $maintenance) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                        </form>
+                    </x-partials.modal>
+                </div>
+            @endif
         </div>
     </div>
 

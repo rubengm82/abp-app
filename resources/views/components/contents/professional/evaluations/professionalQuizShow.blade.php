@@ -43,6 +43,7 @@
                    class="btn btn-sm btn-secondary text-sm">
                    Descarregar Avaluació
                 </a>
+                @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
                 <x-partials.modal 
                     id="deleteEvaluation{{ $professionalEvaluated->first()->id }}" 
                     msj="Estàs segur que vols eliminar aquesta avalució?" 
@@ -57,6 +58,7 @@
                         <button type="submit" class="btn btn-sm btn-error text-sm">Acceptar</button>
                     </form>
                 </x-partials.modal>
+                @endif
             </div>
         </div>
     </div>

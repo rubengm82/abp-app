@@ -21,14 +21,18 @@
                 <td class="px-4 py-2">{{ $accident->date->format('d/m/Y') }}</td>
                 <td class="px-4 py-2">
                     @if($accident->affectedProfessional)
-                        <p>{{ $accident->affectedProfessional->name }} {{ $accident->affectedProfessional->surname1 }} {{ $accident->affectedProfessional->surname2 }}</p>
+                        <a href="{{ route('professional_show', $accident->affectedProfessional->id) }}" class="link link-hover text-info link-info">
+                            {{ $accident->affectedProfessional->name }} {{ $accident->affectedProfessional->surname1 }} {{ $accident->affectedProfessional->surname2 }}
+                        </a>
                     @else
                         <span class="text-base-content/50">No assignat</span>
                     @endif
                 </td>
                 <td class="px-4 py-2">
                     @if($accident->createdByProfessional)
-                        {{ $accident->createdByProfessional->name }} {{ $accident->createdByProfessional->surname1 }}
+                        <a href="{{ route('professional_show', $accident->createdByProfessional->id) }}" class="link link-hover text-info link-info">
+                            {{ $accident->createdByProfessional->name }} {{ $accident->createdByProfessional->surname1 }}
+                        </a>
                     @else
                         <span class="text-base-content/50">No assignat</span>
                     @endif

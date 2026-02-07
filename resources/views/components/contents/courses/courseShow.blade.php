@@ -18,16 +18,18 @@
         @if((Auth::user()->permissions ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             <a href="{{ route('course_edit', $course->id) }}" class="btn btn-sm btn-info">Editar</a>
-            <x-partials.modal id="deleteCourse{{ $course->id }}" 
-                msj="Estàs segur que vols eliminar aquest curs?" 
-                btnText="Eliminar" class="btn-sm btn-error">
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                <x-partials.modal id="deleteCourse{{ $course->id }}" 
+                    msj="Estàs segur que vols eliminar aquest curs?" 
+                    btnText="Eliminar" class="btn-sm btn-error">
 
-                <form action="{{ route('course_delete', $course->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
-                </form>
-            </x-partials.modal>
+                    <form action="{{ route('course_delete', $course->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                    </form>
+                </x-partials.modal>
+            @endif
         </div>
         @endif
     </div>

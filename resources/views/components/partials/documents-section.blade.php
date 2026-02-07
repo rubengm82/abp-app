@@ -21,10 +21,10 @@
             <div class="space-y-3 max-h-96 overflow-y-auto overflow-x-hidden">
                 @foreach($items->sortByDesc('created_at') as $item)
                     <div class="bg-base-200 p-4 rounded-lg border-l-4 border-green-500">
-                        <div class="flex justify-between items-start">
-                            <div>
+                        <div class="flex justify-between items-start gap-2">
+                            <div class="min-w-0 flex-1">
                                 <a href="{{ $downloadRoute ? route($downloadRoute, $item) : '#' }}"
-                                   class="link link-hover text-info font-medium">
+                                   class="link link-hover text-info font-medium break-words">
                                    {{ $item->original_name ?? 'Sense nom' }}
                                 </a>
                                 <div class="text-sm text-base-content mt-1">
@@ -32,6 +32,9 @@
                                     {{ $uploadedByField ? ($item->$uploadedByField->name ?? '') : '' }}
                                     — {{ $item->created_at?->format('d/m/Y H:i') }}
                                 </div>
+                                @if(!empty($item->note))
+                                    <p class="text-sm text-base-content/80 mt-2 italic break-words whitespace-pre-wrap">{{ $item->note }}</p>
+                                @endif
                             </div>
 
                             {{-- Buttons --}}
@@ -99,6 +102,12 @@
                     <option value="Comunicació i Reunions">Comunicació i Reunions</option>
                     <option value="Altres">Altres</option>
                 </select>
+            </div>
+            <div class="form-control mt-4">
+                <label class="label">
+                    <span class="label-text">Nota (opcional)</span>
+                </label>
+                <textarea name="note" class="textarea textarea-bordered w-full" rows="3" placeholder="Nota opcional sobre el document"></textarea>
             </div>
             <div class="modal-action">
                 <button type="button" class="btn btn-sm" data-close-modal="addDocumentModal">Cancel·lar</button>

@@ -13,13 +13,15 @@
         <h1 class="text-3xl font-bold">Fitxa de l'Assignació de Material</h1>
         <div class="flex gap-2">
             <a href="{{ route('materialassignment_edit', $materialAssignment) }}" class="btn btn-sm btn-info">Editar</a>
-            <x-partials.modal id="deleteAssignment{{ $materialAssignment->id }}" msj="Estàs segur que vols eliminar aquesta assignació?" btnText="Eliminar" class="btn-sm btn-error">
-                <form action="{{ route('materialassignment_delete', $materialAssignment) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
-                </form>
-            </x-partials.modal>
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                <x-partials.modal id="deleteAssignment{{ $materialAssignment->id }}" msj="Estàs segur que vols eliminar aquesta assignació?" btnText="Eliminar" class="btn-sm btn-error">
+                    <form action="{{ route('materialassignment_delete', $materialAssignment) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                    </form>
+                </x-partials.modal>
+            @endif
         </div>
     </div>
 
@@ -129,6 +131,7 @@
                 <div class="card-body">
                     <div class="flex justify-between items-center">
                         <h2 class="card-title text-xl">Signatura del professional del material assignat</h2>
+                        @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
                         <div class="relative">
                             <x-partials.modal 
                                 id="deleteSignature{{ $materialAssignment->id }}" 
@@ -142,6 +145,7 @@
                                 </form>
                             </x-partials.modal>
                         </div>
+                        @endif
                     </div>
                     <div class="flex justify-center w-full">
                         <img src="{{ route('materialassignment_show_signature', $materialAssignment) }}" alt="signatura_material">

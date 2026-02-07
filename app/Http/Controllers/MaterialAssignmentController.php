@@ -196,6 +196,7 @@ class MaterialAssignmentController extends Controller
         $request->validate([
             'file' => 'required|file|max:10240',
             'document_type' => 'nullable|string',
+            'note' => 'nullable|string',
         ]);
 
         $file = $request->file('file');
@@ -216,6 +217,7 @@ class MaterialAssignmentController extends Controller
             'mime_type' => $file->getMimeType(),
             'uploaded_by_professional_id' => Auth::user()->id,
             'document_type' => $request->input('document_type') ? $request->input('document_type') : 'Altres' ,
+            'note' => $request->input('note'),
         ]);
 
         return back()->with('success', 'Document pujat correctament!');

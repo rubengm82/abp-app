@@ -13,20 +13,22 @@
         {{-- <h1 class="text-3xl font-bold">Tema pendent RRHH #{{ $hrIssue->id }}</h1> --}}
         <div class="flex gap-2">
             <a href="{{ route('hr_issue_edit', $hrIssue) }}" class="btn btn-sm btn-info">Editar</a>
-            <x-partials.modal 
-                id="deleteHrIssue{{ $hrIssue->id }}" 
-                msj="Estàs segur que vols eliminar aquest tema pendent?"  
-                btnText="Eliminar" 
-                class="btn-sm btn-error"
-            >
-                <form action="{{ route('hr_issue_delete', $hrIssue) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-error">
-                        Acceptar
-                    </button>
-                </form>
-            </x-partials.modal>
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                <x-partials.modal 
+                    id="deleteHrIssue{{ $hrIssue->id }}" 
+                    msj="Estàs segur que vols eliminar aquest tema pendent?"  
+                    btnText="Eliminar" 
+                    class="btn-sm btn-error"
+                >
+                    <form action="{{ route('hr_issue_delete', $hrIssue) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-error">
+                            Acceptar
+                        </button>
+                    </form>
+                </x-partials.modal>
+            @endif
         </div>
     </div>
 
