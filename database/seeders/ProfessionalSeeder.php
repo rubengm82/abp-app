@@ -20,7 +20,8 @@ class ProfessionalSeeder extends Seeder
         $professionals = [
             [
                 'center_id' => 1,
-                'role' => 'Administració',
+                'permissions' => 'Administració',
+                'role' => 'Altres',
                 'name' => 'Root',
                 'surname1' => 'Toor',
                 'surname2' => 'Toor',
@@ -28,7 +29,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 333 444',
                 'email' => 'root@canserra.cat',
                 'address' => 'Carrer Coordinador, 2, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Es el root',
                 'user' => 'root',
                 'password' => 'admin', // automatic hash
@@ -38,6 +39,7 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
+                'permissions' => 'Direcció',
                 'role' => 'Direcció',
                 'name' => 'Joan',
                 'surname1' => 'García',
@@ -46,7 +48,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 111 222',
                 'email' => 'joan.garcia@canserra.cat',
                 'address' => 'Carrer Director, 1, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Experiència en gestió de centres educatius',
                 'user' => 'joan.garcia',
                 'password' => 'admin',
@@ -56,6 +58,7 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
+                'permissions' => 'Administració',
                 'role' => 'Administració',
                 'name' => 'Maria',
                 'surname1' => 'López',
@@ -64,7 +67,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 333 445',
                 'email' => 'maria.lopez@canserra.cat',
                 'address' => 'Carrer Coordinador, 2, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Especialista en coordinació pedagògica',
                 'user' => 'maria.lopez',
                 'password' => 'admin',
@@ -74,7 +77,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 2,
-                'role' => 'Tècnic',
+                'permissions' => 'Tècnic',
+                'role' => 'Altres',
                 'name' => 'Pere',
                 'surname1' => 'Sánchez',
                 'surname2' => 'Ruiz',
@@ -82,7 +86,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 555 666',
                 'email' => 'pere.sanchez@casabadina.cat',
                 'address' => 'Carrer Educador, 3, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Educador social amb experiència en joves',
                 'user' => 'pere.sanchez',
                 'password' => 'admin',
@@ -92,7 +96,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Tècnic',
+                'permissions' => 'Tècnic',
+                'role' => 'Altres',
                 'name' => 'Anna',
                 'surname1' => 'Torres',
                 'surname2' => 'Vargas',
@@ -100,7 +105,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 777 888',
                 'email' => 'anna.torres@canserra.cat',
                 'address' => 'Carrer Psicòleg, 4, Barcelona',
-                'employment_status' => 'Suplència',
+                'employment_status' => 'Suplent habitual',
                 'cvitae' => 'Psicòloga clínica especialitzada en adolescents',
                 'user' => 'anna.torres',
                 'password' => 'admin',
@@ -110,7 +115,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Tècnic',
+                'permissions' => 'Tècnic',
+                'role' => 'Altres',
                 'name' => 'Carles',
                 'surname1' => 'Molina',
                 'surname2' => 'González',
@@ -118,7 +124,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 999 000',
                 'email' => 'carles.molina@canserra.cat',
                 'address' => 'Carrer Tècnic, 5, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Tècnic en integració social',
                 'user' => 'carles.molina',
                 'password' => 'admin',
@@ -128,7 +134,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Administració',
+                'permissions' => 'Administració',
+                'role' => 'Altres',
                 'name' => 'Ruben',
                 'surname1' => 'Gallardo',
                 'surname2' => 'Mancha',
@@ -136,7 +143,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 111 222',
                 'email' => 'ruben.gallardo@canserra.cat',
                 'address' => 'Carrer Coordinador, 10, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Responsable de projectes',
                 'user' => 'ruben.gallardo',
                 'password' => 'admin', // automatic hash
@@ -146,7 +153,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Administració',
+                'permissions' => 'Administració',
+                'role' => 'Altres',
                 'name' => 'Yoel',
                 'surname1' => 'Berjaga',
                 'surname2' => 'Garcia',
@@ -154,7 +162,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 222 333',
                 'email' => 'yoel.berjaga@canserra.cat',
                 'address' => 'Carrer Coordinador, 12, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Tècnic administratiu',
                 'user' => 'yoel.berjaga',
                 'password' => 'admin', // automatic hash
@@ -164,7 +172,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 2,
-                'role' => 'Tècnic', // Educador → Tècnic
+                'permissions' => 'Tècnic', // Educador → Tècnic
+                'role' => 'Pedagogia/Psicologia',
                 'name' => 'Laura',
                 'surname1' => 'Ribas',
                 'surname2' => 'Font',
@@ -172,7 +181,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 444 555',
                 'email' => 'laura.ribas@casabadina.cat',
                 'address' => 'Carrer Educador, 6, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Educadora amb experiència en diversitat funcional',
                 'user' => 'laura.ribas',
                 'password' => 'admin',
@@ -182,7 +191,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 2,
-                'role' => 'Tècnic', // Psicòleg → Tècnic
+                'permissions' => 'Tècnic', // Psicòleg → Tècnic
+                'role' => 'Pedagogia/Psicologia',
                 'name' => 'David',
                 'surname1' => 'Casas',
                 'surname2' => 'Alonso',
@@ -190,7 +200,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 555 222',
                 'email' => 'david.casas@casabadina.cat',
                 'address' => 'Carrer Salut, 7, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Psicòleg infantil amb experiència clínica',
                 'user' => 'david.casas',
                 'password' => 'admin',
@@ -200,7 +210,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Direcció', // Coordinador → Direcció
+                'permissions' => 'Direcció', // Coordinador → Direcció
+                'role' => 'Direcció',
                 'name' => 'Marta',
                 'surname1' => 'Domènech',
                 'surname2' => 'Puig',
@@ -208,7 +219,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 888 111',
                 'email' => 'marta.domenech@canserra.cat',
                 'address' => 'Carrer Coordinador, 9, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Coordinadora de programes educatius',
                 'user' => 'marta.domenech',
                 'password' => 'admin',
@@ -218,7 +229,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 2,
-                'role' => 'Tècnic',
+                'permissions' => 'Tècnic',
+                'role' => 'Altres',
                 'name' => 'Jordi',
                 'surname1' => 'Pujol',
                 'surname2' => 'Serra',
@@ -226,7 +238,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 222 999',
                 'email' => 'jordi.pujol@casabadina.cat',
                 'address' => 'Carrer Educador, 8, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Formador en inserció laboral',
                 'user' => 'jordi.pujol',
                 'password' => 'admin',
@@ -236,7 +248,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Administració',
+                'permissions' => 'Administració',
+                'role' => 'Altres',
                 'name' => 'Cristina',
                 'surname1' => 'Navarro',
                 'surname2' => 'Blanco',
@@ -244,7 +257,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 333 777',
                 'email' => 'cristina.navarro@canserra.cat',
                 'address' => 'Carrer Coordinador, 11, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Gestora documental',
                 'user' => 'cristina.navarro',
                 'password' => 'admin',
@@ -254,7 +267,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Tècnic', // Educador → Tècnic
+                'permissions' => 'Tècnic', // Educador → Tècnic
+                'role' => 'Pedagogia/Psicologia',
                 'name' => 'Albert',
                 'surname1' => 'Fernández',
                 'surname2' => 'Ortega',
@@ -262,7 +276,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 555 888',
                 'email' => 'albert.fernandez@canserra.cat',
                 'address' => 'Carrer Educador, 14, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Educador juvenil amb 10 anys d\'experiència',
                 'user' => 'albert.fernandez',
                 'password' => 'admin',
@@ -272,6 +286,7 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 2,
+                'permissions' => 'Direcció',
                 'role' => 'Direcció',
                 'name' => 'Núria',
                 'surname1' => 'Roca',
@@ -280,7 +295,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 444 222',
                 'email' => 'nuria.roca@casabadina.cat',
                 'address' => 'Carrer Director, 3, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Directora adjunta del centre',
                 'user' => 'nuria.roca',
                 'password' => 'admin',
@@ -290,7 +305,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Tècnic', // Psicòleg → Tècnic
+                'permissions' => 'Tècnic', // Psicòleg → Tècnic
+                'role' => 'Pedagogia/Psicologia',
                 'name' => 'Sergi',
                 'surname1' => 'Carreras',
                 'surname2' => 'Gil',
@@ -298,7 +314,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 123 456',
                 'email' => 'sergi.carreras@canserra.cat',
                 'address' => 'Carrer Salut, 10, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Psicòleg especialitzat en conducta',
                 'user' => 'sergi.carreras',
                 'password' => 'admin',
@@ -308,7 +324,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Administració',
+                'permissions' => 'Administració',
+                'role' => 'Altres',
                 'name' => 'Paula',
                 'surname1' => 'Moreno',
                 'surname2' => 'Soler',
@@ -316,7 +333,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 321 654',
                 'email' => 'paula.moreno@canserra.cat',
                 'address' => 'Carrer Coordinador, 15, Barcelona',
-                'employment_status' => 'Suplència',
+                'employment_status' => 'Suplent habitual',
                 'cvitae' => 'Secretària de direcció',
                 'user' => 'paula.moreno',
                 'password' => 'admin',
@@ -326,7 +343,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 2,
-                'role' => 'Tècnic',
+                'permissions' => 'Tècnic',
+                'role' => 'Altres',
                 'name' => 'Oriol',
                 'surname1' => 'Prats',
                 'surname2' => 'Marín',
@@ -334,7 +352,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 222 111',
                 'email' => 'oriol.prats@casabadina.cat',
                 'address' => 'Carrer Educador, 16, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Tècnic en TIC aplicades a l\'educació',
                 'user' => 'oriol.prats',
                 'password' => 'admin',
@@ -344,7 +362,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 2,
-                'role' => 'Tècnic', // Educador → Tècnic
+                'permissions' => 'Tècnic', // Educador → Tècnic
+                'role' => 'Pedagogia/Psicologia',
                 'name' => 'Clara',
                 'surname1' => 'Vilaseca',
                 'surname2' => 'Esteve',
@@ -352,7 +371,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 987 654',
                 'email' => 'clara.vilaseca@casabadina.cat',
                 'address' => 'Carrer Educador, 18, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Educadora social en programes familiars',
                 'user' => 'clara.vilaseca',
                 'password' => 'admin',
@@ -362,7 +381,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Administració',
+                'permissions' => 'Administració',
+                'role' => 'Altres',
                 'name' => 'Marc',
                 'surname1' => 'Requena',
                 'surname2' => 'Costa',
@@ -370,7 +390,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 111 555',
                 'email' => 'marc.requena@canserra.cat',
                 'address' => 'Carrer Coordinador, 19, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Assistent administratiu amb experiència en RRHH',
                 'user' => 'marc.requena',
                 'password' => 'admin',
@@ -380,6 +400,7 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
+                'permissions' => 'Direcció',
                 'role' => 'Direcció',
                 'name' => 'Direcció',
                 'surname1' => 'Direcció',
@@ -388,7 +409,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 000 001',
                 'email' => 'direccio@canserra.cat',
                 'address' => 'Carrer Direcció, 1, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Usuari direcció',
                 'user' => 'direccio',
                 'password' => 'admin', // automatic hash
@@ -398,7 +419,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Tècnic',
+                'permissions' => 'Tècnic',
+                'role' => 'Altres',
                 'name' => 'Tecnic',
                 'surname1' => 'Tècnic',
                 'surname2' => 'Tècnic',
@@ -406,7 +428,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 000 002',
                 'email' => 'tecnic@canserra.cat',
                 'address' => 'Carrer Tecnic, 1, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Usuari tècnic',
                 'user' => 'tecnic',
                 'password' => 'admin', // automatic hash
@@ -416,7 +438,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Gerència',
+                'permissions' => 'Gerència',
+                'role' => 'Direcció',
                 'name' => 'Gerència',
                 'surname1' => 'Gerència',
                 'surname2' => 'Gerència',
@@ -424,7 +447,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 000 002',
                 'email' => 'gerent@canserra.cat',
                 'address' => 'Carrer Gerència, 1, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Usuari gerent',
                 'user' => 'gerent',
                 'password' => 'admin', // automatic hash
@@ -434,7 +457,8 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
-                'role' => 'Administració',
+                'permissions' => 'Administració',
+                'role' => 'Altres',
                 'name' => 'Administració',
                 'surname1' => 'Administració',
                 'surname2' => 'Administració',
@@ -442,7 +466,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 000 002',
                 'email' => 'administracio@canserra.cat',
                 'address' => 'Carrer Gerència, 1, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Usuari administracio',
                 'user' => 'admin',
                 'password' => 'admin', // automatic hash
@@ -452,6 +476,7 @@ class ProfessionalSeeder extends Seeder
             ],
             [
                 'center_id' => 1,
+                'permissions' => 'Direcció',
                 'role' => 'Direcció',
                 'name' => 'Yolanda',
                 'surname1' => 'Andreu',
@@ -460,7 +485,7 @@ class ProfessionalSeeder extends Seeder
                 'phone' => '+34 600 000 002',
                 'email' => 'yandreu@fundaciovallparadis.cat',
                 'address' => 'Carrer Gerència, 1, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Usuari administracio',
                 'user' => 'yandreu',
                 'password' => 'admin', // automatic hash

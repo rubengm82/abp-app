@@ -26,7 +26,7 @@ class ProfessionalController extends Controller
         if ($search = $request->get('search')) {
 
             $query
-            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
+            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'permissions', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
         }
 
         $professionals = $query->get();
@@ -56,8 +56,9 @@ class ProfessionalController extends Controller
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
             'dni' => 'required|string|max:20|unique:professionals,dni',
+            'permissions' => 'nullable|string|max:100',
             'role' => 'nullable|string|max:100',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255|unique:professionals,email',
             'address' => 'nullable|string|max:500',
             'employment_status' => 'nullable|string|max:50',
@@ -71,15 +72,16 @@ class ProfessionalController extends Controller
         // Create professional
         $professional = Professional::create([
             'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
+            'permissions' => $validated['permissions'] ?? null,
             'role' => $validated['role'] ?? null,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
             'surname2' => $validated['surname2'] ?? null,
             'dni' => $validated['dni'],
-            'phone' => $validated['phone'] ?? null,
+            'phone' => $validated['phone'],
             'email' => $validated['email'],
             'address' => $validated['address'] ?? null,
-            'employment_status' => $validated['employment_status'] ?? 'Actiu',
+            'employment_status' => $validated['employment_status'] ?? 'No contractat',
             'cvitae' => $validated['cvitae'] ?? null,
             'user' => $validated['user'],
             'password' => $validated['password'], // Will be hashed in the model booted()
@@ -131,8 +133,9 @@ class ProfessionalController extends Controller
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
             'dni' => 'required|string|max:20|unique:professionals,dni,' . $id,
+            'permissions' => 'nullable|string|max:100',
             'role' => 'nullable|string|max:100',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255|unique:professionals,email,' . $id,
             'address' => 'nullable|string|max:500',
             'employment_status' => 'nullable|string|max:50',
@@ -145,12 +148,13 @@ class ProfessionalController extends Controller
 
         $updateData = [
             // center_id is not modified, it remains the existing one
+            'permissions' => $validated['permissions'] ?? $professional->permissions,
             'role' => $validated['role'] ?? $professional->role,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
             'surname2' => $validated['surname2'] ?? $professional->surname2,
             'dni' => $validated['dni'],
-            'phone' => $validated['phone'] ?? $professional->phone,
+            'phone' => $validated['phone'],
             'email' => $validated['email'],
             'address' => $validated['address'] ?? $professional->address,
             'employment_status' => $validated['employment_status'] ?? $professional->employment_status,
@@ -183,10 +187,7 @@ class ProfessionalController extends Controller
     public function activateStatus(Request $request, String $professional_id)
     {
         $professional = Professional::findOrFail($professional_id);
-        $professional->update([
-            'status' => 1, 
-            'employment_status' => 'Actiu'
-        ]);
+        $professional->update(['status' => 1]);
         return redirect()->route('professionals_desactivated_list')->with('success', 'Professional activat correctament!');
     }
 
@@ -196,7 +197,7 @@ class ProfessionalController extends Controller
     public function desactivateStatus(Request $request, String $professional_id)
     {
         $professional = Professional::findOrFail($professional_id);
-        $professional->update(['status' => 0, 'employment_status' => 'No Contractat']);
+        $professional->update(['status' => 0]);
         return redirect()->route('professionals_list')->with('success', 'Professional desactivat correctament!');
     }
 
@@ -212,7 +213,7 @@ class ProfessionalController extends Controller
         $filename = $statusParam == 1 ? "professionals_actius_{$timestamp}.csv" : "professionals_no_actius_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Centre', 'Taquilla', 'Codi', 'Nom', 'Primer cognom', 'Segon cognom', 'DNI', 'Adreça', 'Rol', 'Telèfon', 'Email', 'Estat']);
+        fputcsv($handle, ['ID', 'Centre', 'Taquilla', 'Codi', 'Nom', 'Primer cognom', 'Segon cognom', 'DNI', 'Adreça', 'Permisos', 'Rol', 'Telèfon', 'Email', 'Estat']);
 
         foreach ($professionals as $professional) {
             fputcsv($handle, [
@@ -225,6 +226,7 @@ class ProfessionalController extends Controller
                 $professional->surname2,
                 $professional->dni,
                 $professional->address,
+                $professional->permissions,
                 $professional->role,
                 $professional->phone,
                 $professional->email,

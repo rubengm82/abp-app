@@ -35,7 +35,8 @@ class ProductionSeeder extends Seeder
         $professionals = [
             [
                 'center_id' => 1,
-                'role' => 'Gerència',
+                'permissions' => 'Gerència',
+                'role' => 'Direcció',
                 'name' => 'Admin',
                 'surname1' => 'Admin',
                 'surname2' => 'Admin',
@@ -43,7 +44,7 @@ class ProductionSeeder extends Seeder
                 'phone' => '+34 600 000 000',
                 'email' => 'admin@admin.cat',
                 'address' => 'Carrer Admin, 2, Barcelona',
-                'employment_status' => 'Actiu',
+                'employment_status' => 'Fixe',
                 'cvitae' => 'Es el Admin',
                 'user' => 'admin',
                 'password' => 'admin', // automatic hash

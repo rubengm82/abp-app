@@ -12,7 +12,7 @@
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</h1> --}}
         <!-- Buttons -->
-        @if((Auth::user()->role ?? null) !== 'Tècnic')
+        @if((Auth::user()->permissions ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             @if($professional->status == 1)
                 <a href="{{ route('professional_edit', $professional) }}" class="btn btn-sm btn-info">Editar</a>
@@ -59,13 +59,22 @@
                         <p class="text-sm text-base-content/50">{{ $professional->dni }}</p>
                     </div>
                     <div>
+                        <label class="font-bold text-md">Permisos:</label>
+                        <p class="text-sm text-base-content/50">{{ $professional->permissions ?: 'No especificat' }}</p>
+                    </div>
+                    <div>
                         <label class="font-bold text-md">Rol:</label>
                         <p class="text-sm text-base-content/50">{{ $professional->role ?: 'No especificat' }}</p>
                     </div>
                     <div>
                         <label class="font-bold text-md">Estat laboral:</label>
                         <p class="text-sm text-base-content/50 mt-1">
-                            <span class="badge badge-dash {{ $professional->employment_status === 'Actiu' ? 'badge-success' : 'badge-warning' }}">
+                            <span class="badge badge-dash
+                                @if($professional->employment_status === 'Fixe') badge-info
+                                @elseif($professional->employment_status === 'Eventual') badge-success
+                                @elseif($professional->employment_status === 'Suplent habitual') badge-warning
+                                @else badge-error
+                                @endif">
                                 {{ $professional->employment_status ?: 'No especificat' }}
                             </span>
                         </p>

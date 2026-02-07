@@ -25,9 +25,15 @@
                 <td class="px-4 py-2">{{ $professional->phone }}</td>
                 <td class="px-4 py-2">{{ $professional->email }}</td>
                 <td class="px-4 py-2">
-                    <span class="badge badge-dash h-auto whitespace-nowrap text-center min-w-0 max-w-full truncate {{ ($isDeactivated ? ($professional->employment_status === 'No Contractat') : ($professional->employment_status === 'Actiu')) ? 'badge-success' : 'badge-warning' }}">
-                        {{ $professional->employment_status }}
-                    </span>
+                    @if($professional->employment_status === 'Fixe')
+                        <span class="badge badge-dash h-auto whitespace-nowrap text-center min-w-0 max-w-full truncate badge-info">{{ $professional->employment_status }}</span>
+                    @elseif($professional->employment_status === 'Eventual')
+                        <span class="badge badge-dash h-auto whitespace-nowrap text-center min-w-0 max-w-full truncate badge-success">{{ $professional->employment_status }}</span>
+                    @elseif($professional->employment_status === 'Suplent habitual')
+                        <span class="badge badge-dash h-auto whitespace-nowrap text-center min-w-0 max-w-full truncate badge-warning">{{ $professional->employment_status }}</span>
+                    @else
+                        <span class="badge badge-dash h-auto whitespace-nowrap text-center min-w-0 max-w-full truncate badge-error">{{ $professional->employment_status }}</span>
+                    @endif
                 </td>
                 <td class="px-4 py-2 text-right">
                     <div class="flex justify-end gap-2">

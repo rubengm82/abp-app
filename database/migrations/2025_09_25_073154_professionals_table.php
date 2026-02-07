@@ -22,16 +22,17 @@ return new class extends Migration
                 $table->string('name', 100)->comment('First name');
                 $table->string('surname1', 100)->comment('First surname');
                 $table->string('surname2', 100)->nullable()->comment('Second surname');
-                $table->enum('role', ['Direcció', 'Administració', 'Tècnic', 'Gerència'])->nullable()->comment('Professional role');
+                $table->enum('permissions', ['Direcció', 'Administració', 'Tècnic', 'Gerència'])->nullable()->comment('Access permissions level');
+                $table->enum('role', ['ATE', 'ATE-RT', 'Infermeria', 'Metge', 'Recepció', 'Administració', 'Treball Social', 'Pedagogia/Psicologia', 'Fisioteràpia', 'Direcció', 'Altres'])->nullable()->comment('Professional role / job title');
                 $table->string('dni', 100)->unique()->comment('DNI');
 
                 // Contact info
-                $table->string('phone', 20)->nullable()->comment('Contact phone');
+                $table->string('phone', 20)->comment('Contact phone');
                 $table->string('email', 255)->nullable()->unique()->comment('Email address');
                 $table->string('address', 500)->nullable()->comment('Address');
 
                 // Employment status
-                $table->enum('employment_status', ['Actiu', 'Suplència', 'No contractat'])->nullable()->comment('Employment status');
+                $table->enum('employment_status', ['Fixe', 'Eventual', 'Suplent habitual', 'Baixa definitiva', 'No contractat'])->nullable()->comment('Employment status');
 
                 // Additional info
                 $table->text('cvitae')->nullable()->comment('Curriculum vitae');

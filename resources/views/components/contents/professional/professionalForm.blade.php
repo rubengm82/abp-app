@@ -73,13 +73,33 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
                         <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Rol del professional</span>
+                            <span class="label-text">Permisos</span>
+                        </label>
+                        <select name="permissions" id="id_permissions" class="select select-bordered w-full">
+                            <option value="">Selecciona permisos</option>
+                            <option value="Direcció" {{ old('permissions') == 'Direcció' ? 'selected' : '' }}>Direcció</option>
+                            <option value="Administració" {{ old('permissions') == 'Administració' ? 'selected' : '' }}>Administració</option>
+                            <option value="Tècnic" {{ old('permissions') == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
+                            <option value="Gerència" {{ old('permissions') == 'Gerència' ? 'selected' : '' }}>Gerència</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Rol</span>
                         </label>
                         <select name="role" id="id_role" class="select select-bordered w-full">
                             <option value="">Selecciona un rol</option>
-                            <option value="Direcció" {{ old('role') == 'Direcció' ? 'selected' : '' }}>Direcció</option>
+                            <option value="ATE" {{ old('role') == 'ATE' ? 'selected' : '' }}>ATE</option>
+                            <option value="ATE-RT" {{ old('role') == 'ATE-RT' ? 'selected' : '' }}>ATE-RT</option>
+                            <option value="Infermeria" {{ old('role') == 'Infermeria' ? 'selected' : '' }}>Infermeria</option>
+                            <option value="Metge" {{ old('role') == 'Metge' ? 'selected' : '' }}>Metge</option>
+                            <option value="Recepció" {{ old('role') == 'Recepció' ? 'selected' : '' }}>Recepció</option>
                             <option value="Administració" {{ old('role') == 'Administració' ? 'selected' : '' }}>Administració</option>
-                            <option value="Tècnic" {{ old('role') == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
+                            <option value="Treball Social" {{ old('role') == 'Treball Social' ? 'selected' : '' }}>Treball Social</option>
+                            <option value="Pedagogia/Psicologia" {{ old('role') == 'Pedagogia/Psicologia' ? 'selected' : '' }}>Pedagogia/Psicologia</option>
+                            <option value="Fisioteràpia" {{ old('role') == 'Fisioteràpia' ? 'selected' : '' }}>Fisioteràpia</option>
+                            <option value="Direcció" {{ old('role') == 'Direcció' ? 'selected' : '' }}>Direcció</option>
+                            <option value="Altres" {{ old('role') == 'Altres' ? 'selected' : '' }}>Altres</option>
                         </select>
                     </div>
 
@@ -89,8 +109,10 @@
                         </label>
                         <select name="employment_status" id="id_employment_status" class="select select-bordered w-full">
                             <option value="">Selecciona estat</option>
-                            <option value="Actiu" {{ old('employment_status') == 'Actiu' ? 'selected' : '' }}>Actiu</option>
-                            <option value="Suplència" {{ old('employment_status') == 'Suplència' ? 'selected' : '' }}>Suplència</option>
+                            <option value="Fixe" {{ old('employment_status') == 'Fixe' ? 'selected' : '' }}>Fixe</option>
+                            <option value="Eventual" {{ old('employment_status') == 'Eventual' ? 'selected' : '' }}>Eventual</option>
+                            <option value="Suplent habitual" {{ old('employment_status') == 'Suplent habitual' ? 'selected' : '' }}>Suplent habitual</option>
+                            <option value="Baixa definitiva" {{ old('employment_status') == 'Baixa definitiva' ? 'selected' : '' }}>Baixa definitiva</option>
                             <option value="No contractat" {{ old('employment_status') == 'No contractat' ? 'selected' : '' }}>No contractat</option>
                         </select>
                     </div>
@@ -105,9 +127,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
                         <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Telèfon</span>
+                            <span class="label-text">Telèfon *</span>
                         </label>
-                        <input type="text" name="phone" id="id_phone" placeholder="Ex: 612 345 678" class="input input-bordered w-full" value="{{ old('phone') }}">
+                        <input type="text" name="phone" id="id_phone" placeholder="Ex: 612 345 678" class="input input-bordered w-full" value="{{ old('phone') }}" required>
                     </div>
 
                     <div class="form-control">

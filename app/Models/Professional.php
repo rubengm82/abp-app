@@ -16,6 +16,7 @@ class Professional extends Authenticatable
      */
     protected $fillable = [
         'center_id',
+        'permissions',
         'role',
         'name',
         'surname1',
