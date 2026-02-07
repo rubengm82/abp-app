@@ -11,7 +11,7 @@
 
 <div class="max-w-4xl mx-auto bg-base-200 p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <h1 class="text-3xl font-bold text-base-content mb-6 text-center">
-        {{ isset($complementaryservice) ? 'Editar Servei Complementari' : 'Afegir Servei Complementari' }}
+        Afegir Servei Complementari
     </h1>
 
     <!-- Mostrar errores de validación -->
@@ -28,15 +28,8 @@
         </div>
     @endif
 
-    <form 
-        action="{{ isset($complementaryService) ? route('complementaryservice_update', $complementaryService) : route('complementaryservice_add') }}" 
-        method="POST" 
-        class="space-y-6"
-    >
+    <form action="{{ route('complementaryservice_add') }}" method="POST" class="space-y-6">
         @csrf
-        @if(isset($complementaryService))
-            @method('PUT')
-        @endif
 
         <!-- Información del servicio -->
         <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
@@ -54,7 +47,7 @@
                             id="id_service_type"
                             placeholder="Ex: Taller de mindfulness"
                             class="input input-bordered w-full"
-                            value="{{ old('service_type', $complementaryservice->service_type ?? '') }}"
+                            value="{{ old('service_type', optional($complementaryService)->service_type ?? '') }}"
                             required
                         >
                     </div>
@@ -69,9 +62,19 @@
                             id="id_service_responsible"
                             placeholder="Ex: Psicòleg Jordi Roca"
                             class="input input-bordered w-full"
-                            value="{{ old('service_responsible', $complementaryservice->service_responsible ?? '') }}"
+                            value="{{ old('service_responsible', optional($complementaryService)->service_responsible ?? '') }}"
                             required
                         >
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Estat *</span>
+                        </label>
+                        <select name="status" id="id_status" class="select select-bordered w-full" required>
+                            <option value="Obert" {{ old('status', 'Obert') == 'Obert' ? 'selected' : '' }}>Obert</option>
+                            <option value="Tancat" {{ old('status') == 'Tancat' ? 'selected' : '' }}>Tancat</option>
+                        </select>
                     </div>
 
                     <div class="form-control md:col-span-2">
@@ -122,7 +125,7 @@
             <a href="{{ route('complementaryservices_list') }}" class="btn btn-outline">Cancel·lar</a>
             <input 
                 type="submit" 
-                value="{{ isset($complementaryservice) ? 'Actualitzar Servei' : 'Crear Servei' }}" 
+                value="Crear Servei"
                 class="btn btn-info"
             >
         </div>

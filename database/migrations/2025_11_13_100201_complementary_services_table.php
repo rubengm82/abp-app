@@ -23,11 +23,14 @@ return new class extends Migration
             
             // Service dates Redundant
             $table->date('start_date')->comment('Service start date');
-            $table->date('end_date')->nullable()->comment('Service start date');
+            $table->date('end_date')->nullable()->comment('Service end date');
 
             $table->text('description')->nullable()->comment('Issue description');
 
-            $table->integer('status')->nullable();
+            // Workflow status
+            $table->enum('status', ['Obert', 'Tancat'])->default('Obert')->comment('Status: Obert, Tancat');
+            // Record active status (for activate/deactivate)
+            $table->integer('active_status')->default(1)->comment('Active status: 1 active, 0 deactivated');
            
             $table->timestamps();
         });

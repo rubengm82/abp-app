@@ -20,19 +20,27 @@
 
             @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
                 <div class="relative">
-                    <x-partials.modal
-                        id="modal_desactivate_complementary_service_{{ $complementaryService->id }}"
-                        msj="Estàs segur que vols desactivar aquest servei complementari?"
-                        btnText="Desactivar"
-                        class="btn-sm btn-warning"
-                        width="100"
-                    >
-                        <form action="{{ route('complementaryservice_desactivate', $complementaryService) }}" method="POST">
+                    @if(($complementaryService->active_status ?? 1) == 1)
+                        <x-partials.modal
+                            id="modal_desactivate_complementary_service_{{ $complementaryService->id }}"
+                            msj="Estàs segur que vols desactivar aquest servei complementari?"
+                            btnText="Desactivar"
+                            class="btn-sm btn-warning"
+                            width="100"
+                        >
+                            <form action="{{ route('complementaryservice_desactivate', $complementaryService) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
+                            </form>
+                        </x-partials.modal>
+                    @else
+                        <form action="{{ route('complementaryservice_activate', $complementaryService) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
+                            <button type="submit" class="btn btn-sm btn-success">Activar</button>
                         </form>
-                    </x-partials.modal>
+                    @endif
                 </div>
 
                 <div class="relative">
@@ -59,36 +67,42 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         <!-- Responsable -->
-        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
+        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 md:col-span-2">
             <div class="card-body">
-                <div class="space-y-3">
-                    <div>
-                        <label class="font-bold text-md">Tipus de Servei:</label>
+                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació bàsica</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="md:col-start-1 md:row-start-1">
+                        <label class="font-bold">Tipus de Servei:</label>
                         <p class="text-sm text-base-content/50">{{ $complementaryService->service_type ?? 'No especificat' }}</p>
                     </div>
-                </div>
-                <div class="space-y-3">
-                    <div>
-                        <label class="font-bold text-md">Nom del responsable:</label>
+
+                    <div class="md:col-start-1 md:row-start-2">
+                        <label class="font-bold">Nom del responsable:</label>
                         <p class="text-sm text-base-content/50">{{ $complementaryService->service_responsible ?? 'No assignat' }}</p>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Start Date -->
-        <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
-            <div class="card-body">
-                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació</h2>
-                <div class="space-y-3">
-                    <div>
-                        <label class="font-bold text-md" >Data d'inici:</label>
+                    <div class="md:col-start-1 md:row-start-3">
+                        <label class="font-bold">Estat:</label>
+                        <p class="text-sm text-base-content/50">
+                            @if(($complementaryService->status ?? '') === 'Obert')
+                                <span class="badge badge-dash badge-warning">{{ $complementaryService->status }}</span>
+                            @elseif(($complementaryService->status ?? '') === 'Tancat')
+                                <span class="badge badge-dash badge-success">{{ $complementaryService->status }}</span>
+                            @else
+                                <span class="badge badge-dash badge-ghost">{{ $complementaryService->status ?? 'No especificat' }}</span>
+                            @endif
+                        </p>
+                    </div>
+
+                    <div class="md:col-start-2 md:row-start-1">
+                        <label class="font-bold">Data d'inici:</label>
                         <p class="text-sm text-base-content/50">
                             {{ $complementaryService->start_date ? \Carbon\Carbon::parse($complementaryService->start_date)->format('d/m/Y') : 'No especificada' }}
                         </p>
                     </div>
-                    <div>
-                        <label class="font-bold text-md" >Data fi:</label>
+
+                    <div class="md:col-start-2 md:row-start-2">
+                        <label class="font-bold">Data fi:</label>
                         <p class="text-sm text-base-content/50">
                             {{ $complementaryService->end_date ? \Carbon\Carbon::parse($complementaryService->end_date)->format('d/m/Y') : 'No especificada' }}
                         </p>

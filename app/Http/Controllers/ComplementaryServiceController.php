@@ -16,7 +16,9 @@ class ComplementaryServiceController extends Controller
      */
     public function index(Request $request, $status = 1)
     {
-        $query = ComplementaryService::query()->where('center_id', Auth::user()->center_id)->where('status', $status);
+        $query = ComplementaryService::query()
+            ->where('center_id', Auth::user()->center_id)
+            ->where('active_status', (int) $status);
 
         if ($search = $request->get('search')) {
             $query->where(function($q) use ($search) {
@@ -29,7 +31,7 @@ class ComplementaryServiceController extends Controller
             );
         }
 
-        $complementaryServices = $query->orderBy('start_date', 'desc')->get();
+        $complementaryServices = $query->orderBy('created_at', 'desc')->get();
 
         $isDeactivated = ($status == 0);
 
@@ -43,7 +45,9 @@ class ComplementaryServiceController extends Controller
      */
     public function create()
     {
-        return view('components.contents.complementaryservices.complementaryServiceForm');
+        return view('components.contents.complementaryservices.complementaryServiceForm', [
+            'complementaryService' => null,
+        ]);
     }
 
     /**
@@ -57,6 +61,7 @@ class ComplementaryServiceController extends Controller
             'start_date' => 'required',
             'end_date' => 'nullable',
             'description' => 'nullable',
+            'status' => 'required|in:Obert,Tancat',
         ]);
 
         ComplementaryService::create([
@@ -66,7 +71,8 @@ class ComplementaryServiceController extends Controller
             'end_date' => $request->input('end_date'),
             'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
             'description' => $request->input('description'),
-            'status' => 1,
+            'status' => $request->input('status', 'Obert'),
+            'active_status' => 1,
         ]);
 
         return redirect()->route('complementaryservices_list')->with('success', 'Servei Complenmentari creat correctament.');
@@ -99,6 +105,7 @@ class ComplementaryServiceController extends Controller
             'start_date' => 'required',
             'end_date' => 'nullable',
             'description' => 'nullable',
+            'status' => 'required|in:Obert,Tancat',
         ]);
 
         $complementaryService->update([
@@ -108,6 +115,7 @@ class ComplementaryServiceController extends Controller
             'end_date' => $validated['end_date'],
             // center_id is not modified, it remains the existing one
             'description' => $request->input('description'),
+            'status' => $validated['status'],
         ]);
 
         return redirect()->route('complementaryservices_list')->with('success', 'Servei Complenmentari actualitzat correctament!');
@@ -127,7 +135,7 @@ class ComplementaryServiceController extends Controller
      */
     public function activateStatus(Request $request, ComplementaryService $complementaryService)
     {
-        $complementaryService->update(['status' => 1]);
+        $complementaryService->update(['active_status' => 1]);
 
         return redirect()->route('complementaryservices_desactivated_list')->with('success', 'Servei Complementari activat correctament!');
     }
@@ -137,7 +145,7 @@ class ComplementaryServiceController extends Controller
      */
     public function desactivateStatus(Request $request, ComplementaryService $complementaryService)
     {
-        $complementaryService->update(['status' => 0]);
+        $complementaryService->update(['active_status' => 0]);
 
         return redirect()->route('complementaryservices_list')->with('success', 'Servei Complementari desactivat correctament!');
     }

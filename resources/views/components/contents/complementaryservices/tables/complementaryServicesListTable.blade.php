@@ -5,6 +5,7 @@
             <th class="px-4 py-2 text-left">Responsable</th>
             <th class="px-4 py-2 text-left">Data d'Inici</th>
             <th class="px-4 py-2 text-left">Data fi</th>
+            <th class="px-4 py-2 text-left">Estat</th>
             <th class="px-4 py-2 text-right">{{ $isDeactivated ? 'Accions' : 'Acció' }}</th>
         </tr>
     </thead>
@@ -14,23 +15,33 @@
             <tr class="hover:bg-base-300 transition-colors text-xs">
 
                 <td class="px-4 py-2">
-                    {{ Str::limit($service->service_type, 50) ?? 'No especificat' }}
+                    {{ $service->service_type ? Str::limit($service->service_type, 50) : 'No especificat' }}
                 </td>
 
                 <td class="px-4 py-2">
-                    {{ Str::limit($service->service_responsible, 50) ?? 'No especificat' }}
+                    {{ $service->service_responsible ? Str::limit($service->service_responsible, 50) : 'No especificat' }}
                 </td>
 
                 <td class="px-4 py-2">
                     {{ $service->start_date
                         ? \Carbon\Carbon::parse($service->start_date)->format('d/m/Y')
-                        : 'No especificada' }}
+                        : 'No especificat' }}
                 </td>
 
                 <td class="px-4 py-2">
                     {{ $service->end_date
                         ? \Carbon\Carbon::parse($service->end_date)->format('d/m/Y')
-                        : 'No especificada' }}
+                        : 'No especificat' }}
+                </td>
+
+                <td class="px-4 py-2">
+                    @if(($service->status ?? '') === 'Obert')
+                        <span class="badge badge-dash whitespace-nowrap badge-warning">{{ $service->status }}</span>
+                    @elseif(($service->status ?? '') === 'Tancat')
+                        <span class="badge badge-dash whitespace-nowrap badge-success">{{ $service->status }}</span>
+                    @else
+                        <span class="badge badge-dash whitespace-nowrap badge-ghost">{{ $service->status ?? 'No especificat' }}</span>
+                    @endif
                 </td>
 
                 <td class="px-4 py-2 text-right">

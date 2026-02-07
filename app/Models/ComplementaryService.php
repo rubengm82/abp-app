@@ -9,7 +9,6 @@ class ComplementaryService extends Model
     protected $table = 'complementary_services';
     
     protected $fillable = [
-        'complementary_services',
         'center_id',
         'service_type',
         'service_responsible',
@@ -17,6 +16,11 @@ class ComplementaryService extends Model
         'end_date',
         'description',
         'status',
+        'active_status',
+    ];
+
+    protected $casts = [
+        'active_status' => 'integer',
     ];
 
     public function center()

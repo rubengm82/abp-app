@@ -67,8 +67,8 @@
                     </div>
 
                     <div class="form-control md:col-span-2">
-                        <div class="flex flex-col gap-3">
-                            <div>
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="w-full">
                                 <label class="label font-bold text-base-content mb-1">
                                     <span class="label-text">Data d'inici *</span>
                                 </label>
@@ -82,9 +82,9 @@
                                 >
                             </div>
 
-                            <div>
+                            <div class="w-full">
                                 <label class="label font-bold text-base-content mb-1">
-                                    <span class="label-text">Data d'inici *</span>
+                                    <span class="label-text">Data fi</span>
                                 </label>
                                 <input 
                                     type="date"
@@ -94,16 +94,25 @@
                                     value="{{ old('end_date', $complementaryService->end_date ? \Carbon\Carbon::parse($complementaryService->end_date)->format('Y-m-d') : '') }}"
                                 >
                             </div>
-
-                            <!-- Description -->
-                            <div class="form-control">
-                                <label class="label font-bold text-base-content mb-1 mt-2">
-                                    <span class="label-text">Descripció</span>
-                                </label>
-                                <textarea name="description" id="id_description" rows="6" class="textarea textarea-bordered w-full">{{ old('description', $complementaryService->description) }}</textarea>
-                            </div>
-
                         </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-control md:col-span-2">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Descripció</span>
+                        </label>
+                        <textarea name="description" id="id_description" rows="6" class="textarea textarea-bordered w-full">{{ old('description', $complementaryService->description) }}</textarea>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Estat *</span>
+                        </label>
+                        <select name="status" id="id_status" class="select select-bordered w-full" required>
+                            <option value="Obert" {{ old('status', $complementaryService->status) == 'Obert' ? 'selected' : '' }}>Obert</option>
+                            <option value="Tancat" {{ old('status', $complementaryService->status) == 'Tancat' ? 'selected' : '' }}>Tancat</option>
+                        </select>
                     </div>
 
                 </div>
