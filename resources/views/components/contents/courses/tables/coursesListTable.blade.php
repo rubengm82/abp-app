@@ -12,11 +12,11 @@
     <tbody>
         @foreach($courses as $course)
             <tr class="hover:bg-base-300 transition-colors text-xs">
-                <td class="px-4 py-2 font-medium">{{ $course->training_name ? Str::limit($course->training_name, 30) : 'No especificada' }}</td>
-                <td class="px-4 py-2">{{ $course->training_center ? Str::limit($course->training_center, 25) : 'No especificada' }}</td>
-                <td class="px-4 py-2">{{ $course->forcem_code ? Str::limit($course->forcem_code, 15) : 'No especificada' }}</td>
-                <td class="px-4 py-2">{{ $course->attendance_type ?? 'No especificada' }}</td>
-                <td class="px-4 py-2">{{ $course->start_date ? \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') : 'No especificada' }}</td>
+                <td class="px-4 py-2 font-medium">{{ $course->training_name ? Str::limit($course->training_name, 30) : 'No especificat' }}</td>
+                <td class="px-4 py-2">{{ $course->training_center ? Str::limit($course->training_center, 25) : 'No especificat' }}</td>
+                <td class="px-4 py-2">{{ $course->forcem_code ? Str::limit($course->forcem_code, 15) : 'No especificat' }}</td>
+                <td class="px-4 py-2">{{ $course->attendance_type ?: 'No especificat' }}</td>
+                <td class="px-4 py-2">{{ $course->start_date ? \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') : 'No especificat' }}</td>
                 <td class="px-4 py-2 text-right">
                     <div class="flex justify-end gap-2">
                         <a href="{{ route('course_show', $course) }}" class="btn btn-xs btn-info">Veure</a>

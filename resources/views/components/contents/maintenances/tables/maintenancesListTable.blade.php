@@ -20,8 +20,8 @@
                         {{ Str::limit($maintenance->description, 60) }}
                     </div>
                 </td>
-                <td class="px-4 py-2">{{ $maintenance->opening_date_maintenance ? \Carbon\Carbon::parse($maintenance->opening_date_maintenance)->format('d/m/Y') : 'No especificada' }}</td>
-                <td class="px-4 py-2">{{ $maintenance->ending_date_maintenance ? \Carbon\Carbon::parse($maintenance->ending_date_maintenance)->format('d/m/Y') : 'No especificada' }}</td>
+                <td class="px-4 py-2">{{ $maintenance->opening_date_maintenance ? \Carbon\Carbon::parse($maintenance->opening_date_maintenance)->format('d/m/Y') : 'No especificat' }}</td>
+                <td class="px-4 py-2">{{ $maintenance->ending_date_maintenance ? \Carbon\Carbon::parse($maintenance->ending_date_maintenance)->format('d/m/Y') : 'No especificat' }}</td>
                 <td class="px-4 py-2">
                     @if(($maintenance->status ?? '') === 'Obert')
                         <span class="badge badge-dash whitespace-nowrap badge-error">{{ $maintenance->status }}</span>
@@ -30,7 +30,7 @@
                     @elseif(($maintenance->status ?? '') === 'En resol·lució')
                         <span class="badge badge-dash whitespace-nowrap badge-warning">{{ $maintenance->status }}</span>
                     @else
-                        <span class="badge badge-dash whitespace-nowrap badge-ghost">{{ $maintenance->status ?? '' }}</span>
+                        <span class="badge badge-dash whitespace-nowrap badge-ghost">{{ $maintenance->status ?? 'No especificat' }}</span>
                     @endif
                 </td>
                 <td class="px-4 py-2 text-right">

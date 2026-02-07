@@ -14,18 +14,22 @@
         @foreach($accidents as $accident)
             <tr class="hover:bg-base-300 transition-colors text-xs">
                 <td class="px-4 py-2">
-                    <span class="badge badge-dash whitespace-nowrap text-center min-w-0 max-w-full truncate {{ $accident->type === 'Amb baixa' ? 'badge-warning' : 'badge-info' }}">
-                        {{ $accident->type }}
-                    </span>
+                    @if($accident->type)
+                        <span class="badge badge-dash whitespace-nowrap text-center min-w-0 max-w-full truncate {{ $accident->type === 'Amb baixa' ? 'badge-warning' : 'badge-info' }}">
+                            {{ $accident->type }}
+                        </span>
+                    @else
+                        <span class="text-base-content/50">No especificat</span>
+                    @endif
                 </td>
-                <td class="px-4 py-2">{{ $accident->date->format('d/m/Y') }}</td>
+                <td class="px-4 py-2">{{ $accident->date ? $accident->date->format('d/m/Y') : 'No especificat' }}</td>
                 <td class="px-4 py-2">
                     @if($accident->affectedProfessional)
                         <a href="{{ route('professional_show', $accident->affectedProfessional->id) }}" class="link link-hover text-info link-info">
                             {{ $accident->affectedProfessional->name }} {{ $accident->affectedProfessional->surname1 }} {{ $accident->affectedProfessional->surname2 }}
                         </a>
                     @else
-                        <span class="text-base-content/50">No assignat</span>
+                        <span class="text-base-content/50">No especificat</span>
                     @endif
                 </td>
                 <td class="px-4 py-2">
@@ -34,17 +38,17 @@
                             {{ $accident->createdByProfessional->name }} {{ $accident->createdByProfessional->surname1 }}
                         </a>
                     @else
-                        <span class="text-base-content/50">No assignat</span>
+                        <span class="text-base-content/50">No especificat</span>
                     @endif
                 </td>
                 <td class="px-4 py-2">
                     <div class="max-w-xs truncate" title="{{ $accident->context }}">
-                        {{ $accident->context ? Str::limit($accident->context, 50) : '' }}
+                        {{ $accident->context ? Str::limit($accident->context, 50) : 'No especificat' }}
                     </div>
                 </td>
                 <td class="px-4 py-2">
                     <div class="max-w-xs truncate" title="{{ $accident->description }}">
-                        {{ $accident->description ? Str::limit($accident->description, 50) : '' }}
+                        {{ $accident->description ? Str::limit($accident->description, 50) : 'No especificat' }}
                     </div>
                 </td>
                 <td class="px-4 py-2 text-right">

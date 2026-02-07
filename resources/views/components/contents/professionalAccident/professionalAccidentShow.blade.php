@@ -49,7 +49,7 @@
                         </p>
                     </div>
                     <div>
-                        <label class="font-bold text-md">Data:</label>
+                        <label class="font-bold text-md">Data de l'accident:</label>
                         <p class="text-sm text-base-content/50">{{ $accident->date->format('d/m/Y') }}</p>
                     </div>
                     @if($accident->type === 'Amb baixa')

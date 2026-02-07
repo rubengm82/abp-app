@@ -23,8 +23,8 @@
                         <span class="text-base-content/50">No assignat</span>
                     @endif
                 </td>
-                <td class="px-4 py-2">{{ $projectCommission->type ?? '' }}</td>
-                <td class="px-4 py-2">{{ $projectCommission->start_date ? \Carbon\Carbon::parse($projectCommission->start_date)->format('d/m/Y') : 'No especificada' }}</td>
+                <td class="px-4 py-2">{{ $projectCommission->type ?: 'No especificat' }}</td>
+                <td class="px-4 py-2">{{ $projectCommission->start_date ? \Carbon\Carbon::parse($projectCommission->start_date)->format('d/m/Y') : 'No especificat' }}</td>
                 <td class="px-4 py-2">
                     @if(($projectCommission->status ?? '') === 'Actiu')
                         <span class="badge badge-dash badge-success">{{ $projectCommission->status }}</span>

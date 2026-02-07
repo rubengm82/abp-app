@@ -50,7 +50,7 @@
 
                     <div class="form-control">
                         <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Data *</span>
+                            <span class="label-text">Data de l'accident *</span>
                         </label>
                         <input type="date" name="date" id="id_date" class="input input-bordered w-full" value="{{ old('date', $accident->date->format('Y-m-d')) }}" required>
                     </div>

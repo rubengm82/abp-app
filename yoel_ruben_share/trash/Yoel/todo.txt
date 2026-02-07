@@ -1,12 +1,14 @@
 # Sprint 6  - TODO LIST
 
 Todo:
-* Añadir estado a projectcommission
-** enum(Actiu verde, Pendent naranja, Tancat Azul)
-** Modifica los shows y formularios y el listado en consecuencia
-
-
-
+* Añadir estado a complementaryservice igual que hemos hecho en projectcommission
+** enum(Obert Naranja, Tancat Verde)
+** Debe de salir en el show y en el listado
+** ASegurate de que siga existiendo el parámetro active_status igual que en projectcommission para poder desactivar el registro correctamente
+** Modifica los formularios en consecuencia
+* Haz que la 'Data final' sea opcional, no required
+** Hay un error en el formulario de edición, aparece 2 veces el texto 'Data d\'inici'. Fix it 
+*** Que aparezcan juntas horizontalmente igual que en el formulario de alta
 
 Apuntes:
 * 
