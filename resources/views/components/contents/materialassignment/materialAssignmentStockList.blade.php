@@ -25,9 +25,9 @@
                 <tr>
                     <th>Samarretas</th>
                     <th>Quantitat</th>
-                    <th>Pantalons</th>
+                    <th class="border-l border-base-content/20 pl-4">Pantalons</th>
                     <th>Quantitat</th>
-                    <th>Sabates</th>
+                    <th class="border-l border-base-content/20 pl-4">Sabates</th>
                     <th>Quantitat</th>
                 </tr>
             </thead>
@@ -36,9 +36,9 @@
                     <tr>
                         <td>{{ array_keys($shirtSizes)[$i] ?? '' }}</td>
                         <td>{{ (array_values($shirtSizes)[$i] ?? 0) > 0 ? array_values($shirtSizes)[$i] : '' }}</td>
-                        <td>{{ array_keys($pantsSizes)[$i] ?? '' }}</td>
+                        <td class="border-l border-base-content/20 pl-4">{{ array_keys($pantsSizes)[$i] ?? '' }}</td>
                         <td>{{ (array_values($pantsSizes)[$i] ?? 0) > 0 ? array_values($pantsSizes)[$i] : '' }}</td>
-                        <td>{{ array_keys($shoeSizes)[$i] ?? '' }}</td>
+                        <td class="border-l border-base-content/20 pl-4">{{ array_keys($shoeSizes)[$i] ?? '' }}</td>
                         <td>{{ (array_values($shoeSizes)[$i] ?? 0) > 0 ? array_values($shoeSizes)[$i] : '' }}</td>
                     </tr>
                 @endfor
