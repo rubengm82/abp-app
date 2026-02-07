@@ -178,9 +178,9 @@ class MaterialAssignmentController extends Controller
                 $assignment->shirt_size ?: 'No assignat',
                 $assignment->pants_size ?: 'No assignat',
                 $assignment->shoe_size ?: 'No assignat',
-                $assignment->assignment_date->format('d/m/Y'),
+                $assignment->assignment_date ? $assignment->assignment_date->format('d/m/Y') : '',
                 $assignedByName,
-                $assignment->observations ?: 'Sense observacions',
+                $assignment->observations ?? '',
             ]);
         }
         

@@ -12,9 +12,9 @@
     <tbody>
         @foreach($courses as $course)
             <tr class="hover:bg-base-300 transition-colors text-xs">
-                <td class="px-4 py-2 font-medium">{{ Str::limit($course->training_name, 30) }}</td>
-                <td class="px-4 py-2">{{ Str::limit($course->training_center, 25) }}</td>
-                <td class="px-4 py-2">{{ Str::limit($course->forcem_code, 15) }}</td>
+                <td class="px-4 py-2 font-medium">{{ $course->training_name ? Str::limit($course->training_name, 30) : 'No especificada' }}</td>
+                <td class="px-4 py-2">{{ $course->training_center ? Str::limit($course->training_center, 25) : 'No especificada' }}</td>
+                <td class="px-4 py-2">{{ $course->forcem_code ? Str::limit($course->forcem_code, 15) : 'No especificada' }}</td>
                 <td class="px-4 py-2">{{ $course->attendance_type ?? 'No especificada' }}</td>
                 <td class="px-4 py-2">{{ $course->start_date ? \Carbon\Carbon::parse($course->start_date)->format('d/m/Y') : 'No especificada' }}</td>
                 <td class="px-4 py-2 text-right">

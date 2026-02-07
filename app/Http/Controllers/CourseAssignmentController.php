@@ -10,7 +10,7 @@ class CourseAssignmentController extends Controller
     public function updateCertificate(Request $request, string $id)
     {
         $request->validate([
-            'certificate' => 'required|in:Pendent,Entregat',
+            'certificate' => 'required|in:Pendent,Fet',
         ]);
 
         $courseAssignment = CourseAssignment::findOrFail($id);

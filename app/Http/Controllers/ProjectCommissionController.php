@@ -17,23 +17,23 @@ class ProjectCommissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, $status = 'Actiu')
+    public function index(Request $request)
     {
+        $isDeactivated = request()->route()->getName() === 'projectcommissions_desactivated_list';
+
         $query = ProjectCommission::with('responsibleProfessional')
-            ->where('status', $status)
-            ->where('center_id', Auth::user()->center->id);
+            ->where('center_id', Auth::user()->center->id)
+            ->where('active_status', $isDeactivated ? 0 : 1);
 
         if ($search = $request->get('search')) {
             $query
-                ->whereAny(['id', 'name', 'start_date', 'status', 'type'], 'like', "%{$search}%") // Fields from ProjectCommission
+                ->whereAny(['id', 'name', 'start_date', 'status', 'type'], 'like', "%{$search}%")
                 ->orWhereHas('responsibleProfessional', fn($q) =>
                     $q->whereAny(['name', 'surname1', 'surname2'], 'like', "%{$search}%")
                 );
         }
 
-        $projectCommissions = $query->get();
-
-        $isDeactivated = ($status == 'Inactiu');
+        $projectCommissions = $query->orderBy('created_at', 'desc')->get();
 
         return $request->ajax()
             ? view('components.contents.projectcommission.tables.projectCommissionsListTable', [
@@ -65,17 +65,20 @@ class ProjectCommissionController extends Controller
      */
     public function store(Request $request)
     {
-        $status_active = 'Actiu';
+        $request->validate([
+            'status' => 'nullable|in:Actiu,Pendent,Tancat',
+        ]);
 
         ProjectCommission::create([
-            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
+            'center_id' => Auth::user()->center_id,
             'name' => $request->input('name'),
             'type' => $request->input('type'),
             'start_date' => $request->input('start_date'),
             'estimated_end_date' => $request->input('estimated_end_date'),
             'responsible_professional_id' => $request->input('responsible_professional_id'),
             'description' => $request->input('description'),
-            'status' => $status_active,
+            'status' => $request->input('status', 'Pendent'),
+            'active_status' => 1,
         ]);
 
         return redirect()->route('projectcommission_form')->with('success', 'Projecte/Comissió afegit correctament!');
@@ -118,6 +121,10 @@ class ProjectCommissionController extends Controller
      */
     public function update(Request $request, ProjectCommission $projectCommission)
     {
+        $request->validate([
+            'status' => 'nullable|in:Actiu,Pendent,Tancat',
+        ]);
+
         $projectCommission->update([
             'name' => $request->input('name'),
             'type' => $request->input('type'),
@@ -125,6 +132,7 @@ class ProjectCommissionController extends Controller
             'estimated_end_date' => $request->input('estimated_end_date'),
             'responsible_professional_id' => $request->input('responsible_professional_id'),
             'description' => $request->input('description'),
+            'status' => $request->input('status', $projectCommission->status),
         ]);
 
         return redirect()->route('projectcommissions_list', $projectCommission)->with('success', 'Projecte/Comissió actualitzat correctament!');
@@ -135,8 +143,7 @@ class ProjectCommissionController extends Controller
      */
     public function activateStatus(Request $request, ProjectCommission $projectCommission)
     {
-        $projectCommission->status = 'Actiu';
-        $projectCommission->save();
+        $projectCommission->update(['active_status' => 1]);
         
         return redirect()->route('projectcommissions_desactivated_list')->with('success', 'Projecte/Comissió activat correctament!');
     }
@@ -146,10 +153,18 @@ class ProjectCommissionController extends Controller
      */
     public function desactivateStatus(Request $request, ProjectCommission $projectCommission)
     {
-        $projectCommission->update(['status' => 'Inactiu']);
-        $projectCommission->save();
+        $projectCommission->update(['active_status' => 0]);
         
         return redirect()->route('projectcommissions_list')->with('success', 'Projecte/Comissió desactivat correctament!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(ProjectCommission $projectCommission)
+    {
+        $projectCommission->delete();
+        return redirect()->route('projectcommissions_list')->with('success', 'Projecte/Comissió eliminat correctament!');
     }
 
     /**
@@ -157,23 +172,30 @@ class ProjectCommissionController extends Controller
      */
     public function downloadCSV(string $statusParam)
     {
-        $projectCommissions = ProjectCommission::where('status', $statusParam)->where('center_id', Auth::user()->center->id)->with('responsibleProfessional')->get();
+        $isActive = ((string) $statusParam) === '1';
+
+        $projectCommissions = ProjectCommission::where('center_id', Auth::user()->center->id)
+            ->where('active_status', $isActive ? 1 : 0)
+            ->with('responsibleProfessional')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
-        $filename = $statusParam == 'Actiu' ? "projectes_comissions_actius_{$timestamp}.csv" : "projectes_comissions_inactius_{$timestamp}.csv";
+        $filename = $isActive ? "projectes_comissions_actius_{$timestamp}.csv" : "projectes_comissions_desactivats_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Nom', 'Tipus', 'Data Inici', 'Data Fi Est.', 'Professional Responsable', 'Descripció']);
+        fputcsv($handle, ['ID', 'Nom', 'Tipus', 'Estat', 'Data Inici', 'Data Fi Est.', 'Professional Responsable', 'Descripció']);
 
         foreach ($projectCommissions as $projectCommission) {
             fputcsv($handle, [
                 $projectCommission->id,
                 $projectCommission->name,
-                $projectCommission->type,
+                $projectCommission->type ?? '',
+                $projectCommission->status ?? '',
                 $projectCommission->start_date ? \Carbon\Carbon::parse($projectCommission->start_date)->format('d/m/Y') : '',
                 $projectCommission->estimated_end_date ? \Carbon\Carbon::parse($projectCommission->estimated_end_date)->format('d/m/Y') : '',
                 $projectCommission->responsibleProfessional ? $projectCommission->responsibleProfessional->name . ' ' . $projectCommission->responsibleProfessional->surname1 : '',
-                $projectCommission->description,
+                $projectCommission->description ?? '',
             ]);
         }
 

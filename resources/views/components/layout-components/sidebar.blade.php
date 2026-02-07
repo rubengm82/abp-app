@@ -186,6 +186,32 @@
                 </details>
             </li>
 
+            <!-- 4b. Cursos -->
+            <li>
+                <details>
+                    <summary class="font-normal text-base-content">
+                        <x-partials.icon name="academic-cap" class="w-6 h-6 text-primary" />
+                        Cursos
+                    </summary>
+                    <ul class="text-xs text-base-content/65">
+                        <li>
+                            <a href="{{ route('courses_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="text-xs text-base-content/65">
+                        <li>
+                            <a href="{{ route('course_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Afegir
+                            </a>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+
             <!-- 5. Manteniments -->
             @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
             <li>

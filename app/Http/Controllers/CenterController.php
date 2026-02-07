@@ -143,9 +143,9 @@ class CenterController extends Controller
         foreach ($centers as $center) {
             fputcsv($handle, [
                 $center->name,
-                $center->address,
-                $center->phone,
-                $center->email,
+                $center->address ?? '',
+                $center->phone ?? '',
+                $center->email ?? '',
                 $center->status == 1 ? 'Actiu' : 'No actiu',
             ]);
         }

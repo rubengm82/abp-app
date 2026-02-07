@@ -146,12 +146,13 @@ Route::middleware('auth')->get('/professional_accident/documents/download/{docum
 Route::middleware('auth')->get('/projectcommission/form', [ProjectCommissionController::class, "create"])->name("projectcommission_form");
 Route::middleware('auth')->post('/projectcommission/add', [ProjectCommissionController::class, "store"])->name("projectcommission_add");
 Route::middleware('auth')->get('/projectcommissions/list', [ProjectCommissionController::class, "index"])->name("projectcommissions_list");
-Route::middleware('auth')->get('/projectcommissions/desactivated/list', [ProjectCommissionController::class, "index"])->defaults('status', 'Inactiu')->name("projectcommissions_desactivated_list");
+Route::middleware('auth')->get('/projectcommissions/desactivated/list', [ProjectCommissionController::class, "index"])->name("projectcommissions_desactivated_list");
 Route::middleware('auth')->patch('/projectcommission/activate/{projectCommission}', [ProjectCommissionController::class, 'activateStatus'])->name('projectcommission_activate');
 Route::middleware('auth')->patch('/projectcommission/desactivate/{projectCommission}', [ProjectCommissionController::class, 'desactivateStatus'])->name('projectcommission_desactivate');
 Route::middleware('auth')->post('/projectcommission/{projectCommission}', [ProjectCommissionController::class, "update"])->name("projectcommission_update");
 Route::middleware('auth')->get('/projectcommission/edit/{projectCommission}', [ProjectCommissionController::class, 'edit'])->name('projectcommission_edit');
 Route::middleware('auth')->get('/projectcommission/show/{projectCommission}', [ProjectCommissionController::class, 'show'])->name('projectcommission_show');
+Route::middleware('auth')->delete('/projectcommission/delete/{projectCommission}', [ProjectCommissionController::class, 'destroy'])->name('projectcommission_delete');
 Route::middleware('auth')->get('/projectcommissions/downloadCSV/{status}', [ProjectCommissionController::class, 'downloadCSV'])->name('projectcommissions.downloadCSV');
 
 /* Project Commission Notes */

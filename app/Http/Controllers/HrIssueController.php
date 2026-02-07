@@ -304,10 +304,10 @@ class HrIssueController extends Controller
                 $affectedName,
                 $registeringName,
                 $referredName,
-                $hrIssue->description,
-                $hrIssue->status,
-                $hrIssue->opening_date ? \Carbon\Carbon::parse($hrIssue->opening_date)->format('d/m/Y') : 'No especificada',
-                $hrIssue->closing_date ? \Carbon\Carbon::parse($hrIssue->closing_date)->format('d/m/Y') : 'No especificada',
+                $hrIssue->description ?? '',
+                $hrIssue->status ?? '',
+                $hrIssue->opening_date ? \Carbon\Carbon::parse($hrIssue->opening_date)->format('d/m/Y') : '',
+                $hrIssue->closing_date ? \Carbon\Carbon::parse($hrIssue->closing_date)->format('d/m/Y') : '',
             ]);
         }
 

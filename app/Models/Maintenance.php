@@ -10,13 +10,18 @@ class Maintenance extends Model
     protected $table = 'maintenances';
 
     protected $fillable = [
-        'name_maintenance', 
+        'name_maintenance',
         'responsible_maintenance',
         'center_id',
         'description',
         'opening_date_maintenance',
         'ending_date_maintenance',
         'status',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
     
     public function center():BelongsTo

@@ -17,7 +17,8 @@ class MaintenanceController extends Controller
      */
     public function index(Request $request, $status = 1)
     {
-        $query = $maintenances = Maintenance::query()->where('center_id', Auth::user()->center_id)->where('status', $status);
+        $isActive = (bool) $status;
+        $query = Maintenance::query()->where('center_id', Auth::user()->center_id)->where('is_active', $isActive);
 
         if ($search = $request->get('search')) {
 
@@ -58,6 +59,7 @@ class MaintenanceController extends Controller
             'description' => 'nullable|string',
             'opening_date_maintenance' => 'required|date',
             'ending_date_maintenance' => 'nullable',
+            'status' => 'required|in:Obert,Tancat,En resol·lució',
         ]);
 
         Maintenance::create([
@@ -66,8 +68,9 @@ class MaintenanceController extends Controller
             'description' => $validated['description'] ?? null,
             'opening_date_maintenance' => $validated['opening_date_maintenance'],
             'ending_date_maintenance' => $validated['ending_date_maintenance'],
-            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
-            'status' => 1,
+            'center_id' => Auth::user()->center_id,
+            'status' => $validated['status'],
+            'is_active' => true,
         ]);
 
         return redirect()->route('maintenances_list')->with('success', 'Manteniment creat correctament!');
@@ -100,6 +103,7 @@ class MaintenanceController extends Controller
             'description' => 'nullable|string',
             'opening_date_maintenance' => 'required|date',
             'ending_date_maintenance' => 'nullable',
+            'status' => 'required|in:Obert,Tancat,En resol·lució',
         ]);
 
         $maintenance->update([
@@ -108,7 +112,7 @@ class MaintenanceController extends Controller
             'description' => $validated['description'] ?? $maintenance->description,
             'opening_date_maintenance' => $validated['opening_date_maintenance'],
             'ending_date_maintenance' => $validated['ending_date_maintenance'],
-            // center_id is not modified, it remains the existing one
+            'status' => $validated['status'],
         ]);
 
         return redirect()->route('maintenances_list')->with('success', 'Manteniment actualitzat correctament!');
@@ -128,7 +132,7 @@ class MaintenanceController extends Controller
      */
     public function activateStatus(Request $request, Maintenance $maintenance)
     {
-        $maintenance->update(['status' => 1]);
+        $maintenance->update(['is_active' => true]);
 
         return redirect()->route('maintenances_desactivated_list')->with('success', 'Manteniment activat correctament!');
     }
@@ -138,7 +142,7 @@ class MaintenanceController extends Controller
      */
     public function desactivateStatus(Request $request, Maintenance $maintenance)
     {
-        $maintenance->update(['status' => 0]);
+        $maintenance->update(['is_active' => false]);
 
         return redirect()->route('maintenances_list')->with('success', 'Manteniment desactivat correctament!');
     }
@@ -258,24 +262,34 @@ class MaintenanceController extends Controller
      */
     public function downloadCSV()
     {
-        $maintenances = Maintenance::where('center_id', Auth::user()->center->id)->get();
+        $maintenances = Maintenance::where('center_id', Auth::user()->center->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = "manteniments_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['Nom del Manteniment', 'Resposable del Manteniment', 'Descripció', 'Data d\'inici']);
+        fputcsv($handle, [
+            'Nom del Manteniment',
+            'Responsable del Manteniment',
+            'Descripció',
+            'Data d\'inici',
+            'Data fi',
+            'Estat',
+        ]);
 
-        foreach ($maintenances as $maintenances) {
+        foreach ($maintenances as $m) {
             fputcsv($handle, [
-                $maintenances->name_maintenance,
-                $maintenances->responsible_maintenance,
-                $maintenances->description,
-                $maintenances->opening_date_maintenance,
+                $m->name_maintenance,
+                $m->responsible_maintenance,
+                $m->description ?? '',
+                $m->opening_date_maintenance ? \Carbon\Carbon::parse($m->opening_date_maintenance)->format('d/m/Y') : '',
+                $m->ending_date_maintenance ? \Carbon\Carbon::parse($m->ending_date_maintenance)->format('d/m/Y') : '',
+                $m->status ?? '',
             ]);
         }
 
-        // Close Pointer File
         fclose($handle);
 
         return response()->download($filename)->deleteFileAfterSend(true);

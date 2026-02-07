@@ -64,22 +64,6 @@
                         <label class="font-bold">Hores totals:</label>
                         <p class="text-sm text-base-content/50">{{ $course->total_hours ?: 'No especificades' }}</p>
                     </div>
-                    <div>
-                        <label class="font-bold">Taller:</label>
-                        <p class="text-sm text-base-content/50">{{ $course->workshop ?: 'No especificat' }}</p>
-                    </div>
-                    <div>
-                        <label class="font-bold">Dia de conferència:</label>
-                        <p class="text-sm text-base-content/50">{{ $course->conference_day ?: 'No especificat' }}</p>
-                    </div>
-                    <div>
-                        <label class="font-bold">Congrés:</label>
-                        <p class="text-sm text-base-content/50">{{ $course->congress ?: 'No especificat' }}</p>
-                    </div>
-                    <div>
-                        <label class="font-bold">Assistents:</label>
-                        <p class="text-sm text-base-content/50">{{ $course->attendee ?: 'No especificats' }}</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -132,14 +116,14 @@
                         </a>
 
                         <div class="flex items-center gap-2">
-                            <span class="badge badge-dash {{ $assignment->certificate === 'Entregat' ? 'badge-success' : 'badge-warning' }}">
+                            <span class="badge badge-dash {{ $assignment->certificate === 'Fet' ? 'badge-success' : 'badge-warning' }}">
                                 {{ $assignment->certificate ?? 'Pendent' }}
                             </span>
 
                             <!-- Button open modal -->
                             <x-partials.modal
                                 id="certificateModal{{ $assignment->id }}"
-                                msj="Canviar l'estat del certificat a {{ $assignment->certificate === 'Entregat' ? 'Pendent' : 'Entregat' }}?"
+                                msj="Canviar l'estat del certificat a {{ $assignment->certificate === 'Fet' ? 'Pendent' : 'Fet' }}?"
                                 btnText="Canviar"
                                 class="btn btn-xs btn-info"
                             >
@@ -147,7 +131,7 @@
                                     @csrf
                                     @method('PATCH')
                                     
-                                    <input type="hidden" name="certificate" value="{{ $assignment->certificate === 'Entregat' ? 'Pendent' : 'Entregat' }}">
+                                    <input type="hidden" name="certificate" value="{{ $assignment->certificate === 'Fet' ? 'Pendent' : 'Fet' }}">
 
                                     <button type="submit" class="btn btn-sm btn-info">Acceptar</button>
                                 </form>

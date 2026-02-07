@@ -194,7 +194,7 @@
                             </div>
 
                             <div class="flex items-center gap-2">
-                                <span class="badge badge-dash {{ $course->pivot->certificate === 'Entregat' ? 'badge-success' : 'badge-warning' }}">
+                                <span class="badge badge-dash {{ $course->pivot->certificate === 'Fet' ? 'badge-success' : 'badge-warning' }}">
                                     {{ $course->pivot->certificate ?? 'Pendent' }}
                                 </span>
                             </div>

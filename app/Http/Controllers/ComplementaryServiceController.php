@@ -267,14 +267,16 @@ class ComplementaryServiceController extends Controller
 
         $handle = fopen($filepath, 'w+');
 
-        fputcsv($handle, ['Tipus de Servei', 'Centre', 'Responsable', 'Data d\'inici']);
+        fputcsv($handle, ['Tipus de Servei', 'Centre', 'Responsable', 'Data d\'inici', 'Data fi', 'Descripció']);
 
         foreach ($services as $service) {
             fputcsv($handle, [
-                $service->service_type ?? 'No especificat',
+                $service->service_type ?? '',
                 $service->center ? $service->center->name : 'No assignat',
-                $service->service_responsible ?? 'No especificat',
-                $service->start_date ? \Carbon\Carbon::parse($service->start_date)->format('d/m/Y') : 'No especificada',
+                $service->service_responsible ?? '',
+                $service->start_date ? \Carbon\Carbon::parse($service->start_date)->format('d/m/Y') : '',
+                $service->end_date ? \Carbon\Carbon::parse($service->end_date)->format('d/m/Y') : '',
+                $service->description ?? '',
             ]);
         }
 

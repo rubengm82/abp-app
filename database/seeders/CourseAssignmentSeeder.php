@@ -32,7 +32,7 @@ class CourseAssignmentSeeder extends Seeder
             [
                 'course_id' => 1,
                 'professional_id' => 4,
-                'certificate' => 'Entregat',
+                'certificate' => 'Fet',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -57,7 +57,7 @@ class CourseAssignmentSeeder extends Seeder
             [
                 'course_id' => 3,
                 'professional_id' => 2,
-                'certificate' => 'Entregat',
+                'certificate' => 'Fet',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

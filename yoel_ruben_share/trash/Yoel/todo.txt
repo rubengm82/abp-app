@@ -1,11 +1,12 @@
 # Sprint 6  - TODO LIST
 
-Todo Mover Sección de Notas del show de profesional: 
-* Crear un nuevo listado simple con Nombre del profesional, fecha de la última vez que se subió una nota y botón para 'Veure' como siempre
-** En el topbar, estará dentro del apartado de Prfesionales
-** Este nuevo show mostrará las notas que hasta ahora estaban en el show de profesional
-** El show de profesional dejará de tener las notas para tener un enlace a este nuevo show
-** Modificar el nombre 'Notes' a 'Seguiment'
+Todo:
+* Añadir estado a projectcommission
+** enum(Actiu verde, Pendent naranja, Tancat Azul)
+** Modifica los shows y formularios y el listado en consecuencia
+
+
+
 
 Apuntes:
 * 

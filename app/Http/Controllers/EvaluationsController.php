@@ -247,8 +247,11 @@ class EvaluationsController extends Controller
     {
         $questions = Quiz::all();
         $evaluations = Evaluation::with(['evaluatedProfessional', 'evaluatorProfessional'])
-            ->get()
-            ->sortByDesc('created_at');
+            ->whereHas('evaluatedProfessional', function ($q) {
+                $q->where('center_id', Auth::user()->center_id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $grouped = $evaluations->groupBy(fn($item) => $item->evaluation_uuid);
 

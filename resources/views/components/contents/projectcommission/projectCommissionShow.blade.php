@@ -11,38 +11,47 @@
 <div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <!-- Header: Nombre y acciones -->
     <div class="flex justify-end items-center mb-6">
-        {{-- <h1 class="text-3xl font-bold text-base-content">{{ $projectCommission->name }}</h1> --}}
-        <!-- Buttons -->
-        @if((Auth::user()->permissions ?? null) !== 'Tècnic')
         <div class="flex gap-2">
-            @if($projectCommission->status == 'Actiu')
+            @if((Auth::user()->permissions ?? null) !== 'Tècnic')
                 <a href="{{ route('projectcommission_edit', $projectCommission) }}" class="btn btn-sm btn-info">Editar</a>
             @endif
+
             @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
-                @if($projectCommission->status == 'Actiu')
-                    <x-partials.modal id="desactivateProjectCommission{{ $projectCommission->id }}" 
-                        msj="Estàs segur que vols desactivar aquesta comissió?" 
-                        btnText="Desactivar" class="btn-sm btn-error">
+                @if(($projectCommission->active_status ?? 1) == 1)
+                    <x-partials.modal
+                        id="desactivateProjectCommission{{ $projectCommission->id }}"
+                        msj="Estàs segur que vols desactivar aquest projecte/comissió?"
+                        btnText="Desactivar"
+                        class="btn-sm btn-warning"
+                    >
                         <form action="{{ route('projectcommission_desactivate', $projectCommission) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-sm btn-error">
-                                Acceptar
-                            </button>
+                            <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
                         </form>
                     </x-partials.modal>
                 @else
                     <form action="{{ route('projectcommission_activate', $projectCommission) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('PATCH')
-                        <button type="submit" class="btn btn-sm btn-success">
-                            Activar
-                        </button>
+                        <button type="submit" class="btn btn-sm btn-success">Activar</button>
                     </form>
                 @endif
+
+                <x-partials.modal
+                    id="deleteProjectCommission{{ $projectCommission->id }}"
+                    msj="Estàs segur que vols eliminar aquest projecte/comissió?"
+                    btnText="Eliminar"
+                    class="btn-sm btn-error"
+                >
+                    <form action="{{ route('projectcommission_delete', $projectCommission) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                    </form>
+                </x-partials.modal>
             @endif
         </div>
-        @endif
     </div>
 
     <!-- Información básica y descripción -->
@@ -61,14 +70,6 @@
                         <p class="text-sm text-base-content/50">{{ $projectCommission->type }}</p>
                     </div>
                     <div>
-                        <label class="font-bold text-md">Data d'inici:</label>
-                        <p class="text-sm text-base-content/50">{{ $projectCommission->start_date ?: 'No especificada' }}</p>
-                    </div>
-                    <div>
-                        <label class="font-bold text-md">Data estimada de finalització:</label>
-                        <p class="text-sm text-base-content/50">{{ $projectCommission->estimated_end_date ?: 'No especificada' }}</p>
-                    </div>
-                    <div>
                         <label class="font-bold text-md">Professional responsable:</label>
                         <p class="text-sm text-base-content/50">
                             @if($projectCommission->responsibleProfessional)
@@ -85,9 +86,13 @@
                     <div>
                         <label class="font-bold text-md">Estat:</label>
                         <p class="text-sm text-base-content/50">
-                            <span class="badge badge-dash {{ $projectCommission->status === 'Actiu' ? 'badge-success' : 'badge-error' }}">
-                                {{ $projectCommission->status }}
-                            </span>
+                            @if(($projectCommission->status ?? '') === 'Actiu')
+                                <span class="badge badge-dash badge-success">{{ $projectCommission->status }}</span>
+                            @elseif(($projectCommission->status ?? '') === 'Pendent')
+                                <span class="badge badge-dash badge-warning">{{ $projectCommission->status }}</span>
+                            @else
+                                <span class="badge badge-dash badge-info">{{ $projectCommission->status ?? 'Tancat' }}</span>
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -166,7 +171,15 @@
     <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació addicional</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="font-bold text-md">Data d'inici:</label>
+                    <p class="text-sm text-base-content/50">{{ $projectCommission->start_date ?: 'No especificada' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Data estimada de finalització:</label>
+                    <p class="text-sm text-base-content/50">{{ $projectCommission->estimated_end_date ?: 'No especificada' }}</p>
+                </div>
                 <div>
                     <label class="font-bold text-md">Data de creació:</label>
                     <p class="text-sm text-base-content/50">{{ $projectCommission->created_at ?: 'No especificada' }}</p>

@@ -61,11 +61,27 @@
 
                     <div class="form-control">
                         <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Centre de Formació</span>
+                        </label>
+                        <input type="text" name="training_center" id="id_training_center" placeholder="Ex: Casa Vapor Gran"
+                               class="input input-bordered w-full"
+                               value="{{ old('training_center', $course->training_center ?? '') }}">
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
                             <span class="label-text">Tipus de curs</span>
                         </label>
-                        <input type="text" name="type" id="id_type" placeholder="Ex: Formació interna, Taller, etc." 
-                               class="input input-bordered w-full" 
-                               value="{{ old('type', $course->type ?? '') }}">
+                        <select name="type" id="id_type" class="select select-bordered w-full">
+                            <option value="">Selecciona tipus</option>
+                            <option value="Formació Interna" {{ old('type', $course->type ?? '') == 'Formació Interna' ? 'selected' : '' }}>Formació Interna</option>
+                            <option value="Formació Externa" {{ old('type', $course->type ?? '') == 'Formació Externa' ? 'selected' : '' }}>Formació Externa</option>
+                            <option value="Formació Salut Laboral" {{ old('type', $course->type ?? '') == 'Formació Salut Laboral' ? 'selected' : '' }}>Formació Salut Laboral</option>
+                            <option value="Jorn" {{ old('type', $course->type ?? '') == 'Jorn' ? 'selected' : '' }}>Jorn</option>
+                            <option value="Taller" {{ old('type', $course->type ?? '') == 'Taller' ? 'selected' : '' }}>Taller</option>
+                            <option value="Seminari" {{ old('type', $course->type ?? '') == 'Seminari' ? 'selected' : '' }}>Seminari</option>
+                            <option value="Congrés" {{ old('type', $course->type ?? '') == 'Congrés' ? 'selected' : '' }}>Congrés</option>
+                        </select>
                     </div>
 
                     <div class="form-control">
@@ -113,60 +129,6 @@
                            class="input input-bordered w-full" 
                            min="0"
                            value="{{ old('total_hours', $course->total_hours ?? '') }}">
-                </div>
-            </div>
-        </div>
-
-        <!-- Other Details -->
-        <div class="card bg-base-100 shadow-xl/10 border border-gray-500/20">
-            <div class="card-body">
-                <h2 class="card-title text-xl mb-4 underline underline-offset-5">Altres Detalls</h2>
-                <div class="space-y-4">
-                    <div class="form-control">
-                        <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Taller</span>
-                        </label>
-                        <input type="text" name="workshop" id="id_workshop" placeholder="Ex: Taller pràctic de fusteria" 
-                               class="input input-bordered w-full" 
-                               value="{{ old('workshop', $course->workshop ?? '') }}">
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Dia de conferència</span>
-                        </label>
-                        <input type="text" name="conference_day" id="id_conference_day" placeholder="Ex: Dimecres" 
-                               class="input input-bordered w-full" 
-                               value="{{ old('conference_day', $course->conference_day ?? '') }}">
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Congrés</span>
-                        </label>
-                        <input type="text" name="congress" id="id_congress" placeholder="Ex: Congrés de Formació 2025" 
-                               class="input input-bordered w-full" 
-                               value="{{ old('congress', $course->congress ?? '') }}">
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Assistents</span>
-                        </label>
-                        <input type="text" name="attendee" id="id_attendee" placeholder="Ex: Professionals del centre" 
-                               class="input input-bordered w-full" 
-                               value="{{ old('attendee', $course->attendee ?? '') }}">
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Centre de Formació</span>
-                        </label>
-                        <input type="text" name="training_center" id="id_training_center" placeholder="Ex: Casa Vapor Gran" 
-                               class="input input-bordered w-full" 
-                               value="{{ old('training_center', $course->training_center ?? '') }}">
-                    </div>
-
                 </div>
             </div>
         </div>

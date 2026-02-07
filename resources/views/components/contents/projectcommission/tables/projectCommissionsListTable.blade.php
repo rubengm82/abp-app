@@ -1,11 +1,12 @@
 <table class="table w-full table-md table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-bold">
-            <th class="px-4 py-2 text-left">Nom/Títol</th>
+            <th class="px-4 py-2 text-left">Títol</th>
             <th class="px-4 py-2 text-left">Professional responsable</th>
             <th class="px-4 py-2 text-left">Tipus</th>
             <th class="px-4 py-2 text-left">Data d'inici</th>
-            <th class="px-4 py-2 text-right">{{ $isDeactivated ? 'Accions' : 'Acció' }}</th>
+            <th class="px-4 py-2 text-left">Estat</th>
+            <th class="px-4 py-2 text-right">Acció</th>
         </tr>
     </thead>
     <tbody>
@@ -22,13 +23,21 @@
                         <span class="text-base-content/50">No assignat</span>
                     @endif
                 </td>
-                <td class="px-4 py-2">{{ $projectCommission->type }}</td>
-                <td class="px-4 py-2">{{ $projectCommission->start_date }}</td>
+                <td class="px-4 py-2">{{ $projectCommission->type ?? '' }}</td>
+                <td class="px-4 py-2">{{ $projectCommission->start_date ? \Carbon\Carbon::parse($projectCommission->start_date)->format('d/m/Y') : 'No especificada' }}</td>
+                <td class="px-4 py-2">
+                    @if(($projectCommission->status ?? '') === 'Actiu')
+                        <span class="badge badge-dash badge-success">{{ $projectCommission->status }}</span>
+                    @elseif(($projectCommission->status ?? '') === 'Pendent')
+                        <span class="badge badge-dash badge-warning">{{ $projectCommission->status }}</span>
+                    @else
+                        <span class="badge badge-dash badge-info">{{ $projectCommission->status ?? 'Tancat' }}</span>
+                    @endif
+                </td>
                 <td class="px-4 py-2 text-right">
                     <div class="flex justify-end gap-2">
-                        @if(!$isDeactivated)
-                            <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-xs btn-info">Veure</a>
-                        @endif
+                        <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-xs btn-info">Veure</a>
+
                         @if($isDeactivated)
                             <form action="{{ route('projectcommission_activate', $projectCommission) }}" method="POST" style="display:inline;">
                                 @csrf

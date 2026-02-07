@@ -23,7 +23,8 @@ return new class extends Migration
             $table->unsignedBigInteger('responsible_professional_id')->comment('Responsible professional');
             $table->text('description')->comment('Project description')->nullable();
             $table->enum('type', ['Projecte', 'Comissió'])->comment('Type: Projecte, Comissió')->nullable();
-            $table->enum('status', ['Actiu', 'Inactiu'])->comment('Status: Actiu, Inactiu')->nullable();
+            $table->enum('status', ['Actiu', 'Pendent', 'Tancat'])->default('Pendent')->comment('Status: Actiu (green), Pendent (orange), Tancat (blue)');
+            $table->integer('active_status')->default(1)->comment('Active status: 1 active, 0 deactivated');
             // FKs
             $table->foreign('responsible_professional_id')->references('id')->on('professionals')->onDelete('cascade');
 

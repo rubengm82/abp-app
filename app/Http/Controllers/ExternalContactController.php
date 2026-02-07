@@ -120,7 +120,9 @@ class ExternalContactController extends Controller
      */
     public function downloadCSV()
     {
-        $externalContacts = ExternalContact::where('center_id', Auth::user()->center->id)->get();
+        $externalContacts = ExternalContact::where('center_id', Auth::user()->center->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = "contactes_externs_{$timestamp}.csv";
@@ -131,15 +133,15 @@ class ExternalContactController extends Controller
         foreach ($externalContacts as $externalContact) {
             $responsible = trim(($externalContact->name ?? '') . ' ' . ($externalContact->surname ?? ''));
             fputcsv($handle, [
-                $externalContact->external_contact_type,
-                $externalContact->service_reason,
-                $externalContact->company,
-                $externalContact->department,
+                $externalContact->external_contact_type ?? '',
+                $externalContact->service_reason ?? '',
+                $externalContact->company ?? '',
+                $externalContact->department ?? '',
                 $responsible,
-                $externalContact->phone,
-                $externalContact->email,
-                $externalContact->link,
-                $externalContact->observations,
+                $externalContact->phone ?? '',
+                $externalContact->email ?? '',
+                $externalContact->link ?? '',
+                $externalContact->observations ?? '',
             ]);
         }
 

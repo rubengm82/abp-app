@@ -30,8 +30,9 @@ return new class extends Migration
             $table->date('ending_date_maintenance')->nullable()->comment('Maintenance opening date');
             // $table->date('end_date')->nullable()->comment('Maintenance end date');
 
-            $table->integer('status')->nullable();
-            
+            $table->enum('status', ['Obert', 'Tancat', 'En resol·lució'])->default('Obert')->comment('Maintenance workflow status');
+            $table->boolean('is_active')->default(true)->comment('Whether record is shown in active list');
+
             $table->timestamps();
         });
     }

@@ -17,10 +17,6 @@ class Course extends Model
         'type',
         'attendance_type',
         'training_name',
-        'workshop',
-        'conference_day',
-        'congress',
-        'attendee',
         'start_date',
         'end_date',
     ];

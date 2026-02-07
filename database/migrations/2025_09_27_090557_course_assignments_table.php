@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('professional_id')->comment('Professional reference');
             $table->unsignedBigInteger('course_id')->comment('Course reference');
-            $table->enum('certificate', ['Entregat', 'Pendent'])->default('Pendent')->comment('Certificate status: Entregat, Pendent');
+            $table->enum('certificate', ['Pendent', 'Fet'])->default('Pendent')->comment('Certificate status: Pendent, Fet');
 
             //FKs
             $table->foreign('professional_id')->references('id')->on('professionals')->onDelete('cascade');

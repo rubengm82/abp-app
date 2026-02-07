@@ -52,6 +52,16 @@
                             <option value="Comissió" {{ old('type') == 'Comissió' ? 'selected' : '' }}>Comissió</option>
                         </select>
                     </div>
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Estat</span>
+                        </label>
+                        <select name="status" id="id_status" class="select select-bordered w-full">
+                            <option value="Actiu" {{ old('status') == 'Actiu' ? 'selected' : '' }}>Actiu</option>
+                            <option value="Pendent" {{ old('status', 'Pendent') == 'Pendent' ? 'selected' : '' }}>Pendent</option>
+                            <option value="Tancat" {{ old('status') == 'Tancat' ? 'selected' : '' }}>Tancat</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

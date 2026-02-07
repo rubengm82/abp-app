@@ -77,6 +77,16 @@
                             class="textarea textarea-bordered w-full"
                         >{{ old('description') }}</textarea>
                     </div>
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Estat *</span>
+                        </label>
+                        <select name="status" id="id_status" class="select select-bordered w-full" required>
+                            <option value="Obert" {{ old('status', 'Obert') == 'Obert' ? 'selected' : '' }}>Obert</option>
+                            <option value="En resol·lució" {{ old('status') == 'En resol·lució' ? 'selected' : '' }}>En resol·lució</option>
+                            <option value="Tancat" {{ old('status') == 'Tancat' ? 'selected' : '' }}>Tancat</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

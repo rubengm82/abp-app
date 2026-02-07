@@ -18,7 +18,8 @@ class ProjectCommission extends Model
         'responsible_professional_id',
         'description',
         'type',
-        'status'
+        'status',
+        'active_status',
     ];
 
     /**

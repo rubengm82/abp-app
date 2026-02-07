@@ -18,17 +18,17 @@ class CourseController extends Controller
      */
     public function index(Request $request)
     {
-         // Base query
+        // Base query: newest first
         $query = Course::query()
-            ->where('center_id', Auth::user()->center->id);
+            ->where('center_id', Auth::user()->center->id)
+            ->orderBy('created_at', 'desc');
 
         // Apply search filter if a search term is provided
-            if ($search = $request->get('search')) {
-                $query->whereAny(['training_center', 'training_name', 'forcem_code', 'attendance_type', 'start_date'], 'like', "%{$search}%"); // Adjust fields to match your table
-            }
+        if ($search = $request->get('search')) {
+            $query->whereAny(['training_center', 'training_name', 'forcem_code', 'attendance_type', 'start_date'], 'like', "%{$search}%");
+        }
 
-            // Get all results
-            $courses = $query->get();
+        $courses = $query->get();
 
             // Return partial view if AJAX, otherwise full view
             return $request->ajax()
@@ -41,7 +41,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view("components.contents.courses.courseForm");
+        return view("components.contents.courses.courseForm", ['course' => null]);
     }
 
     /**
@@ -50,19 +50,15 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         Course::create([
-            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
-            'training_center'     => $request->input('training_center'),
-            'training_name'     => $request->input('training_name'),
-            'forcem_code'       => $request->input('forcem_code'),
-            'total_hours'       => $request->input('total_hours'),
-            'type'              => $request->input('type'),
-            'attendance_type'   => $request->input('attendance_type'),
-            'workshop'          => $request->input('workshop'),
-            'conference_day'    => $request->input('conference_day'),
-            'congress'          => $request->input('congress'),
-            'attendee'          => $request->input('attendee'),
-            'start_date'        => $request->input('start_date'),
-            'end_date'          => $request->input('end_date'),
+            'center_id' => Auth::user()->center_id,
+            'training_center' => $request->input('training_center'),
+            'training_name' => $request->input('training_name'),
+            'forcem_code' => $request->input('forcem_code'),
+            'total_hours' => $request->input('total_hours'),
+            'type' => $request->input('type'),
+            'attendance_type' => $request->input('attendance_type'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
         ]);
 
         return redirect()->route('course_form')->with('success', 'Curs afegit correctament!');
@@ -116,13 +112,15 @@ class CourseController extends Controller
      */
     public function downloadCSV()
     {
-        $cursos = Course::all();
+        $cursos = Course::where('center_id', Auth::user()->center->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = "cursos_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-            fputcsv($handle, [
+        fputcsv($handle, [
             'ID',
             'Centre de Formació',
             'Codi FORCEM',
@@ -130,33 +128,24 @@ class CourseController extends Controller
             'Tipus de curs',
             'Modalitat',
             'Nom del curs',
-            'Taller',
-            'Dia de conferència',
-            'Congrés',
-            'Assistents',
             'Data d\'inici',
-            'Data de finalització'
-            ]);
+            'Data de finalització',
+        ]);
 
         foreach ($cursos as $curs) {
-        fputcsv($handle, [
+            fputcsv($handle, [
                 $curs->id,
-                $curs->training_center,
-                $curs->forcem_code,
-                $curs->total_hours,
-                $curs->type,
-                $curs->attendance_type,
-                $curs->training_name,
-                $curs->workshop,
-                $curs->conference_day,
-                $curs->congress,
-                $curs->attendee,
-                $curs->start_date,
-                $curs->end_date,
+                $curs->training_center ?? '',
+                $curs->forcem_code ?? '',
+                $curs->total_hours ?? '',
+                $curs->type ?? '',
+                $curs->attendance_type ?? '',
+                $curs->training_name ?? '',
+                $curs->start_date ? \Carbon\Carbon::parse($curs->start_date)->format('d/m/Y') : '',
+                $curs->end_date ? \Carbon\Carbon::parse($curs->end_date)->format('d/m/Y') : '',
             ]);
         }
 
-        // Close Pointer File
         fclose($handle);
 
         return response()->download($filename)->deleteFileAfterSend(true);

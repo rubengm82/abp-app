@@ -16,7 +16,7 @@
         <x-partials.search-bar />
     </div>
     <div class="flex gap-4">
-        <a href="{{ route('projectcommissions.downloadCSV', ['status' => $isDeactivated ? 'Inactiu' : 'Actiu']) }}" class="btn btn-sm btn-secondary">Descarregar Llistat</a>
+        <a href="{{ route('projectcommissions.downloadCSV', ['status' => $isDeactivated ? 0 : 1]) }}" class="btn btn-sm btn-secondary">Descarregar Llistat</a>
         @if(!$isDeactivated)
             {{-- <a href="{{ route('projectcommission_form') }}" class="btn btn-sm btn-primary">Afegir Projecte/Comissió</a> --}}
         @endif

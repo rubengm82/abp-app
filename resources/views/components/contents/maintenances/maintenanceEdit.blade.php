@@ -78,6 +78,16 @@
                             class="textarea textarea-bordered w-full"
                         >{{ old('description', $maintenance->description) }}</textarea>
                     </div>
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Estat *</span>
+                        </label>
+                        <select name="status" id="id_status" class="select select-bordered w-full" required>
+                            <option value="Obert" {{ old('status', $maintenance->status) == 'Obert' ? 'selected' : '' }}>Obert</option>
+                            <option value="En resol·lució" {{ old('status', $maintenance->status) == 'En resol·lució' ? 'selected' : '' }}>En resol·lució</option>
+                            <option value="Tancat" {{ old('status', $maintenance->status) == 'Tancat' ? 'selected' : '' }}>Tancat</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -118,7 +128,7 @@
 
         <!-- Botons d'acció -->
         <div class="flex justify-end gap-4">
-            <a href="{{ route('maintenances_list') }}" class="btn btn-outline">Cancelar</a>
+            <a href="{{ route('maintenances_list') }}" class="btn btn-outline">Cancel·lar</a>
             <input type="submit" value="Actualitzar Manteniment" class="btn btn-info">
         </div>
     </form>

@@ -60,6 +60,20 @@
                         <label class="font-bold text-md">Nom del Manteniment:</label>
                         <p class="text-sm text-base-content/50">{{ $maintenance->name_maintenance }}</p>
                     </div>
+                    <div>
+                        <label class="font-bold text-md">Estat:</label>
+                        <p class="text-sm text-base-content/50">
+                            @if(($maintenance->status ?? '') === 'Obert')
+                                <span class="badge badge-dash badge-error">{{ $maintenance->status }}</span>
+                            @elseif(($maintenance->status ?? '') === 'Tancat')
+                                <span class="badge badge-dash badge-success">{{ $maintenance->status }}</span>
+                            @elseif(($maintenance->status ?? '') === 'En resol·lució')
+                                <span class="badge badge-dash badge-warning">{{ $maintenance->status }}</span>
+                            @else
+                                <span class="badge badge-dash badge-ghost">{{ $maintenance->status ?? '' }}</span>
+                            @endif
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
