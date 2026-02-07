@@ -78,6 +78,10 @@ Route::middleware('auth')->get('/professional/show/{id}', [ProfessionalControlle
 Route::middleware('auth')->get('/professionals/downloadCSV/material_assignments', [ProfessionalController::class, 'downloadCSVMaterialAssignments'])->name('professionals.downloadCSV.materialAssignments');
 Route::middleware('auth')->get('/professionals/downloadCSV/{status}', [ProfessionalController::class, 'downloadCSV'])->name('professionals.downloadCSV');
 
+/* Seguiment (professional follow-up notes) */
+Route::middleware('auth')->get('/professionals/seguiment/list', [ProfessionalController::class, 'seguimentIndex'])->name('seguiment_list');
+Route::middleware('auth')->get('/professionals/seguiment/show/{professional}', [ProfessionalController::class, 'seguimentShow'])->name('seguiment_show');
+
 /* Professional Notes */
 Route::middleware('auth')->post('/professional/{professional}/notes', [ProfessionalController::class, 'professional_note_add'])->name('professional_note_add');
 Route::middleware('auth')->put('/professional/notes/{note}', [ProfessionalController::class, 'professional_note_update'])->name('professional_note_update');
@@ -87,6 +91,7 @@ Route::middleware('auth')->delete('/professional/notes/{note}', [ProfessionalCon
 Route::middleware('auth')->post('/professional/documents/{professional}', [ProfessionalController::class, 'professional_document_add'])->name('professional_document_add');
 Route::middleware('auth')->delete('/professional/documents/{document}', [ProfessionalController::class, 'professional_document_delete'])->name('professional_document_delete');
 Route::middleware('auth')->get('/professional/documents/download/{document}', [ProfessionalController::class, 'professional_document_download'])->name('professional_document_download');
+Route::middleware('auth')->get('/professional/cv/download/{professional}', [ProfessionalController::class, 'professionalCvDownload'])->name('professional_cv_download');
 
 /* Professional| EVALUATIONS */
 Route::middleware('auth')->get('/professionals/evaluations/list', [EvaluationsController::class, "index"])->name("professional_evaluations_list");

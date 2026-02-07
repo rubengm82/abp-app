@@ -56,6 +56,10 @@ class ProfessionalController extends Controller
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
             'dni' => 'required|string|max:20|unique:professionals,dni',
+            'birth_date' => 'nullable|date',
+            'first_hire_date' => 'nullable|date',
+            'gender' => 'nullable|string|in:Home,Dona,Altre',
+            'education_level' => 'nullable|string|max:255',
             'permissions' => 'nullable|string|max:100',
             'role' => 'nullable|string|max:100',
             'phone' => 'required|string|max:20',
@@ -63,8 +67,9 @@ class ProfessionalController extends Controller
             'address' => 'nullable|string|max:500',
             'employment_status' => 'nullable|string|max:50',
             'cvitae' => 'nullable|string',
-            'user' => 'required|string|max:100|unique:professionals,user',
-            'password' => 'required|string|min:4',
+            'cv_file' => 'nullable|file|max:10240',
+            'user' => 'nullable|string|max:100|unique:professionals,user',
+            'password' => 'nullable|string|min:4',
             'locker_num' => 'nullable|string|max:50',
             'key_code' => 'nullable|string|max:50',
         ]);
@@ -78,17 +83,33 @@ class ProfessionalController extends Controller
             'surname1' => $validated['surname1'],
             'surname2' => $validated['surname2'] ?? null,
             'dni' => $validated['dni'],
+            'birth_date' => $validated['birth_date'] ?? null,
+            'first_hire_date' => $validated['first_hire_date'] ?? null,
+            'gender' => $validated['gender'] ?? null,
+            'education_level' => $validated['education_level'] ?? null,
             'phone' => $validated['phone'],
             'email' => $validated['email'],
             'address' => $validated['address'] ?? null,
             'employment_status' => $validated['employment_status'] ?? 'No contractat',
             'cvitae' => $validated['cvitae'] ?? null,
-            'user' => $validated['user'],
-            'password' => $validated['password'], // Will be hashed in the model booted()
+            'user' => $validated['user'] ?? null,
+            'password' => !empty($validated['password']) ? $validated['password'] : null, // Hashed in model mutator when present
             'locker_num' => $validated['locker_num'] ?? null,
             'key_code' => $validated['key_code'] ?? null,
             'status' => 1,
         ]);
+
+        if ($request->hasFile('cv_file')) {
+            $file = $request->file('cv_file');
+            $timestamp = now()->format('Ymd_His');
+            $originalName = $file->getClientOriginalName();
+            $fileName = pathinfo($originalName, PATHINFO_FILENAME) . '_' . $timestamp . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('documents/professionals/cv', $fileName, 'public');
+            $professional->update([
+                'cv_file_path' => $filePath,
+                'cv_file_original_name' => $originalName,
+            ]);
+        }
 
         return redirect()->route('professionals_list')->with('success', 'Professional afegit correctament!');
     }
@@ -104,11 +125,22 @@ class ProfessionalController extends Controller
         $pantsSize = MaterialAssignment::getLatestPantsSize($professional->id);
         $shoeSize = MaterialAssignment::getLatestShoeSize($professional->id);
 
+        // Last note for Seguiment block: restricted only visible to Direcció/Gerència
+        $canSeeRestricted = in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']);
+        $lastNote = $canSeeRestricted
+            ? $professional->notes()->with('createdByProfessional')->first()
+            : $professional->notes()->with('createdByProfessional')
+                ->where(function ($q) {
+                    $q->where('restricted', 0)->orWhereNull('restricted');
+                })
+                ->first();
+
         return view('components.contents.professional.professionalShow')->with([
             'professional' => $professional,
             'shirtSize' => $shirtSize,
             'pantsSize' => $pantsSize,
             'shoeSize' => $shoeSize,
+            'lastNote' => $lastNote,
         ]);
     }
 
@@ -133,6 +165,10 @@ class ProfessionalController extends Controller
             'surname1' => 'required|string|max:255',
             'surname2' => 'nullable|string|max:255',
             'dni' => 'required|string|max:20|unique:professionals,dni,' . $id,
+            'birth_date' => 'nullable|date',
+            'first_hire_date' => 'nullable|date',
+            'gender' => 'nullable|string|in:Home,Dona,Altre',
+            'education_level' => 'nullable|string|max:255',
             'permissions' => 'nullable|string|max:100',
             'role' => 'nullable|string|max:100',
             'phone' => 'required|string|max:20',
@@ -140,7 +176,8 @@ class ProfessionalController extends Controller
             'address' => 'nullable|string|max:500',
             'employment_status' => 'nullable|string|max:50',
             'cvitae' => 'nullable|string',
-            'user' => 'required|string|max:100|unique:professionals,user,' . $id,
+            'cv_file' => 'nullable|file|max:10240',
+            'user' => 'nullable|string|max:100|unique:professionals,user,' . $id,
             'password' => 'nullable|string|min:4',
             'locker_num' => 'nullable|string|max:50',
             'key_code' => 'nullable|string|max:50',
@@ -154,12 +191,16 @@ class ProfessionalController extends Controller
             'surname1' => $validated['surname1'],
             'surname2' => $validated['surname2'] ?? $professional->surname2,
             'dni' => $validated['dni'],
+            'birth_date' => array_key_exists('birth_date', $validated) ? $validated['birth_date'] : $professional->birth_date?->format('Y-m-d'),
+            'first_hire_date' => array_key_exists('first_hire_date', $validated) ? $validated['first_hire_date'] : $professional->first_hire_date?->format('Y-m-d'),
+            'gender' => $validated['gender'] ?? $professional->gender,
+            'education_level' => $validated['education_level'] ?? $professional->education_level,
             'phone' => $validated['phone'],
             'email' => $validated['email'],
             'address' => $validated['address'] ?? $professional->address,
             'employment_status' => $validated['employment_status'] ?? $professional->employment_status,
             'cvitae' => $validated['cvitae'] ?? $professional->cvitae,
-            'user' => $validated['user'],
+            'user' => array_key_exists('user', $validated) ? $validated['user'] : $professional->user,
             'locker_num' => $validated['locker_num'] ?? $professional->locker_num,
             'key_code' => $validated['key_code'] ?? $professional->key_code,
         ];
@@ -171,6 +212,21 @@ class ProfessionalController extends Controller
 
         $professional->update($updateData);
 
+        if ($request->hasFile('cv_file')) {
+            if ($professional->cv_file_path && Storage::disk('public')->exists($professional->cv_file_path)) {
+                Storage::disk('public')->delete($professional->cv_file_path);
+            }
+            $file = $request->file('cv_file');
+            $timestamp = now()->format('Ymd_His');
+            $originalName = $file->getClientOriginalName();
+            $fileName = pathinfo($originalName, PATHINFO_FILENAME) . '_' . $timestamp . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('documents/professionals/cv', $fileName, 'public');
+            $professional->update([
+                'cv_file_path' => $filePath,
+                'cv_file_original_name' => $originalName,
+            ]);
+        }
+
         // Update associated user if exists
         // if ($professional->userAccount && $validated['password']) {
         //     $professional->userAccount->update([
@@ -178,7 +234,7 @@ class ProfessionalController extends Controller
         //     ]);
         // }
 
-        return redirect()->route('professionals_list')->with('success', 'Professional actualitzat correctament!');
+        return redirect()->route('professional_show', $professional)->with('success', 'Professional actualitzat correctament!');
     }
 
     /**
@@ -213,9 +269,10 @@ class ProfessionalController extends Controller
         $filename = $statusParam == 1 ? "professionals_actius_{$timestamp}.csv" : "professionals_no_actius_{$timestamp}.csv";
 
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, ['ID', 'Centre', 'Taquilla', 'Codi', 'Nom', 'Primer cognom', 'Segon cognom', 'DNI', 'Adreça', 'Permisos', 'Rol', 'Telèfon', 'Email', 'Estat']);
+        fputcsv($handle, ['ID', 'Centre', 'Taquilla', 'Codi', 'Nom', 'Primer cognom', 'Segon cognom', 'DNI', 'Data naixement', 'Data de contractació', 'Antiguitat (anys)', 'Gènere', 'Nivell formació', 'Adreça', 'Permisos', 'Rol', 'Telèfon', 'Email', 'Estat']);
 
         foreach ($professionals as $professional) {
+            $firstHireYears = $professional->first_hire_date ? round($professional->first_hire_date->diffInYears(now())) : null;
             fputcsv($handle, [
                 $professional->id,
                 $professional->center ? $professional->center->name : 'No assignat',
@@ -225,6 +282,11 @@ class ProfessionalController extends Controller
                 $professional->surname1,
                 $professional->surname2,
                 $professional->dni,
+                $professional->birth_date ? $professional->birth_date->format('d/m/Y') : '',
+                $professional->first_hire_date ? $professional->first_hire_date->format('d/m/Y') : '',
+                $firstHireYears !== null ? (string) $firstHireYears : '',
+                $professional->gender ?? '',
+                $professional->education_level ?? '',
                 $professional->address,
                 $professional->permissions,
                 $professional->role,
@@ -332,7 +394,60 @@ class ProfessionalController extends Controller
 
         return back()->with('success', 'Document eliminat correctament!');
     }
+
+    /**
+     * Download professional CV file (curriculum vitae uploaded file).
+     */
+    public function professionalCvDownload(Professional $professional)
+    {
+        if ($professional->center_id !== Auth::user()->center->id) {
+            abort(403);
+        }
+        if (!$professional->cv_file_path) {
+            return back()->with('error', 'No hi ha currículum pujat.');
+        }
+        $path = storage_path('app/public/' . $professional->cv_file_path);
+        if (!file_exists($path)) {
+            return back()->with('error', 'El fitxer no existeix.');
+        }
+        $downloadName = $professional->cv_file_original_name ?? basename($professional->cv_file_path);
+        return response()->download($path, $downloadName);
+    }
     
+
+    /**
+     * Seguiment (follow-up notes): list professionals with last note date.
+     */
+    public function seguimentIndex(Request $request)
+    {
+        $query = Professional::query()
+            ->where('status', 1)
+            ->where('center_id', Auth::user()->center->id)
+            ->with('notes')
+            ->orderBy('name');
+
+        if ($search = $request->get('search')) {
+            $query->whereAny(['name', 'surname1', 'surname2', 'role'], 'like', "%{$search}%");
+        }
+
+        $professionals = $query->get();
+
+        return $request->ajax()
+            ? view('components.contents.professional.tables.seguimentListTable', compact('professionals'))->render()
+            : view('components.contents.professional.seguimentList', compact('professionals'));
+    }
+
+    /**
+     * Seguiment show: display notes for one professional (title "Seguiment").
+     */
+    public function seguimentShow(Professional $professional)
+    {
+        if ($professional->center_id !== Auth::user()->center->id) {
+            abort(403);
+        }
+        $professional->load('notes');
+        return view('components.contents.professional.seguimentShow', compact('professional'));
+    }
 
     //// NOTES ////
     public function professional_note_add(Request $request, Professional $professional)
@@ -354,7 +469,7 @@ class ProfessionalController extends Controller
             'restricted' => $restricted
         ]);
         mainlog::log("Nota añadida correctamente en professional_note_add en ProfessionalController");
-        return redirect()->route('professional_show', $professional->id . '#notes-section')
+        return redirect()->route('seguiment_show', $professional)
                          ->with('success', 'Nota afegida correctament!');
     }
 
@@ -373,7 +488,7 @@ class ProfessionalController extends Controller
             'restricted' => $restricted
         ]);
 
-        return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
+        return redirect()->route('seguiment_show', $note->noteable)
                          ->with('success', 'Nota actualitzada correctament!');
     }
 
@@ -381,7 +496,7 @@ class ProfessionalController extends Controller
     {
         $note->delete();
 
-        return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
+        return redirect()->route('seguiment_show', $note->noteable)
                          ->with('success', 'Nota eliminada correctament!');
     }
 

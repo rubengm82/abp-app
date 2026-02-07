@@ -22,11 +22,17 @@ class Professional extends Authenticatable
         'surname1',
         'surname2',
         'dni',
+        'birth_date',
+        'first_hire_date',
+        'gender',
+        'education_level',
         'phone',
         'email',
         'address',
         'employment_status',
         'cvitae',
+        'cv_file_path',
+        'cv_file_original_name',
         'user',       // username
         'password',   // hashed password
         'locker_num',
@@ -35,12 +41,22 @@ class Professional extends Authenticatable
     ];
 
     /**
-     * Mutator to automatically hash the password
+     * Attributes that should be cast.
+     */
+    protected $casts = [
+        'birth_date' => 'date',
+        'first_hire_date' => 'date',
+    ];
+
+    /**
+     * Mutator to automatically hash the password when set; allows null for optional password.
      */
     public function setPasswordAttribute($value)
     {
         if ($value) {
             $this->attributes['password'] = Hash::make($value);
+        } else {
+            $this->attributes['password'] = null;
         }
     }
 

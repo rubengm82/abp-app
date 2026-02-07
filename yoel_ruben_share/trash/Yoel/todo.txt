@@ -1,12 +1,11 @@
 # Sprint 6  - TODO LIST
 
-Todo: 
-* Modificaión importante para migración de professional:
-** Añadir Edat (Fecha nacimiento)
-** Antiguitat (Fecha primera vez contratado), en el show se mostrará fecha + años redondeados desde la contratación
-** Gènere enum(Home, Dona, Altre)
-** Nivell de formuació (Campo abierto)
-* Moficia los shows, no los listados, los formularios de alta y edición y los CSVs a descargar.
+Todo Mover Sección de Notas del show de profesional: 
+* Crear un nuevo listado simple con Nombre del profesional, fecha de la última vez que se subió una nota y botón para 'Veure' como siempre
+** En el topbar, estará dentro del apartado de Prfesionales
+** Este nuevo show mostrará las notas que hasta ahora estaban en el show de profesional
+** El show de profesional dejará de tener las notas para tener un enlace a este nuevo show
+** Modificar el nombre 'Notes' a 'Seguiment'
 
 Apuntes:
 * 

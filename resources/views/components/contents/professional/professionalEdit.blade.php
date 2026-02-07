@@ -29,7 +29,7 @@
         </div>
     @endif
 
-    <form action="{{ route('professional_update', $professional->id) }}" method="post" class="space-y-6">
+    <form action="{{ route('professional_update', $professional->id) }}" method="post" class="space-y-6" enctype="multipart/form-data">
         @csrf
 
         <!-- Personal Information -->
@@ -63,6 +63,39 @@
                             <span class="label-text">DNI *</span>
                         </label>
                         <input type="text" name="dni" id="id_dni" placeholder="Ex: 12345678A" class="input input-bordered w-full" value="{{ old('dni', $professional->dni) }}" required>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Data de naixement</span>
+                        </label>
+                        <input type="date" name="birth_date" id="id_birth_date" class="input input-bordered w-full" value="{{ old('birth_date', $professional->birth_date?->format('Y-m-d')) }}">
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Data de contractació (Antiguitat)</span>
+                        </label>
+                        <input type="date" name="first_hire_date" id="id_first_hire_date" class="input input-bordered w-full" value="{{ old('first_hire_date', $professional->first_hire_date?->format('Y-m-d')) }}">
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Gènere</span>
+                        </label>
+                        <select name="gender" id="id_gender" class="select select-bordered w-full">
+                            <option value="">Selecciona gènere</option>
+                            <option value="Home" {{ old('gender', $professional->gender) == 'Home' ? 'selected' : '' }}>Home</option>
+                            <option value="Dona" {{ old('gender', $professional->gender) == 'Dona' ? 'selected' : '' }}>Dona</option>
+                            <option value="Altre" {{ old('gender', $professional->gender) == 'Altre' ? 'selected' : '' }}>Altre</option>
+                        </select>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Nivell de formació</span>
+                        </label>
+                        <input type="text" name="education_level" id="id_education_level" placeholder="Ex: Universitat, FP, etc." class="input input-bordered w-full" value="{{ old('education_level', $professional->education_level) }}">
                     </div>
                 </div>
             </div>
@@ -172,9 +205,20 @@
                     
                     <div class="form-control">
                         <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Currículum Vitae</span>
+                            <span class="label-text">Currículum Vitae (text)</span>
                         </label>
                         <textarea name="cvitae" id="id_cvitae" rows="4" placeholder="Descriu l'experiència professional, formació i habilitats..." class="textarea textarea-bordered w-full">{{ old('cvitae', $professional->cvitae) }}</textarea>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1">
+                            <span class="label-text">Currículum Vitae (fitxer)</span>
+                        </label>
+                        @if($professional->cv_file_path)
+                            <p class="text-sm text-base-content/70 mb-1">Fitxer actual: {{ $professional->cv_file_original_name ?? basename($professional->cv_file_path) }}</p>
+                        @endif
+                        <input type="file" name="cv_file" id="id_cv_file" class="file-input file-input-bordered w-full">
+                        <p class="text-xs text-base-content/60 mt-1">Màxim 10 MB. Pujar un nou fitxer reemplaça l'actual.</p>
                     </div>
                 </div>
             </div>
@@ -187,9 +231,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="form-control">
                         <label class="label font-bold text-base-content mb-1">
-                            <span class="label-text">Nom d'usuari *</span>
+                            <span class="label-text">Nom d'usuari</span>
                         </label>
-                        <input type="text" name="user" id="id_user" placeholder="Ex: joan.garcia" class="input input-bordered w-full" value="{{ old('user', $professional->user) }}" autocomplete="off" required>
+                        <input type="text" name="user" id="id_user" placeholder="Ex: joan.garcia" class="input input-bordered w-full" value="{{ old('user', $professional->user) }}" autocomplete="off">
                     </div>
                     
                     <div class="form-control">

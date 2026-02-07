@@ -48,15 +48,11 @@
         <!-- Personal information -->
         <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20">
             <div class="card-body">
-                <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació Personal</h2>
+                <h2 class="card-title text-xl underline underline-offset-5 mb-4">Informació personal</h2>
                 <div class="space-y-3">
                     <div>
                         <label class="font-bold text-md">Nom complet:</label>
                         <p class="text-sm text-base-content/50">{{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}</p>
-                    </div>
-                    <div>
-                        <label class="font-bold text-md">DNI:</label>
-                        <p class="text-sm text-base-content/50">{{ $professional->dni }}</p>
                     </div>
                     <div>
                         <label class="font-bold text-md">Permisos:</label>
@@ -110,7 +106,15 @@
     <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
         <div class="card-body">
             <h2 class="card-title text-xl underline underline-offset-5 mb-4">Currículum Vitae</h2>
-            <p class="text-sm text-base-content/50 break-all whitespace-pre-wrap">{{ $professional->cvitae ?: 'No hi ha currículum disponible' }}</p>
+            <p class="text-sm text-base-content/50 break-all whitespace-pre-wrap">{{ $professional->cvitae ?: 'No hi ha nota del currículum.' }}</p>
+            <p class="mt-4 flex items-center gap-2 flex-wrap">
+                @if($professional->cv_file_path)
+                    <span class="text-sm text-base-content/60">Descarregar currículum</span>
+                    <a href="{{ route('professional_cv_download', $professional) }}" class="link link-info font-medium">{{ $professional->cv_file_original_name ?? basename($professional->cv_file_path) }}</a>
+                @else
+                    <span class="text-sm text-base-content/50">No hi ha fitxer disponible</span>
+                @endif
+            </p>
         </div>
     </div>
 
@@ -167,10 +171,7 @@
                     @endforeach
                 </div>
             @else
-                <div class="text-center py-8 text-base-content/50">
-                    <i class="fas fa-folder text-4xl mb-4"></i>
-                    <p class="text-sm text-base-content/50">No hi ha projectes asignats</p>
-                </div>
+                <p class="text-gray-500">No hi ha projectes asignats.</p>
             @endif
         </div>
     </div>
@@ -215,15 +216,28 @@
         uploadedByField="uploadedByProfessional"
     />
 
-    <!-- Notes -->
-    <x-partials.notes-section
-    :items="$professional->notes"
-    title="Notes"
-    addAction="{{ route('professional_note_add', $professional) }}"
-    deleteRoute="professional_note_delete"
-    :editRoute="'professional_note_update'"
-    createdByField="createdByProfessional"
-    />
+    <!-- Seguiment (restricted notes only visible to Direcció/Gerència; last note in block respects this) -->
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl underline underline-offset-5 mb-4">
+                <a href="{{ route('seguiment_show', $professional) }}" class="link link-info hover:no-underline">Veure seguiment complet</a>
+            </h2>
+            @if($lastNote ?? null)
+                <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ !empty($lastNote->restricted) ? 'border-primary' : 'border-info' }}">
+                    <div class="text-sm text-base-content/70 mb-2">
+                        <strong>
+                            {{ $lastNote->createdByProfessional?->name ?? 'Usuari desconegut' }}
+                            {{ $lastNote->createdByProfessional?->surname1 ?? '' }}
+                        </strong>
+                        <span class="ml-2">{{ $lastNote->created_at?->format('d/m/Y H:i') ?? '' }}</span>
+                    </div>
+                    <p class="text-sm text-base-content break-all whitespace-pre-wrap">{{ $lastNote->notes ?? $lastNote->text ?? '' }}</p>
+                </div>
+            @else
+                <p class="text-sm text-base-content/50">No hi ha notes de seguiment.</p>
+            @endif
+        </div>
+    </div>
 
     <!-- Informació addicional -->
     <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
@@ -241,6 +255,40 @@
                 <div>
                     <label class="font-bold text-md">Clau Codi:</label>
                     <p class="text-sm text-base-content/50">{{ $professional->key_code ?: 'No especificat' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">DNI:</label>
+                    <p class="text-sm text-base-content/50">{{ $professional->dni ?: 'No especificat' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Data de naixement</label>
+                    <p class="text-sm text-base-content/50">
+                        @if($professional->birth_date)
+                            {{ $professional->birth_date->format('d/m/Y') }}
+                            ({{ $professional->birth_date->age }} anys)
+                        @else
+                            No especificat
+                        @endif
+                    </p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Antiguitat:</label>
+                    <p class="text-sm text-base-content/50">
+                        @if($professional->first_hire_date)
+                            {{ $professional->first_hire_date->format('d/m/Y') }}
+                            ({{ round($professional->first_hire_date->diffInYears(now())) }} anys)
+                        @else
+                            No especificat
+                        @endif
+                    </p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Gènere:</label>
+                    <p class="text-sm text-base-content/50">{{ $professional->gender ?: 'No especificat' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Nivell de formació:</label>
+                    <p class="text-sm text-base-content/50">{{ $professional->education_level ?: 'No especificat' }}</p>
                 </div>
             </div>
         </div>

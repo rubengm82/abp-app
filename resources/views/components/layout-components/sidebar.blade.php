@@ -157,6 +157,15 @@
                             </a>
                         </li>
                     </ul>
+                    <!-- Seguiment (visible per a tots, inclòs Tècnic; les notes restringides es filtren a les pàgines) -->
+                    <ul class="text-xs text-base-content/65">
+                        <li>
+                            <a href="{{ route('seguiment_list') }}">
+                                <x-partials.icon name="clipboard-document" class="w-4 h-4 text-info" />
+                                Seguiment
+                            </a>
+                        </li>
+                    </ul>
                     <!-- Submenu Professional Accidents (Direcció and Administració only) -->
                     @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
                     <ul class="text-xs text-base-content/65">

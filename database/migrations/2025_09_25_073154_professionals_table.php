@@ -22,6 +22,10 @@ return new class extends Migration
                 $table->string('name', 100)->comment('First name');
                 $table->string('surname1', 100)->comment('First surname');
                 $table->string('surname2', 100)->nullable()->comment('Second surname');
+                $table->date('birth_date')->nullable()->comment('Date of birth (Edat)');
+                $table->date('first_hire_date')->nullable()->comment('First hire date for seniority (Antiguitat)');
+                $table->enum('gender', ['Home', 'Dona', 'Altre'])->nullable()->comment('Gender (Gènere)');
+                $table->string('education_level', 255)->nullable()->comment('Education level (Nivell de formació)');
                 $table->enum('permissions', ['Direcció', 'Administració', 'Tècnic', 'Gerència'])->nullable()->comment('Access permissions level');
                 $table->enum('role', ['ATE', 'ATE-RT', 'Infermeria', 'Metge', 'Recepció', 'Administració', 'Treball Social', 'Pedagogia/Psicologia', 'Fisioteràpia', 'Direcció', 'Altres'])->nullable()->comment('Professional role / job title');
                 $table->string('dni', 100)->unique()->comment('DNI');
@@ -35,7 +39,9 @@ return new class extends Migration
                 $table->enum('employment_status', ['Fixe', 'Eventual', 'Suplent habitual', 'Baixa definitiva', 'No contractat'])->nullable()->comment('Employment status');
 
                 // Additional info
-                $table->text('cvitae')->nullable()->comment('Curriculum vitae');
+                $table->text('cvitae')->nullable()->comment('Curriculum vitae text');
+                $table->string('cv_file_path', 500)->nullable()->comment('Curriculum vitae uploaded file path');
+                $table->string('cv_file_original_name', 255)->nullable()->comment('Original filename for CV download');
                 $table->string('user', 50)->unique()->nullable()->comment('Login username');
                 $table->string('password', 255)->nullable()->comment('Password hash');
                 $table->string('locker_num',50)->nullable()->comment('Locker number');
