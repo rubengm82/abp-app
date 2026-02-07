@@ -48,6 +48,10 @@
                         <label class="label font-bold text-base-content mb-1"><span class="label-text">Data d'assignació *</span></label>
                         <input type="date" name="assignment_date" class="input input-bordered w-full" value="{{ old('assignment_date', date('Y-m-d')) }}" required>
                     </div>
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1"><span class="label-text">Data d'entrega</span></label>
+                        <input type="date" name="delivery_date" class="input input-bordered w-full" value="{{ old('delivery_date') }}" placeholder="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -98,10 +102,10 @@
                     <div class="form-control">
                         <label class="label font-bold text-base-content mb-1"><span class="label-text">Assignat per </span></label>
                         <select name="assigned_by_professional_id" class="select select-bordered w-full">
-                            <option value="">Selecciona qui assigna --> (Si no se selecciona, s'assigna l'usuari de la sessió actual)</option>
-                            <!-- Temporal: usar usuario logueado si aplica -->
+                            <option value="">Selecciona qui assigna</option>
                             @foreach($professionals as $professional)
-                                <option value="{{ $professional->id }}" {{ old('assigned_by_professional_id') == $professional->id ? 'selected' : '' }}>
+                                @php $selected = old('assigned_by_professional_id', Auth::id()) == $professional->id; @endphp
+                                <option value="{{ $professional->id }}" {{ $selected ? 'selected' : '' }}>
                                     {{ $professional->name }} {{ $professional->surname1 }} {{ $professional->surname2 }}
                                 </option>
                             @endforeach

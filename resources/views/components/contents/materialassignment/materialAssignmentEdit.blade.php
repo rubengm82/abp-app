@@ -56,6 +56,10 @@
                         <label class="label font-bold text-base-content mb-1"><span class="label-text">Data d'assignació *</span></label>
                         <input type="date" name="assignment_date" class="input input-bordered w-full" value="{{ old('assignment_date', $materialAssignment->assignment_date->format('Y-m-d')) }}" required>
                     </div>
+                    <div class="form-control">
+                        <label class="label font-bold text-base-content mb-1"><span class="label-text">Data d'entrega</span></label>
+                        <input type="date" name="delivery_date" class="input input-bordered w-full" value="{{ old('delivery_date', $materialAssignment->delivery_date?->format('Y-m-d')) }}">
+                    </div>
                 </div>
             </div>
         </div>

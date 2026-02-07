@@ -24,6 +24,7 @@ return new class extends Migration
             
             // Assignment dates
             $table->date('assignment_date')->comment('Assignment date');
+            $table->date('delivery_date')->nullable()->comment('Optional delivery date');
             
             // Assignment tracking
             $table->foreignId('assigned_by_professional_id')->nullable()->constrained('professionals')->onDelete('set null')->comment('Professional who assigned');

@@ -36,6 +36,10 @@
                         <p class="text-sm text-base-content/50">{{ $materialAssignment->assignment_date->format('d/m/Y') }}</p>
                     </div>
                     <div>
+                        <label class="font-bold text-md">Data d'entrega:</label>
+                        <p class="text-sm text-base-content/50">{{ $materialAssignment->delivery_date?->format('d/m/Y') ?? 'No especificada' }}</p>
+                    </div>
+                    <div>
                         <label class="font-bold text-md">Assignat per:</label>
                         <p class="text-sm text-base-content/50">
                             @if($materialAssignment->assignedBy)
@@ -104,27 +108,6 @@
         </div>
     </div>
 
-    <!-- Observations and documents -->
-    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
-        <div class="card-body">
-            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació Addicional</h2>
-            <div class="space-y-4">
-                <div>
-                    <label class="font-bold text-md">Observacions:</label>
-                    <p class="text-sm text-base-content/50 break-all whitespace-pre-wrap">{{ $materialAssignment->observations ?: 'No hi ha observacions' }}</p>
-                </div>
-                <div>
-                    <label class="font-bold text-md">Data de creació:</label>
-                    <p class="text-sm text-base-content/50">{{ $materialAssignment->created_at->format('d/m/Y H:i') }}</p>
-                </div>
-                <div>
-                    <label class="font-bold text-md">Última actualització:</label>
-                    <p class="text-sm text-base-content/50">{{ $materialAssignment->updated_at->format('d/m/Y H:i') }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div>
         @if ($materialAssignment->signature)
             <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
@@ -187,6 +170,26 @@
         createdByField="createdByProfessional"
     />
 
+    <!-- Informació Addicional -->
+    <div class="card bg-base-100 text-base-content shadow-xl/10 border border-gray-500/20 mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-xl mb-4 underline underline-offset-5">Informació Addicional</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="font-bold text-md">Observacions:</label>
+                    <p class="text-sm text-base-content/50 break-all whitespace-pre-wrap">{{ $materialAssignment->observations ?: 'No hi ha observacions' }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Data de creació:</label>
+                    <p class="text-sm text-base-content/50">{{ $materialAssignment->created_at->format('d/m/Y H:i') }}</p>
+                </div>
+                <div>
+                    <label class="font-bold text-md">Última actualització:</label>
+                    <p class="text-sm text-base-content/50">{{ $materialAssignment->updated_at->format('d/m/Y H:i') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @include('components.partials.mainToasts')
 @endsection

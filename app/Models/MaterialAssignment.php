@@ -16,6 +16,7 @@ class MaterialAssignment extends Model
         'pants_size',
         'shoe_size',
         'assignment_date',
+        'delivery_date',
         'assigned_by_professional_id',
         'signature',
         'observations',
@@ -23,6 +24,7 @@ class MaterialAssignment extends Model
 
     protected $casts = [
         'assignment_date' => 'date',
+        'delivery_date' => 'date',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

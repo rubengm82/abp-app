@@ -71,11 +71,10 @@ class MaterialAssignmentController extends Controller
             'pants_size' => 'nullable|string|in:XS,S,M,L,XL,2XL,3XL,4XL,36,38,40,42,44,46,48,50,52,54,56',
             'shoe_size' => 'nullable|string|in:34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56',
             'assignment_date' => 'required|date',
+            'delivery_date' => 'nullable|date',
             'observations' => 'nullable|string|max:1000',
             'assigned_by_professional_id' => 'nullable|exists:professionals,id',
         ]);
-
-        $assignedByProfessionalId = Auth::user()->id ?? null;
 
         MaterialAssignment::create([
             'professional_id' => $validated['professional_id'],
@@ -83,6 +82,7 @@ class MaterialAssignmentController extends Controller
             'pants_size' => $validated['pants_size'],
             'shoe_size' => $validated['shoe_size'],
             'assignment_date' => $validated['assignment_date'],
+            'delivery_date' => $validated['delivery_date'] ?? null,
             'assigned_by_professional_id' => $validated['assigned_by_professional_id'] ?? Auth::id(),
             'observations' => $validated['observations'],
         ]);
@@ -129,6 +129,7 @@ class MaterialAssignmentController extends Controller
             'pants_size' => 'nullable|string|in:XS,S,M,L,XL,2XL,3XL,4XL,36,38,40,42,44,46,48,50,52,54,56',
             'shoe_size' => 'nullable|string|in:34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56',
             'assignment_date' => 'required|date',
+            'delivery_date' => 'nullable|date',
             'assigned_by_professional_id' => 'nullable|exists:professionals,id',
             'observations' => 'nullable|string|max:1000',
         ]);
