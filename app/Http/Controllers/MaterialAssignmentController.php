@@ -391,10 +391,12 @@ class MaterialAssignmentController extends Controller
      */
     public function showStockList()
     {
+        // Exclude professionals with Baixa definitiva or No contractat from stock count
         $center = Center::with(['professionals' => function($q) {
-            $q->with(['materialAssignments' => function($q2) {
-                $q2->orderBy('assignment_date', 'desc')->orderBy('created_at', 'desc');
-            }]);
+            $q->whereNotIn('employment_status', ['Baixa definitiva', 'No contractat'])
+                ->with(['materialAssignments' => function($q2) {
+                    $q2->orderBy('assignment_date', 'desc')->orderBy('created_at', 'desc');
+                }]);
         }])->findOrFail(Auth::user()->center_id);
 
         $shirtSizes = [];
@@ -445,10 +447,12 @@ class MaterialAssignmentController extends Controller
      */
     public function downloadStockCSV(int $centerId)
     {
+        // Exclude professionals with Baixa definitiva or No contractat from stock (same as list)
         $center = Center::with(['professionals' => function($q) {
-            $q->with(['materialAssignments' => function($q2) {
-                $q2->orderBy('assignment_date', 'desc')->orderBy('created_at', 'desc');
-            }]);
+            $q->whereNotIn('employment_status', ['Baixa definitiva', 'No contractat'])
+                ->with(['materialAssignments' => function($q2) {
+                    $q2->orderBy('assignment_date', 'desc')->orderBy('created_at', 'desc');
+                }]);
         }])->findOrFail($centerId);
 
         $shirtSizes = [];
