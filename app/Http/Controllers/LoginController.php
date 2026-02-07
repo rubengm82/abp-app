@@ -29,7 +29,7 @@ class LoginController extends Controller
 
         // Check password and authenticate
         if ($professional && Hash::check($request->input('password'), $professional->password)) {
-            if ($professional->role === 'Gerència') {
+            if ($professional->permissions === 'Gerència') {
                 // For Gerència, show center selection modal
                 $request->session()->put('pending_professional', $professional->id);
                 $centers = Center::where('status', 1)->get();  // get all active centers
@@ -45,7 +45,7 @@ class LoginController extends Controller
         return back()->with('error', 'Usuari o contrasenya incorrectes')->withInput($request->only('user'));
     }
 
-    // Handle center selection for Gerència role
+    // Handle center selection for Gerència permissions
     public function selectCenter(Request $request)
     {
         $request->validate([
@@ -63,7 +63,7 @@ class LoginController extends Controller
         if ($professional_id) {
             $professional = Professional::find($professional_id);
 
-            if (!$professional || $professional->role !== 'Gerència') {
+            if (!$professional || $professional->permissions !== 'Gerència') {
                 $redirectRoute = redirect()->route('login')->with('error', 'Accés denegat');
             } else {
                 $professional->update(['center_id' => $request->center_id]);

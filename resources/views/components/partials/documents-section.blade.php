@@ -37,7 +37,7 @@
                             {{-- Buttons --}}
                             {{-- Only Direcció users and the creator user can delete their document --}}
                             @if (
-                                in_array(Auth::user()->role ?? null, ['Direcció', 'Gerència']) ||
+                                in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']) ||
                                 (
                                     $uploadedByField &&
                                     isset($item->$uploadedByField) &&

@@ -21,7 +21,7 @@
         @if($items->count())
             <div class="space-y-4 max-h-96 overflow-y-auto overflow-x-hidden">
                 @foreach($items as $item)
-                    @continue(!empty($item->restricted) && !in_array(Auth::user()->role ?? null, ['Direcció', 'Gerència']))
+                    @continue(!empty($item->restricted) && !in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
                     <div class="bg-base-200 p-4 rounded-lg border-l-4 {{ !empty($item->restricted) ? 'border-primary' : 'border-info' }}">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-sm text-base-content">
@@ -34,7 +34,7 @@
                             {{-- Buttons --}}
                             {{-- Only Direcció users and the creator user can delete/edit their note --}}
                             @if (
-                                in_array(Auth::user()->role ?? null, ['Direcció', 'Gerència']) ||
+                                in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']) ||
                                 (
                                     $createdByField &&
                                     isset($item->$createdByField) &&
@@ -90,7 +90,7 @@
                 <label class="label"><span class="label-text">Nota:</span></label>
                 <textarea name="notes" class="textarea textarea-bordered w-full" rows="4" placeholder="Escriu la nota aquí..." required></textarea>
             </div>
-            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Gerència']))
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
             <div class="form-control mb-4">
                 <label class="label cursor-pointer">
                     <span class="label-text">Restringida:</span>
@@ -118,7 +118,7 @@
                 <label class="label"><span class="label-text">Nota:</span></label>
                 <textarea name="notes" id="editNoteText" class="textarea textarea-bordered w-full" rows="4" required></textarea>
             </div>
-            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Gerència']))
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
             <div class="form-control mb-4">
                 <label class="label cursor-pointer">
                     <span class="label-text">Restringida:</span>

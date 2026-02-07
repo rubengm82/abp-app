@@ -1,9 +1,12 @@
 # Sprint 6  - TODO LIST
 
 Todo: 
-* Haz un grep de todo el proyecto buscando la palabra 'Directiu' y modificala a 'Direcció'.
-** Revisa también los modelos de la base de datos, ya que debe de haber algún enum a corregir también
-** No te olvides de revisar todas las vistas, sobretodo los formularios y el sidebar.
+* Modificaión importante para migración de professional:
+** Añadir Edat (Fecha nacimiento)
+** Antiguitat (Fecha primera vez contratado), en el show se mostrará fecha + años redondeados desde la contratación
+** Gènere enum(Home, Dona, Altre)
+** Nivell de formuació (Campo abierto)
+* Moficia los shows, no los listados, los formularios de alta y edición y los CSVs a descargar.
 
 Apuntes:
 * 

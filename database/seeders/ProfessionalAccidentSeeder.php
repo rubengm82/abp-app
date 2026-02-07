@@ -23,7 +23,7 @@ class ProfessionalAccidentSeeder extends Seeder
 
         // Get professionals with Direcció or Administració role to use as creators
         $creatorIds = DB::table('professionals')
-            ->whereIn('role', ['Direcció', 'Administració'])
+            ->whereIn('permissions', ['Direcció', 'Administració'])
             ->where('status', 1)
             ->pluck('id')
             ->toArray();

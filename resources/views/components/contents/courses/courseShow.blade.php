@@ -15,7 +15,7 @@
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold text-base-content">{{ $course->training_name }}</h1> --}}
         <!-- Buttons -->
-        @if((Auth::user()->role ?? null) !== 'Tècnic')
+        @if((Auth::user()->permissions ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             <a href="{{ route('course_edit', $course->id) }}" class="btn btn-sm btn-info">Editar</a>
             <x-partials.modal id="deleteCourse{{ $course->id }}" 

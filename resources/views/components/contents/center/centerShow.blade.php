@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if((Auth::user()->role ?? null) === 'Gerència')
+@if((Auth::user()->permissions ?? null) === 'Gerència')
 <x-partials.breadcrumb
     :items="[
         'Centres' => route('centers_list'),
@@ -14,7 +14,7 @@
     <div class="flex justify-end items-center mb-6">
         {{-- <h1 class="text-3xl font-bold">{{ $center->name }}</h1> --}}
         <!-- Buttons -->
-        @if((Auth::user()->role ?? null) === 'Gerència')
+        @if((Auth::user()->permissions ?? null) === 'Gerència')
         <div class="flex gap-2">
             <!-- Edit Center -->
             @if($center->status == 1)

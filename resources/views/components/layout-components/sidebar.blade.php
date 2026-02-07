@@ -5,7 +5,7 @@
         <ul class="menu bg-base-200 w-full text-xs text-base-content">
 
             <!-- Submenu Centers (gerent only) -->
-            @if((Auth::user()->role ?? null) === 'Gerència')
+            @if((Auth::user()->permissions ?? null) === 'Gerència')
             <li>
                 <details>
                     <summary class="font-normal">
@@ -66,7 +66,7 @@
             </li>
 
             <!-- Submenu Global Documents -->
-            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Gerència']))
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
             <li class="font-normal">
                 <a href="{{ route('global_documents_list') }}">
                     <x-partials.icon name="document-text" class="w-6 h-6 text-primary" />
@@ -76,7 +76,7 @@
             @endif
 
             <!-- Submenu HR Issues (Direcció and Gerència only) -->
-            @if((Auth::user()->role ?? null) === 'Direcció' || (Auth::user()->role ?? null) === 'Gerència')
+            @if((Auth::user()->permissions ?? null) === 'Direcció' || (Auth::user()->permissions ?? null) === 'Gerència')
             <li>
                 <details>
                     <summary class="font-normal">
@@ -104,7 +104,7 @@
             @endif
 
             <!-- Submenu Maintenances -->
-            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Administració', 'Gerència']))
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
             <li>
                 <details>
                     <summary class="font-normal">
@@ -158,7 +158,7 @@
                         </li>
                     </ul>
                     <!-- Submenu Professional Accidents (Direcció and Administració only) -->
-                    @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Administració', 'Gerència']))
+                    @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
                     <ul class="text-xs text-base-content/65">
                         <li>
                             <details>
@@ -273,7 +273,7 @@
                 </details>
             </li>
             <!-- Submenu Material-Assignments -->
-            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Administració', 'Gerència']))
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
             <li>
                 <details>
                     <summary class="font-normal">
@@ -328,7 +328,7 @@
             </li>
 
             <!-- Submenu General Services (Direcció and Administratiu only) -->
-            @if(in_array(Auth::user()->role ?? null, ['Direcció', 'Administració', 'Gerència']))
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
             <li>
                 <details>
                     <summary class="font-normal">

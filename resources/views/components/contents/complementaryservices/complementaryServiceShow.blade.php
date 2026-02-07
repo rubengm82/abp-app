@@ -14,7 +14,7 @@
     <!-- Header -->
     <div class="flex justify-end items-center mb-6">
         <!-- Buttons -->
-        @if((Auth::user()->role ?? null) !== 'Tècnic')
+        @if((Auth::user()->permissions ?? null) !== 'Tècnic')
         <div class="flex gap-2">
             <a href="{{ route('complementaryservice_edit', $complementaryService) }}" class="btn btn-sm btn-info">Editar</a>
 

@@ -37,7 +37,7 @@
                         {{ (Auth::user()->name) . ' ' . (Auth::user()->surname1) . ' ' . (Auth::user()->surname2 ?? '') }}
                     </span>
                     <span class="text-primary font-bold text-center text-xl">
-                        {{ Auth::user()->role ?? 'Sense Rol' }}
+                        {{ Auth::user()->permissions ?? 'Sense Permisos' }}
                     </span>
                 </li>
                 
