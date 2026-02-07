@@ -5,7 +5,7 @@
 <x-partials.breadcrumb
     :items="[
         'Temes pendents RRHH' => route('hr_issues_list'),
-        'Detalls' => route('hr_issue_show', $hrIssue),
+        'Fitxa' => route('hr_issue_show', $hrIssue),
     ]"
     :current="'Editar Tema pendent RRHH'"
     />

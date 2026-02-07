@@ -7,7 +7,7 @@
         'Professionals' => route('professionals_list'),
         'Avaluacions' => route('professional_evaluations_list'),
     ]"
-    :current="'Detalls'"
+    :current="'Fitxa'"
 />
 
 <div class="w-full mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">

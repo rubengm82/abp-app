@@ -5,7 +5,7 @@
 <x-partials.breadcrumb
     :items="[
         'Centres' => route('centers_list'),
-        'Detalls' => route('center_show', $center->id),
+        'Fitxa' => route('center_show', $center->id),
     ]"
     :current="'Editar'"
     />

@@ -6,11 +6,11 @@
     :items="[
         'Uniformitat' => route('materialassignments_list'),
     ]"
-    :current="'Detalls'"
+    :current="'Fitxa'"
     />
 <div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold">Detalls de l'Assignació de Material</h1>
+        <h1 class="text-3xl font-bold">Fitxa de l'Assignació de Material</h1>
         <div class="flex gap-2">
             <a href="{{ route('materialassignment_edit', $materialAssignment) }}" class="btn btn-sm btn-info">Editar</a>
             <x-partials.modal id="deleteAssignment{{ $materialAssignment->id }}" msj="Estàs segur que vols eliminar aquesta assignació?" btnText="Eliminar" class="btn-sm btn-error">

@@ -5,7 +5,7 @@
 <x-partials.breadcrumb
     :items="[
         'Contactes Externs' => route('externalcontacts_list'),
-        'Detalls' => route('externalcontact_show', $externalContact->id),
+        'Fitxa' => route('externalcontact_show', $externalContact->id),
     ]"
     :current="'Editar'"
     />

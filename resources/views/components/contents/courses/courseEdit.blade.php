@@ -6,7 +6,7 @@
     :items="[
         'Cursos' => route('courses_list'),
         'Llistat' => route('courses_list'),
-        'Detalls' => route('course_show', $course->id),
+        'Fitxa' => route('course_show', $course->id),
     ]"
     :current="'Editar'"
 />

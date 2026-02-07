@@ -6,7 +6,7 @@
     :items="[
         'Serveis Complementaris' => route('complementaryservices_list'),
     ]"
-    :current="'Detalls'"
+    :current="'Fitxa'"
     />
 
 <div class="max-w-4xl mx-auto bg-base-200 text-base-content p-6 rounded-lg shadow-xl/10 border border-gray-500/20">
