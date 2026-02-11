@@ -12,10 +12,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\mainlog;
 
+/**
+ * Controlador para la gestión de profesionales.
+ *
+ * Maneja las operaciones CRUD y acciones adicionales como activación,
+ * desactivación, descarga de CSV y gestión de documentos y notas.
+ */
 class ProfessionalController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra un listado de los profesionales según el estado indicado.
+     *
+     * @param Request $request
+     * @param int     $status Estado de los profesionales (1 = activos, 0 = inactivos)
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function index(Request $request, $status = 1)
     {
@@ -24,30 +34,36 @@ class ProfessionalController extends Controller
             ->where('center_id', Auth::user()->center->id);
 
         if ($search = $request->get('search')) {
-
-            $query
-            ->whereAny(['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email','employment_status'], 'like', "%{$search}%");
+            $query->whereAny(
+                ['name', 'surname1', 'surname2', 'key_code', 'dni', 'address', 'role', 'phone', 'email', 'employment_status'],
+                'like',
+                "%{$search}%"
+            );
         }
 
         $professionals = $query->get();
-
         $isDeactivated = ($status == 0);
 
         return $request->ajax()
-            ? view('components.contents.professional.tables.professionalsListTable', with(['professionals' => $professionals, 'isDeactivated' => $isDeactivated]))->render()
-            : view("components.contents.professional.professionalsList", with(['professionals' => $professionals, 'isDeactivated' => $isDeactivated]));
+            ? view('components.contents.professional.tables.professionalsListTable', compact('professionals', 'isDeactivated'))->render()
+            : view('components.contents.professional.professionalsList', compact('professionals', 'isDeactivated'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo profesional.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view("components.contents.professional.professionalForm");
+        return view('components.contents.professional.professionalForm');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un nuevo profesional en la base de datos.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -68,9 +84,8 @@ class ProfessionalController extends Controller
             'key_code' => 'nullable|string|max:50',
         ]);
 
-        // Create professional
         $professional = Professional::create([
-            'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
+            'center_id' => Auth::user()->center_id,
             'role' => $validated['role'] ?? null,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
@@ -82,7 +97,7 @@ class ProfessionalController extends Controller
             'employment_status' => $validated['employment_status'] ?? 'Actiu',
             'cvitae' => $validated['cvitae'] ?? null,
             'user' => $validated['user'],
-            'password' => $validated['password'], // Will be hashed in the model booted()
+            'password' => $validated['password'],
             'locker_num' => $validated['locker_num'] ?? null,
             'key_code' => $validated['key_code'] ?? null,
             'status' => 1,
@@ -92,7 +107,10 @@ class ProfessionalController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra los detalles de un profesional específico.
+     *
+     * @param string $id
+     * @return \Illuminate\Http\Response
      */
     public function show(string $id)
     {
@@ -102,25 +120,27 @@ class ProfessionalController extends Controller
         $pantsSize = MaterialAssignment::getLatestPantsSize($professional->id);
         $shoeSize = MaterialAssignment::getLatestShoeSize($professional->id);
 
-        return view('components.contents.professional.professionalShow')->with([
-            'professional' => $professional,
-            'shirtSize' => $shirtSize,
-            'pantsSize' => $pantsSize,
-            'shoeSize' => $shoeSize,
-        ]);
+        return view('components.contents.professional.professionalShow', compact('professional', 'shirtSize', 'pantsSize', 'shoeSize'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un profesional específico.
+     *
+     * @param string $id
+     * @return \Illuminate\Http\Response
      */
     public function edit(string $id)
     {
         $professional = Professional::findOrFail($id);
-        return view("components.contents.professional.professionalEdit")->with('professional', $professional);
+        return view('components.contents.professional.professionalEdit', compact('professional'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un profesional específico en la base de datos.
+     *
+     * @param Request $request
+     * @param string  $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, string $id)
     {
@@ -144,7 +164,6 @@ class ProfessionalController extends Controller
         ]);
 
         $updateData = [
-            // center_id is not modified, it remains the existing one
             'role' => $validated['role'] ?? $professional->role,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
@@ -160,53 +179,60 @@ class ProfessionalController extends Controller
             'key_code' => $validated['key_code'] ?? $professional->key_code,
         ];
 
-        // Only include password if it has content
         if (!empty($validated['password'])) {
             $updateData['password'] = $validated['password'];
         }
 
         $professional->update($updateData);
 
-        // Update associated user if exists
-        // if ($professional->userAccount && $validated['password']) {
-        //     $professional->userAccount->update([
-        //         'password' => Hash::make($validated['password'])
-        //     ]);
-        // }
-
         return redirect()->route('professionals_list')->with('success', 'Professional actualitzat correctament!');
     }
 
     /**
-     * Activate Status
+     * Activa el estado de un profesional.
+     *
+     * @param Request $request
+     * @param string  $professional_id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function activateStatus(Request $request, String $professional_id)
+    public function activateStatus(Request $request, string $professional_id)
     {
         $professional = Professional::findOrFail($professional_id);
         $professional->update([
-            'status' => 1, 
+            'status' => 1,
             'employment_status' => 'Actiu'
         ]);
+
         return redirect()->route('professionals_desactivated_list')->with('success', 'Professional activat correctament!');
     }
 
     /**
-     * Deactivate Status
+     * Desactiva el estado de un profesional.
+     *
+     * @param Request $request
+     * @param string  $professional_id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function desactivateStatus(Request $request, String $professional_id)
+    public function desactivateStatus(Request $request, string $professional_id)
     {
         $professional = Professional::findOrFail($professional_id);
         $professional->update(['status' => 0, 'employment_status' => 'No Contractat']);
+
         return redirect()->route('professionals_list')->with('success', 'Professional desactivat correctament!');
     }
 
-
     /**
-     * Download CSV by status
+     * Descarga un archivo CSV con los profesionales según su estado.
+     *
+     * @param int $statusParam
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function downloadCSV(int $statusParam)
     {
-        $professionals = Professional::with('center')->where('status', $statusParam)->where('center_id', Auth::user()->center->id)->get();
+        $professionals = Professional::with('center')
+            ->where('status', $statusParam)
+            ->where('center_id', Auth::user()->center->id)
+            ->get();
 
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = $statusParam == 1 ? "professionals_actius_{$timestamp}.csv" : "professionals_no_actius_{$timestamp}.csv";
@@ -233,19 +259,25 @@ class ProfessionalController extends Controller
         }
 
         fclose($handle);
+
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 
     /**
-     * Download CSV with material assignments
+     * Descarga un archivo CSV con las asignaciones de material de los profesionales.
+     *
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function downloadCSVMaterialAssignments()
     {
-        $professionals = Professional::where('status', 1)->where('center_id', Auth::user()->center->id)->get();
+        $professionals = Professional::where('status', 1)
+            ->where('center_id', Auth::user()->center->id)
+            ->get();
+
         $timestamp = now()->format('Y-m-d_H-i-s');
         $filename = "professionals_taquilles_{$timestamp}.csv";
-        $handle = fopen($filename, 'w+');
 
+        $handle = fopen($filename, 'w+');
         fputcsv($handle, ['ID', 'Taquilla', 'Nom', 'Primer cognom', 'Segon cognom', 'Samarreta', 'Pantaló', 'Sabata']);
 
         foreach ($professionals as $professional) {
@@ -266,13 +298,17 @@ class ProfessionalController extends Controller
         }
 
         fclose($handle);
-        
+
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 
-
-    //// DOCUMENTS ////
-    // Upload Document to server
+    /**
+     * Agrega un documento a un profesional.
+     *
+     * @param Request    $request
+     * @param Professional $professional
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function professional_document_add(Request $request, Professional $professional)
     {
         $request->validate([
@@ -282,7 +318,6 @@ class ProfessionalController extends Controller
 
         $file = $request->file('file');
 
-        // File name: original_name + fecha
         $timestamp = now()->format('Ymd_His');
         $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $extension = $file->getClientOriginalExtension();
@@ -297,29 +332,35 @@ class ProfessionalController extends Controller
             'file_size' => $file->getSize(),
             'mime_type' => $file->getMimeType(),
             'uploaded_by_professional_id' => Auth::user()->id,
-            'document_type' => $request->input('document_type') ? $request->input('document_type') : 'Altres' ,
+            'document_type' => $request->input('document_type') ?: 'Altres',
         ]);
 
         return back()->with('success', 'Document pujat correctament!');
     }
 
-
-    // Download Document to server
+    /**
+     * Descarga un documento de un profesional.
+     *
+     * @param DocumentComponent $document
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|\Illuminate\Http\RedirectResponse
+     */
     public function professional_document_download(DocumentComponent $document)
     {
         $path = storage_path('app/public/' . $document->file_path);
 
-        $response = null;
         if (file_exists($path)) {
-            $response = response()->download($path, $document->original_name);
-        } else {
-            $response = back()->with('error', 'El document no existeix.');
+            return response()->download($path, $document->original_name);
         }
 
-        return $response;
+        return back()->with('error', 'El document no existeix.');
     }
 
-    // Delete Document to server
+    /**
+     * Elimina un documento de un profesional.
+     *
+     * @param DocumentComponent $document
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function professional_document_delete(DocumentComponent $document)
     {
         if (Storage::disk('public')->exists($document->file_path)) {
@@ -330,57 +371,69 @@ class ProfessionalController extends Controller
 
         return back()->with('success', 'Document eliminat correctament!');
     }
-    
 
-    //// NOTES ////
+    /**
+     * Agrega una nota a un profesional.
+     *
+     * @param Request    $request
+     * @param Professional $professional
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function professional_note_add(Request $request, Professional $professional)
     {
-        mainlog::log("Iniciando professional_note_add en ProfessionalController");
-        mainlog::log("restricted:". $request->input('restricted'));
         $request->validate([
             'notes' => 'required|string|max:1000',
-            'restricted' => 'nullable'
+            'restricted' => 'nullable',
         ]);
-        mainlog::log("Validación pasada de datos en professional_note_add en ProfessionalController");
 
-        // Convert checkbox value: "on" or presence = 1, absence = 0
         $restricted = $request->has('restricted') && $request->input('restricted') !== null ? 1 : 0;
 
         $professional->notes()->create([
             'notes' => $request->input('notes'),
             'created_by_professional_id' => Auth::id(),
-            'restricted' => $restricted
+            'restricted' => $restricted,
         ]);
-        mainlog::log("Nota añadida correctamente en professional_note_add en ProfessionalController");
+
         return redirect()->route('professional_show', $professional->id . '#notes-section')
-                         ->with('success', 'Nota afegida correctament!');
+            ->with('success', 'Nota afegida correctament!');
     }
 
+    /**
+     * Actualiza una nota de un profesional.
+     *
+     * @param Request       $request
+     * @param NotesComponent $note
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function professional_note_update(Request $request, NotesComponent $note)
     {
         $request->validate([
             'notes' => 'required|string|max:1000',
-            'restricted' => 'nullable'
+            'restricted' => 'nullable',
         ]);
 
-        // Convert checkbox value: "on" or presence = 1, absence = 0
         $restricted = $request->has('restricted') && $request->input('restricted') !== null ? 1 : 0;
 
         $note->update([
             'notes' => $request->input('notes'),
-            'restricted' => $restricted
+            'restricted' => $restricted,
         ]);
 
         return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
-                         ->with('success', 'Nota actualitzada correctament!');
+            ->with('success', 'Nota actualitzada correctament!');
     }
 
+    /**
+     * Elimina una nota de un profesional.
+     *
+     * @param NotesComponent $note
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function professional_note_delete(NotesComponent $note)
     {
         $note->delete();
 
         return redirect()->route('professional_show', $note->noteable->id . '#notes-section')
-                         ->with('success', 'Nota eliminada correctament!');
+            ->with('success', 'Nota eliminada correctament!');
     }
-
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor configVersion="3.0">
+    <title>API Documentation</title>
+    <paths>
+        <output>docs</output>
+        <cache>build/cache</cache>
+    </paths>
+    <versions>
+        <version number="1.0.0">
+            <api>
+                <source dsn=".">
+                    <paths>
+                        <file>app/Http/Controllers/ProfessionalController.php</file>
+                    </paths>
+                </source>
+            </api>
+        </version>
+    </versions>
+</phpdocumentor>
+
+<!-- PARA TODO EL PROYECTO -->
+<!--
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor configVersion="3.0">
+    <title>API Documentation</title>
+    <paths>
+        <output>docs</output>
+        <cache>build/cache</cache>
+    </paths>
+    <versions>
+        <version number="1.0.0">
+            <api>
+                <source dsn=".">
+                    <paths>
+                        <path>app</path>
+                    </paths>
+                </source>
+            </api>
+        </version>
+    </versions>
+</phpdocumentor>
+-->
