@@ -15,6 +15,8 @@ use App\Http\Controllers\GeneralServiceController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\GlobalDocumentController;
 use App\Http\Controllers\ProfessionalAccidentController;
+use App\Http\Controllers\MaterialStockItemController;
+use App\Http\Controllers\MaterialStockMovementController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -275,6 +277,18 @@ Route::middleware('auth')->delete('/maintenance/{maintenance}', [MaintenanceCont
 Route::middleware('auth')->patch('/maintenance/activate/{maintenance}', [MaintenanceController::class, 'activateStatus'])->name('maintenance_activate');
 Route::middleware('auth')->patch('/maintenance/desactivate/{maintenance}', [MaintenanceController::class, 'desactivateStatus'])->name('maintenance_desactivate');
 Route::middleware('auth')->get('/maintenances/downloadCSV', [MaintenanceController::class, 'downloadCSV'])->name('maintenances_downloadCSV');
+
+/* ------------------------ MATERIAL STOCK (Estoc de Material) ------------------------ */
+Route::middleware('auth')->get('/material-stock/items/list', [MaterialStockItemController::class, 'index'])->name('material_stock_items_list');
+Route::middleware('auth')->get('/material-stock/items/downloadCSV', [MaterialStockItemController::class, 'downloadCSV'])->name('material_stock_items_downloadCSV');
+Route::middleware('auth')->get('/material-stock/items/form', [MaterialStockItemController::class, 'create'])->name('material_stock_item_form');
+Route::middleware('auth')->post('/material-stock/items/add', [MaterialStockItemController::class, 'store'])->name('material_stock_item_add');
+Route::middleware('auth')->get('/material-stock/movements/list', [MaterialStockMovementController::class, 'index'])->name('material_stock_movements_list');
+Route::middleware('auth')->get('/material-stock/movements/downloadCSV', [MaterialStockMovementController::class, 'downloadCSV'])->name('material_stock_movements_downloadCSV');
+Route::middleware('auth')->get('/material-stock/movements/form', [MaterialStockMovementController::class, 'create'])->name('material_stock_movement_form');
+Route::middleware('auth')->post('/material-stock/movements/add', [MaterialStockMovementController::class, 'store'])->name('material_stock_movement_add');
+Route::middleware('auth')->get('/material-stock/movements/show/{materialStockMovement}', [MaterialStockMovementController::class, 'show'])->name('material_stock_movement_show');
+Route::middleware('auth')->delete('/material-stock/movements/delete/{materialStockMovement}', [MaterialStockMovementController::class, 'destroy'])->name('material_stock_movement_delete');
 
 /* Maintenance Assignment Notes */
 Route::middleware('auth')->post('/maintenances/notes/{maintenance}', [MaintenanceController::class, 'maintenance_note_add'])->name('maintenance_note_add');

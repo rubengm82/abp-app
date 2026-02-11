@@ -301,10 +301,38 @@
             <!-- 9. Estoc de Material -->
             @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
             <li>
-                <a href="{{ route('materialassignments_existencies_roba_list') }}">
-                    <x-partials.icon name="cube" class="w-6 h-6 text-primary" />
-                    Estoc de Material
-                </a>
+                <details>
+                    <summary class="font-normal">
+                        <x-partials.icon name="cube" class="w-6 h-6 text-primary" />
+                        Estoc de Material
+                    </summary>
+                    <ul class="text-xs text-base-content/65">
+                        <li>
+                            <a href="{{ route('material_stock_items_list') }}">
+                                <x-partials.icon name="queue-list" class="w-4 h-4 text-info" />
+                                Llistar items
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('material_stock_movements_list') }}">
+                                <x-partials.icon name="clipboard-document" class="w-4 h-4 text-info" />
+                                Registre de moviments
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('material_stock_item_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Nou Item
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('material_stock_movement_form') }}">
+                                <x-partials.icon name="arrow-path" class="w-4 h-4 text-info" />
+                                Fer moviment
+                            </a>
+                        </li>
+                    </ul>
+                </details>
             </li>
             @endif
 
@@ -390,12 +418,6 @@
                     </summary>
                     <ul class="text-xs text-base-content/65">
                         <li>
-                            <a href="{{ route('centers_desactivated_list') }}">
-                                <x-partials.icon name="building-office" class="w-4 h-4 text-gray-400" />
-                                Centres
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ route('professionals_desactivated_list') }}">
                                 <x-partials.icon name="user-group" class="w-4 h-4 text-gray-400" />
                                 Professionals
@@ -408,15 +430,21 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('maintenances_desactivated_list') }}">
-                                <x-partials.icon name="wrench" class="w-4 h-4 text-gray-400" />
-                                Mateniments
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ route('complementaryservices_desactivated_list') }}">
                                 <x-partials.icon name="wrench-screwdriver" class="w-4 h-4 text-gray-400" />
                                 Serveis Complementaris
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('maintenances_desactivated_list') }}">
+                                <x-partials.icon name="wrench" class="w-4 h-4 text-gray-400" />
+                                Manteniments
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('centers_desactivated_list') }}">
+                                <x-partials.icon name="building-office" class="w-4 h-4 text-gray-400" />
+                                Centres
                             </a>
                         </li>
                         @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))

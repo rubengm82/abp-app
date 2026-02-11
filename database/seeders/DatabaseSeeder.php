@@ -29,7 +29,9 @@ class DatabaseSeeder extends Seeder
             GeneralServiceSeeder::class,
             ComplementaryServiceSeeder::class,
             MaintenanceSeeder::class,
-            ProfessionalAccidentSeeder::class
+            ProfessionalAccidentSeeder::class,
+            MaterialStockItemSeeder::class,
+            MaterialStockMovementSeeder::class,
         ]);
     }
 }
