@@ -111,11 +111,15 @@
                             <span class="label-text">Permisos</span>
                         </label>
                         <select name="permissions" id="id_permissions" class="select select-bordered w-full">
-                            <option value="">Selecciona permisos</option>
-                            <option value="Direcció" {{ old('permissions', $professional->permissions) == 'Direcció' ? 'selected' : '' }}>Direcció</option>
-                            <option value="Administració" {{ old('permissions', $professional->permissions) == 'Administració' ? 'selected' : '' }}>Administració</option>
-                            <option value="Tècnic" {{ old('permissions', $professional->permissions) == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
-                            <option value="Gerència" {{ old('permissions', $professional->permissions) == 'Gerència' ? 'selected' : '' }}>Gerència</option>
+                            @if((Auth::user()->permissions ?? null) === 'Tècnic')
+                                <option value="Tècnic" {{ old('permissions', $professional->permissions) == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
+                            @else
+                                <option value="">Selecciona permisos</option>
+                                <option value="Direcció" {{ old('permissions', $professional->permissions) == 'Direcció' ? 'selected' : '' }}>Direcció</option>
+                                <option value="Administració" {{ old('permissions', $professional->permissions) == 'Administració' ? 'selected' : '' }}>Administració</option>
+                                <option value="Tècnic" {{ old('permissions', $professional->permissions) == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
+                                <option value="Gerència" {{ old('permissions', $professional->permissions) == 'Gerència' ? 'selected' : '' }}>Gerència</option>
+                            @endif
                         </select>
                     </div>
                     <div class="form-control">
