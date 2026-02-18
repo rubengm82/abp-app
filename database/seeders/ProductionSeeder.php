@@ -1,5 +1,9 @@
 <?php
 
+// EXECUTE ONLY ONCE TO POPULATE THE DATABASE, NEVER AGAIN
+// php artisan migrate:fresh
+// php artisan db:seed --class=ProductionSeeder
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -14,8 +18,9 @@ class ProductionSeeder extends Seeder
      */
     public function run(): void
     {
-         // Desactiva FKs → truncate seguro y rápido
+         // Deactivate FKs → truncate safely and quickly
         Schema::disableForeignKeyConstraints();
+        DB::table('general_services')->truncate();
         DB::table('centers')->truncate();
         DB::table('professionals')->truncate();
         Schema::enableForeignKeyConstraints();
@@ -37,30 +42,48 @@ class ProductionSeeder extends Seeder
                 'center_id' => 1,
                 'permissions' => 'Gerència',
                 'role' => 'Direcció',
-                'name' => 'Admin',
-                'surname1' => 'Admin',
-                'surname2' => 'Admin',
-                'dni' => 'F9876543B',
-                'phone' => '+34 600 000 000',
-                'email' => 'admin@admin.cat',
-                'address' => 'Carrer Admin, 2, Barcelona',
+                'name' => 'Zero',
+                'surname1' => '',
+                'surname2' => '',
+                'dni' => '',
+                'birth_date' => null,
+                'first_hire_date' => null,
+                'gender' => null,
+                'education_level' => null,
+                'phone' => '',
+                'email' => null,
+                'address' => null,
                 'employment_status' => 'Fixe',
-                'cvitae' => 'Es el Admin',
-                'user' => 'admin',
-                'password' => 'admin', // automatic hash
-                'locker_num' => 'Z999',
-                'key_code' => 'KEY999',
+                'cvitae' => null,
+                'cv_file_path' => null,
+                'cv_file_original_name' => null,
+                'user' => 'zero',
+                'password' => 'zero', // automatic hash
+                'locker_num' => null,
+                'key_code' => null,
                 'status' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 
-        // Hash de passwords ANTES de insertar
+        // Hash passwords BEFORE inserting
         foreach ($professionals as &$professional) {
             // $p['password'] = Hash::make($p['password']);
             $professional['password'] = Hash::make($professional['password'], ['rounds' => 4]);
         }
 
         DB::table('centers')->insert($centers);
+
+        // General Services (Kitchen, Cleaning, Laundry) for the center, like Center::created
+        $now = now();
+        $generalServices = [
+            ['center_id' => 1, 'service_type' => 'Cuina',    'responsible' => null, 'responsible_info' => null, 'planning' => null, 'created_at' => $now, 'updated_at' => $now],
+            ['center_id' => 1, 'service_type' => 'Neteja',   'responsible' => null, 'responsible_info' => null, 'planning' => null, 'created_at' => $now, 'updated_at' => $now],
+            ['center_id' => 1, 'service_type' => 'Bugaderia','responsible' => null, 'responsible_info' => null, 'planning' => null, 'created_at' => $now, 'updated_at' => $now],
+        ];
+        DB::table('general_services')->insert($generalServices);
+
         DB::table('professionals')->insert($professionals);
     }
 }

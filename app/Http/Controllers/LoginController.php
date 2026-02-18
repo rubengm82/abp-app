@@ -29,6 +29,10 @@ class LoginController extends Controller
 
         // Check password and authenticate
         if ($professional && Hash::check($request->input('password'), $professional->password)) {
+            if ($professional->permissions === 'Sense permisos') {
+                return back()->with('error', 'No tens permisos per accedir al sistema.')
+                    ->withInput($request->only('user'));
+            }
             if ($professional->permissions === 'Gerència') {
                 // For Gerència, show center selection modal
                 $request->session()->put('pending_professional', $professional->id);
@@ -63,7 +67,9 @@ class LoginController extends Controller
         if ($professional_id) {
             $professional = Professional::find($professional_id);
 
-            if (!$professional || $professional->permissions !== 'Gerència') {
+            if (!$professional || $professional->permissions === 'Sense permisos') {
+                $redirectRoute = redirect()->route('login')->with('error', $professional && $professional->permissions === 'Sense permisos' ? 'No tens permisos per accedir al sistema.' : 'Accés denegat');
+            } elseif ($professional->permissions !== 'Gerència') {
                 $redirectRoute = redirect()->route('login')->with('error', 'Accés denegat');
             } else {
                 $professional->update(['center_id' => $request->center_id]);

@@ -26,7 +26,7 @@ return new class extends Migration
                 $table->date('first_hire_date')->nullable()->comment('First hire date for seniority (Antiguitat)');
                 $table->enum('gender', ['Home', 'Dona', 'Altre'])->nullable()->comment('Gender (Gènere)');
                 $table->string('education_level', 255)->nullable()->comment('Education level (Nivell de formació)');
-                $table->enum('permissions', ['Direcció', 'Administració', 'Tècnic', 'Gerència'])->nullable()->comment('Access permissions level');
+                $table->enum('permissions', ['Direcció', 'Administració', 'Tècnic', 'Gerència', 'Sense permisos'])->nullable()->comment('Access permissions level');
                 $table->enum('role', ['ATE', 'ATE-RT', 'Infermeria', 'Metge', 'Recepció', 'Administració', 'Treball Social', 'Pedagogia/Psicologia', 'Fisioteràpia', 'Direcció', 'Altres'])->nullable()->comment('Professional role / job title');
                 $table->string('dni', 100)->unique()->comment('DNI');
 

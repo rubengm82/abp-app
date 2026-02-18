@@ -79,7 +79,7 @@ class ProfessionalController extends Controller
         // Create professional
         $professional = Professional::create([
             'center_id' => Auth::user()->center_id, //assign the center_id of the logged in user
-            'permissions' => $validated['permissions'] ?? null,
+            'permissions' => filled($validated['permissions'] ?? null) ? $validated['permissions'] : 'Sense permisos',
             'role' => $validated['role'] ?? null,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],
@@ -208,7 +208,7 @@ class ProfessionalController extends Controller
 
         $updateData = [
             // center_id is not modified, it remains the existing one
-            'permissions' => $validated['permissions'] ?? $professional->permissions,
+            'permissions' => filled($validated['permissions'] ?? null) ? $validated['permissions'] : 'Sense permisos',
             'role' => $validated['role'] ?? $professional->role,
             'name' => $validated['name'],
             'surname1' => $validated['surname1'],

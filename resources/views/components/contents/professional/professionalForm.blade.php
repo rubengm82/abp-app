@@ -110,13 +110,16 @@
                         </label>
                         <select name="permissions" id="id_permissions" class="select select-bordered w-full">
                             @if((Auth::user()->permissions ?? null) === 'Tècnic')
+                                <option value="">Selecciona permisos</option>
                                 <option value="Tècnic" {{ old('permissions') == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
+                                <option value="Sense permisos" {{ old('permissions') == 'Sense permisos' ? 'selected' : '' }}>Sense permisos</option>
                             @else
                                 <option value="">Selecciona permisos</option>
                                 <option value="Direcció" {{ old('permissions') == 'Direcció' ? 'selected' : '' }}>Direcció</option>
                                 <option value="Administració" {{ old('permissions') == 'Administració' ? 'selected' : '' }}>Administració</option>
                                 <option value="Tècnic" {{ old('permissions') == 'Tècnic' ? 'selected' : '' }}>Tècnic</option>
                                 <option value="Gerència" {{ old('permissions') == 'Gerència' ? 'selected' : '' }}>Gerència</option>
+                                <option value="Sense permisos" {{ old('permissions') == 'Sense permisos' ? 'selected' : '' }}>Sense permisos</option>
                             @endif
                         </select>
                     </div>
