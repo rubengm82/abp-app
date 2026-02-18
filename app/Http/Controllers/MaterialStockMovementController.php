@@ -60,7 +60,7 @@ class MaterialStockMovementController extends Controller
             'type' => 'required|in:Entrada,Sortida',
             'quantity' => 'required|integer|min:1',
             'movement_date' => 'required|date',
-            'person' => 'nullable|string|max:255',
+            'person' => 'required|string|max:255',
         ]);
 
         $item = MaterialStockItem::where('id', $validated['material_stock_item_id'])
@@ -79,7 +79,7 @@ class MaterialStockMovementController extends Controller
             'type' => $validated['type'],
             'quantity' => $qty,
             'movement_date' => $validated['movement_date'],
-            'person' => filled($validated['person'] ?? null) ? trim($validated['person']) : null,
+            'person' => trim($validated['person']),
             'professional_id' => Auth::id(),
         ]);
 

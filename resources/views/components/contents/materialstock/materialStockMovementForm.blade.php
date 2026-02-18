@@ -73,9 +73,9 @@
                     </div>
                     <div class="form-control md:col-span-2">
                         <label class="label font-bold text-base-content mb-1" id="label_person">
-                            <span class="label-text">Persona</span>
+                            <span class="label-text">Persona *</span>
                         </label>
-                        <input type="text" name="person" id="id_person" placeholder="Proveedor (entrada) o persona receptora (sortida)" class="input input-bordered w-full" value="{{ old('person') }}">
+                        <input type="text" name="person" id="id_person" placeholder="Proveedor (entrada) o persona receptora (sortida)" class="input input-bordered w-full" value="{{ old('person') }}" required>
                     </div>
                 </div>
             </div>

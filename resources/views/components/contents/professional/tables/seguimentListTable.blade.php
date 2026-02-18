@@ -3,7 +3,6 @@
         <tr class="bg-base-300 text-base-content font-bold">
             <th class="px-4 py-2 text-left">Nom</th>
             <th class="px-4 py-2 text-left">Rol</th>
-            <th class="px-4 py-2 text-left">Email</th>
             <th class="px-4 py-2 text-left">Estat</th>
             <th class="px-4 py-2 text-center">Notes</th>
             <th class="px-4 py-2 text-left">Data última nota</th>
@@ -19,24 +18,17 @@
                         {{ trim($professional->name . ' ' . $professional->surname1 . ' ' . ($professional->surname2 ?? '')) }}
                     </a>
                 </td>
-                <td class="px-4 py-2">{{ $professional->role ?? '—' }}</td>
+                <td class="px-4 py-2">{{ $professional->role ?? '' }}</td>
                 <td class="px-4 py-2">
-                    @if($professional->email)
-                        <a href="mailto:{{ $professional->email }}" class="link link-hover text-info link-info truncate max-w-[180px] block" title="{{ $professional->email }}">{{ Str::limit($professional->email, 28) }}</a>
-                    @else
-                        <span class="text-base-content/50">—</span>
-                    @endif
-                </td>
-                <td class="px-4 py-2">
-                    @if($professional->employment_status === 'Fixe')
-                        <span class="badge badge-dash badge-info">{{ $professional->employment_status }}</span>
-                    @elseif($professional->employment_status === 'Eventual')
-                        <span class="badge badge-dash badge-success">{{ $professional->employment_status }}</span>
-                    @elseif($professional->employment_status === 'Suplent habitual')
-                        <span class="badge badge-dash badge-warning">{{ $professional->employment_status }}</span>
-                    @else
-                        <span class="badge badge-dash badge-ghost">{{ $professional->employment_status ?? '—' }}</span>
-                    @endif
+                    @php
+                        $statusClasses = [
+                            'Fixe' => 'badge-info',
+                            'Eventual' => 'badge-success',
+                            'Suplent habitual' => 'badge-warning',
+                        ];
+                        $badgeClass = $statusClasses[$professional->employment_status] ?? 'badge-error';
+                    @endphp
+                    <span class="badge badge-dash {{ $badgeClass }}">{{ $professional->employment_status ?? '' }}</span>
                 </td>
                 <td class="px-4 py-2 text-center">
                     <span class="badge badge-sm badge-ghost">{{ $professional->notes->count() }}</span>

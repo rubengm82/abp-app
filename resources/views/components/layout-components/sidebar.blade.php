@@ -320,15 +320,15 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('material_stock_item_form') }}">
-                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
-                                Nou Item
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ route('material_stock_movement_form') }}">
                                 <x-partials.icon name="arrow-path" class="w-4 h-4 text-info" />
                                 Fer moviment
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('material_stock_item_form') }}">
+                                <x-partials.icon name="plus" class="w-4 h-4 text-info" />
+                                Nou Item
                             </a>
                         </li>
                     </ul>
