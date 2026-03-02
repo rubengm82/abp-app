@@ -7,12 +7,14 @@
             <th class="px-4 py-2 text-left">Data d'inici</th>
             <th class="px-4 py-2 text-left">Data fi</th>
             <th class="px-4 py-2 text-left">Estat</th>
-            <th class="px-4 py-2 text-right">{{ $isDeactivated ? 'Accions' : 'Acció' }}</th>
+            @if($isDeactivated)
+                <th class="px-4 py-2 text-right">Accions</th>
+            @endif
         </tr>
     </thead>
     <tbody>
         @foreach($maintenances as $maintenance)
-            <tr class="hover:bg-base-300 transition-colors text-xs">
+            <tr class="hover:bg-base-300 transition-colors text-xs {{ !$isDeactivated ? 'cursor-pointer' : '' }}" @if(!$isDeactivated) data-href="{{ route('maintenance_show', $maintenance) }}" role="link" tabindex="0" @endif>
                 <td class="px-4 py-2">{{ Str::limit($maintenance->name_maintenance, 60) }}</td>
                 <td class="px-4 py-2">{{ Str::limit($maintenance->responsible_maintenance, 60) }}</td>
                 <td class="px-4 py-2">
@@ -33,21 +35,17 @@
                         <span class="badge badge-dash whitespace-nowrap badge-ghost">{{ $maintenance->status ?? 'No especificat' }}</span>
                     @endif
                 </td>
-                <td class="px-4 py-2 text-right">
-                    <div class="flex justify-end gap-2">
-                        @if(!$isDeactivated)
-                            <a href="{{ route('maintenance_show', $maintenance) }}" class="btn btn-xs btn-info">Veure</a>
-                        @endif
-
-                        @if($isDeactivated)
+                @if($isDeactivated)
+                    <td class="px-4 py-2 text-right">
+                        <div class="flex justify-end gap-2">
                             <form action="{{ route('maintenance_activate', $maintenance) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn btn-xs btn-success">Activar</button>
                             </form>
-                        @endif
-                    </div>
-                </td>
+                        </div>
+                    </td>
+                @endif
             </tr>
         @endforeach
     </tbody>

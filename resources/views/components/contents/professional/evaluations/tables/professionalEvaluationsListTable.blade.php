@@ -5,14 +5,14 @@
             <th class="px-4 py-2 text-left">Avaluador</th>
             <th class="px-4 py-2 text-left">Data de l'Avaluació</th>
             <th class="px-4 py-2 text-right">Resposta Mitjana</th>
-            <th class="px-4 py-2 text-right">Acció</th>
         </tr>
     </thead>
     <tbody>
         @foreach($groupedEvaluations as $group)
-            <tr class="hover:bg-base-300 transition-colors text-xs">
+            @php $first = $group->group->first(); @endphp
+            <tr class="hover:bg-base-300 transition-colors text-xs cursor-pointer" data-href="{{ route('professional_evaluation_quiz_show', [$first->evaluated_professional_id, $first->evaluator_professional_id, $first->evaluation_uuid]) }}" role="link" tabindex="0">
                 <td class="px-4 py-2">
-                    @php $evaluated = $group->group->first()->evaluatedProfessional; @endphp
+                    @php $evaluated = $first->evaluatedProfessional; @endphp
                     @if($evaluated)
                         <a href="{{ route('professional_show', $evaluated->id) }}" class="link link-hover text-info link-info">
                             {{ $evaluated->name }} {{ $evaluated->surname1 }} {{ $evaluated->surname2 }}
@@ -23,7 +23,7 @@
                 </td>
 
                 <td class="px-4 py-2">
-                    @php $evaluator = $group->group->first()->evaluatorProfessional; @endphp
+                    @php $evaluator = $first->evaluatorProfessional; @endphp
                     @if($evaluator)
                         <a href="{{ route('professional_show', $evaluator->id) }}" class="link link-hover text-info link-info">
                             {{ $evaluator->name }} {{ $evaluator->surname1 }} {{ $evaluator->surname2 }}
@@ -34,7 +34,7 @@
                 </td>
 
                 <td class="px-4 py-2">
-                    {{ $group->group->first()->created_at->toDateTimeString() }}
+                    {{ $first->created_at->toDateTimeString() }}
                 </td>
 
                <td class="px-4 py-2 text-right font-bold text-base-content">
@@ -47,16 +47,6 @@
                     @else
                         Molt d'acord
                     @endif
-                </td>
-
-                <td class="px-4 py-2 text-right">
-                    <div class="flex justify-end gap-2">
-                        <a href="{{ route('professional_evaluation_quiz_show', [
-                            $group->group->first()->evaluated_professional_id,
-                            $group->group->first()->evaluator_professional_id,
-                            $group->group->first()->evaluation_uuid
-                        ]) }}" class="btn btn-xs btn-info">Veure</a>
-                    </div>
                 </td>
             </tr>
         @endforeach

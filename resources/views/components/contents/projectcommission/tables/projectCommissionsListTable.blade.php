@@ -6,12 +6,14 @@
             <th class="px-4 py-2 text-left">Tipus</th>
             <th class="px-4 py-2 text-left">Data d'inici</th>
             <th class="px-4 py-2 text-left">Estat</th>
-            <th class="px-4 py-2 text-right">Acció</th>
+            @if($isDeactivated)
+                <th class="px-4 py-2 text-right">Accions</th>
+            @endif
         </tr>
     </thead>
     <tbody>
         @foreach ($projectCommissions as $projectCommission)
-            <tr class="hover:bg-base-300 transition-colors text-xs">
+            <tr class="hover:bg-base-300 transition-colors text-xs cursor-pointer" data-href="{{ route('projectcommission_show', $projectCommission) }}" role="link" tabindex="0">
                 <td class="px-4 py-2 font-medium">{{ $projectCommission->name }}</td>
                 <td class="px-4 py-2">
                     @if($projectCommission->responsibleProfessional)
@@ -34,19 +36,17 @@
                         <span class="badge badge-dash badge-info">{{ $projectCommission->status ?? 'Tancat' }}</span>
                     @endif
                 </td>
-                <td class="px-4 py-2 text-right">
-                    <div class="flex justify-end gap-2">
-                        <a href="{{ route('projectcommission_show', $projectCommission) }}" class="btn btn-xs btn-info">Veure</a>
-
-                        @if($isDeactivated)
+                @if($isDeactivated)
+                    <td class="px-4 py-2 text-right">
+                        <div class="flex justify-end gap-2">
                             <form action="{{ route('projectcommission_activate', $projectCommission) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn btn-xs btn-success">Activar</button>
                             </form>
-                        @endif
-                    </div>
-                </td>
+                        </div>
+                    </td>
+                @endif
             </tr>
         @endforeach
     </tbody>

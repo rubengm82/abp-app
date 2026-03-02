@@ -9,12 +9,11 @@
             <th class="px-4 py-2 text-left">Assignat per</th>
             <th class="px-4 py-2 text-left">Observacions</th>
             <th class="px-4 py-2 text-left">Signatura</th>
-            <th class="px-4 py-2 text-right">Accions</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($materialAssignments as $assignment)
-            <tr class="hover:bg-base-300 transition-colors text-xs">
+            <tr class="hover:bg-base-300 transition-colors text-xs cursor-pointer" data-href="{{ route('materialassignment_show', $assignment) }}" role="link" tabindex="0">
                 <td class="px-4 py-2 font-medium">
                     <a href="{{ route('professional_show', $assignment->professional->id) }}" 
                         class="link link-hover text-info link-info">
@@ -67,11 +66,6 @@
                     @else
                         <span class="badge badge-dash whitespace-nowrap badge-warning">No signat</span>
                     @endif
-                </td>
-                <td class="px-4 py-2 text-right">
-                    <div class="flex justify-end gap-2">
-                        <a href="{{ route('materialassignment_show', $assignment) }}" class="btn btn-xs btn-info">Veure</a>
-                    </div>
                 </td>
             </tr>
         @endforeach

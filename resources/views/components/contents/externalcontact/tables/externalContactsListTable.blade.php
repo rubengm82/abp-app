@@ -7,12 +7,11 @@
             <th class="px-4 py-2 text-left">Responsable</th>
             <th class="px-4 py-2 text-left">Telèfon</th>
             <th class="px-4 py-2 text-left">Correu</th>
-            <th class="px-4 py-2 text-right">Accions</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($externalContacts as $externalContact)
-            <tr class="hover:bg-base-300 transition-colors text-xs">
+            <tr class="hover:bg-base-300 transition-colors text-xs cursor-pointer" data-href="{{ route('externalcontact_show', $externalContact) }}" role="link" tabindex="0">
                 <td class="px-4 py-2">{{ $externalContact->external_contact_type ?? '' }}</td>
                 <td class="px-4 py-2 font-medium">{{ $externalContact->company ?? '' }}</td>
                 <td class="px-4 py-2">{{ $externalContact->department ?? '' }}</td>
@@ -25,11 +24,6 @@
                 </td>
                 <td class="px-4 py-2">{{ $externalContact->phone ?? '' }}</td>
                 <td class="px-4 py-2">{{ $externalContact->email ?? '' }}</td>
-                <td class="px-4 py-2 text-right">
-                    <div class="flex justify-end gap-2">
-                        <a href="{{ route('externalcontact_show', $externalContact) }}" class="btn btn-xs btn-info">Veure</a>
-                    </div>
-                </td>
             </tr>
         @endforeach
     </tbody>

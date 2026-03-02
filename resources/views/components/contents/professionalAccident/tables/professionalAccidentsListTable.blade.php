@@ -7,12 +7,11 @@
             <th class="px-4 py-2 text-left">Registrat per</th>
             <th class="px-4 py-2 text-left">Context</th>
             <th class="px-4 py-2 text-left">Descripció</th>
-            <th class="px-4 py-2 text-right">Acció</th>
         </tr>
     </thead>
     <tbody>
         @foreach($accidents as $accident)
-            <tr class="hover:bg-base-300 transition-colors text-xs">
+            <tr class="hover:bg-base-300 transition-colors text-xs cursor-pointer" data-href="{{ route('professional_accident_show', $accident->id) }}" role="link" tabindex="0">
                 <td class="px-4 py-2">
                     @if($accident->type)
                         <span class="badge badge-dash whitespace-nowrap text-center min-w-0 max-w-full truncate {{ $accident->type === 'Amb baixa' ? 'badge-warning' : 'badge-info' }}">
@@ -49,11 +48,6 @@
                 <td class="px-4 py-2">
                     <div class="max-w-xs truncate" title="{{ $accident->description }}">
                         {{ $accident->description ? Str::limit($accident->description, 50) : 'No especificat' }}
-                    </div>
-                </td>
-                <td class="px-4 py-2 text-right">
-                    <div class="flex justify-end gap-2">
-                        <a href="{{ route('professional_accident_show', $accident->id) }}" class="btn btn-xs btn-info">Veure</a>
                     </div>
                 </td>
             </tr>

@@ -42,5 +42,19 @@
     <script src="{{ asset('js/components/partials/modal.js') }}"></script>
     <script src="{{ asset('js/components/partials/menu-sidebar.js') }}"></script>
     <script src="{{ asset('js/components/partials/forms_one_click.js') }}"></script>
+    <script>
+        document.addEventListener('click', function (e) {
+            var tr = e.target && e.target.closest ? e.target.closest('tr[data-href]') : null;
+            if (!tr || e.target.closest('a, button, [type="submit"], form')) return;
+            window.location = tr.getAttribute('data-href');
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            var tr = e.target && e.target.closest ? e.target.closest('tr[data-href]') : null;
+            if (!tr || e.target.closest('a, button, [type="submit"], form')) return;
+            e.preventDefault();
+            window.location = tr.getAttribute('data-href');
+        });
+    </script>
 </body>
 </html>

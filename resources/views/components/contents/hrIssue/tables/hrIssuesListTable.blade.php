@@ -7,12 +7,11 @@
             <th class="px-4 py-2 text-left">Descripció</th>
             <th class="px-4 py-2 text-left">Data d'obertura</th>
             <th class="px-4 py-2 text-left">Estat</th>
-            <th class="px-4 py-2 text-right">Acció</th>
         </tr>
     </thead>
     <tbody>
         @foreach($hrIssues as $hrIssue)
-            <tr class="hover:bg-base-300 transition-colors text-xs">
+            <tr class="hover:bg-base-300 transition-colors text-xs cursor-pointer" data-href="{{ route('hr_issue_show', $hrIssue->id) }}" role="link" tabindex="0">
                 <td class="px-4 py-2">
                     @if($hrIssue->affectedProfessional)
                         <a href="{{ route('professional_show', $hrIssue->affectedProfessional->id) }}" class="link link-hover text-info link-info">
@@ -51,11 +50,6 @@
                     <span class="badge badge-dash whitespace-nowrap text-center min-w-0 max-w-full truncate {{ $hrIssue->status === 'Tancat' ? 'badge-success' : 'badge-warning' }}">
                         {{ $hrIssue->status }}
                     </span>
-                </td>
-                <td class="px-4 py-2 text-right">
-                    <div class="flex justify-end gap-2">
-                        <a href="{{ route('hr_issue_show', $hrIssue->id) }}" class="btn btn-xs btn-info">Veure</a>
-                    </div>
                 </td>
             </tr>
         @endforeach

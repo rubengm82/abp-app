@@ -6,13 +6,12 @@
             <th class="px-4 py-2 text-left">Estat</th>
             <th class="px-4 py-2 text-center">Notes</th>
             <th class="px-4 py-2 text-left">Data última nota</th>
-            <th class="px-4 py-2 text-right">Acció</th>
         </tr>
     </thead>
     <tbody>
         @foreach($professionals as $professional)
             @php $lastNote = $professional->notes->first(); @endphp
-            <tr class="hover:bg-base-300 transition-colors text-xs">
+            <tr class="hover:bg-base-300 transition-colors text-xs cursor-pointer" data-href="{{ route('seguiment_show', $professional) }}" role="link" tabindex="0">
                 <td class="px-4 py-2">
                     <a href="{{ route('professional_show', $professional->id) }}" class="link link-hover text-info link-info">
                         {{ trim($professional->name . ' ' . $professional->surname1 . ' ' . ($professional->surname2 ?? '')) }}
@@ -37,9 +36,6 @@
                     @if($lastNote)
                         {{ $lastNote->created_at->format('d/m/Y H:i') }}
                     @endif
-                </td>
-                <td class="px-4 py-2 text-right">
-                    <a href="{{ route('seguiment_show', $professional) }}" class="btn btn-xs btn-info">Veure</a>
                 </td>
             </tr>
         @endforeach

@@ -9,12 +9,14 @@
             <th class="px-4 py-2 text-left">Telèfon</th>
             <th class="px-4 py-2 text-left">Email</th>
             <th class="px-4 py-2 text-left">Estat</th>
-            <th class="px-4 py-2 text-right">{{ $isDeactivated ? 'Accions' : 'Acció' }}</th>
+            @if($isDeactivated)
+                <th class="px-4 py-2 text-right">Accions</th>
+            @endif
         </tr>
     </thead>
     <tbody>
         @foreach($professionals as $professional)
-            <tr class="hover:bg-base-300 transition-colors text-xs">
+            <tr class="hover:bg-base-300 transition-colors text-xs {{ !$isDeactivated ? 'cursor-pointer' : '' }}" @if(!$isDeactivated) data-href="{{ route('professional_show', $professional->id) }}" role="link" tabindex="0" @endif>
                 <td class="px-4 py-2">{{ $professional->name }}</td>
                 <td class="px-4 py-2">{{ $professional->surname1 }}</td>
                 <td class="px-4 py-2">{{ $professional->surname2 }}</td>
@@ -35,20 +37,17 @@
                         {{ $professional->employment_status }}
                     </span>
                 </td>
-                <td class="px-4 py-2 text-right">
-                    <div class="flex justify-end gap-2">
-                        @if(!$isDeactivated)
-                            <a href="{{ route('professional_show', $professional->id) }}" class="btn btn-xs btn-info">Veure</a>
-                        @endif
-                        @if($isDeactivated)
+                @if($isDeactivated)
+                    <td class="px-4 py-2 text-right">
+                        <div class="flex justify-end gap-2">
                             <form action="{{ route('professional_activate', $professional->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn btn-xs btn-success">Activar</button>
                             </form>
-                        @endif
-                    </div>
-                </td>
+                        </div>
+                    </td>
+                @endif
             </tr>
         @endforeach
     </tbody>
