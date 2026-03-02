@@ -55,7 +55,7 @@
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="evaluation_uuid" value="{{ $answers->first()->evaluation_uuid }}">
-                        <button type="submit" class="btn btn-sm btn-error text-sm">Acceptar</button>
+                        <button type="submit" class="btn btn-sm btn-error text-sm">Sí, eliminar</button>
                     </form>
                 </x-partials.modal>
                 @endif

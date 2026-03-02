@@ -33,9 +33,10 @@ class MaintenanceController extends Controller
         $maintenances = $query->orderBy('created_at', 'desc')->get();
 
         $isDeactivated = ($status == 0);
+        $searchPerformed = $request->filled('search');
 
         return $request->ajax()
-            ? view('components.contents.maintenances.tables.maintenancesListTable', compact('maintenances', 'isDeactivated'))->render()
+            ? view('components.contents.maintenances.tables.maintenancesListTable', compact('maintenances', 'isDeactivated', 'searchPerformed'))->render()
             : view('components.contents.maintenances.maintenancesList', compact('maintenances', 'isDeactivated'))->render();
 
     }

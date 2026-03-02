@@ -43,15 +43,22 @@
     <script src="{{ asset('js/components/partials/menu-sidebar.js') }}"></script>
     <script src="{{ asset('js/components/partials/forms_one_click.js') }}"></script>
     <script>
+        /**
+         * Enables clickable and keyboard-accessible navigation for <tr> elements with a data-href attribute.
+         * - On click: If the clicked element or its ancestor is a <tr[data-href]>, and not inside a link, button, submit, or form, redirects to the URL in data-href.
+         * - On 'Enter' or 'Space': If focused on or inside a <tr[data-href]>, and not inside a link, button, submit, or form, prevents default and navigates to the URL.
+         * 
+         * This is used for making whole table rows behave as navigation links for better UX in table listings.
+         */
         document.addEventListener('click', function (e) {
             var tr = e.target && e.target.closest ? e.target.closest('tr[data-href]') : null;
-            if (!tr || e.target.closest('a, button, [type="submit"], form')) return;
+            if (!tr || e.target.closest('a, button, [type="submit"], form')) return; // Ignore if inside action elements
             window.location = tr.getAttribute('data-href');
         });
         document.addEventListener('keydown', function (e) {
             if (e.key !== 'Enter' && e.key !== ' ') return;
             var tr = e.target && e.target.closest ? e.target.closest('tr[data-href]') : null;
-            if (!tr || e.target.closest('a, button, [type="submit"], form')) return;
+            if (!tr || e.target.closest('a, button, [type="submit"], form')) return; // Ignore if inside action elements
             e.preventDefault();
             window.location = tr.getAttribute('data-href');
         });

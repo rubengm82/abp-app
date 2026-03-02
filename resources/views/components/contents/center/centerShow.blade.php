@@ -33,7 +33,7 @@
                             @csrf
                             @method('PATCH')
                             <button type="submit" class="btn btn-sm btn-warning">
-                                Acceptar
+                                Sí, desactivar
                             </button>
                         </form>
                     </x-partials.modal>

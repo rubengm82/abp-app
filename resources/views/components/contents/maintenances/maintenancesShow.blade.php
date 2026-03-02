@@ -26,7 +26,7 @@
                         <form action="{{ route('maintenance_desactivate', $maintenance) }}" method="POST">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
+                            <button type="submit" class="btn btn-sm btn-warning">Sí, desactivar</button>
                         </form>
                     </x-partials.modal>
                 </div>
@@ -41,7 +41,7 @@
                         <form action="{{ route('maintenance_delete', $maintenance) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                            <button type="submit" class="btn btn-sm btn-error">Sí, eliminar</button>
                         </form>
                     </x-partials.modal>
                 </div>

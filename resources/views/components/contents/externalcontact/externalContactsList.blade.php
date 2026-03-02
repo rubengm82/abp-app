@@ -13,7 +13,7 @@
 @if($externalContacts->count() > 0)
 <div class="flex justify-between items-center mb-3">
     <div>
-        <x-partials.search-bar />
+        <x-partials.search-bar placeholder="Cercar per nom o contacte..." />
     </div>
     <div class="flex gap-4">
         <a href="{{ route('externalcontacts.downloadCSV') }}" class="btn btn-sm btn-secondary">Descarregar Llistat</a>
@@ -22,7 +22,7 @@
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 scrollable-list-container border border-gray-500/20">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-0 rounded-lg shadow-lg/10 scrollable-list-container border border-gray-500/20">
     @if($externalContacts->count() > 0)
         <div id="tableToSearch-container" data-url="/externalcontacts/list">
             @include('components.contents.externalcontact.tables.externalContactsListTable')

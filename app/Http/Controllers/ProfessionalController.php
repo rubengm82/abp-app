@@ -34,9 +34,10 @@ class ProfessionalController extends Controller
         $professionals = $query->get();
 
         $isDeactivated = ($status == 0);
+        $searchPerformed = $request->filled('search');
 
         return $request->ajax()
-            ? view('components.contents.professional.tables.professionalsListTable', with(['professionals' => $professionals, 'isDeactivated' => $isDeactivated]))->render()
+            ? view('components.contents.professional.tables.professionalsListTable', with(['professionals' => $professionals, 'isDeactivated' => $isDeactivated, 'searchPerformed' => $searchPerformed]))->render()
             : view("components.contents.professional.professionalsList", with(['professionals' => $professionals, 'isDeactivated' => $isDeactivated]));
     }
 
@@ -453,8 +454,10 @@ class ProfessionalController extends Controller
 
         $professionals = $query->get();
 
+        $searchPerformed = $request->filled('search');
+
         return $request->ajax()
-            ? view('components.contents.professional.tables.seguimentListTable', compact('professionals'))->render()
+            ? view('components.contents.professional.tables.seguimentListTable', compact('professionals', 'searchPerformed'))->render()
             : view('components.contents.professional.seguimentList', compact('professionals'));
     }
 

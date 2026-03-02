@@ -48,7 +48,7 @@ class Center extends Model
         return $this->hasMany(GeneralService::class);
     }
 
-    // Automatically creates the fields ['Cuina', 'Neteja', 'Bugadería'] 
+    // Automatically creates the fields ['Cuina', 'Neteja', 'Bugaderia'] 
     //  in the general_services table when creating the center
     protected static function booted()
     {

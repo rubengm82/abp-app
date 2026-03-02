@@ -31,7 +31,7 @@
                             <form action="{{ route('complementaryservice_desactivate', $complementaryService) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
-                                <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
+                                <button type="submit" class="btn btn-sm btn-warning">Sí, desactivar</button>
                             </form>
                         </x-partials.modal>
                     @else
@@ -54,7 +54,7 @@
                         <form action="{{ route('complementaryservice_delete', $complementaryService) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                            <button type="submit" class="btn btn-sm btn-error">Sí, eliminar</button>
                         </form>
                     </x-partials.modal>
                 </div>

@@ -20,11 +20,11 @@
             peer-checked:opacity-100 peer-checked:pointer-events-auto">
     <div class="bg-base-100 text-base-content rounded-lg p-6 {{ $width }}">
         <p class="mb-6 text-left {{ $textSize }}">{{ $msj }}</p>
-        <div class="flex justify-end space-x-2">
-            <!-- Cancel -->
-            <label for="{{ $id }}" class="btn btn-sm cursor-pointer">Cancel·lar</label>
+        <div class="flex justify-between items-center gap-4">
+            <!-- Cancel (left) -->
+            <label for="{{ $id }}" class="btn btn-sm btn-ghost cursor-pointer">Cancel·lar</label>
 
-            <!-- Accept / Action -->
+            <!-- Accept / Action (right) -->
             <div class="accept-btn-container">
                 {{ $slot }}
             </div>

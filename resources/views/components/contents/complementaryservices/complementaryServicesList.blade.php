@@ -14,7 +14,7 @@
 @if($complementaryServices->count() > 0)
 <div class="flex justify-between items-center">
     <div>
-        <x-partials.search-bar />
+        <x-partials.search-bar placeholder="Cercar per nom del servei..." />
     </div>
     <div class="flex gap-4">
         <a href="{{ route('omplementaryservice_downloadCSV') }}" class="btn btn-sm btn-secondary">
@@ -28,7 +28,7 @@
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 scrollable-list-container border border-gray-500/20">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-0 rounded-lg shadow-lg/10 scrollable-list-container border border-gray-500/20">
     @if($complementaryServices->count() > 0)
         <div id="tableToSearch-container" data-url="{{ $isDeactivated ? '/complementaryservices/desactivated/list' : '/complementaryservices/list' }}">
             @include('components.contents.complementaryservices.tables.complementaryServicesListTable')

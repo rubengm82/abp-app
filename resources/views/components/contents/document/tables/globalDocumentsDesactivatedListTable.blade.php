@@ -1,3 +1,6 @@
+@if($documents->isEmpty() && ($searchPerformed ?? false))
+    <div class="text-center py-8 text-base-content/70">No s'han trobat resultats. Proveu amb altres paraules.</div>
+@else
 <table class="table w-full table-md table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-bold">
@@ -49,7 +52,7 @@
                             <form action="{{ route('document_destroy_permanent', $document) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-error" data-loading-text="Eliminant...">Acceptar</button>
+                                <button type="submit" class="btn btn-sm btn-error" data-loading-text="Eliminant...">Sí, eliminar</button>
                             </form>
                         </x-partials.modal>
                     </div>
@@ -58,3 +61,4 @@
         @endforeach
     </tbody>
 </table>
+@endif

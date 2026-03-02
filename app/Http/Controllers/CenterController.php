@@ -30,9 +30,10 @@ class CenterController extends Controller
         $centers = $query->get();
 
         $isDeactivated = ($status == 0);
+        $searchPerformed = $request->filled('search');
 
         return $request->ajax()
-            ? view('components.contents.center.tables.centersListTable', with(['centers' => $centers, 'isDeactivated' => $isDeactivated]))->render()
+            ? view('components.contents.center.tables.centersListTable', with(['centers' => $centers, 'isDeactivated' => $isDeactivated, 'searchPerformed' => $searchPerformed]))->render()
             : view("components.contents.center.centersList", with(['centers' => $centers, 'isDeactivated' => $isDeactivated]));
     }
 

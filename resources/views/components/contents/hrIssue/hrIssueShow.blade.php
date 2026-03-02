@@ -24,7 +24,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-error">
-                            Acceptar
+                            Sí, eliminar
                         </button>
                     </form>
                 </x-partials.modal>

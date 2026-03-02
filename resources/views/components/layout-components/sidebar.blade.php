@@ -290,7 +290,7 @@
                         <li>
                             <a href="{{ route('general_service_show', ['service_type' => 'Bugaderia']) }}">
                                 <x-partials.icon name="minus" class="w-4 h-4 text-info" />
-                                Bugadería
+                                Bugaderia
                             </a>
                         </li>
                     </ul>

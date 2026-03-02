@@ -26,7 +26,7 @@
                     <form action="{{ route('course_delete', $course->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                        <button type="submit" class="btn btn-sm btn-error">Sí, eliminar</button>
                     </form>
                 </x-partials.modal>
             @endif

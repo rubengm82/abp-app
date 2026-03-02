@@ -30,10 +30,11 @@ class CourseController extends Controller
 
         $courses = $query->get();
 
-            // Return partial view if AJAX, otherwise full view
-            return $request->ajax()
-                ? view('components.contents.courses.tables.coursesListTable', with(['courses' => $courses]))->render()
-                : view('components.contents.courses.coursesList', with(['courses' => $courses]));
+        $searchPerformed = $request->filled('search');
+
+        return $request->ajax()
+            ? view('components.contents.courses.tables.coursesListTable', with(['courses' => $courses, 'searchPerformed' => $searchPerformed]))->render()
+            : view('components.contents.courses.coursesList', with(['courses' => $courses]));
     }
 
     /**

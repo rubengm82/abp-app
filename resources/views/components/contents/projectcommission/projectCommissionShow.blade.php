@@ -27,7 +27,7 @@
                         <form action="{{ route('projectcommission_desactivate', $projectCommission) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-sm btn-warning">Acceptar</button>
+                            <button type="submit" class="btn btn-sm btn-warning">Sí, desactivar</button>
                         </form>
                     </x-partials.modal>
                 @else
@@ -47,7 +47,7 @@
                     <form action="{{ route('projectcommission_delete', $projectCommission) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-error">Acceptar</button>
+                        <button type="submit" class="btn btn-sm btn-error">Sí, eliminar</button>
                     </form>
                 </x-partials.modal>
             @endif

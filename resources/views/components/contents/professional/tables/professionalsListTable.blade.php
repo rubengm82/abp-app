@@ -1,3 +1,6 @@
+@if($professionals->isEmpty() && ($searchPerformed ?? false))
+    <div class="text-center py-8 text-base-content/70">No s'han trobat resultats. Proveu amb altres paraules.</div>
+@else
 <table class="table w-full table-md table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-bold">
@@ -6,7 +9,7 @@
             <th class="px-4 py-2 text-left">Segon cognom</th>
             <th class="px-4 py-2 text-left">DNI</th>
             <th class="px-4 py-2 text-left">Rol</th>
-            <th class="px-4 py-2 text-left">Telèfon</th>
+            <th class="px-4 py-2 text-left whitespace-nowrap min-w-[7rem]">Telèfon</th>
             <th class="px-4 py-2 text-left">Email</th>
             <th class="px-4 py-2 text-left">Estat</th>
             @if($isDeactivated)
@@ -22,7 +25,7 @@
                 <td class="px-4 py-2">{{ $professional->surname2 }}</td>
                 <td class="px-4 py-2">{{ $professional->dni }}</td>
                 <td class="px-4 py-2">{{ $professional->role }}</td>
-                <td class="px-4 py-2">{{ $professional->phone }}</td>
+                <td class="px-4 py-2 whitespace-nowrap">{{ $professional->phone }}</td>
                 <td class="px-4 py-2">{{ $professional->email }}</td>
                 <td class="px-4 py-2">
                     @php
@@ -52,6 +55,7 @@
         @endforeach
     </tbody>
 </table>
+@endif
 
 {{-- <div class="pagination">
     <div class="mt-6 flex justify-center">

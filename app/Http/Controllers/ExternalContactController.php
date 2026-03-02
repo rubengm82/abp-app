@@ -23,8 +23,10 @@ class ExternalContactController extends Controller
         }
         $externalContacts = $query->get();
 
+        $searchPerformed = $request->filled('search');
+
         return $request->ajax()
-            ? view('components.contents.externalcontact.tables.externalContactsListTable', with(['externalContacts' => $externalContacts]))->render()
+            ? view('components.contents.externalcontact.tables.externalContactsListTable', with(['externalContacts' => $externalContacts, 'searchPerformed' => $searchPerformed]))->render()
             : view('components.contents.externalcontact.externalContactsList', with(['externalContacts' => $externalContacts]));
     }
     /**

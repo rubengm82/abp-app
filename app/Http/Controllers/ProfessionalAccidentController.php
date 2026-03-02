@@ -38,8 +38,10 @@ class ProfessionalAccidentController extends Controller
 
         $accidents = $query->orderBy('created_at', 'desc')->get();
 
+        $searchPerformed = $request->filled('search');
+
         return $request->ajax()
-            ? view('components.contents.professionalAccident.tables.professionalAccidentsListTable', with(['accidents' => $accidents]))->render()
+            ? view('components.contents.professionalAccident.tables.professionalAccidentsListTable', with(['accidents' => $accidents, 'searchPerformed' => $searchPerformed]))->render()
             : view("components.contents.professionalAccident.professionalAccidentsList", with(['accidents' => $accidents]));
     }
 

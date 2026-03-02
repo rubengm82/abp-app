@@ -35,10 +35,13 @@ class ProjectCommissionController extends Controller
 
         $projectCommissions = $query->orderBy('created_at', 'desc')->get();
 
+        $searchPerformed = $request->filled('search');
+
         return $request->ajax()
             ? view('components.contents.projectcommission.tables.projectCommissionsListTable', [
                 'projectCommissions' => $projectCommissions,
-                'isDeactivated' => $isDeactivated
+                'isDeactivated' => $isDeactivated,
+                'searchPerformed' => $searchPerformed
             ])->render()
             : view('components.contents.projectcommission.projectCommissionsList', [
                 'projectCommissions' => $projectCommissions,

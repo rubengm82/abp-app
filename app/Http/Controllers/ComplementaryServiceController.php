@@ -34,9 +34,10 @@ class ComplementaryServiceController extends Controller
         $complementaryServices = $query->orderBy('created_at', 'desc')->get();
 
         $isDeactivated = ($status == 0);
+        $searchPerformed = $request->filled('search');
 
         return $request->ajax()
-            ? view('components.contents.complementaryservices.tables.complementaryServicesListTable', compact('complementaryServices', 'isDeactivated'))->render()
+            ? view('components.contents.complementaryservices.tables.complementaryServicesListTable', compact('complementaryServices', 'isDeactivated', 'searchPerformed'))->render()
             : view('components.contents.complementaryservices.complementaryServicesList', compact('complementaryServices', 'isDeactivated'));
     }
 

@@ -39,8 +39,10 @@ class HrIssueController extends Controller
 
         $hrIssues = $query->orderBy('opening_date', 'desc')->get();
 
+        $searchPerformed = $request->filled('search');
+
         return $request->ajax()
-            ? view('components.contents.hrIssue.tables.hrIssuesListTable', with(['hrIssues' => $hrIssues]))->render()
+            ? view('components.contents.hrIssue.tables.hrIssuesListTable', with(['hrIssues' => $hrIssues, 'searchPerformed' => $searchPerformed]))->render()
             : view("components.contents.hrIssue.hrIssuesList", with(['hrIssues' => $hrIssues]));
     }
 

@@ -15,7 +15,7 @@
 @if($groupedEvaluations->count() > 0)
 <div class="flex justify-between items-center">
     <div>
-        <x-partials.search-bar />
+        <x-partials.search-bar placeholder="Cercar per professional o avaluació..." />
     </div>
     <div class="flex gap-4">
         <a href="{{ route('professional_evaluations.downloadCSV') }}" class="btn btn-sm btn-secondary">Descarregar Llistat</a>
@@ -24,7 +24,7 @@
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 scrollable-list-container border border-gray-500/20">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-0 rounded-lg shadow-lg/10 scrollable-list-container border border-gray-500/20">
     @if($groupedEvaluations->count() > 0)
         <div id="tableToSearch-container" data-url="/professionals/evaluations/list">
             @include('components.contents.professional.evaluations.tables.professionalEvaluationsListTable')

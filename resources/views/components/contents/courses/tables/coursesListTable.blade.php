@@ -1,3 +1,6 @@
+@if($courses->isEmpty() && ($searchPerformed ?? false))
+    <div class="text-center py-8 text-base-content/70">No s'han trobat resultats. Proveu amb altres paraules.</div>
+@else
 <table class="table w-full table-md table-hover text-sm">
     <thead>
         <tr class="bg-base-300 text-base-content font-bold">
@@ -20,3 +23,4 @@
         @endforeach
     </tbody>
 </table>
+@endif

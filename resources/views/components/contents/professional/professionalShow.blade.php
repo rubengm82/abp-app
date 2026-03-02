@@ -29,7 +29,7 @@
                             @csrf
                             @method('PATCH')
                             <button type="submit" class="btn btn-sm btn-error">
-                                Acceptar
+                                Sí, desactivar
                             </button>
                         </form>
                     </x-partials.modal>

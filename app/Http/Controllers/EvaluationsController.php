@@ -59,10 +59,13 @@ class EvaluationsController extends Controller
 
         $sortedGroups = $groupedEvaluations->sortByDesc(fn($item) => $item->group->first()->created_at);
 
+        $searchPerformed = $request->filled('search');
+
         if ($request->ajax()) {
             return view('components.contents.professional.evaluations.tables.professionalEvaluationsListTable', [
                 'groupedEvaluations' => $sortedGroups,
                 'evaluations' => $sortedGroups,
+                'searchPerformed' => $searchPerformed,
             ])->render();
         }
 

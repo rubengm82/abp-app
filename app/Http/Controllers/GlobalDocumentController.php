@@ -36,8 +36,10 @@ class GlobalDocumentController extends Controller
 
         $documents = $query->orderBy('created_at', 'desc')->get();
 
+        $searchPerformed = $request->filled('search');
+
         return $request->ajax()
-            ? view('components.contents.document.tables.globalDocumentsListTable', with(['documents' => $documents]))->render()
+            ? view('components.contents.document.tables.globalDocumentsListTable', with(['documents' => $documents, 'searchPerformed' => $searchPerformed]))->render()
             : view("components.contents.document.globalDocumentsList", with(['documents' => $documents]));
     }
 
@@ -88,8 +90,10 @@ class GlobalDocumentController extends Controller
 
         $documents = $query->orderBy('updated_at', 'desc')->get();
 
+        $searchPerformed = $request->filled('search');
+
         return $request->ajax()
-            ? view('components.contents.document.tables.globalDocumentsDesactivatedListTable', with(['documents' => $documents]))->render()
+            ? view('components.contents.document.tables.globalDocumentsDesactivatedListTable', with(['documents' => $documents, 'searchPerformed' => $searchPerformed]))->render()
             : view('components.contents.document.globalDocumentsDesactivatedList', with(['documents' => $documents]));
     }
 

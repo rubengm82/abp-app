@@ -16,7 +16,7 @@
 @if($hrIssues->count() > 0)
 <div class="flex justify-between items-center">
     <div>
-        <x-partials.search-bar />
+        <x-partials.search-bar placeholder="Cercar per tema o descripció..." />
     </div>
     <div class="flex gap-2">
         <a href="{{ route('hr_issue.downloadCSV') }}" class="btn btn-sm btn-secondary">Descarregar Llistat</a>
@@ -25,7 +25,7 @@
 </div>
 @endif
 
-<div class="max-w-full mx-auto bg-base-100 mt-3 p-6 rounded-lg shadow-lg/10 scrollable-list-container border border-gray-500/20">
+<div class="max-w-full mx-auto bg-base-100 mt-3 p-0 rounded-lg shadow-lg/10 scrollable-list-container border border-gray-500/20">
     @if($hrIssues->count() > 0)
         <div id="tableToSearch-container" data-url="/hr_issues/list">
             @include('components.contents.hrIssue.tables.hrIssuesListTable')

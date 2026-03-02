@@ -41,8 +41,10 @@ class MaterialAssignmentController extends Controller
 
         $materialAssignments = $query->get();
 
+        $searchPerformed = $request->filled('search');
+
         return $request->ajax()
-            ? view('components.contents.materialassignment.tables.materialAssignmentsListTable', with(['materialAssignments' => $materialAssignments]))->render()
+            ? view('components.contents.materialassignment.tables.materialAssignmentsListTable', with(['materialAssignments' => $materialAssignments, 'searchPerformed' => $searchPerformed]))->render()
             : view('components.contents.materialassignment.materialAssignmentsList', with(['materialAssignments' => $materialAssignments]));
     }
 
