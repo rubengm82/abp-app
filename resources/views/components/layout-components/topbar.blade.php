@@ -26,7 +26,7 @@
                 
                 <!-- Version APP -->
                 <li class="text-gray-400 pointer-events-none pr-2">
-                    <span class=" w-full block text-right cursor-default">Sprint 6 | Versió 0.6.0</span>
+                    <span class=" w-full block text-right cursor-default">Versió 1.0.0</span>
                 </li>
 
                 <!-- Separator -->
