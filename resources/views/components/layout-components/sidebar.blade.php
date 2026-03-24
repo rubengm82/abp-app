@@ -189,7 +189,7 @@
             @endif
 
             <!-- 5. Temes pendents amb RRHH -->
-            @if((Auth::user()->permissions ?? null) === 'Direcció' || (Auth::user()->permissions ?? null) === 'Gerència')
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
             <li>
                 <details>
                     <summary class="font-normal">
@@ -400,7 +400,7 @@
             @endif
 
             <!-- 12. Documents Globals -->
-            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+            @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
             <li class="font-normal">
                 <a href="{{ route('global_documents_list') }}">
                     <x-partials.icon name="document-text" class="w-6 h-6 text-primary" />
@@ -447,7 +447,7 @@
                                 Centres
                             </a>
                         </li>
-                        @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència']))
+                        @if(in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència']))
                         <li>
                             <a href="{{ route('documents_desactivated_list') }}">
                                 <x-partials.icon name="document" class="w-4 h-4 text-gray-400" />

@@ -61,11 +61,11 @@ class GlobalDocumentController extends Controller
     }
 
     /**
-     * List deactivated documents (center-scoped). Only Direcció/Gerència.
+     * List deactivated documents (center-scoped). Direcció, Administració i Gerència.
      */
     public function desactivatedIndex(Request $request)
     {
-        if (!in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència'])) {
+        if (!in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència'])) {
             abort(403);
         }
 
@@ -98,11 +98,11 @@ class GlobalDocumentController extends Controller
     }
 
     /**
-     * Restore a deactivated document (set active). Only Direcció/Gerència.
+     * Restore a deactivated document (set active). Direcció, Administració i Gerència.
      */
     public function restore(DocumentComponent $document)
     {
-        if (!in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència'])) {
+        if (!in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència'])) {
             abort(403);
         }
         $this->ensureDocumentBelongsToUserCenter($document);
@@ -113,11 +113,11 @@ class GlobalDocumentController extends Controller
     }
 
     /**
-     * Permanently delete document and its file. Only Direcció/Gerència.
+     * Permanently delete document and its file. Direcció, Administració i Gerència.
      */
     public function destroy(DocumentComponent $document)
     {
-        if (!in_array(Auth::user()->permissions ?? null, ['Direcció', 'Gerència'])) {
+        if (!in_array(Auth::user()->permissions ?? null, ['Direcció', 'Administració', 'Gerència'])) {
             abort(403);
         }
         $this->ensureDocumentBelongsToUserCenter($document);
