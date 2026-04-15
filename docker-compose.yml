@@ -1,0 +1,37 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${DOCKER_IMAGE:-vallparadis_app}:latest
+    container_name: vallparadis_app
+    ports:
+      - "8001:80"
+    env_file:
+      - .env
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  mariadb:
+    image: mariadb:11
+    container_name: laravel_mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: vallparadis
+      MYSQL_ROOT_PASSWORD: LaP1n3d4Badalona@
+      MYSQL_USER: vallparadis
+      MYSQL_PASSWORD: LaP1n3d4Badalona@
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  dbdata:

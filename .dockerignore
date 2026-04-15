@@ -1,0 +1,33 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Entorno
+.env
+.env.*
+!.env.example
+
+# Dependencias
+node_modules
+vendor
+
+# Logs y cache
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*
+
+# Tests y documentación
+tests
+docs
+README.md
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
